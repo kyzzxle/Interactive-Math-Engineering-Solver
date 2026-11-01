@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What is a z-score?</h2>
+          <p>A <strong>z-score</strong> tells you how many standard deviations a value lies above or below the mean. It puts measurements from different scales on a common footing — a test score of 82 and a height of 160 cm can both be described as "1.5 standard deviations above average" or "below average". If the data are normally distributed, the z-score also gives the <strong>percentile</strong>: the proportion of values below it.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Keep x fixed and increase σ: the z-score shrinks towards 0, because the same distance from the mean is less unusual when the data are more spread out.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ z = \frac{x - \mu}{\sigma} \qquad x = \mu + z\sigma \qquad \text{percentile} = \Phi(z) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(x\)</td><td>The value being standardised.</td></tr>
+              <tr><td>\(\mu, \sigma\)</td><td>Mean and standard deviation of the distribution (\(\sigma &gt; 0\)).</td></tr>
+              <tr><td>\(\Phi(z)\)</td><td>Standard normal cumulative probability: the area to the left of \(z\).</td></tr>
+            </tbody>
+          </table>
+          <p>The 68–95–99.7 rule: in a normal distribution about 68% of values have \(|z| &lt; 1\), 95% have \(|z| &lt; 2\) and 99.7% have \(|z| &lt; 3\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A test score of 82 when \(\mu = 70\) and \(\sigma = 8\)</h3>
+            <h4>Step 1 — Standardise</h4>
+            \[ z = \frac{82 - 70}{8} = 1.5 \]
+            <h4>Step 2 — Percentile</h4>
+            \[ \Phi(1.5) \approx 0.9332 \]
+            <p>The score is 1.5 standard deviations above the mean, higher than about 93% of scores (if the scores are approximately normal).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The z-score itself needs no assumptions, but converting it to a percentile assumes the data are approximately <strong>normally distributed</strong>.</li>
+            <li>\(\sigma\) must be positive.</li>
+            <li>Probabilities use an accurate normal CDF (about 15 significant digits) and are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

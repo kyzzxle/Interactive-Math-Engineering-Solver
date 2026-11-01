@@ -1,0 +1,41 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Solving trigonometric equations</h2>
+          <p>Trigonometric functions repeat, so an equation such as \(\sin x = \tfrac{1}{2}\) has infinitely many solutions. This solver handles equations of the form \(a\,f(bx + c) + d = k\), where \(f\) is sine, cosine or tangent. It isolates the function, finds the principal value (exactly, when it is a standard angle), writes the general solution and lists every solution in one full turn, \([0, 2\pi)\) or \([0^\circ, 360^\circ)\).</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change \(b\) from 1 to 2 or 3 in \(\cos(bx) = \tfrac{\sqrt{3}}{2}\): the graph oscillates faster and the number of solutions in one turn doubles or triples.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Method and general solutions</h2>
+          <ol>
+            <li>Isolate the function: \(f(u) = r = \dfrac{k - d}{a}\), where \(u = bx + c\).</li>
+            <li>For sine and cosine a solution exists only if \(-1 \le r \le 1\).</li>
+            <li>Write all solutions for \(u\) (with \(n\) any integer):</li>
+          </ol>
+          <div class="formula-box">\[ \sin u = r:\ u = \sin^{-1} r + 2\pi n \text{ or } u = \pi - \sin^{-1} r + 2\pi n \]</div>
+          <div class="formula-box">\[ \cos u = r:\ u = \pm\cos^{-1} r + 2\pi n \qquad \tan u = r:\ u = \tan^{-1} r + \pi n \]</div>
+          <ol start="4">
+            <li>Solve \(u = bx + c\) for \(x\) and keep the values in the required interval.</li>
+          </ol>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Solve \(2\sin x - 1 = 0\) on \([0, 2\pi)\)</h3>
+            <h4>Step 1 — Isolate</h4>
+            \[ \sin x = \frac{1}{2} \]
+            <h4>Step 2 — Principal value and its partner</h4>
+            \[ x = \frac{\pi}{6} \quad\text{or}\quad x = \pi - \frac{\pi}{6} = \frac{5\pi}{6} \]
+            <h4>Step 3 — General solution</h4>
+            \[ x = \frac{\pi}{6} + 2\pi n, \qquad x = \frac{5\pi}{6} + 2\pi n \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Supported form only: \(a\,f(bx + c) + d = k\) with \(f \in \{\sin, \cos, \tan\}\), \(a \ne 0\), \(b \ne 0\).</li>
+            <li>Constants may be written as expressions such as <code>sqrt(3)/2</code> or <code>pi/4</code>; the phase \(c\) is in radians.</li>
+            <li>Each listed solution is checked by substitution. Standard angles are shown exactly as multiples of \(\pi\); others are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

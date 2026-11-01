@@ -1,0 +1,39 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Matrix operations</h2>
+          <p>Matrices organise numbers in rows and columns and are the basic language of linear algebra, structural analysis, circuits, computer graphics and data science. This calculator adds, subtracts and multiplies matrices, multiplies by a scalar, transposes, and finds determinants and inverses — all with exact fractions, so results such as \(\tfrac{1}{3}\) are never rounded.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Compute AB and then BA for two 2×2 matrices: the results are usually different. Matrix multiplication is not commutative.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Rules and formulas</h2>
+          <table>
+            <thead><tr><th scope="col">Operation</th><th scope="col">Rule</th><th scope="col">Size requirement</th></tr></thead>
+            <tbody>
+              <tr><td>\(A \pm B\)</td><td>\((A \pm B)_{ij} = a_{ij} \pm b_{ij}\)</td><td>Same size</td></tr>
+              <tr><td>\(AB\)</td><td>\((AB)_{ij} = \sum_k a_{ik}b_{kj}\)</td><td>Columns of A = rows of B</td></tr>
+              <tr><td>\(A^T\)</td><td>\((A^T)_{ij} = a_{ji}\)</td><td>Any</td></tr>
+              <tr><td>\(\det A\)</td><td>\(\det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc\); cofactor expansion for 3×3</td><td>Square</td></tr>
+              <tr><td>\(A^{-1}\)</td><td>Gauss–Jordan on \([A \mid I] \to [I \mid A^{-1}]\)</td><td>Square, \(\det A \ne 0\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Determinant of \(\begin{bmatrix} 2 & -3 & 1 \\ 2 & 0 & -1 \\ 1 & 4 & 5 \end{bmatrix}\)</h3>
+            <h4>Step 1 — Expand along the first row</h4>
+            \[ 2\begin{vmatrix} 0 & -1 \\ 4 & 5 \end{vmatrix} - (-3)\begin{vmatrix} 2 & -1 \\ 1 & 5 \end{vmatrix} + 1\begin{vmatrix} 2 & 0 \\ 1 & 4 \end{vmatrix} \]
+            <h4>Step 2 — 2×2 determinants</h4>
+            \[ 2(0 + 4) + 3(10 + 1) + 1(8 - 0) = 8 + 33 + 8 = 49 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Input format and limits</h2>
+          <ul>
+            <li>Type one row per line, with entries separated by spaces or commas. Integers, decimals and fractions (such as <code>-3/4</code>) are allowed.</li>
+            <li>Matrices up to 6×6. Size mismatches and singular matrices are explained rather than producing an error value.</li>
+            <li>All arithmetic is exact.</li>
+          </ul>
+        </section>

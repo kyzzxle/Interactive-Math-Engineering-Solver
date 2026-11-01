@@ -1,0 +1,33 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Definite integrals</h2>
+          <p>The <strong>definite integral</strong> \(\int_a^b f(x)\,dx\) adds up \(f(x)\) over the interval from \(a\) to \(b\): geometrically, it is the signed area between the graph and the x-axis. This calculator uses two clearly labelled methods: an <strong>exact</strong> answer from the Fundamental Theorem of Calculus whenever it can find an antiderivative, and a <strong>numerical</strong> answer from adaptive Simpson's rule otherwise. The exact answer is always cross-checked numerically.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Integrate \(\sin x\) from 0 to \(\pi\) (area 2), then from 0 to \(2\pi\): the result is 0 because the area below the axis cancels the area above it.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and methods</h2>
+          <div class="formula-box">\[ \int_a^b f(x)\,dx = F(b) - F(a), \qquad F'(x) = f(x) \]</div>
+          <p><strong>Adaptive Simpson's rule</strong> approximates \(f\) by parabolas on small sub-intervals,</p>
+          <div class="formula-box">\[ \int_{x_0}^{x_2} f(x)\,dx \approx \frac{h}{3}\left[f(x_0) + 4f(x_1) + f(x_2)\right], \]</div>
+          <p>and keeps halving any sub-interval whose estimate is not yet accurate, until the overall error is about \(10^{-11}\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(\int_0^3 (x^2 + 1)\,dx\)</h3>
+            <h4>Step 1 — Antiderivative</h4>
+            \[ F(x) = \frac{x^3}{3} + x \]
+            <h4>Step 2 — Evaluate</h4>
+            \[ F(3) - F(0) = (9 + 3) - 0 = 12 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>\(f\) must be defined and finite everywhere on \([a, b]\). <strong>Improper integrals</strong> (an infinite limit, or a vertical asymptote inside the interval, as with \(\frac{1}{x}\) on \([-1, 1]\)) are rejected.</li>
+            <li>Limits may be expressions such as <code>pi/2</code> or <code>e</code>.</li>
+            <li>Polynomials with rational limits give exact fractions. Other exact-method results and all numerical results are decimals; numerical values are shown to 9 decimal places.</li>
+          </ul>
+        </section>

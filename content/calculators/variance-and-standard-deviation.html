@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Variance and standard deviation</h2>
+          <p>The <strong>variance</strong> measures how far data values typically fall from the mean, using squared distances; the <strong>standard deviation</strong> is its square root, in the same units as the data. There are two versions, and choosing the right one matters: use the <strong>population</strong> formula when you have every member of the group, and the <strong>sample</strong> formula when your data are a sample used to estimate a larger population.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Switch between sample and population for the same data: the sample standard deviation is always a little larger, because it divides by \(n - 1\) instead of \(n\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas: population versus sample</h2>
+          <table>
+            <thead><tr><th scope="col"></th><th scope="col">Population</th><th scope="col">Sample</th></tr></thead>
+            <tbody>
+              <tr><td>Mean</td><td>\(\mu = \frac{\sum x_i}{N}\)</td><td>\(\bar{x} = \frac{\sum x_i}{n}\)</td></tr>
+              <tr><td>Variance</td><td>\(\sigma^2 = \frac{\sum (x_i - \mu)^2}{N}\)</td><td>\(s^2 = \frac{\sum (x_i - \bar{x})^2}{n - 1}\)</td></tr>
+              <tr><td>Standard deviation</td><td>\(\sigma = \sqrt{\sigma^2}\)</td><td>\(s = \sqrt{s^2}\)</td></tr>
+            </tbody>
+          </table>
+          <p>Dividing by \(n - 1\) (<strong>Bessel's correction</strong>) compensates for the fact that a sample's values sit, on average, slightly closer to their own mean than to the true population mean.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Data: 2, 4, 4, 4, 5, 5, 7, 9</h3>
+            <h4>Step 1 — Mean</h4>
+            \[ \bar{x} = \frac{40}{8} = 5 \]
+            <h4>Step 2 — Squared deviations</h4>
+            \[ 9 + 1 + 1 + 1 + 0 + 0 + 4 + 16 = 32 \]
+            <h4>Step 3 — Variance and standard deviation</h4>
+            \[ \sigma^2 = \frac{32}{8} = 4,\ \sigma = 2 \qquad s^2 = \frac{32}{7} \approx 4.5714,\ s \approx 2.1381 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>At least 2 values are needed (a sample variance with one value would divide by zero).</li>
+            <li>Squared deviations are summed with exact fractions, avoiding the round-off problems of the "shortcut" formula \(\sum x^2 - n\bar{x}^2\).</li>
+            <li>The deviation table shows up to the first 50 values; results are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

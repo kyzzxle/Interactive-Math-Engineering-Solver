@@ -1,0 +1,39 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Factorials</h2>
+          <p>The <strong>factorial</strong> of a whole number \(n\), written \(n!\), is the product of all whole numbers from \(n\) down to 1. It counts the ways to arrange \(n\) different objects in a row, and it appears throughout combinatorics, probability and calculus (Taylor series). Factorials grow astonishingly fast: \(10! = 3\,628\,800\), and \(70!\) already exceeds \(10^{100}\). This calculator gives exact values with every digit up to \(40\,000!\), and scientific notation beyond that.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Watch the trailing zeros: \(24!\) ends in 4 zeros but \(25!\) ends in 6, because 25 contributes two factors of 5.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Definition and related formulas</h2>
+          <div class="formula-box">\[ n! = n \times (n - 1) \times \cdots \times 2 \times 1, \qquad 0! = 1, \qquad n! = n \times (n - 1)! \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Formula</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(\left\lfloor \frac{n}{5} \right\rfloor + \left\lfloor \frac{n}{25} \right\rfloor + \cdots\)</td><td>Number of trailing zeros of \(n!\) (Legendre's formula).</td></tr>
+              <tr><td>\(n! \approx \sqrt{2\pi n}\left(\frac{n}{e}\right)^n\)</td><td>Stirling's approximation, used for very large \(n\).</td></tr>
+            </tbody>
+          </table>
+          <p>Why is \(0! = 1\)? There is exactly one way to arrange no objects, and the rule \(n! = n \times (n-1)!\) with \(n = 1\) gives \(1 = 1 \times 0!\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Compute \(6!\) and count its trailing zeros</h3>
+            <h4>Step 1 — Multiply</h4>
+            \[ 6! = 6 \times 5 \times 4 \times 3 \times 2 \times 1 = 720 \]
+            <h4>Step 2 — Trailing zeros</h4>
+            \[ \left\lfloor \frac{6}{5} \right\rfloor = 1 \]
+            <p>720 indeed ends in one zero.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain and precision</h2>
+          <ul>
+            <li>\(n\) must be a whole number from 0 to 1,000,000,000. Factorials of negative numbers are undefined (the gamma function extends factorials to other real numbers, but that is outside this calculator).</li>
+            <li>Up to \(n = 40\,000\) the result is exact, computed with arbitrary-size integers; all digits can be viewed and copied.</li>
+            <li>Above that, the value is given in scientific notation from Stirling's series; the digit count and trailing-zero count are still exact.</li>
+          </ul>
+        </section>

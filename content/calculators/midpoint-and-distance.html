@@ -1,0 +1,43 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Midpoint and distance between two points</h2>
+          <p>Given two points \(P_1(x_1, y_1)\) and \(P_2(x_2, y_2)\) in the coordinate plane, the <strong>midpoint</strong> is the point exactly halfway between them and the <strong>distance</strong> is the length of the segment joining them. Both are among the first tools of analytic geometry: the midpoint finds centres and bisectors, the distance formula measures lengths, radii and perimeters.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Move one point and watch the midpoint move half as far in the same direction. Swapping the two points changes nothing: both formulas are symmetric.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ M = \left(\frac{x_1 + x_2}{2},\ \frac{y_1 + y_2}{2}\right) \qquad d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((x_1, y_1), (x_2, y_2)\)</td><td>The two given points (decimals and fractions are allowed).</td></tr>
+              <tr><td>\(\Delta x, \Delta y\)</td><td>Horizontal and vertical changes, \(x_2 - x_1\) and \(y_2 - y_1\).</td></tr>
+              <tr><td>\(M\)</td><td>Midpoint: the average of the coordinates.</td></tr>
+              <tr><td>\(d\)</td><td>Distance: the hypotenuse of a right triangle with legs \(|\Delta x|\) and \(|\Delta y|\).</td></tr>
+            </tbody>
+          </table>
+          <p>The distance formula is the Pythagorean theorem in disguise: the horizontal and vertical changes are the legs of a right triangle whose hypotenuse is the segment \(P_1P_2\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Points \((-2, 1)\) and \((4, 9)\)</h3>
+            <h4>Step 1 — Midpoint</h4>
+            \[ M = \left(\frac{-2 + 4}{2},\ \frac{1 + 9}{2}\right) = (1,\ 5) \]
+            <h4>Step 2 — Changes in x and y</h4>
+            \[ \Delta x = 4 - (-2) = 6, \qquad \Delta y = 9 - 1 = 8 \]
+            <h4>Step 3 — Distance</h4>
+            \[ d = \sqrt{6^2 + 8^2} = \sqrt{100} = 10 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Works in the two-dimensional Cartesian plane with the same units on both axes.</li>
+            <li>Inputs may be integers, decimals or fractions such as 3/4; all arithmetic is exact.</li>
+            <li>Distances are given in simplest radical form (for example \(2\sqrt{5}\)) together with a decimal rounded to 6 places.</li>
+            <li>If both points are the same, the distance is 0 and the midpoint is that point.</li>
+          </ul>
+        </section>

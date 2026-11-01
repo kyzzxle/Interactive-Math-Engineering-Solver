@@ -1,0 +1,39 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Circular permutations</h2>
+          <p>Arranging objects around a circle differs from arranging them in a row: rotating everyone one place gives the <em>same</em> circular arrangement, because what matters is who sits next to whom. Sometimes even turning the circle over (taking its mirror image) gives the same arrangement — a necklace or key ring can be flipped, but people at a table cannot. This calculator handles both situations and the case where only some of the objects are placed.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Switch "mirror images the same" on and off for 8 objects: the count halves, from 5040 to 2520.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas</h2>
+          <table>
+            <thead><tr><th scope="col">Situation</th><th scope="col">Number of arrangements</th></tr></thead>
+            <tbody>
+              <tr><td>\(n\) distinct objects in a circle</td><td>\((n - 1)!\)</td></tr>
+              <tr><td>Mirror images identical (\(n \ge 3\))</td><td>\(\frac{(n - 1)!}{2}\)</td></tr>
+              <tr><td>\(r\) of \(n\) objects in a circle</td><td>\(\frac{P(n, r)}{r} = \frac{n!}{r\,(n - r)!}\)</td></tr>
+            </tbody>
+          </table>
+          <p>The \((n - 1)!\) comes from fixing one object to remove the rotations; the others then form an ordinary row of \(n - 1\) objects.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Seating 6 people at a round table</h3>
+            <h4>Step 1 — Fix one person</h4>
+            <p>Seat one person anywhere; every seating can be rotated so that this person is in that seat.</p>
+            <h4>Step 2 — Arrange the rest</h4>
+            \[ (6 - 1)! = 5! = 120 \]
+            <p>Compare with 720 ways to line the same 6 people up in a row: each circular seating corresponds to 6 rotations.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>All objects are distinct. Seats are not labelled (only relative positions matter); if the seats are numbered, use ordinary permutations instead.</li>
+            <li>\(n\) can be up to 20,000; \(r\) defaults to \(n\) when left blank.</li>
+            <li>Results are exact whole numbers.</li>
+          </ul>
+        </section>

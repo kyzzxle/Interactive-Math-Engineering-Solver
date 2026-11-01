@@ -1,0 +1,42 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Parts of a parabola</h2>
+          <p>A <strong>parabola</strong> is the set of points that are equally far from a fixed point, the <strong>focus</strong>, and a fixed line, the <strong>directrix</strong>. The point halfway between them is the <strong>vertex</strong>, and the line through the vertex and focus is the <strong>axis of symmetry</strong>. Enter a parabola in one of four common forms to find all of these, plus the focal distance \(p\), the latus rectum and the intercepts, with a graph.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make \(a\) larger in \(y = ax^2 + bx + c\): the parabola gets narrower and the focus moves closer to the vertex, because \(p = \tfrac{1}{4a}\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <table>
+            <thead><tr><th scope="col">Form</th><th scope="col">Vertex</th><th scope="col">Focus</th><th scope="col">Directrix</th></tr></thead>
+            <tbody>
+              <tr><td>\((x - h)^2 = 4p(y - k)\)</td><td>\((h, k)\)</td><td>\((h, k + p)\)</td><td>\(y = k - p\)</td></tr>
+              <tr><td>\((y - k)^2 = 4p(x - h)\)</td><td>\((h, k)\)</td><td>\((h + p, k)\)</td><td>\(x = h - p\)</td></tr>
+              <tr><td>\(y = ax^2 + bx + c\)</td><td>\(\left(-\frac{b}{2a},\ c - \frac{b^2}{4a}\right)\)</td><td colspan="2">use \(p = \frac{1}{4a}\) in the first row</td></tr>
+            </tbody>
+          </table>
+          <p>\(p\) is the signed distance from the vertex to the focus. For a vertical axis, \(p &gt; 0\) opens upward and \(p &lt; 0\) downward; for a horizontal axis, \(p &gt; 0\) opens to the right. The latus rectum (the chord through the focus parallel to the directrix) has length \(|4p|\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(y = x^2 - 4x + 3\)</h3>
+            <h4>Step 1 — Vertex</h4>
+            \[ x_0 = -\frac{-4}{2(1)} = 2, \qquad y_0 = 3 - \frac{(-4)^2}{4(1)} = -1 \]
+            <h4>Step 2 — Focal distance</h4>
+            \[ p = \frac{1}{4(1)} = \frac{1}{4} \]
+            <h4>Step 3 — Focus and directrix</h4>
+            \[ F = \left(2,\ -1 + \tfrac{1}{4}\right) = \left(2,\ -\tfrac{3}{4}\right), \qquad \text{directrix } y = -1 - \tfrac{1}{4} = -\tfrac{5}{4} \]
+            <h4>Step 4 — Intercepts</h4>
+            <p>\(x^2 - 4x + 3 = (x - 1)(x - 3) = 0\) gives x-intercepts 1 and 3; the y-intercept is 3.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Supported: parabolas with vertical or horizontal axes in the four forms listed. Rotated parabolas (with an \(xy\) term) are not supported.</li>
+            <li>\(a\) and \(p\) cannot be 0, since the equation would then describe a line.</li>
+            <li>Vertex, focus, directrix and \(p\) are exact fractions; intercepts are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

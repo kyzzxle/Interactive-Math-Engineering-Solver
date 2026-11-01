@@ -1,0 +1,41 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Mean, median, mode and range</h2>
+          <p>These four numbers summarise a data set. The <strong>mean</strong>, <strong>median</strong> and <strong>mode</strong> describe its centre in three different ways; the <strong>range</strong> describes its spread. Paste your values and the calculator sorts them, computes all four exactly and draws the distribution with the mean and median marked.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Add one very large value to the test scores. The mean jumps, but the median barely moves — the median is <em>resistant</em> to outliers, the mean is not.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Definitions</h2>
+          <div class="formula-box">\[ \bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n} = \frac{1}{n}\sum_{i=1}^{n} x_i \qquad \text{range} = x_{\max} - x_{\min} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Measure</th><th scope="col">How to find it</th></tr></thead>
+            <tbody>
+              <tr><td>Mean \(\bar{x}\)</td><td>Add all values and divide by how many there are.</td></tr>
+              <tr><td>Median</td><td>Sort the values. With an odd count it is the middle one; with an even count, the average of the two middle values.</td></tr>
+              <tr><td>Mode</td><td>The value(s) that occur most often. If every value occurs equally often there is no mode.</td></tr>
+              <tr><td>Range</td><td>Largest value minus smallest value.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Data: 4, 8, 15, 16, 23, 42</h3>
+            <h4>Step 1 — Mean</h4>
+            \[ \bar{x} = \frac{4 + 8 + 15 + 16 + 23 + 42}{6} = \frac{108}{6} = 18 \]
+            <h4>Step 2 — Median (6 values, so average the 3rd and 4th)</h4>
+            \[ \text{median} = \frac{15 + 16}{2} = 15.5 \]
+            <h4>Step 3 — Mode and range</h4>
+            <p>Every value appears once, so there is no mode. Range \(= 42 - 4 = 38\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Enter between 1 and 10,000 numeric values; text, units or symbols are rejected with the offending entry named.</li>
+            <li>The mean is computed exactly as a fraction, so long data sets do not accumulate rounding error. Non-terminating means are shown rounded to 6 decimal places.</li>
+            <li>Several values can share the mode (bimodal or multimodal data).</li>
+          </ul>
+        </section>

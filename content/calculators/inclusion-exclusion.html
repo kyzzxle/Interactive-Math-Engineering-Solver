@@ -1,0 +1,35 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">The inclusion–exclusion principle</h2>
+          <p>To count the elements in a union of overlapping sets, adding the set sizes overcounts everything in an overlap. The <strong>inclusion–exclusion principle</strong> corrects this systematically: subtract the pairwise overlaps, then add back the elements in all three sets (which were subtracted once too often). This calculator applies it for two or three sets, fills in every region of the Venn diagram and checks that your numbers are consistent.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make |A ∩ B| larger than |A|. The calculator rejects it: an overlap can never contain more elements than either set it belongs to.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas</h2>
+          <div class="formula-box">\[ |A \cup B| = |A| + |B| - |A \cap B| \]</div>
+          <div class="formula-box">\[ |A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C| \]</div>
+          <p>If the total \(|U|\) is known, the number of elements in none of the sets is \(|U| - |A \cup B \cup C|\). Regions such as "only A" are found by subtracting: \(|A| - |A \cap B| - |A \cap C| + |A \cap B \cap C|\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>How many numbers from 1 to 100 are divisible by 2, 3 or 5?</h3>
+            <h4>Step 1 — Set sizes</h4>
+            <p>\(|A| = 50\) (multiples of 2), \(|B| = 33\) (of 3), \(|C| = 20\) (of 5).</p>
+            <h4>Step 2 — Overlaps</h4>
+            <p>Multiples of 6: 16; of 10: 10; of 15: 6; of 30: 3.</p>
+            <h4>Step 3 — Inclusion–exclusion</h4>
+            \[ 50 + 33 + 20 - 16 - 10 - 6 + 3 = 74 \]
+            <p>So 74 numbers are divisible by at least one of 2, 3, 5, and 26 by none of them.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and checks</h2>
+          <ul>
+            <li>Supported: two or three finite sets with whole-number counts.</li>
+            <li>Every Venn region must contain 0 or more elements; otherwise the counts are contradictory and no result is shown.</li>
+            <li>The total \(|U|\) is optional; if given, it must be at least the size of the union.</li>
+          </ul>
+        </section>

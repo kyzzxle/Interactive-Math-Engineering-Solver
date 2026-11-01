@@ -1,0 +1,38 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Arrangements with repeated items</h2>
+          <p>How many different "words" can be made from the letters of MISSISSIPPI? If all 11 letters were different the answer would be \(11!\), but swapping two S's (or two I's, or the two P's) changes nothing, so most of those arrangements are duplicates. Dividing out the repeats gives the number of <strong>distinguishable permutations</strong>, also called a <strong>multinomial coefficient</strong>. Enter a word or the sizes of groups of identical items.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Compare LEVEL (30 arrangements, all listed) with LEVER (60): changing one repeated letter into a new letter doubles the count.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula and variables</h2>
+          <div class="formula-box">\[ \frac{n!}{n_1!\; n_2! \cdots n_k!}, \qquad n = n_1 + n_2 + \cdots + n_k \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(n\)</td><td>Total number of items.</td></tr>
+              <tr><td>\(n_i\)</td><td>Number of identical copies of the \(i\)-th kind of item.</td></tr>
+            </tbody>
+          </table>
+          <p>Why divide? Each distinguishable arrangement appears \(n_1!\,n_2!\cdots n_k!\) times among the \(n!\) arrangements of labelled items — once for every way of reordering identical items among themselves.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Arrangements of MISSISSIPPI</h3>
+            <h4>Step 1 — Count the letters</h4>
+            <p>11 letters: M × 1, I × 4, S × 4, P × 2.</p>
+            <h4>Step 2 — Apply the formula</h4>
+            \[ \frac{11!}{1!\,4!\,4!\,2!} = \frac{39\,916\,800}{1 \times 24 \times 24 \times 2} = \frac{39\,916\,800}{1152} = 34\,650 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>All \(n\) items are used in every arrangement, in a row. (For arrangements in a circle see the <a href="../circular-permutations/">circular permutations calculator</a>.)</li>
+            <li>Words may use letters A–Z (case is ignored); group sizes must be positive whole numbers. The total is limited to 10,000 items.</li>
+            <li>Results are exact; when there are at most 120 arrangements of a word, every one is listed.</li>
+          </ul>
+        </section>

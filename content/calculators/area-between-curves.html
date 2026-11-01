@@ -1,0 +1,31 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Area between two curves</h2>
+          <p>The area of the region between \(y = f(x)\) and \(y = g(x)\) is found by integrating the vertical distance between them. If the curves cross inside the interval, the "upper" curve changes, so the integral must be split at each crossing; otherwise positive and negative parts would cancel and the result would be too small. This calculator finds the crossings automatically, integrates each piece, adds the absolute values and shades the region.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>For \(\sin x\) and \(\cos x\) on \([0, \pi]\), the plain integral of \(\sin x - \cos x\) is 2, but the area is \(2\sqrt{2} \approx 2.83\) because the curves cross at \(x = \frac{\pi}{4}\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula</h2>
+          <div class="formula-box">\[ A = \int_a^b \left|f(x) - g(x)\right|\,dx = \sum_i \left|\int_{c_i}^{c_{i+1}} \left(f(x) - g(x)\right) dx\right| \]</div>
+          <p>where \(a = c_0 &lt; c_1 &lt; \dots &lt; c_n = b\) are the endpoints and the crossing points. To find the area of a region enclosed by the curves, choose "between the intersection points": the limits are then the first and last solutions of \(f(x) = g(x)\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Region enclosed by \(y = x + 2\) and \(y = x^2\)</h3>
+            <h4>Step 1 — Intersections</h4>
+            \[ x + 2 = x^2 \;\Rightarrow\; x^2 - x - 2 = 0 \;\Rightarrow\; x = -1,\ x = 2 \]
+            <h4>Step 2 — Integrate upper minus lower</h4>
+            \[ A = \int_{-1}^{2} (x + 2 - x^2)\,dx = \left[\frac{x^2}{2} + 2x - \frac{x^3}{3}\right]_{-1}^{2} = \frac{10}{3} - \left(-\frac{7}{6}\right) = \frac{9}{2} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Both functions must be defined and finite on the whole interval (no asymptotes inside it).</li>
+            <li>For polynomial differences the intersections are found exactly or with full precision; for other functions they are searched for numerically (in \([-50, 50]\) when using intersection points as limits).</li>
+            <li>Each piece is computed with an exact antiderivative when one is available, otherwise numerically; the area is rounded to 6 decimal places.</li>
+          </ul>
+        </section>

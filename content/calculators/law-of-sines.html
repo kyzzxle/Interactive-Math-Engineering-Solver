@@ -1,0 +1,42 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">The law of sines</h2>
+          <p>In any triangle, each side divided by the sine of its opposite angle gives the same number. The <strong>law of sines</strong> uses that fact to solve triangles that are not right-angled, whenever you know a side together with the angle opposite it. Enter any three values (at least one side) and leave the rest blank.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>In the two-triangle example, shorten side a. At some point the second triangle disappears, and then the first one too — the three outcomes of the ambiguous case.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula and cases</h2>
+          <div class="formula-box">\[ \frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} \qquad A + B + C = 180^\circ \]</div>
+          <table>
+            <thead><tr><th scope="col">Given</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><td>AAS or ASA (two angles, one side)</td><td>Exactly one triangle: find the third angle, then each side.</td></tr>
+              <tr><td>SSA (two sides, angle opposite one of them)</td><td>The <strong>ambiguous case</strong>: 0, 1 or 2 triangles.</td></tr>
+              <tr><td>SAS or SSS</td><td>Use the law of cosines instead.</td></tr>
+            </tbody>
+          </table>
+          <p>The ambiguity comes from \(\sin\theta = \sin(180^\circ - \theta)\): an acute angle and an obtuse angle can have the same sine, so both may fit.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(A = 40^\circ\), \(B = 60^\circ\), \(a = 8\)</h3>
+            <h4>Step 1 — Third angle</h4>
+            \[ C = 180^\circ - 40^\circ - 60^\circ = 80^\circ \]
+            <h4>Step 2 — Common ratio</h4>
+            \[ \frac{a}{\sin A} = \frac{8}{\sin 40^\circ} \approx 12.4458 \]
+            <h4>Step 3 — Remaining sides</h4>
+            \[ b \approx 12.4458 \sin 60^\circ \approx 10.778, \qquad c \approx 12.4458\sin 80^\circ \approx 12.257 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Enter exactly three values with at least one side; angles are in degrees and must be between 0° and 180°.</li>
+            <li>Two given angles must add up to less than 180°.</li>
+            <li>For SSA inputs every possible triangle is reported, or a clear statement that none exists.</li>
+            <li>Results are rounded to 6 decimal places; diagrams are drawn to scale.</li>
+          </ul>
+        </section>

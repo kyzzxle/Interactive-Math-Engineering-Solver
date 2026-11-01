@@ -1,0 +1,43 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Solving a right triangle</h2>
+          <p>"Solving" a triangle means finding all of its sides and angles. In a <strong>right triangle</strong> one angle is already known to be 90°, so any two further measurements — at least one of them a length — determine everything else. Leave the unknown boxes empty and the calculator picks the right tool for your data: the Pythagorean theorem for two sides, or sine, cosine and tangent when an angle is involved.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Keep the hypotenuse fixed and increase angle A: side a grows like \(\sin A\) and side b shrinks like \(\cos A\), while \(a^2 + b^2\) stays equal to \(c^2\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ a^2 + b^2 = c^2 \qquad \sin A = \frac{a}{c} \qquad \cos A = \frac{b}{c} \qquad \tan A = \frac{a}{b} \qquad A + B = 90^\circ \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a, b\)</td><td>Legs: the two sides that form the right angle.</td></tr>
+              <tr><td>\(c\)</td><td>Hypotenuse: the side opposite the right angle (always the longest).</td></tr>
+              <tr><td>\(A, B\)</td><td>Acute angles, opposite \(a\) and \(b\) respectively. \(C = 90^\circ\).</td></tr>
+            </tbody>
+          </table>
+          <p>Memory aid: <strong>SOH–CAH–TOA</strong> — Sine = Opposite/Hypotenuse, Cosine = Adjacent/Hypotenuse, Tangent = Opposite/Adjacent.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A ladder 10 m long makes a 30° angle with the wall</h3>
+            <p>Take the ladder as the hypotenuse \(c = 10\) and the angle at the top as \(A = 30^\circ\).</p>
+            <h4>Step 1 — Side opposite A (distance from the wall)</h4>
+            \[ a = c\sin A = 10 \sin 30^\circ = 5 \text{ m} \]
+            <h4>Step 2 — Side adjacent to A (height on the wall)</h4>
+            \[ b = c\cos A = 10\cos 30^\circ = 5\sqrt{3} \approx 8.66 \text{ m} \]
+            <h4>Step 3 — Other angle</h4>
+            \[ B = 90^\circ - 30^\circ = 60^\circ \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Enter exactly two values, at least one a side. Angles are in degrees and must be between 0° and 90°.</li>
+            <li>The hypotenuse must be longer than either leg; otherwise no right triangle exists.</li>
+            <li>The diagram is drawn to scale. Results are rounded to 6 decimal places.</li>
+            <li>For triangles without a right angle use the <a href="../law-of-sines/">law of sines</a> or <a href="../law-of-cosines/">law of cosines</a>.</li>
+          </ul>
+        </section>

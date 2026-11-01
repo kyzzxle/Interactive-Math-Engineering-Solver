@@ -1,0 +1,42 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Solving quadratic equations</h2>
+          <p>A <strong>quadratic equation</strong> has the form \(ax^2 + bx + c = 0\) with \(a \ne 0\). It always has two roots when complex numbers are allowed, although they may be equal. The quadratic formula finds them in every case. This solver computes the discriminant, explains what it tells you, and gives the roots exactly — as fractions, simplified radicals or complex numbers — together with decimals, the factored form when it exists, the vertex and a graph.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Increase \(c\) step by step in \(x^2 - 3x + c = 0\). The parabola rises, the two real roots move together, merge when \(D = 0\) and then become complex when the graph lifts off the x-axis.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}, \qquad D = b^2 - 4ac \]</div>
+          <table>
+            <thead><tr><th scope="col">Discriminant</th><th scope="col">Roots</th></tr></thead>
+            <tbody>
+              <tr><td>\(D &gt; 0\), perfect square</td><td>Two different rational roots (the quadratic factors)</td></tr>
+              <tr><td>\(D &gt; 0\), not a perfect square</td><td>Two different irrational roots</td></tr>
+              <tr><td>\(D = 0\)</td><td>One repeated real root \(x = -\frac{b}{2a}\)</td></tr>
+              <tr><td>\(D &lt; 0\)</td><td>Two complex conjugate roots \(p \pm qi\)</td></tr>
+            </tbody>
+          </table>
+          <p>Vieta's formulas give a quick check: the roots add up to \(-\frac{b}{a}\) and multiply to \(\frac{c}{a}\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Solve \(2x^2 + 4x - 1 = 0\)</h3>
+            <h4>Step 1 — Discriminant</h4>
+            \[ D = 4^2 - 4(2)(-1) = 16 + 8 = 24 \]
+            <h4>Step 2 — Quadratic formula</h4>
+            \[ x = \frac{-4 \pm \sqrt{24}}{2(2)} = \frac{-4 \pm 2\sqrt{6}}{4} = \frac{-2 \pm \sqrt{6}}{2} \]
+            <h4>Step 3 — Decimals</h4>
+            \[ x_1 \approx -2.224745, \qquad x_2 \approx 0.224745 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>\(a\) must not be 0. Coefficients may be integers, decimals or fractions; the arithmetic is exact.</li>
+            <li>Complex roots use \(i = \sqrt{-1}\).</li>
+            <li>Exact roots are shown in simplest radical form; decimal approximations are rounded to 6 places.</li>
+          </ul>
+        </section>

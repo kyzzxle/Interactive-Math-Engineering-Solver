@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the cylinder calculator does</h2>
+          <p>A <strong>right circular cylinder</strong> has two equal, parallel circular bases joined by a curved side that meets them at right angles — the shape of a can, pipe or tank. Enter the radius (or diameter) and the height to get the volume, the curved (lateral) area, the area of the bases and the total surface area, with exact multiples of \(\pi\) wherever possible.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Doubling the height doubles both the volume and the curved area. Doubling the radius multiplies the volume by 4 because the radius is squared.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ LSA = 2\pi r h \qquad TSA = 2\pi r^2 + 2\pi r h = 2\pi r(r + h) \qquad V = \pi r^2 h \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Radius of each circular base (half the diameter).</td></tr>
+              <tr><td>\(h\)</td><td>Height: perpendicular distance between the bases.</td></tr>
+              <tr><td>\(LSA\)</td><td>Lateral (curved) surface area.</td></tr>
+              <tr><td>\(TSA\)</td><td>Total surface area: curved side plus both bases.</td></tr>
+              <tr><td>\(V\)</td><td>Volume: base area \(\pi r^2\) times height.</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Why \(2\pi r h\)?</strong> Cut the curved side along a vertical line and flatten it: you get a rectangle whose width is the circumference \(2\pi r\) and whose height is \(h\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A tank with radius 4 cm and height 10 cm</h3>
+            <h4>Step 1 — Known values</h4>
+            <p>\(r = 4\) cm, \(h = 10\) cm.</p>
+            <h4>Step 2 — Curved area</h4>
+            \[ LSA = 2\pi(4)(10) = 80\pi \approx 251.33 \text{ cm}^2 \]
+            <h4>Step 3 — Total surface area</h4>
+            \[ TSA = 2\pi(4)^2 + 80\pi = 32\pi + 80\pi = 112\pi \approx 351.86 \text{ cm}^2 \]
+            <h4>Step 4 — Volume</h4>
+            \[ V = \pi(4)^2(10) = 160\pi \approx 502.65 \text{ cm}^3 \approx 0.503 \text{ L} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The cylinder is a <em>right</em> circular cylinder. An oblique cylinder has the same volume \(\pi r^2 h\) (with \(h\) measured perpendicularly) but a different lateral area.</li>
+            <li>Radius and height must be positive numbers.</li>
+            <li>An open container (such as a cup) uses \(LSA + \pi r^2\) rather than the total surface area.</li>
+            <li>Exact answers are shown as multiples of \(\pi\); decimals are rounded to 6 places.</li>
+          </ul>
+        </section>

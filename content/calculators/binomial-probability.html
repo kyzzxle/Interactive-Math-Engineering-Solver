@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Binomial probability</h2>
+          <p>A <strong>binomial</strong> situation has a fixed number \(n\) of independent trials, each with only two outcomes ("success" or "failure") and the same probability of success \(p\). The number of successes \(X\) then follows the binomial distribution. Typical examples: heads in coin tosses, defective items in a sample, correct guesses on a multiple-choice test. This calculator gives exact or single probabilities, cumulative probabilities and the distribution's mean and spread.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Increase \(n\) with \(p = 0.5\): the bar chart becomes more and more bell-shaped. This is the normal approximation to the binomial at work.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ P(X = k) = \binom{n}{k} p^{k}(1 - p)^{n - k} \qquad \mu = np \qquad \sigma = \sqrt{np(1 - p)} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(n\)</td><td>Number of trials (a whole number).</td></tr>
+              <tr><td>\(p\)</td><td>Probability of success on each trial, \(0 \le p \le 1\).</td></tr>
+              <tr><td>\(k\)</td><td>Number of successes.</td></tr>
+              <tr><td>\(\binom{n}{k}\)</td><td>Number of ways to choose which \(k\) trials are successes (see the <a href="../permutations-and-combinations/">combinations calculator</a>).</td></tr>
+            </tbody>
+          </table>
+          <p>Cumulative probabilities add single probabilities, e.g. \(P(X \le 2) = P(0) + P(1) + P(2)\), and \(P(X \ge k) = 1 - P(X \le k - 1)\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Exactly 3 heads in 10 tosses of a fair coin</h3>
+            <h4>Step 1 — Identify the parameters</h4>
+            <p>\(n = 10\), \(p = 0.5\), \(k = 3\).</p>
+            <h4>Step 2 — Substitute</h4>
+            \[ P(X = 3) = \binom{10}{3}(0.5)^3(0.5)^7 = 120 \times \frac{1}{1024} = \frac{15}{128} \approx 0.1172 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The trials must be independent with a constant \(p\). Sampling without replacement from a small population breaks independence (use the hypergeometric distribution instead).</li>
+            <li>\(n\) can be up to 100,000. For \(n \le 300\) with a decimal or fractional \(p\), probabilities are computed exactly with fractions; otherwise with logarithms of factorials to about 13 significant digits.</li>
+            <li>Results are rounded to 6 decimal places; tiny probabilities are shown in scientific notation.</li>
+          </ul>
+        </section>

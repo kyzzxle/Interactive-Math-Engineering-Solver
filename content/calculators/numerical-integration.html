@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Numerical integration</h2>
+          <p>Many integrals have no elementary antiderivative — \(\int e^{-x^2}\,dx\) is the famous example — and in practice data often come as a table of values rather than a formula. <strong>Numerical integration</strong> estimates \(\int_a^b f(x)\,dx\) from the values of \(f\) at evenly spaced points. This calculator applies the composite <strong>trapezoidal rule</strong> and <strong>Simpson's rule</strong>, lists every sample point and weight, and measures the error against an accurate reference value.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Double \(n\) from 4 to 8: the trapezoidal error falls by about a factor of 4 and Simpson's by about 16.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas</h2>
+          <p>With \(h = \frac{b - a}{n}\) and \(f_i = f(a + ih)\):</p>
+          <div class="formula-box">\[ T = \frac{h}{2}\left[f_0 + 2f_1 + 2f_2 + \cdots + 2f_{n-1} + f_n\right] \]</div>
+          <div class="formula-box">\[ S = \frac{h}{3}\left[f_0 + 4f_1 + 2f_2 + 4f_3 + \cdots + 4f_{n-1} + f_n\right] \quad (n \text{ even}) \]</div>
+          <table>
+            <thead><tr><th scope="col">Rule</th><th scope="col">Idea</th><th scope="col">Error</th></tr></thead>
+            <tbody>
+              <tr><td>Trapezoidal</td><td>Straight lines between points</td><td>\(-\frac{(b - a)h^2}{12}f''(\xi)\)</td></tr>
+              <tr><td>Simpson's</td><td>Parabolas through each pair of strips</td><td>\(-\frac{(b - a)h^4}{180}f^{(4)}(\xi)\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(\int_0^1 e^{-x^2}\,dx\) with \(n = 4\)</h3>
+            <h4>Step 1 — Sample points</h4>
+            <p>\(h = 0.25\): \(f(0) = 1\), \(f(0.25) \approx 0.939413\), \(f(0.5) \approx 0.778801\), \(f(0.75) \approx 0.569783\), \(f(1) \approx 0.367879\).</p>
+            <h4>Step 2 — Simpson's rule</h4>
+            \[ S = \frac{0.25}{3}\left[1 + 4(0.939413) + 2(0.778801) + 4(0.569783) + 0.367879\right] \approx 0.746855 \]
+            <p>The accurate value is \(0.746824\), so the error is only about \(3 \times 10^{-5}\). The trapezoidal rule gives 0.742984 (error about \(4 \times 10^{-3}\)).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Input validation and limits</h2>
+          <ul>
+            <li>\(n\) must be a whole number from 1 to 10,000; Simpson's rule requires \(n\) to be even.</li>
+            <li>\(f\) must be finite at every sample point; integrands with a singularity in \([a, b]\) are rejected.</li>
+            <li>The reference value is exact (via an antiderivative) when possible, otherwise from adaptive Simpson's rule with error about \(10^{-11}\).</li>
+          </ul>
+        </section>

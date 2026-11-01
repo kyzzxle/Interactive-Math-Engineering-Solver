@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Indefinite integrals (antiderivatives)</h2>
+          <p>An <strong>antiderivative</strong> of \(f\) is a function \(F\) whose derivative is \(f\). The indefinite integral \(\int f(x)\,dx = F(x) + C\) represents all of them at once, since adding any constant \(C\) does not change the derivative. This calculator integrates term by term using a table of standard rules, shows which rule each term needs, and checks its answer by differentiating it.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Integrate \(\cos(2x)\) and then \(\cos(5x)\): the answer gains a factor \(\tfrac{1}{2}\) or \(\tfrac{1}{5}\) because of the inner linear function — the reverse of the chain rule.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Supported integration rules</h2>
+          <table>
+            <thead><tr><th scope="col">Integrand</th><th scope="col">Antiderivative</th></tr></thead>
+            <tbody>
+              <tr><td>\(x^n,\ n \ne -1\)</td><td>\(\frac{x^{n+1}}{n+1}\)</td></tr>
+              <tr><td>\(\frac{1}{x}\)</td><td>\(\ln|x|\)</td></tr>
+              <tr><td>\((ax + b)^n\)</td><td>\(\frac{(ax + b)^{n+1}}{a(n+1)}\), or \(\frac{1}{a}\ln|ax + b|\) when \(n = -1\)</td></tr>
+              <tr><td>\(e^{ax + b}\), \(k^{ax+b}\)</td><td>\(\frac{1}{a}e^{ax + b}\), \(\frac{k^{ax+b}}{a\ln k}\)</td></tr>
+              <tr><td>\(\sin(ax + b)\), \(\cos(ax + b)\)</td><td>\(-\frac{1}{a}\cos(ax + b)\), \(\frac{1}{a}\sin(ax + b)\)</td></tr>
+              <tr><td>\(\sec^2 u\), \(\csc^2 u\), \(\sec u\tan u\), \(\csc u\cot u\)</td><td>\(\tan u\), \(-\cot u\), \(\sec u\), \(-\csc u\) (divided by \(a\))</td></tr>
+              <tr><td>\(\tan u\), \(\cot u\), \(\sec u\), \(\csc u\)</td><td>\(-\ln|\cos u|\), \(\ln|\sin u|\), \(\ln|\sec u + \tan u|\), \(-\ln|\csc u + \cot u|\)</td></tr>
+              <tr><td>\(\frac{1}{x^2 + a^2}\), \(\frac{1}{\sqrt{a^2 - x^2}}\)</td><td>\(\frac{1}{a}\arctan\frac{x}{a}\), \(\arcsin\frac{x}{a}\)</td></tr>
+            </tbody>
+          </table>
+          <p>Here \(u = ax + b\) is linear. Sums and constant multiples of these are integrated term by term; polynomials in factored form are expanded first.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(\int \left(3x^2 + 4\cos 2x - \frac{1}{x}\right) dx\)</h3>
+            <h4>Step 1 — Term by term</h4>
+            \[ \int 3x^2\,dx = x^3, \qquad \int 4\cos 2x\,dx = 2\sin 2x, \qquad \int \frac{1}{x}\,dx = \ln|x| \]
+            <h4>Step 2 — Combine and add C</h4>
+            \[ x^3 + 2\sin 2x - \ln|x| + C \]
+            <h4>Step 3 — Check</h4>
+            \[ \frac{d}{dx}\left[x^3 + 2\sin 2x - \ln|x|\right] = 3x^2 + 4\cos 2x - \frac{1}{x} \;\checkmark \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Limitations</h2>
+          <ul>
+            <li>Only the forms in the table are supported. Integrals that need substitution with a non-linear inner function, integration by parts (such as \(\int x\sin x\,dx\)) or partial fractions are reported as unsupported rather than guessed.</li>
+            <li>Some functions, such as \(e^{-x^2}\), have no elementary antiderivative at all; use the <a href="../definite-integral/">definite integral calculator</a> for their numerical values.</li>
+            <li>Every answer is verified by differentiating it and comparing with the integrand at several points.</li>
+          </ul>
+        </section>

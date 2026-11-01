@@ -1,0 +1,41 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Tangent and normal lines</h2>
+          <p>The <strong>tangent line</strong> to a curve at a point touches the curve there and has the same slope as the curve at that point — the value of the derivative. Close to the point it is the best straight-line approximation of the curve, which is the idea behind linear approximation and Newton's method. The <strong>normal line</strong> passes through the same point at right angles to the tangent.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Move \(x_0\) along \(y = x^2 - 3x + 1\). At the vertex \(x_0 = 1.5\) the slope is 0, so the tangent is horizontal and the normal is vertical.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ y = f(x_0) + f'(x_0)(x - x_0) \qquad \text{normal: } y = f(x_0) - \frac{1}{f'(x_0)}(x - x_0) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(x_0\)</td><td>The x-coordinate of the point of tangency.</td></tr>
+              <tr><td>\(f(x_0)\)</td><td>The y-coordinate of that point.</td></tr>
+              <tr><td>\(m = f'(x_0)\)</td><td>Slope of the tangent line.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Tangent to \(f(x) = x^2 - 3x + 1\) at \(x = 2\)</h3>
+            <h4>Step 1 — Point</h4>
+            \[ f(2) = 4 - 6 + 1 = -1 \quad\Rightarrow\quad (2, -1) \]
+            <h4>Step 2 — Slope</h4>
+            \[ f'(x) = 2x - 3, \qquad m = f'(2) = 1 \]
+            <h4>Step 3 — Equation</h4>
+            \[ y - (-1) = 1(x - 2) \;\Rightarrow\; y = x - 3 \]
+            <p>The normal line has slope \(-1\): \(y = -x + 1\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>\(f\) must be defined and differentiable at \(x_0\); otherwise no tangent is shown (vertical tangents are not handled).</li>
+            <li>For polynomials with a rational \(x_0\), every value is an exact fraction. Otherwise decimals are rounded to 6 places.</li>
+            <li>\(x_0\) may be an expression such as <code>pi/3</code>.</li>
+          </ul>
+        </section>

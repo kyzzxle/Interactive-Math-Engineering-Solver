@@ -1,0 +1,38 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Finding roots numerically</h2>
+          <p>Most equations met in engineering — \(\cos x = x\), \(x^5 - 3x + 1 = 0\), friction-factor and heat-transfer equations — have no formula for their solutions. <strong>Numerical root finders</strong> produce a sequence of approximations that closes in on a solution of \(f(x) = 0\). This calculator implements the two classic methods and shows every iteration, so you can see how — and whether — they converge.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Solve \(x^2 - 2 = 0\) with both methods to the same tolerance. Bisection needs about 20 steps; Newton's method needs 5, because its number of correct digits roughly doubles each step.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Methods and convergence</h2>
+          <dl>
+            <dt>Bisection</dt>
+            <dd>Start with \([a, b]\) where \(f(a)\) and \(f(b)\) have opposite signs. Evaluate \(f\) at the midpoint \(m = \frac{a + b}{2}\) and keep the half that still contains a sign change. The error after \(k\) steps is at most \(\frac{b - a}{2^k}\): slow but <strong>guaranteed</strong> for continuous \(f\).</dd>
+            <dt>Newton–Raphson</dt>
+            <dd>\(x_{k+1} = x_k - \dfrac{f(x_k)}{f'(x_k)}\). Very fast (quadratic convergence) near a simple root, but it needs a good starting guess and can fail: if \(f'(x_k) = 0\) the tangent is horizontal; the iterates may cycle (as for \(x^3 - 2x + 2\) from 0) or diverge.</dd>
+          </dl>
+          <p><strong>Stopping rule:</strong> stop when successive approximations differ by less than the tolerance (and \(|f(x)|\) is small), or when the iteration limit is reached — in which case the calculator reports non-convergence rather than an unreliable number.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Solve \(\cos x = x\) with Newton's method from \(x_0 = 1\)</h3>
+            <h4>Step 1 — Set up</h4>
+            \[ f(x) = \cos x - x, \qquad f'(x) = -\sin x - 1 \]
+            <h4>Step 2 — First iteration</h4>
+            \[ x_1 = 1 - \frac{\cos 1 - 1}{-\sin 1 - 1} \approx 1 - \frac{-0.4597}{-1.8415} \approx 0.7504 \]
+            <h4>Step 3 — Continue</h4>
+            <p>\(x_2 \approx 0.739113\), \(x_3 \approx 0.739085\); after 5 iterations \(x \approx 0.7390851332\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limits</h2>
+          <ul>
+            <li>\(f\) must be continuous on the bisection interval; Newton's method also needs \(f\) to be differentiable (the derivative is computed symbolically).</li>
+            <li>Tolerance between \(10^{-4}\) and \(10^{-10}\); at most 1000 iterations.</li>
+            <li>Each method finds one root. To find others, change the interval or the starting guess — the graph shows where the curve crosses the axis.</li>
+          </ul>
+        </section>

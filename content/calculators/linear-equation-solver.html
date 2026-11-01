@@ -1,0 +1,42 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Solving linear equations</h2>
+          <p>A <strong>linear equation</strong> in one variable can be rearranged into the form \(ax + b = 0\) with \(a \ne 0\); its graph on each side is a straight line. Type the equation exactly as it appears in your problem — with brackets, fractions and x on both sides — and the solver expands each side, collects like terms, isolates \(x\) and checks the answer by substitution. It also recognises the two special cases: equations with no solution and identities that are true for every \(x\).</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change \(2x + 5\) on the right of \(2(x + 1) = 2x + 5\) to \(2x + 2\): the contradiction becomes an identity, and every real number becomes a solution.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Method and rules</h2>
+          <div class="formula-box">\[ ax + b = cx + d \;\Rightarrow\; (a - c)x = d - b \;\Rightarrow\; x = \frac{d - b}{a - c} \quad (a \ne c) \]</div>
+          <ol>
+            <li><strong>Expand</strong> brackets using the distributive law \(k(p + q) = kp + kq\).</li>
+            <li><strong>Collect</strong> like terms on each side.</li>
+            <li><strong>Move</strong> x-terms to one side and constants to the other by adding or subtracting the same amount on both sides.</li>
+            <li><strong>Divide</strong> by the coefficient of \(x\).</li>
+            <li><strong>Check</strong> by substituting the answer into the original equation.</li>
+          </ol>
+          <p>If the x-terms cancel (\(a = c\)), the equation is either always true (\(d = b\)) or never true (\(d \ne b\)).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Solve \(2(x - 3) + 4 = 5x - 11\)</h3>
+            <h4>Step 1 — Expand and simplify</h4>
+            \[ 2x - 6 + 4 = 5x - 11 \;\Rightarrow\; 2x - 2 = 5x - 11 \]
+            <h4>Step 2 — Collect terms</h4>
+            \[ 2x - 5x = -11 + 2 \;\Rightarrow\; -3x = -9 \]
+            <h4>Step 3 — Divide</h4>
+            \[ x = \frac{-9}{-3} = 3 \]
+            <h4>Step 4 — Check</h4>
+            <p>Left: \(2(3 - 3) + 4 = 4\). Right: \(5(3) - 11 = 4\). ✓</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The variable must be \(x\). Both sides must be polynomials; equations with \(x\) in a denominator, under a root or inside a function are not linear and are rejected.</li>
+            <li>If \(x^2\) or higher powers remain after simplifying, use the <a href="../quadratic-equation-solver/">quadratic equation solver</a>.</li>
+            <li>All arithmetic uses exact fractions, so answers such as \(\tfrac{5}{6}\) are never rounded in the solution.</li>
+          </ul>
+        </section>

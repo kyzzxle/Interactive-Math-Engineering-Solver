@@ -1,0 +1,41 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">The binomial theorem</h2>
+          <p>Expanding \((a + b)^n\) by repeated multiplication quickly becomes tedious. The <strong>binomial theorem</strong> gives every term directly: the coefficients are the binomial coefficients \(\binom{n}{k}\) — the numbers in row \(n\) of Pascal's triangle — while the power of \(a\) falls from \(n\) to 0 as the power of \(b\) rises from 0 to \(n\). Enter two terms such as \(2x\) and \(-3\) to get the full expansion, or ask for a single term of a large power.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change the second term from 3 to −3: the coefficients keep their sizes but alternate in sign, because odd powers of a negative number are negative.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula and variables</h2>
+          <div class="formula-box">\[ (a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{\,n-k} b^{\,k}, \qquad T_{k+1} = \binom{n}{k} a^{\,n-k} b^{\,k} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a, b\)</td><td>The two terms, each a single monomial (numbers and variables with whole-number powers).</td></tr>
+              <tr><td>\(n\)</td><td>Whole-number power.</td></tr>
+              <tr><td>\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</td><td>Binomial coefficient; the expansion has \(n + 1\) terms.</td></tr>
+              <tr><td>\(T_{k+1}\)</td><td>The general term: term number \(k + 1\) uses \(b^k\).</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Expand \((2x - 3)^3\)</h3>
+            <h4>Step 1 — Coefficients (row 3 of Pascal's triangle)</h4>
+            <p>1, 3, 3, 1.</p>
+            <h4>Step 2 — Terms</h4>
+            \[ 1(2x)^3 + 3(2x)^2(-3) + 3(2x)(-3)^2 + 1(-3)^3 \]
+            <h4>Step 3 — Simplify</h4>
+            \[ 8x^3 - 36x^2 + 54x - 27 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Each of \(a\) and \(b\) must be a single term (no + or − inside); variables allowed are x, y, z, a, b and t.</li>
+            <li>The full expansion is available for \(n \le 30\); a single term can be found for \(n \le 1000\).</li>
+            <li>All coefficients are exact (BigInt integers or fractions).</li>
+          </ul>
+        </section>

@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Systems of linear equations</h2>
+          <p>A <strong>system of linear equations</strong> is a set of equations that must all be true at once. With two unknowns, each equation is a line and the solution is where the lines meet; with three unknowns each equation is a plane. This solver handles systems of two equations in \(x, y\) or three in \(x, y, z\), using the <strong>elimination method</strong> written as row operations, with exact fractions throughout.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second equation a multiple of the first (for example double every number). The two lines become one, and the solver reports infinitely many solutions in terms of a parameter \(t\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Method</h2>
+          <p>Write the coefficients as an augmented matrix and use three operations that never change the solutions:</p>
+          <ol>
+            <li>Swap two equations: \(R_i \leftrightarrow R_j\).</li>
+            <li>Multiply an equation by a non-zero number: \(R_i \to kR_i\).</li>
+            <li>Add a multiple of one equation to another: \(R_i \to R_i + kR_j\) (this is "elimination").</li>
+          </ol>
+          <div class="formula-box">\[ \left[\begin{array}{cc|c} a_1 & b_1 & c_1 \\ a_2 & b_2 & c_2 \end{array}\right] \;\longrightarrow\; \left[\begin{array}{cc|c} 1 & 0 & x \\ 0 & 1 & y \end{array}\right] \]</div>
+          <p>The outcome is one of three cases: a <strong>unique</strong> solution, <strong>no</strong> solution (a row reads \(0 = k\) with \(k \ne 0\)), or <strong>infinitely many</strong> solutions (a free variable remains).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Solve \(2x + 3y = 12\) and \(x - y = 1\)</h3>
+            <h4>Step 1 — Eliminate x</h4>
+            <p>Multiply the second equation by 2 and subtract it from the first:</p>
+            \[ (2x + 3y) - (2x - 2y) = 12 - 2 \;\Rightarrow\; 5y = 10 \;\Rightarrow\; y = 2 \]
+            <h4>Step 2 — Back-substitute</h4>
+            \[ x - 2 = 1 \;\Rightarrow\; x = 3 \]
+            <h4>Step 3 — Check</h4>
+            <p>\(2(3) + 3(2) = 12\) ✓ and \(3 - 2 = 1\) ✓.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Two equations in two unknowns or three equations in three unknowns. Type 0 for a missing term.</li>
+            <li>Coefficients can be integers, decimals or fractions; results are exact fractions.</li>
+            <li>For larger systems, or to use Cramer's rule or the inverse matrix, use the <a href="../matrix-method-linear-systems/">matrix methods calculator</a>.</li>
+          </ul>
+        </section>

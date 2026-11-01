@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frustum of a Cone Calculator – Volume, Surface Area &amp; Slant Height | Solver Hub</title>
+  <meta name="description" content="Free frustum of a cone calculator. Enter the two radii and the height or slant height to get the volume, lateral and total surface area with exact π answers and step-by-step solutions.">
+  <link rel="canonical" href="https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/">
+  <meta name="robots" content="index, follow">
+  <meta name="dcterms.modified" content="2026-10-30">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Interactive Math &amp; Engineering Solver Hub">
+  <meta property="og:title" content="Frustum of a Cone Calculator – Volume, Surface Area &amp; Slant Height">
+  <meta property="og:description" content="Find the slant height, lateral area, total surface area and volume of a truncated cone with every substitution shown.">
+  <meta property="og:url" content="https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/">
+  <meta name="twitter:card" content="summary">
+  <!-- build:schema calculator -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Calculators",
+          "item": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Frustum of a Cone",
+          "item": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/#webpage",
+      "url": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/",
+      "name": "Frustum of a Cone Calculator – Volume, Surface Area & Slant Height",
+      "description": "Free frustum of a cone calculator. Enter the two radii and the height or slant height to get the volume, lateral and total surface area with exact π answers and step-by-step solutions.",
+      "isPartOf": {
+        "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/#website"
+      },
+      "inLanguage": "en",
+      "dateModified": "2026-10-30",
+      "breadcrumb": {
+        "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/#breadcrumb"
+      }
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/#calculator",
+      "name": "Frustum of a Cone Calculator",
+      "url": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/",
+      "description": "Free frustum of a cone calculator. Enter the two radii and the height or slant height to get the volume, lateral and total surface area with exact π answers and step-by-step solutions.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any (runs in a web browser)",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "inLanguage": "en",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "dateModified": "2026-10-30"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/frustum-of-a-cone/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between a cone and a frustum of a cone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A cone has one circular base and comes to a point (the apex). A frustum is a cone with its tip cut off by a plane parallel to the base, so it has two parallel circular faces and no apex. A cone is the special case of a frustum whose top radius is zero."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can the top radius be zero?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. With r = 0 the frustum formulas reduce to the cone formulas: the volume becomes one third of π R² h and the lateral area becomes π R s. The calculator accepts r = 0 and tells you that the solid is a complete cone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the volume if I only know the slant height?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "First find the perpendicular height with h = √(s² − (R − r)²), then use the usual volume formula. Choose \"Slant height s\" in the calculator and it does both steps for you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the volume formula use the height and not the slant height?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Volume depends on how far apart the two faces are, measured straight across. The slant height is the length of a sloping side, which is always longer than the gap between the faces, so using it would overestimate the volume."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the capacity of a bucket in litres?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Measure the radii and the height in centimetres, calculate the volume in cubic centimetres and divide by 1000, because 1 litre equals 1000 cm³. If you measure in metres, multiply the cubic metres by 1000 instead."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if both radii are equal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The solid is a cylinder. The slant height equals the height, the lateral area becomes 2πRh and the volume becomes πR²h. The frustum formulas give these results automatically."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this calculator work for an oblique (tilted) frustum?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only partly. The volume formula still holds for an oblique frustum as long as h is the perpendicular distance between the faces, by Cavalieri's principle. The slant height and lateral area formulas apply only to a right frustum, where every slant line has the same length."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the calculator show both an exact answer and a decimal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Exact answers such as 228π or 2√5 contain no rounding error and are what most teachers expect. Decimals are easier to use in practical work. The decimal is marked as approximate whenever it has been rounded."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <!-- /build:schema -->
+  <!-- build:head math -->
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <script>(function(){var t=null;try{t=localStorage.getItem("theme")}catch(e){}var d=t?t==="dark":window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")})();</script>
+  <link rel="icon" href="../../assets/icons/favicon.svg" type="image/svg+xml">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <script src="../../assets/js/site-config.js"></script>
+  <script defer src="../../assets/vendor/katex/katex.min.js"></script>
+  <script defer src="../../assets/js/math-render.js"></script>
+  <script defer src="../../assets/js/site.js"></script>
+  <script defer src="../../assets/js/ads.js"></script>
+  <!-- /build:head -->
+</head>
+<body>
+  <!-- build:header -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header class="site-header">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+      <a href="../../" class="brand" aria-label="Solver Hub home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 22 L14 10 L20 22 M10.5 17h7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.6" fill="#34d399"/></svg>
+        </span>
+        <span class="brand-text">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></span>
+      </a>
+      <nav class="hidden md:block" aria-label="Main">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../../">Home</a></li>
+          <li><a class="nav-link" href="../../calculators/">Calculators</a></li>
+          <li><a class="nav-link" href="../../about.html">About</a></li>
+          <li><a class="nav-link" href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch to dark mode" title="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="icon-btn md:hidden" data-menu-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav md:hidden" aria-label="Mobile" hidden>
+      <ul class="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
+        <li><a class="mobile-link" href="../../">Home</a></li>
+        <li><a class="mobile-link" href="../../calculators/">All calculators</a></li>
+        <li><a class="mobile-link" href="../../about.html">About</a></li>
+        <li><a class="mobile-link" href="../../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- /build:header -->
+
+  <main id="main">
+    <aside class="ad-slot container-page" data-ad-slot-key="header" aria-label="Advertisement"></aside>
+
+    <div class="container-page pt-6">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="../../">Home</a></li>
+          <li><a href="../">Calculators</a></li>
+          <li><span aria-current="page">Frustum of a Cone</span></li>
+        </ol>
+      </nav>
+
+      <header class="mt-5 mb-7">
+        <a class="eyebrow" href="../#solid-mensuration">Solid Mensuration</a>
+        <h1 class="page-title mt-2">Frustum of a Cone Calculator</h1>
+        <p class="lead mt-3">Enter the top radius, the bottom radius and either the perpendicular height or the slant height. The calculator finds the missing height, the lateral and total surface areas and the volume — with exact answers in terms of π and every substitution written out.</p>
+      </header>
+
+      <noscript><div class="alert alert-warn mb-6">The interactive calculator needs JavaScript. The formulas and worked examples further down this page work without it.</div></noscript>
+
+      <section class="calc-shell" aria-label="Frustum of a cone calculator">
+        <div class="panel">
+          <div class="panel-head"><h2 class="panel-title">Enter the dimensions</h2></div>
+          <form id="frustum-form" class="panel-body" novalidate>
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label" for="f-r">Top radius r</label>
+                <div class="input-affix">
+                  <input id="f-r" name="r" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 6" aria-describedby="f-r-hint f-r-error">
+                  <span class="affix" data-unit-affix></span>
+                </div>
+                <p id="f-r-hint" class="field-hint">Smaller base. Use 0 for a full cone.</p>
+                <p id="f-r-error" class="field-error" data-error-for="r"></p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="f-R">Bottom radius R</label>
+                <div class="input-affix">
+                  <input id="f-R" name="R" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 9" aria-describedby="f-R-hint f-R-error">
+                  <span class="affix" data-unit-affix></span>
+                </div>
+                <p id="f-R-hint" class="field-hint">Larger base (R ≥ r).</p>
+                <p id="f-R-error" class="field-error" data-error-for="R"></p>
+              </div>
+            </div>
+
+            <fieldset class="mt-5">
+              <legend class="field-label mb-2">Which height do you know?</legend>
+              <div class="segmented">
+                <label><input type="radio" name="known" value="h" checked><span>Height h</span></label>
+                <label><input type="radio" name="known" value="s"><span>Slant height s</span></label>
+              </div>
+            </fieldset>
+
+            <div class="field mt-4" data-known-field="h">
+              <label class="field-label" for="f-h">Perpendicular height h</label>
+              <div class="input-affix">
+                <input id="f-h" name="h" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 4" aria-describedby="f-h-hint f-h-error">
+                <span class="affix" data-unit-affix></span>
+              </div>
+              <p id="f-h-hint" class="field-hint">Straight up from base to base, along the axis.</p>
+              <p id="f-h-error" class="field-error" data-error-for="h"></p>
+            </div>
+            <div class="field mt-4" data-known-field="s" hidden>
+              <label class="field-label" for="f-s">Slant height s</label>
+              <div class="input-affix">
+                <input id="f-s" name="s" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 5" aria-describedby="f-s-hint f-s-error">
+                <span class="affix" data-unit-affix></span>
+              </div>
+              <p id="f-s-hint" class="field-hint">Measured along the sloping side, rim to rim.</p>
+              <p id="f-s-error" class="field-error" data-error-for="s"></p>
+            </div>
+
+            <div class="field mt-4">
+              <label class="field-label" for="f-unit">Unit of length (optional)</label>
+              <select id="f-unit" name="unit" class="select">
+                <option value="">No unit</option>
+                <option value="mm">millimetres (mm)</option>
+                <option value="cm">centimetres (cm)</option>
+                <option value="m">metres (m)</option>
+                <option value="in">inches (in)</option>
+                <option value="ft">feet (ft)</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Calculate</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <button type="button" class="btn btn-ghost" data-load-example>Load example</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title">Results</h2>
+            <button type="button" class="btn btn-secondary btn-sm" data-copy-all hidden>Copy all results</button>
+          </div>
+          <div class="panel-body">
+            <figure class="mb-4">
+              <svg id="frustum-diagram" class="diagram" viewBox="0 0 320 230" role="img" aria-labelledby="frustum-diagram-title" style="max-height:15rem"><title id="frustum-diagram-title">Side view of a frustum of a cone labelled with r, R, h and s</title></svg>
+              <figcaption id="frustum-diagram-caption" class="diagram-caption">Labelled sketch of a frustum (not to scale).</figcaption>
+            </figure>
+            <div id="frustum-output" class="calc-output">
+              <div class="results-placeholder">
+                <span class="big-glyph" aria-hidden="true">◭</span>
+                <p>Enter r, R and one height, then press <strong>Calculate</strong>.</p>
+                <p class="text-sm">Not sure where to start? Press <strong>Load example</strong>.</p>
+              </div>
+            </div>
+            <p id="frustum-status" class="sr-only" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
+
+    <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
+      <aside class="toc-aside hidden lg:block">
+        <nav class="toc sticky top-24" aria-label="On this page" data-toc>
+          <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">On this page</p>
+          <ol>
+            <li><a href="#what-is-a-frustum">What is a frustum?</a></li>
+            <li><a href="#purpose">What the calculator does</a></li>
+            <li><a href="#concept">The geometry behind it</a></li>
+            <li><a href="#formulas">Formula breakdown</a></li>
+            <li><a href="#variables">Variables explained</a></li>
+            <li><a href="#derivation">Deriving the formulas</a></li>
+            <li><a href="#worked-example">Worked example</a></li>
+            <li><a href="#slant-example">Example with slant height</a></li>
+            <li><a href="#applications">Practical applications</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#related">Related calculators</a></li>
+            <li><a href="#further-learning">Further learning</a></li>
+          </ol>
+        </nav>
+      </aside>
+
+      <article class="prose-content">
+        <section id="what-is-a-frustum" aria-labelledby="what-is-a-frustum-h">
+          <h2 id="what-is-a-frustum-h" style="margin-top:0">What is a frustum of a cone?</h2>
+          <p>A <strong>frustum of a cone</strong> — also called a <strong>truncated cone</strong> — is the solid that remains when a cone is sliced by a plane parallel to its base and the small top piece (including the tip) is removed. The word <em>frustum</em> is Latin for "a piece broken off".</p>
+          <p>The result has two parallel circular faces of different sizes joined by a smooth, sloping curved surface. A drinking cup, a flower pot, a lampshade and a concrete pier footing are all everyday frustums. This page deals with the <strong>right circular frustum</strong>, where the line joining the centres of the two circles (the axis) is perpendicular to both of them.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Frustum problems usually give three measurements and ask for one or more of the others. The calculator handles the two most common situations:</p>
+          <ul>
+            <li>You know the <strong>two radii and the perpendicular height</strong> — it finds the slant height first.</li>
+            <li>You know the <strong>two radii and the slant height</strong> — it finds the perpendicular height first, after checking that such a frustum can exist.</li>
+          </ul>
+          <p>It then reports the lateral (curved) surface area, the areas of both circular bases, the total surface area and the volume. When your inputs are whole numbers or short decimals, the answers are also given in <strong>exact form</strong> (such as <span class="math" data-tex="228\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>228</mn><mi>π</mi></mrow></semantics></math></span></span> or <span class="math" data-tex="2\sqrt{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>5</mn></msqrt></mrow></semantics></math></span></span>), which is what most textbooks and exams expect, alongside a rounded decimal. The step-by-step solution uses your own numbers, so you can compare it line by line with your written work.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind the formulas</h2>
+          <p>Almost everything about a frustum follows from one picture. Cut the frustum straight down through its axis and the cut face is an <strong>isosceles trapezoid</strong>: its parallel sides are the two diameters <span class="math" data-tex="2r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>r</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="2R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>R</mi></mrow></semantics></math></span></span>, its height is <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>, and its two slanted sides each have length <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span>.</p>
+          <p>Now drop a vertical line from the edge of the top circle down to the bottom base. It lands a horizontal distance <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span> inside the bottom edge, and it creates a <strong>right triangle</strong> with:</p>
+          <ul>
+            <li>a vertical leg equal to the height <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>,</li>
+            <li>a horizontal leg equal to the difference of the radii <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span>, and</li>
+            <li>a hypotenuse equal to the slant height <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span>.</li>
+          </ul>
+          <p>That triangle is why the Pythagorean theorem links <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span>. A second key idea is <strong>similarity</strong>: the original full cone and the small cone that was cut off have exactly the same shape, so all their lengths are in the ratio <span class="math" data-tex="r : R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>:</mo><mi>R</mi></mrow></semantics></math></span></span>. The area and volume formulas below come from subtracting the small cone from the large one.</p>
+          <div class="callout">
+            <p class="callout-title">Two heights, two jobs</p>
+            <p>The <strong>perpendicular height h</strong> measures how tall the solid is, so it controls the <em>volume</em>. The <strong>slant height s</strong> measures the length of the sloping side, so it controls the <em>curved surface area</em>. Mixing them up is the most common frustum error.</p>
+          </div>
+        </section>
+
+        <section id="formulas" aria-labelledby="formulas-h">
+          <h2 id="formulas-h">Formula breakdown</h2>
+          <p>With <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> the smaller radius and <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> the larger radius:</p>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">What it means</th></tr></thead>
+            <tbody>
+              <tr><td>Slant height</td><td><span class="math" data-tex="s = \sqrt{h^2 + (R - r)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td><td>Hypotenuse of the right triangle in the cross-section.</td></tr>
+              <tr><td>Perpendicular height</td><td><span class="math" data-tex="h = \sqrt{s^2 - (R - r)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><msqrt><mrow><msup><mi>s</mi><mn>2</mn></msup><mo>−</mo><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td><td>The same triangle solved for a leg.</td></tr>
+              <tr><td>Lateral surface area</td><td><span class="math" data-tex="LSA = \pi (R + r)\, s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mi>R</mi><mo>+</mo><mi>r</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>s</mi></mrow></semantics></math></span></span></td><td>Area of the curved side only.</td></tr>
+              <tr><td>Base areas</td><td><span class="math" data-tex="\pi R^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="\pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td><td>The two flat circular faces.</td></tr>
+              <tr><td>Total surface area</td><td><span class="math" data-tex="TSA = \pi (R + r)\, s + \pi R^2 + \pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mi>R</mi><mo>+</mo><mi>r</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>s</mi><mo>+</mo><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td><td>Curved side plus both circles.</td></tr>
+              <tr><td>Volume</td><td><span class="math" data-tex="V = \dfrac{\pi h}{3}\left(R^2 + Rr + r^2\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mi>π</mi><mi>h</mi></mrow><mn>3</mn></mfrac></mstyle><mrow><mo fence="true">(</mo><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><mi>R</mi><mi>r</mi><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span></td><td>Space enclosed by the solid.</td></tr>
+            </tbody>
+          </table>
+          <p>The volume can also be written using the two base areas <span class="math" data-tex="A_1 = \pi R^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="A_2 = \pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="V = \frac{h}{3}\left(A_1 + A_2 + \sqrt{A_1 A_2}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mi>h</mi><mn>3</mn></mfrac><mrow><mo fence="true">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>+</mo><msub><mi>A</mi><mn>2</mn></msub><mo>+</mo><msqrt><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>A</mi><mn>2</mn></msub></mrow></msqrt><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span>
+          <p>This version is worth remembering because it works for <em>any</em> frustum whose two bases are similar shapes, including a frustum of a square pyramid.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Top (smaller) radius</td><td>Half the diameter of the smaller circle. Can be 0, which turns the frustum into a complete cone.</td></tr>
+              <tr><td><span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span></td><td>Bottom (larger) radius</td><td>Half the diameter of the larger circle. This calculator always calls the larger radius <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span>, whichever way up the object sits.</td></tr>
+              <tr><td><span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span></td><td>Perpendicular height</td><td>Distance between the two parallel faces, measured along the axis at a right angle to both.</td></tr>
+              <tr><td><span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span></td><td>Slant height</td><td>Length of the sloping side from the rim of one circle to the rim of the other. Always longer than both <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span> (unless <span class="math" data-tex="r = R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>R</mi></mrow></semantics></math></span></span>).</td></tr>
+              <tr><td><span class="math" data-tex="LSA"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi></mrow></semantics></math></span></span></td><td>Lateral surface area</td><td>Curved surface only, in square units.</td></tr>
+              <tr><td><span class="math" data-tex="TSA"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi></mrow></semantics></math></span></span></td><td>Total surface area</td><td>Curved surface plus both bases, in square units.</td></tr>
+              <tr><td><span class="math" data-tex="V"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow></semantics></math></span></span></td><td>Volume</td><td>In cubic units. 1 litre = 1000 cm³ and 1 m³ = 1000 litres.</td></tr>
+              <tr><td><span class="math" data-tex="\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi></mrow></semantics></math></span></span></td><td>Pi</td><td>The ratio of a circle's circumference to its diameter, approximately 3.14159.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Slant height and height</h3>
+          <p>In the right triangle from the cross-section, the legs are <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span> and the hypotenuse is <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span>. The Pythagorean theorem gives <span class="math" data-tex="s^2 = h^2 + (R - r)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mn>2</mn></msup><mo>=</mo><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>, which rearranges to either formula in the table.</p>
+
+          <h3>Volume as the difference of two cones</h3>
+          <p>Imagine extending the sloping sides upward until they meet at the apex. Let the full cone have height <span class="math" data-tex="H"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow></semantics></math></span></span>. The removed top cone has height <span class="math" data-tex="H - h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>−</mo><mi>h</mi></mrow></semantics></math></span></span>. Because the two cones are similar, their heights are in the same ratio as their radii:</p>
+          <span class="math-display" data-tex="\frac{H - h}{H} = \frac{r}{R} \quad\Longrightarrow\quad H = \frac{Rh}{R - r}, \qquad H - h = \frac{rh}{R - r}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>H</mi><mo>−</mo><mi>h</mi></mrow><mi>H</mi></mfrac><mo>=</mo><mfrac><mi>r</mi><mi>R</mi></mfrac><mspace width="1em"/><mo>⟹</mo><mspace width="1em"/><mi>H</mi><mo>=</mo><mfrac><mrow><mi>R</mi><mi>h</mi></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>H</mi><mo>−</mo><mi>h</mi><mo>=</mo><mfrac><mrow><mi>r</mi><mi>h</mi></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Subtract the small cone's volume from the large cone's volume (<span class="math" data-tex="V_{\text{cone}} = \tfrac{1}{3}\pi(\text{radius})^2(\text{height})"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mtext>cone</mtext></msub><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>π</mi><mo stretchy="false">(</mo><mtext>radius</mtext><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mtext>height</mtext><mo stretchy="false">)</mo></mrow></semantics></math></span></span>):</p>
+          <span class="math-display" data-tex="V = \frac{\pi}{3}\left[R^2 \cdot \frac{Rh}{R - r} - r^2 \cdot \frac{rh}{R - r}\right] = \frac{\pi h}{3}\cdot\frac{R^3 - r^3}{R - r}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mi>π</mi><mn>3</mn></mfrac><mrow><mo fence="true">[</mo><msup><mi>R</mi><mn>2</mn></msup><mo>⋅</mo><mfrac><mrow><mi>R</mi><mi>h</mi></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo>−</mo><msup><mi>r</mi><mn>2</mn></msup><mo>⋅</mo><mfrac><mrow><mi>r</mi><mi>h</mi></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo fence="true">]</mo></mrow><mo>=</mo><mfrac><mrow><mi>π</mi><mi>h</mi></mrow><mn>3</mn></mfrac><mo>⋅</mo><mfrac><mrow><msup><mi>R</mi><mn>3</mn></msup><mo>−</mo><msup><mi>r</mi><mn>3</mn></msup></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>The difference of cubes factors as <span class="math" data-tex="R^3 - r^3 = (R - r)(R^2 + Rr + r^2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>3</mn></msup><mo>−</mo><msup><mi>r</mi><mn>3</mn></msup><mo>=</mo><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><mi>R</mi><mi>r</mi><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, so the <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span> cancels and</p>
+          <span class="math-display" data-tex="V = \frac{\pi h}{3}\left(R^2 + Rr + r^2\right)."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mrow><mi>π</mi><mi>h</mi></mrow><mn>3</mn></mfrac><mrow><mo fence="true">(</mo><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><mi>R</mi><mi>r</mi><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup><mo fence="true">)</mo></mrow><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Notice that the final formula still works when <span class="math" data-tex="r = R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>R</mi></mrow></semantics></math></span></span> (it gives <span class="math" data-tex="\pi R^2 h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span>, the cylinder) even though the derivation divided by <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span>.</p>
+
+          <h3>Lateral area as the difference of two cones</h3>
+          <p>A cone with radius <span class="math" data-tex="\rho"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow></semantics></math></span></span> and slant length <span class="math" data-tex="\ell"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">ℓ</mi></mrow></semantics></math></span></span> has curved area <span class="math" data-tex="\pi \rho \ell"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mi>ρ</mi><mi mathvariant="normal">ℓ</mi></mrow></semantics></math></span></span>. The large cone has slant length <span class="math" data-tex="L"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow></semantics></math></span></span> and the small cone <span class="math" data-tex="L - s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>−</mo><mi>s</mi></mrow></semantics></math></span></span>. By similarity <span class="math" data-tex="(L - s)/L = r/R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>L</mi><mo>−</mo><mi>s</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>L</mi><mo>=</mo><mi>r</mi><mi mathvariant="normal">/</mi><mi>R</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="L = \dfrac{Rs}{R - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mi>R</mi><mi>s</mi></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac></mstyle></mrow></semantics></math></span></span> and <span class="math" data-tex="L - s = \dfrac{rs}{R - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>−</mo><mi>s</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mi>r</mi><mi>s</mi></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac></mstyle></mrow></semantics></math></span></span>. Subtracting:</p>
+          <span class="math-display" data-tex="LSA = \pi R L - \pi r (L - s) = \frac{\pi s\,(R^2 - r^2)}{R - r} = \pi (R + r)\, s."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mi>π</mi><mi>R</mi><mi>L</mi><mo>−</mo><mi>π</mi><mi>r</mi><mo stretchy="false">(</mo><mi>L</mi><mo>−</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>π</mi><mi>s</mi><mtext> </mtext><mo stretchy="false">(</mo><msup><mi>R</mi><mn>2</mn></msup><mo>−</mo><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mi>R</mi><mo>+</mo><mi>r</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>s</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>A helpful way to remember it: <span class="math" data-tex="\pi(R + r)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo stretchy="false">(</mo><mi>R</mi><mo>+</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is the <em>average</em> of the two circumferences <span class="math" data-tex="2\pi R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>R</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="2\pi r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi></mrow></semantics></math></span></span>, and multiplying by the slant height is like unrolling the curved surface into a strip of that average length and width <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span>.</p>
+
+          <h3>A calculus check</h3>
+          <p>If you have studied integration, slice the frustum into thin discs. At height <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> above the large base the radius shrinks linearly from <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> to <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="\rho(y) = R - (R - r)\,y/h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>R</mi><mo>−</mo><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>y</mi><mi mathvariant="normal">/</mi><mi>h</mi></mrow></semantics></math></span></span>. Adding up the discs,</p>
+          <span class="math-display" data-tex="V = \int_0^h \pi\left(R - \frac{(R - r)\,y}{h}\right)^2 dy = \frac{\pi h}{3}\left(R^2 + Rr + r^2\right),"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>h</mi></msubsup><mi>π</mi><msup><mrow><mo fence="true">(</mo><mi>R</mi><mo>−</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>y</mi></mrow><mi>h</mi></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup><mi>d</mi><mi>y</mi><mo>=</mo><mfrac><mrow><mi>π</mi><mi>h</mi></mrow><mn>3</mn></mfrac><mrow><mo fence="true">(</mo><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><mi>R</mi><mi>r</mi><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup><mo fence="true">)</mo></mrow><mo separator="true">,</mo></mrow></semantics></math></span></span>
+          <p>which confirms the geometric result.</p>
+        </section>
+
+        <aside class="ad-slot" data-ad-slot-key="inArticle" aria-label="Advertisement"></aside>
+
+        <section id="worked-example" aria-labelledby="worked-example-h">
+          <h2 id="worked-example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A plant pot has the shape of a frustum. The top (smaller) radius is <strong>6 cm</strong>, the bottom (larger) radius is <strong>9 cm</strong>, and the perpendicular height is <strong>4 cm</strong>. Find the slant height, the lateral surface area, the total surface area and the volume. (This is the calculator's <em>Load example</em> problem, so you can check each line against it.)</p>
+
+            <h4>Step 1 — List the given values</h4>
+            <p><span class="math" data-tex="r = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span> cm, <span class="math" data-tex="R = 9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>9</mn></mrow></semantics></math></span></span> cm, <span class="math" data-tex="h = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span> cm, so <span class="math" data-tex="R - r = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span> cm.</p>
+
+            <h4>Step 2 — Slant height</h4>
+            <span class="math-display" data-tex="s = \sqrt{h^2 + (R - r)^2} = \sqrt{4^2 + 3^2} = \sqrt{16 + 9} = \sqrt{25} = 5 \text{ cm}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mrow><msup><mn>4</mn><mn>2</mn></msup><mo>+</mo><msup><mn>3</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mrow><mn>16</mn><mo>+</mo><mn>9</mn></mrow></msqrt><mo>=</mo><msqrt><mn>25</mn></msqrt><mo>=</mo><mn>5</mn><mtext> cm</mtext></mrow></semantics></math></span></span>
+
+            <h4>Step 3 — Lateral surface area</h4>
+            <span class="math-display" data-tex="LSA = \pi (R + r)\, s = \pi (9 + 6)(5) = 75\pi \approx 235.62 \text{ cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mi>R</mi><mo>+</mo><mi>r</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>s</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>9</mn><mo>+</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>75</mn><mi>π</mi><mo>≈</mo><mn>235.62</mn><msup><mtext> cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+
+            <h4>Step 4 — Areas of the bases</h4>
+            <span class="math-display" data-tex="\pi R^2 = \pi (9)^2 = 81\pi, \qquad \pi r^2 = \pi (6)^2 = 36\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>9</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>81</mn><mi>π</mi><mo separator="true">,</mo><mspace width="2em"/><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>6</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>36</mn><mi>π</mi></mrow></semantics></math></span></span>
+
+            <h4>Step 5 — Total surface area</h4>
+            <span class="math-display" data-tex="TSA = 75\pi + 81\pi + 36\pi = 192\pi \approx 603.19 \text{ cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>75</mn><mi>π</mi><mo>+</mo><mn>81</mn><mi>π</mi><mo>+</mo><mn>36</mn><mi>π</mi><mo>=</mo><mn>192</mn><mi>π</mi><mo>≈</mo><mn>603.19</mn><msup><mtext> cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+
+            <h4>Step 6 — Volume</h4>
+            <span class="math-display" data-tex="V = \frac{\pi h}{3}\left(R^2 + Rr + r^2\right) = \frac{\pi (4)}{3}\left(81 + 54 + 36\right) = \frac{4\pi (171)}{3} = 228\pi \approx 716.28 \text{ cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mrow><mi>π</mi><mi>h</mi></mrow><mn>3</mn></mfrac><mrow><mo fence="true">(</mo><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><mi>R</mi><mi>r</mi><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mrow><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo></mrow><mn>3</mn></mfrac><mrow><mo fence="true">(</mo><mn>81</mn><mo>+</mo><mn>54</mn><mo>+</mo><mn>36</mn><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mrow><mn>4</mn><mi>π</mi><mo stretchy="false">(</mo><mn>171</mn><mo stretchy="false">)</mo></mrow><mn>3</mn></mfrac><mo>=</mo><mn>228</mn><mi>π</mi><mo>≈</mo><mn>716.28</mn><msup><mtext> cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+
+            <h4>Answer</h4>
+            <p><span class="math" data-tex="s = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span> cm, <span class="math" data-tex="LSA = 75\pi \approx 235.62"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>75</mn><mi>π</mi><mo>≈</mo><mn>235.62</mn></mrow></semantics></math></span></span> cm², <span class="math" data-tex="TSA = 192\pi \approx 603.19"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>192</mn><mi>π</mi><mo>≈</mo><mn>603.19</mn></mrow></semantics></math></span></span> cm², and <span class="math" data-tex="V = 228\pi \approx 716.28"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>228</mn><mi>π</mi><mo>≈</mo><mn>716.28</mn></mrow></semantics></math></span></span> cm³. Since 1000 cm³ = 1 litre, the pot holds about <strong>0.72 litres</strong> of soil. A real pot is open at the top, so the material needed for its walls and floor would be <span class="math" data-tex="LSA + \pi R^2 = 156\pi \approx 490.09"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>+</mo><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mo>=</mo><mn>156</mn><mi>π</mi><mo>≈</mo><mn>490.09</mn></mrow></semantics></math></span></span> cm².</p>
+          </div>
+        </section>
+
+        <section id="slant-example" aria-labelledby="slant-example-h">
+          <h2 id="slant-example-h">Step-by-step example when the slant height is given</h2>
+          <p>Engineering drawings of sheet-metal parts often give the slant length rather than the height, because that is the length of metal along the side. Here the height must be found first.</p>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A steel hopper is a frustum with radii <strong>1.0 m</strong> and <strong>0.2 m</strong> and a slant height of <strong>1.0 m</strong>. How much grain can it hold, and how much sheet steel forms its sloping wall?</p>
+            <h4>Step 1 — Assign the radii</h4>
+            <p>The larger radius is <span class="math" data-tex="R = 1.0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mn>1.0</mn></mrow></semantics></math></span></span> m and the smaller is <span class="math" data-tex="r = 0.2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.2</mn></mrow></semantics></math></span></span> m (even if the hopper is mounted with the wide end on top). Then <span class="math" data-tex="R - r = 0.8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi><mo>=</mo><mn>0.8</mn></mrow></semantics></math></span></span> m.</p>
+            <h4>Step 2 — Check that the frustum can exist</h4>
+            <p>The slant height is the hypotenuse, so it must be longer than <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span>. Here <span class="math" data-tex="1.0 &gt; 0.8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.0</mn><mo>&gt;</mo><mn>0.8</mn></mrow></semantics></math></span></span>, so the shape is possible.</p>
+            <h4>Step 3 — Perpendicular height</h4>
+            <span class="math-display" data-tex="h = \sqrt{s^2 - (R - r)^2} = \sqrt{1.0^2 - 0.8^2} = \sqrt{1 - 0.64} = \sqrt{0.36} = 0.6 \text{ m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo>=</mo><msqrt><mrow><msup><mi>s</mi><mn>2</mn></msup><mo>−</mo><mo stretchy="false">(</mo><mi>R</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mrow><mn>1.</mn><msup><mn>0</mn><mn>2</mn></msup><mo>−</mo><mn>0.</mn><msup><mn>8</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mrow><mn>1</mn><mo>−</mo><mn>0.64</mn></mrow></msqrt><mo>=</mo><msqrt><mn>0.36</mn></msqrt><mo>=</mo><mn>0.6</mn><mtext> m</mtext></mrow></semantics></math></span></span>
+            <h4>Step 4 — Volume (capacity)</h4>
+            <span class="math-display" data-tex="V = \frac{\pi (0.6)}{3}\left(1.0^2 + (1.0)(0.2) + 0.2^2\right) = 0.2\pi\,(1.24) = 0.248\pi \approx 0.779 \text{ m}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mrow><mi>π</mi><mo stretchy="false">(</mo><mn>0.6</mn><mo stretchy="false">)</mo></mrow><mn>3</mn></mfrac><mrow><mo fence="true">(</mo><mn>1.</mn><msup><mn>0</mn><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mn>1.0</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>0.2</mn><mo stretchy="false">)</mo><mo>+</mo><mn>0.</mn><msup><mn>2</mn><mn>2</mn></msup><mo fence="true">)</mo></mrow><mo>=</mo><mn>0.2</mn><mi>π</mi><mtext> </mtext><mo stretchy="false">(</mo><mn>1.24</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0.248</mn><mi>π</mi><mo>≈</mo><mn>0.779</mn><msup><mtext> m</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 5 — Sloping wall (lateral area)</h4>
+            <span class="math-display" data-tex="LSA = \pi (1.0 + 0.2)(1.0) = 1.2\pi \approx 3.770 \text{ m}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>1.0</mn><mo>+</mo><mn>0.2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>1.0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1.2</mn><mi>π</mi><mo>≈</mo><mn>3.770</mn><msup><mtext> m</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Answer</h4>
+            <p>The hopper holds about <strong>0.779 m³ (roughly 779 litres)</strong>, and its sloping wall uses about <strong>3.77 m²</strong> of steel, before allowing for overlaps, seams and waste.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications in engineering and construction</h2>
+          <ul>
+            <li><strong>Containers and capacity.</strong> Buckets, pails, cups, tubs and planters are frustums. The volume formula gives their capacity, and surveyors use the same idea to estimate tapered tanks.</li>
+            <li><strong>Hoppers, chutes and funnels.</strong> Storage hoppers for grain, cement or aggregate taper to an outlet. Designers need the volume for capacity and the lateral area to estimate steel plate.</li>
+            <li><strong>Concrete footings and piers.</strong> Tapered (frustum-shaped) footings and column bases spread a load onto the soil. The volume tells a contractor how many cubic metres of concrete to order.</li>
+            <li><strong>Sheet-metal and duct work.</strong> Concentric reducers join round ducts or pipes of different diameters. Their flat pattern is a ring-shaped sector whose area equals the frustum's lateral area.</li>
+            <li><strong>Earthworks and stockpiles.</strong> A conical stockpile with its top flattened, or a circular pit with sloping sides, is approximately a frustum, so the formula gives a quick estimate of excavated or stored volume.</li>
+            <li><strong>Lighting, acoustics and product design.</strong> Lampshades, loudspeaker cones and nozzles are frustums; their surface area determines material cost and their dimensions affect how light or sound spreads.</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Open or closed?</p>
+            <p>Decide which faces the real object actually has. A closed tank uses the total surface area; an open bucket uses the lateral area plus one base; a pipe reducer or lampshade uses the lateral area alone.</p>
+          </div>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes and misconceptions</h2>
+          <ol>
+            <li><strong>Using diameters instead of radii.</strong> Problems often state diameters. Halve them first — using a diameter doubles every length and multiplies the volume by eight.</li>
+            <li><strong>Swapping slant height and height.</strong> Volume uses <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>; the curved area uses <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span>. If a problem gives only one of them, find the other with the Pythagorean relationship.</li>
+            <li><strong>Forgetting the middle term.</strong> The volume bracket is <span class="math" data-tex="R^2 + Rr + r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><mi>R</mi><mi>r</mi><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span>, not <span class="math" data-tex="R^2 + r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>+</mo><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. Dropping <span class="math" data-tex="Rr"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>r</mi></mrow></semantics></math></span></span> underestimates the volume.</li>
+            <li><strong>Averaging instead of using the formula.</strong> Treating the frustum as a cylinder of average radius gives <span class="math" data-tex="\pi(7.5)^2(4) = 225\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo stretchy="false">(</mo><mn>7.5</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>225</mn><mi>π</mi></mrow></semantics></math></span></span> for the worked example, and averaging the two end areas gives <span class="math" data-tex="234\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>234</mn><mi>π</mi></mrow></semantics></math></span></span>. Both are wrong; the true volume is <span class="math" data-tex="228\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>228</mn><mi>π</mi></mrow></semantics></math></span></span>. (The "average end area" method common in earthwork estimates always slightly <em>overestimates</em> the volume of a frustum.)</li>
+            <li><strong>Rounding too early.</strong> If <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span> is irrational, keep it as a surd such as <span class="math" data-tex="2\sqrt{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>5</mn></msqrt></mrow></semantics></math></span></span> or keep several decimal places until the final step.</li>
+            <li><strong>Mixing units.</strong> Convert every length to the same unit before substituting. Areas come out in square units and volumes in cubic units.</li>
+            <li><strong>Assuming any slant height works.</strong> The slant height must be longer than <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span>. If it is not, no such frustum exists — the calculator will flag this rather than return a meaningless answer.</li>
+          </ol>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the difference between a cone and a frustum of a cone?</summary>
+            <div class="faq-answer"><p>A cone has one circular base and comes to a point (the apex). A frustum is a cone with its tip cut off by a plane parallel to the base, so it has two parallel circular faces and no apex. A cone is the special case of a frustum whose top radius is zero.</p></div>
+          </details>
+          <details>
+            <summary>Can the top radius be zero?</summary>
+            <div class="faq-answer"><p>Yes. With r = 0 the frustum formulas reduce to the cone formulas: the volume becomes one third of π R² h and the lateral area becomes π R s. The calculator accepts r = 0 and tells you that the solid is a complete cone.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the volume if I only know the slant height?</summary>
+            <div class="faq-answer"><p>First find the perpendicular height with h = √(s² − (R − r)²), then use the usual volume formula. Choose "Slant height s" in the calculator and it does both steps for you.</p></div>
+          </details>
+          <details>
+            <summary>Why does the volume formula use the height and not the slant height?</summary>
+            <div class="faq-answer"><p>Volume depends on how far apart the two faces are, measured straight across. The slant height is the length of a sloping side, which is always longer than the gap between the faces, so using it would overestimate the volume.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the capacity of a bucket in litres?</summary>
+            <div class="faq-answer"><p>Measure the radii and the height in centimetres, calculate the volume in cubic centimetres and divide by 1000, because 1 litre equals 1000 cm³. If you measure in metres, multiply the cubic metres by 1000 instead.</p></div>
+          </details>
+          <details>
+            <summary>What happens if both radii are equal?</summary>
+            <div class="faq-answer"><p>The solid is a cylinder. The slant height equals the height, the lateral area becomes 2πRh and the volume becomes πR²h. The frustum formulas give these results automatically.</p></div>
+          </details>
+          <details>
+            <summary>Does this calculator work for an oblique (tilted) frustum?</summary>
+            <div class="faq-answer"><p>Only partly. The volume formula still holds for an oblique frustum as long as h is the perpendicular distance between the faces, by Cavalieri's principle. The slant height and lateral area formulas apply only to a right frustum, where every slant line has the same length.</p></div>
+          </details>
+          <details>
+            <summary>Why does the calculator show both an exact answer and a decimal?</summary>
+            <div class="faq-answer"><p>Exact answers such as 228π or 2√5 contain no rounding error and are what most teachers expect. Decimals are easier to use in practical work. The decimal is marked as approximate whenever it has been rounded.</p></div>
+          </details>
+        </section>
+
+        <aside class="ad-slot" data-ad-slot-key="bottom" aria-label="Advertisement"></aside>
+
+        <section id="related" aria-labelledby="related-h">
+          <h2 id="related-h">Related calculators</h2>
+          <ul class="related-grid">
+            <li><a class="related-card" href="../cone/"><strong>Cone</strong><span>The complete cone a frustum is cut from: volume, slant height and surface area.</span></a></li>
+            <li><a class="related-card" href="../frustum-of-a-pyramid/"><strong>Frustum of a Pyramid</strong><span>The same truncated shape with a square, rectangular or regular polygon base.</span></a></li>
+            <li><a class="related-card" href="../cylinder/"><strong>Cylinder</strong><span>The special case where both radii are equal.</span></a></li>
+            <li><a class="related-card" href="../distance-from-point-to-line/"><strong>Distance from a Point to a Line</strong><span>Another right-angle problem: the shortest, perpendicular distance.</span></a></li>
+            <li><a class="related-card" href="../#solid-mensuration"><strong>More solid mensuration</strong><span>Spheres, prisms and pyramids with step-by-step solutions.</span></a></li>
+          </ul>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Suggested topics for further learning</h2>
+          <ul>
+            <li><strong><a href="../frustum-of-a-pyramid/">Frustum of a pyramid</a></strong> — the base-area form of the volume formula applies directly to square and rectangular pyramids.</li>
+            <li><strong>The prismoidal formula</strong> — a single formula, <span class="math" data-tex="V = \tfrac{h}{6}(A_1 + 4A_m + A_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mi>h</mi><mn>6</mn></mfrac><mo stretchy="false">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>+</mo><mn>4</mn><msub><mi>A</mi><mi>m</mi></msub><mo>+</mo><msub><mi>A</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, that gives exact volumes for frustums, prisms, pyramids and many earthwork shapes.</li>
+            <li><strong>Cavalieri's principle</strong> — why solids with equal cross-sections at every height have equal volumes, including oblique frustums.</li>
+            <li><strong>Similar solids</strong> — how lengths, areas and volumes scale by <span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="k^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="k^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup></mrow></semantics></math></span></span>.</li>
+            <li><strong>Volumes and surfaces of revolution</strong> — integral calculus methods that generalise the disc argument used above.</li>
+            <li><strong>Pappus's centroid theorems</strong> — an elegant shortcut for areas and volumes of solids formed by rotation.</li>
+          </ul>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <!-- build:footer -->
+  <footer class="site-footer">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
+      <div class="md:col-span-2">
+        <p class="brand-text text-lg">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></p>
+        <p class="mt-3 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-400">Interactive Math &amp; Engineering Solver Hub offers free calculators with step-by-step solutions and plain-language lessons, so students can check their work and understand the method behind every answer.</p>
+        <p class="mt-3 text-xs text-slate-500 dark:text-slate-500">Results are provided for learning. Always confirm critical calculations independently — see the <a class="footer-link underline" href="../../disclaimer.html">disclaimer</a>.</p>
+      </div>
+      <div>
+        <h2 class="footer-heading">Subjects</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a class="footer-link" href="../../calculators/#solid-mensuration">Solid Mensuration</a></li>
+          <li><a class="footer-link" href="../../calculators/#analytic-geometry">Analytic Geometry</a></li>
+          <li><a class="footer-link" href="../../calculators/#algebra">Algebra</a></li>
+          <li><a class="footer-link" href="../../calculators/#trigonometry">Trigonometry</a></li>
+          <li><a class="footer-link" href="../../calculators/#calculus">Calculus</a></li>
+          <li><a class="footer-link" href="../../calculators/#statistics-probability">Statistics &amp; Probability</a></li>
+          <li><a class="footer-link" href="../../calculators/#combinatorics">Combinatorics</a></li>
+          <li><a class="footer-link" href="../../calculators/#engineering-mathematics">Engineering Mathematics</a></li>
+          <li><a class="footer-link font-medium" href="../../calculators/">Browse all calculators →</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="footer-heading">Site</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a class="footer-link" href="../../about.html">About</a></li>
+          <li><a class="footer-link" href="../../contact.html">Contact</a></li>
+          <li><a class="footer-link" href="../../privacy-policy.html">Privacy Policy</a></li>
+          <li><a class="footer-link" href="../../terms.html">Terms of Service</a></li>
+          <li><a class="footer-link" href="../../disclaimer.html">Disclaimer</a></li>
+          <li><button type="button" class="footer-link" data-privacy-choices hidden>Privacy choices</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 dark:border-slate-800">
+      <p class="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6 dark:text-slate-500">© 2026 Interactive Math &amp; Engineering Solver Hub. Free educational resource. Calculations run entirely in your browser.</p>
+    </div>
+  </footer>
+  <!-- /build:footer -->
+  <script defer src="../../assets/js/bundles/frustum-page.js"></script>
+</body>
+</html>

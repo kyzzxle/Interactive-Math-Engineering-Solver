@@ -1,0 +1,22 @@
+{
+  "siteName": "Interactive Math & Engineering Solver Hub",
+  "shortName": "Solver Hub",
+  "siteUrl": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver",
+  "customDomain": "",
+  "contact": {
+    "email": "kyleleyson95@gmail.com",
+    "formEndpoint": ""
+  },
+  "adsense": {
+    "enabled": false,
+    "publisherId": "",
+    "mode": "manual",
+    "showPlaceholders": false,
+    "slots": {
+      "header": "",
+      "afterCalculator": "",
+      "inArticle": "",
+      "bottom": ""
+    }
+  }
+}

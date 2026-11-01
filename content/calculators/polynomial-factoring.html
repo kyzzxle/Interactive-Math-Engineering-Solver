@@ -1,0 +1,38 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Factoring polynomials</h2>
+          <p><strong>Factoring</strong> rewrites a polynomial as a product of simpler polynomials, which reveals its roots and makes expressions easier to simplify. This tool factors polynomials in \(x\) of degree 2 to 6 completely over the rational numbers, showing the greatest common factor, the rational root theorem, the division that removes each root, and a final check by multiplying back.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Compare \(x^4 - 4\) and \(x^4 + 4\). The first splits as \((x^2 - 2)(x^2 + 2)\); the second has no rational roots but still factors into two quadratics, \((x^2 + 2x + 2)(x^2 - 2x + 2)\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Supported methods</h2>
+          <ol>
+            <li><strong>Greatest common factor</strong>, including powers of \(x\): \(2x^4 - 32 = 2(x^4 - 16)\).</li>
+            <li><strong>Rational root theorem</strong>: if \(\frac{p}{q}\) (in lowest terms) is a root of a polynomial with integer coefficients, then \(p\) divides the constant term and \(q\) divides the leading coefficient, and \((qx - p)\) is a factor.</li>
+            <li><strong>Synthetic division</strong> removes each factor found, leaving a polynomial of lower degree.</li>
+            <li><strong>Higher-degree factors</strong>: a remainder of degree 4 to 6 without rational roots is tested for quadratic and cubic factors with integer coefficients.</li>
+          </ol>
+          <p>These steps cover the standard patterns automatically: difference of squares \(a^2 - b^2 = (a - b)(a + b)\), perfect square trinomials \(a^2 \pm 2ab + b^2 = (a \pm b)^2\), sum and difference of cubes \(a^3 \pm b^3 = (a \pm b)(a^2 \mp ab + b^2)\), and trinomials \(ax^2 + bx + c\) with rational roots.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Factor \(x^3 - 6x^2 + 11x - 6\)</h3>
+            <h4>Step 1 — Candidates</h4>
+            <p>Possible rational roots are the divisors of 6: \(\pm 1, \pm 2, \pm 3, \pm 6\).</p>
+            <h4>Step 2 — Test</h4>
+            \[ f(1) = 1 - 6 + 11 - 6 = 0 \quad\Rightarrow\quad (x - 1) \text{ is a factor} \]
+            <h4>Step 3 — Divide and repeat</h4>
+            \[ x^3 - 6x^2 + 11x - 6 = (x - 1)(x^2 - 5x + 6) = (x - 1)(x - 2)(x - 3) \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Polynomials in \(x\) only, degree 2 to 6, with rational coefficients (integers, decimals or fractions).</li>
+            <li>Factoring is over the <strong>rational numbers</strong>: a factor such as \(x^2 - 2\) is left as it is, even though it equals \((x - \sqrt{2})(x + \sqrt{2})\) over the reals. The tool says so when this happens.</li>
+            <li>Every answer is verified by multiplying the factors back out exactly; if the check ever failed, no result would be shown.</li>
+          </ul>
+        </section>

@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the frustum of a pyramid calculator does</h2>
+          <p>A <strong>frustum of a pyramid</strong> is what remains when a pyramid is cut by a plane parallel to its base and the top is removed. It has two similar, parallel polygon bases and trapezoidal side faces — the shape of many hoppers, planters, dams and pedestal footings. The calculator handles frustums with regular polygon bases (square, hexagon and others) and with rectangular bases.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Set the top edge equal to the bottom edge and you get a prism; set the top edge to 0 and you get a complete pyramid. The volume formula covers both cases.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V = \frac{h}{3}\left(A_1 + A_2 + \sqrt{A_1 A_2}\right) \qquad T = A_1 + A_2 + L \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A_1, A_2\)</td><td>Areas of the bottom (larger) and top (smaller) bases.</td></tr>
+              <tr><td>\(h\)</td><td>Perpendicular distance between the bases.</td></tr>
+              <tr><td>\(s\)</td><td>Slant height of a trapezoidal face, \(s = \sqrt{h^2 + (m_1 - m_2)^2}\), where \(m_1, m_2\) are the apothems of the bases.</td></tr>
+              <tr><td>\(L\)</td><td>Lateral area: for a regular \(n\)-gon, \(L = n\cdot\frac{a + b}{2}\cdot s\).</td></tr>
+            </tbody>
+          </table>
+          <p>The volume formula comes from subtracting the small removed pyramid from the large original one; the \(\sqrt{A_1 A_2}\) term is the "average" that appears because the cross-sectional area changes quadratically with height.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Square frustum: bottom edge 10 m, top edge 6 m, height 3 m</h3>
+            <h4>Step 1 — Base areas</h4>
+            \[ A_1 = 10^2 = 100, \qquad A_2 = 6^2 = 36, \qquad \sqrt{A_1 A_2} = 60 \]
+            <h4>Step 2 — Volume</h4>
+            \[ V = \frac{3}{3}(100 + 36 + 60) = 196 \text{ m}^3 \]
+            <h4>Step 3 — Slant height and lateral area</h4>
+            \[ s = \sqrt{3^2 + (5 - 3)^2} = \sqrt{13} \approx 3.6056, \qquad L = 4\cdot\frac{10 + 6}{2}\cdot\sqrt{13} = 32\sqrt{13} \approx 115.38 \text{ m}^2 \]
+            <h4>Step 4 — Total surface area</h4>
+            \[ T = 100 + 36 + 115.38 \approx 251.38 \text{ m}^2 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The frustum comes from a <strong>right</strong> pyramid: the two bases are parallel, similar and centred on the same vertical axis.</li>
+            <li>Rectangular bases must have the same proportions (\(L_2/L_1 = W_2/W_1\)); otherwise the side faces would not meet at one apex and the solid is not a pyramid frustum. The calculator rejects such inputs and tells you the matching width.</li>
+            <li>The bottom base must be the larger one. A top edge of 0 gives a pyramid.</li>
+            <li>Results are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

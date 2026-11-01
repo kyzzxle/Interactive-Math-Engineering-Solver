@@ -1,0 +1,41 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Logarithms</h2>
+          <p>A <strong>logarithm</strong> answers the question "what power?": \(\log_b x\) is the exponent you put on the base \(b\) to get \(x\). This calculator evaluates logarithms in any valid base — exactly when the answer is a fraction such as \(\log_4 8 = \tfrac{3}{2}\) — and solves two common equation types: logarithmic equations \(\log_b(ax + c) = d\) and exponential equations \(b^{ax + c} = k\).</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Evaluate \(\log_2 x\) for \(x = 2, 4, 8, 16\): each doubling of \(x\) adds exactly 1 to the logarithm. Logarithms turn multiplication into addition.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and rules</h2>
+          <div class="formula-box">\[ \log_b x = y \iff b^y = x \qquad \log_b x = \frac{\ln x}{\ln b} \]</div>
+          <div class="formula-box">\[ \log_b(MN) = \log_b M + \log_b N \qquad \log_b\frac{M}{N} = \log_b M - \log_b N \qquad \log_b(M^k) = k\log_b M \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(b\)</td><td>Base: positive and not equal to 1. Base 10 is the common log; base \(e \approx 2.71828\) is the natural log \(\ln\).</td></tr>
+              <tr><td>\(x\)</td><td>Argument: must be positive.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Solve \(5^{x - 1} = 200\)</h3>
+            <h4>Step 1 — Take \(\log_5\) of both sides</h4>
+            \[ x - 1 = \log_5 200 \]
+            <h4>Step 2 — Change of base</h4>
+            \[ \log_5 200 = \frac{\ln 200}{\ln 5} \approx \frac{5.298317}{1.609438} \approx 3.292030 \]
+            <h4>Step 3 — Solve</h4>
+            \[ x \approx 3.292030 + 1 = 4.292030 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Only real logarithms are used: the base must be positive and not 1, and every logarithm's argument must be positive.</li>
+            <li>An exponential equation \(b^{ax + c} = k\) has a solution only when \(k &gt; 0\).</li>
+            <li>Supported equation types are exactly the two listed above; other forms (such as sums of logarithms) are not solved here.</li>
+            <li>Type <code>e</code> as the base for natural logarithms. Results are rounded to 6 decimal places unless exact.</li>
+          </ul>
+        </section>

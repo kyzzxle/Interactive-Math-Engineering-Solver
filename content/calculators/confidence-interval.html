@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Confidence intervals</h2>
+          <p>A sample gives only an estimate of a population value. A <strong>confidence interval</strong> wraps that estimate in a margin of error: a range of plausible values for the true population mean or proportion, at a chosen confidence level such as 95%. This calculator builds the three most common intervals from summary statistics and shows the critical value, standard error and margin of error.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Raise the confidence level from 90% to 99%: the interval widens. Quadruple the sample size: the margin of error halves, because it shrinks like \(1/\sqrt{n}\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Supported intervals and assumptions</h2>
+          <table>
+            <thead><tr><th scope="col">Interval</th><th scope="col">Formula</th><th scope="col">Use when</th></tr></thead>
+            <tbody>
+              <tr><td>Mean, \(\sigma\) known</td><td>\(\bar{x} \pm z^{*}\frac{\sigma}{\sqrt{n}}\)</td><td>The population standard deviation is known; random sample; population normal or \(n\) large.</td></tr>
+              <tr><td>Mean, \(\sigma\) unknown</td><td>\(\bar{x} \pm t^{*}_{n-1}\frac{s}{\sqrt{n}}\)</td><td>The usual case: use the sample standard deviation \(s\) and the t-distribution.</td></tr>
+              <tr><td>Proportion</td><td>\(\hat{p} \pm z^{*}\sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\)</td><td>At least 10 successes and 10 failures in a random sample.</td></tr>
+            </tbody>
+          </table>
+          <p>The critical value cuts off \(\frac{\alpha}{2}\) in each tail, where \(\alpha = 1 - \text{confidence level}\). For 95%, \(z^{*} \approx 1.960\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(\bar{x} = 52.3\), \(s = 6.1\), \(n = 15\), 95% confidence</h3>
+            <h4>Step 1 — Standard error</h4>
+            \[ SE = \frac{6.1}{\sqrt{15}} \approx 1.5750 \]
+            <h4>Step 2 — Critical value (14 degrees of freedom)</h4>
+            \[ t^{*}_{14} \approx 2.1448 \]
+            <h4>Step 3 — Interval</h4>
+            \[ 52.3 \pm 2.1448 \times 1.5750 = 52.3 \pm 3.378 \;\Rightarrow\; (48.92,\ 55.68) \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Interpretation, domain and rounding</h2>
+          <ul>
+            <li>"95% confidence" describes the method: about 95% of intervals built this way from repeated samples contain the true value. It is not a 95% probability that this particular interval does.</li>
+            <li>The data must come from a random sample. A t-interval needs \(n \ge 2\); proportion intervals are refused when there are fewer than 10 successes or failures, because the normal approximation then fails.</li>
+            <li>Critical values are computed directly (not read from a table); results are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

@@ -1,0 +1,36 @@
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header class="site-header">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+      <a href="{{root}}" class="brand" aria-label="Solver Hub home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 22 L14 10 L20 22 M10.5 17h7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.6" fill="#34d399"/></svg>
+        </span>
+        <span class="brand-text">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></span>
+      </a>
+      <nav class="hidden md:block" aria-label="Main">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="{{root}}">Home</a></li>
+          <li><a class="nav-link" href="{{root}}calculators/">Calculators</a></li>
+          <li><a class="nav-link" href="{{root}}about.html">About</a></li>
+          <li><a class="nav-link" href="{{root}}contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch to dark mode" title="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="icon-btn md:hidden" data-menu-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav md:hidden" aria-label="Mobile" hidden>
+      <ul class="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
+        <li><a class="mobile-link" href="{{root}}">Home</a></li>
+        <li><a class="mobile-link" href="{{root}}calculators/">All calculators</a></li>
+        <li><a class="mobile-link" href="{{root}}about.html">About</a></li>
+        <li><a class="mobile-link" href="{{root}}contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>

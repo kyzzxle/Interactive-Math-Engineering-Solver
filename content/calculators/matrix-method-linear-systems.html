@@ -1,0 +1,39 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Solving linear systems with matrices</h2>
+          <p>A system of linear equations can be written compactly as \(A\mathbf{x} = \mathbf{b}\), where \(A\) holds the coefficients, \(\mathbf{x}\) the unknowns and \(\mathbf{b}\) the right-hand sides. This form is how engineers solve circuit equations, truss forces and many other problems. Choose one of three matrix methods and enter the augmented matrix \([A \mid \mathbf{b}]\); every step is shown with exact fractions.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Solve the same system with all three methods: the answer is identical, but the work involved differs a lot — especially as the system grows.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Methods</h2>
+          <dl>
+            <dt>Gauss–Jordan elimination</dt>
+            <dd>Row-reduce \([A \mid \mathbf{b}]\) to \([I \mid \mathbf{x}]\). Works for every system and detects inconsistent (no solution) and dependent (infinitely many) systems.</dd>
+            <dt>Cramer's rule</dt>
+            <dd>\(x_j = \dfrac{\det A_j}{\det A}\), where \(A_j\) is \(A\) with column \(j\) replaced by \(\mathbf{b}\). Requires \(\det A \ne 0\).</dd>
+            <dt>Inverse matrix</dt>
+            <dd>\(\mathbf{x} = A^{-1}\mathbf{b}\). Also requires \(\det A \ne 0\); useful when the same \(A\) is used with many right-hand sides.</dd>
+          </dl>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Cramer's rule for \(3x + 2y = 16\), \(4x - y = 3\)</h3>
+            <h4>Step 1 — Determinant of A</h4>
+            \[ \det A = \begin{vmatrix} 3 & 2 \\ 4 & -1 \end{vmatrix} = -3 - 8 = -11 \]
+            <h4>Step 2 — Replace columns by b</h4>
+            \[ \det A_x = \begin{vmatrix} 16 & 2 \\ 3 & -1 \end{vmatrix} = -22, \qquad \det A_y = \begin{vmatrix} 3 & 16 \\ 4 & 3 \end{vmatrix} = -55 \]
+            <h4>Step 3 — Divide</h4>
+            \[ x = \frac{-22}{-11} = 2, \qquad y = \frac{-55}{-11} = 5 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Input format and limits</h2>
+          <ul>
+            <li>One equation per line: the coefficients followed by the right-hand side. A <code>|</code> before the last number is optional.</li>
+            <li>Square systems from 2×2 up to 6×6. If \(\det A = 0\), Cramer's rule and the inverse method cannot be used; the calculator says so and uses elimination to classify the system.</li>
+            <li>All arithmetic is exact.</li>
+          </ul>
+        </section>

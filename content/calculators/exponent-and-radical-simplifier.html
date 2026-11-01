@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Simplifying exponents and radicals</h2>
+          <p>Exponent and radical expressions can usually be written in a shorter, standard form: no negative exponents, each variable written once, and no perfect powers left under a root. This simplifier supports three clearly defined types of problem, each with its own step-by-step explanation:</p>
+          <ul>
+            <li><strong>Laws of exponents</strong> — products, quotients and powers of monomials such as \(\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}\).</li>
+            <li><strong>Radicals</strong> — a root of a single term, such as \(\sqrt{72x^5y^2}\) or \(\sqrt[3]{-54a^7}\).</li>
+            <li><strong>Rational powers of numbers</strong> — such as \(16^{-3/4}\) or \(12^{3/2}\).</li>
+          </ul>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change the index in \(\sqrt{72x^5y^2}\) from 2 to 3: different factors are perfect cubes, so a different amount comes out of the root.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Rules used</h2>
+          <div class="formula-box">\[ a^m a^n = a^{m+n} \qquad \frac{a^m}{a^n} = a^{m-n} \qquad (a^m)^n = a^{mn} \qquad (ab)^n = a^n b^n \qquad a^{-n} = \frac{1}{a^n} \]</div>
+          <div class="formula-box">\[ a^{p/q} = \sqrt[q]{a^p} \qquad \sqrt[n]{a^n b} = a\sqrt[n]{b} \]</div>
+          <p>To simplify a root of index \(n\), divide each exponent by \(n\): the quotient comes out of the root and the remainder stays inside. For a number, split off the largest perfect \(n\)th power.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Simplify \(\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}\)</h3>
+            <h4>Step 1 — Power of a product</h4>
+            \[ (2x^3y^{-2})^2 = 4x^6y^{-4} \]
+            <h4>Step 2 — Divide like bases (subtract exponents)</h4>
+            \[ \frac{4x^6y^{-4}}{4x^{-1}y} = x^{6 - (-1)}\, y^{-4 - 1} = x^7 y^{-5} \]
+            <h4>Step 3 — Positive exponents</h4>
+            \[ x^7 y^{-5} = \frac{x^7}{y^5} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>All variables are assumed to be <strong>positive</strong>. This is the usual textbook convention and means even roots need no absolute-value signs.</li>
+            <li>Sums and differences (such as \(\sqrt{x^2 + 1}\)) are outside the supported forms and are rejected with an explanation.</li>
+            <li>Even roots of negative numbers are not real and are rejected. Exponent denominators are limited to 12.</li>
+            <li>Exact results use fractions and simplified radicals; decimals are given to 10 significant figures.</li>
+          </ul>
+        </section>

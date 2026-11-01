@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Numerical differentiation</h2>
+          <p>When a function is known only through measurements or a computer simulation, its derivative must be estimated from nearby values. <strong>Finite-difference formulas</strong> approximate the slope of the curve by the slope of a short secant line. This calculator applies the forward, backward or central difference, compares the estimate with the exact derivative, and shows how the error shrinks as the step size \(h\) decreases.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Look at the error table: for each tenfold reduction in \(h\), the forward and backward errors drop by about 10 but the central error by about 100.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Supported finite-difference formulas</h2>
+          <table>
+            <thead><tr><th scope="col">Method</th><th scope="col">Formula</th><th scope="col">Truncation error</th></tr></thead>
+            <tbody>
+              <tr><td>Forward</td><td>\(f'(x) \approx \dfrac{f(x + h) - f(x)}{h}\)</td><td>\(O(h)\)</td></tr>
+              <tr><td>Backward</td><td>\(f'(x) \approx \dfrac{f(x) - f(x - h)}{h}\)</td><td>\(O(h)\)</td></tr>
+              <tr><td>Central</td><td>\(f'(x) \approx \dfrac{f(x + h) - f(x - h)}{2h}\)</td><td>\(O(h^2)\)</td></tr>
+            </tbody>
+          </table>
+          <p>The orders come from Taylor's theorem: \(f(x \pm h) = f(x) \pm hf'(x) + \tfrac{h^2}{2}f''(x) \pm \cdots\). In the central difference the \(h^2\) terms cancel, leaving an error proportional to \(h^2\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Central difference for \(\sin x\) at \(x = 1\), \(h = 0.1\)</h3>
+            <h4>Step 1 — Evaluate</h4>
+            \[ \sin 1.1 \approx 0.8912073601, \qquad \sin 0.9 \approx 0.7833269096 \]
+            <h4>Step 2 — Difference quotient</h4>
+            \[ f'(1) \approx \frac{0.8912073601 - 0.7833269096}{0.2} \approx 0.5394022522 \]
+            <h4>Step 3 — Compare</h4>
+            <p>The exact value is \(\cos 1 \approx 0.5403023059\), so the error is about \(9.0 \times 10^{-4}\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limits</h2>
+          <ul>
+            <li>\(f\) must be defined at every point the formula uses and smooth near \(x\).</li>
+            <li>\(h\) must be between \(10^{-12}\) and 1000. Extremely small \(h\) is counter-productive: subtracting nearly equal numbers loses digits (round-off error), so the total error rises again below about \(h = 10^{-8}\).</li>
+            <li>The exact derivative used for comparison is computed symbolically.</li>
+          </ul>
+        </section>

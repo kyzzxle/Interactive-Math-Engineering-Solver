@@ -1,0 +1,42 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Complex numbers</h2>
+          <p>A <strong>complex number</strong> \(z = a + bi\) combines a real part \(a\) and an imaginary part \(b\), where \(i^2 = -1\). Engineers use complex numbers to represent AC voltages and currents (phasors), impedances and signals. This calculator performs exact arithmetic with complex numbers, converts between rectangular and polar forms, raises numbers to integer powers with de Moivre's theorem and plots everything on an Argand diagram.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Multiply any number by \(i\): its point on the Argand diagram rotates 90° counter-clockwise, and its modulus stays the same.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas</h2>
+          <table>
+            <thead><tr><th scope="col">Operation</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Product</td><td>\((a + bi)(c + di) = (ac - bd) + (ad + bc)i\)</td></tr>
+              <tr><td>Quotient</td><td>\(\dfrac{a + bi}{c + di} = \dfrac{(a + bi)(c - di)}{c^2 + d^2}\)</td></tr>
+              <tr><td>Modulus</td><td>\(|z| = \sqrt{a^2 + b^2}\)</td></tr>
+              <tr><td>Argument</td><td>\(\theta = \operatorname{atan2}(b, a)\), in \((-\pi, \pi]\)</td></tr>
+              <tr><td>Polar / exponential form</td><td>\(z = r(\cos\theta + i\sin\theta) = re^{i\theta}\)</td></tr>
+              <tr><td>De Moivre</td><td>\(z^n = r^n(\cos n\theta + i\sin n\theta)\)</td></tr>
+            </tbody>
+          </table>
+          <p>The conjugate \(\bar{z} = a - bi\) satisfies \(z\bar{z} = |z|^2\), which is why multiplying by the conjugate makes a denominator real.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(\dfrac{3 + 4i}{1 - 2i}\)</h3>
+            <h4>Step 1 — Multiply by the conjugate \(1 + 2i\)</h4>
+            \[ \frac{(3 + 4i)(1 + 2i)}{(1 - 2i)(1 + 2i)} = \frac{3 + 6i + 4i + 8i^2}{1 + 4} \]
+            <h4>Step 2 — Simplify with \(i^2 = -1\)</h4>
+            \[ = \frac{-5 + 10i}{5} = -1 + 2i \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Input format and rounding</h2>
+          <ul>
+            <li>Write numbers as \(a + bi\): <code>3+4i</code>, <code>-2i</code>, <code>i</code>, <code>5</code> or <code>1/2 - 3/4i</code>; <code>j</code> may be used instead of \(i\).</li>
+            <li>Rectangular results are exact fractions; the modulus is exact in simplest radical form.</li>
+            <li>Arguments are in radians (with degrees shown); a simple multiple of \(\pi\) is written exactly. The argument of 0 is undefined.</li>
+            <li>Powers are limited to \(|n| \le 100\).</li>
+          </ul>
+        </section>

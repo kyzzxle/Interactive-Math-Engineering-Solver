@@ -1,0 +1,34 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">The normal distribution</h2>
+          <p>The <strong>normal distribution</strong> is the familiar bell-shaped curve that describes many measurements — heights, test scores, manufacturing errors. It is fixed by two numbers: the mean \(\mu\) (the centre) and the standard deviation \(\sigma\) (the width). This calculator finds the probability that a normal variable falls below, above or between values, and works backwards to find the value at a given percentile.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Compute \(P(\mu - \sigma &lt; X &lt; \mu + \sigma)\) for any \(\mu\) and \(\sigma\): it is always about 0.6827. Normal probabilities depend only on how many standard deviations you are from the mean.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas</h2>
+          <div class="formula-box">\[ f(x) = \frac{1}{\sigma\sqrt{2\pi}}\, e^{-\frac{(x - \mu)^2}{2\sigma^2}} \qquad P(X &lt; a) = \Phi\left(\frac{a - \mu}{\sigma}\right) \]</div>
+          <div class="formula-box">\[ P(X &gt; a) = 1 - \Phi(z_a) \qquad P(a &lt; X &lt; b) = \Phi(z_b) - \Phi(z_a) \qquad x_p = \mu + \Phi^{-1}(p)\,\sigma \]</div>
+          <p>\(\Phi\) is the cumulative distribution function of the standard normal distribution — the values printed in a z-table. Here it is computed directly to about 15 significant digits.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>IQ scores: \(\mu = 100\), \(\sigma = 15\). Find \(P(X &lt; 120)\).</h3>
+            <h4>Step 1 — Standardise</h4>
+            \[ z = \frac{120 - 100}{15} \approx 1.3333 \]
+            <h4>Step 2 — Look up \(\Phi(z)\)</h4>
+            \[ P(X &lt; 120) = \Phi(1.3333) \approx 0.9088 \]
+            <p>About 90.9% of people score below 120.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The variable is assumed to follow a normal distribution with the given \(\mu\) and \(\sigma &gt; 0\).</li>
+            <li>For percentiles, \(p\) must be strictly between 0 and 1 (enter 0.95 for the 95th percentile).</li>
+            <li>Because the distribution is continuous, "<" and "≤" give the same probability.</li>
+            <li>Probabilities are rounded to 6 decimal places; very small tail probabilities are shown in scientific notation.</li>
+          </ul>
+        </section>

@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Checking and simplifying trigonometric identities</h2>
+          <p>A <strong>trigonometric identity</strong> is an equation that is true for every angle where both sides are defined, such as \(\sin^2 x + \cos^2 x = 1\). This tool helps in two ways: it rewrites expressions in terms of \(\sin x\) and \(\cos x\) — the usual first step of a proof — and it tests the equation at dozens of angles. If any angle fails, you get a <strong>counterexample</strong>, which proves the equation is not an identity. In simplify mode, the expression is compared against a list of common simple forms.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Check \(\sin 2x = 2\sin x\) (false) and then \(\sin 2x = 2\sin x\cos x\) (true). The graph shows the two curves separating or lying exactly on top of each other.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Supported identities</h2>
+          <table>
+            <thead><tr><th scope="col">Type</th><th scope="col">Identities</th></tr></thead>
+            <tbody>
+              <tr><td>Reciprocal</td><td>\(\sec x = \frac{1}{\cos x}\), \(\csc x = \frac{1}{\sin x}\), \(\cot x = \frac{1}{\tan x}\)</td></tr>
+              <tr><td>Quotient</td><td>\(\tan x = \frac{\sin x}{\cos x}\), \(\cot x = \frac{\cos x}{\sin x}\)</td></tr>
+              <tr><td>Pythagorean</td><td>\(\sin^2 x + \cos^2 x = 1\), \(1 + \tan^2 x = \sec^2 x\), \(1 + \cot^2 x = \csc^2 x\)</td></tr>
+              <tr><td>Double angle</td><td>\(\sin 2x = 2\sin x\cos x\), \(\cos 2x = \cos^2 x - \sin^2 x = 1 - 2\sin^2 x\)</td></tr>
+            </tbody>
+          </table>
+          <p>Expressions may use \(\sin, \cos, \tan, \sec, \csc, \cot\), numbers, \(+, -, \times, \div\) and powers, with \(x\) as the angle.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Simplify \(\dfrac{1 - \cos^2 x}{\sin x}\)</h3>
+            <h4>Step 1 — Pythagorean identity</h4>
+            \[ 1 - \cos^2 x = \sin^2 x \]
+            <h4>Step 2 — Cancel</h4>
+            \[ \frac{\sin^2 x}{\sin x} = \sin x \quad (\sin x \ne 0) \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">How reliable is it?</h2>
+          <ul>
+            <li>"Not an identity" is certain: the tool shows an angle where the two sides differ.</li>
+            <li>"Identity" means the sides agreed (to within \(10^{-9}\) relative error) at about 60 angles spread over \((-2\pi, 2\pi)\). This is very strong evidence but not a written proof; use the table above to build one.</li>
+            <li>Simplification only recognises the common simple forms the tool tests against (such as \(1\), \(\sin x\), \(\sec^2 x\), \(\sin 2x\)). If none matches, it says so instead of guessing.</li>
+            <li>Angles where an expression is undefined (for example \(\tan x\) at \(\frac{\pi}{2}\)) are skipped.</li>
+          </ul>
+        </section>

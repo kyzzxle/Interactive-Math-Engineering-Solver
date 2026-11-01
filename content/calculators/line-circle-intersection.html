@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Intersection of a line and a circle</h2>
+          <p>A straight line can cross a circle at two points (a <strong>secant</strong>), touch it at one point (a <strong>tangent</strong>), or miss it completely. Which case happens depends only on the distance from the circle's centre to the line compared with the radius. The calculator finds that distance, decides the case, computes the intersection points and draws the picture.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Slowly change C in the line's equation. The line slides parallel to itself: two points move together, merge into one tangent point, then disappear.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ d = \frac{|Ah + Bk + C|}{\sqrt{A^2 + B^2}}, \qquad t = \sqrt{r^2 - d^2}, \qquad P_{1,2} = F \pm t\,\frac{(-B,\ A)}{\sqrt{A^2 + B^2}} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(Ax + By + C = 0\)</td><td>The line, in general form.</td></tr>
+              <tr><td>\((h, k),\ r\)</td><td>Centre and radius of the circle \((x - h)^2 + (y - k)^2 = r^2\).</td></tr>
+              <tr><td>\(d\)</td><td>Perpendicular distance from the centre to the line.</td></tr>
+              <tr><td>\(F\)</td><td>Foot of the perpendicular from the centre: the midpoint of the chord.</td></tr>
+              <tr><td>\(t\)</td><td>Half the chord length.</td></tr>
+            </tbody>
+          </table>
+          <p>Algebraically, substituting the line into the circle gives a quadratic; its discriminant is positive, zero or negative exactly when \(d &lt; r\), \(d = r\) or \(d &gt; r\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>\(x - y + 1 = 0\) and \(x^2 + y^2 = 25\)</h3>
+            <h4>Step 1 — Substitute \(y = x + 1\)</h4>
+            \[ x^2 + (x + 1)^2 = 25 \;\Rightarrow\; 2x^2 + 2x - 24 = 0 \;\Rightarrow\; x^2 + x - 12 = 0 \]
+            <h4>Step 2 — Solve</h4>
+            \[ (x + 4)(x - 3) = 0 \;\Rightarrow\; x = -4 \text{ or } x = 3 \]
+            <h4>Step 3 — Points</h4>
+            \[ P_1 = (-4,\ -3), \qquad P_2 = (3,\ 4) \]
+            <p>Check with distances: \(d = \tfrac{|0 - 0 + 1|}{\sqrt{2}} \approx 0.707 &lt; 5\), so two points were expected.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The radius must be positive and A and B cannot both be zero.</li>
+            <li>Tangency is detected with a relative tolerance of \(10^{-12}\) to absorb floating-point rounding.</li>
+            <li>Coordinates are decimals rounded to 6 places; they are marked exact when the rounded value is exact.</li>
+          </ul>
+        </section>

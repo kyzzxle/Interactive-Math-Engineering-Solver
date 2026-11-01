@@ -1,0 +1,43 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the prism calculator does</h2>
+          <p>A <strong>prism</strong> is a solid with two identical, parallel polygon faces (the bases) joined by rectangular side faces. Its cross-section is the same all the way along, which makes its volume simply "base area × height". Choose one of the supported prism types — a box, a cube, a triangular prism with any triangle as its base, or a prism on a regular polygon — and the calculator finds the base area, perimeter, lateral area, total surface area and volume.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change only the height: the volume and lateral area change in proportion, but the base area does not. Change a base edge and every result changes.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V = B h \qquad L = P h \qquad T = 2B + P h \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(B\)</td><td>Area of one base.</td></tr>
+              <tr><td>\(P\)</td><td>Perimeter of one base.</td></tr>
+              <tr><td>\(h\)</td><td>Height of the prism: the distance between the bases (its "length" when lying down).</td></tr>
+              <tr><td>\(L, T, V\)</td><td>Lateral area, total surface area and volume.</td></tr>
+            </tbody>
+          </table>
+          <p>Base areas used: rectangle \(B = lw\); triangle by Heron's formula \(B = \sqrt{s(s-a)(s-b)(s-c)}\) with \(s = \tfrac{a+b+c}{2}\); regular \(n\)-gon with side \(a\): \(B = \dfrac{n a^2}{4\tan(180^\circ/n)}\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A triangular prism with base sides 3, 4, 5 cm and length 10 cm</h3>
+            <h4>Step 1 — Base area (Heron's formula)</h4>
+            \[ s = \frac{3 + 4 + 5}{2} = 6, \qquad B = \sqrt{6(3)(2)(1)} = \sqrt{36} = 6 \text{ cm}^2 \]
+            <h4>Step 2 — Perimeter and lateral area</h4>
+            \[ P = 12 \text{ cm}, \qquad L = P h = 12 \times 10 = 120 \text{ cm}^2 \]
+            <h4>Step 3 — Total area and volume</h4>
+            \[ T = 2(6) + 120 = 132 \text{ cm}^2, \qquad V = 6 \times 10 = 60 \text{ cm}^3 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Only <strong>right</strong> prisms are supported (side edges perpendicular to the bases).</li>
+            <li>Supported bases: rectangle, square (cube), any triangle, and regular polygons with 3, 4, 5, 6, 8, 10 or 12 sides.</li>
+            <li>Triangle sides must satisfy the triangle inequality; otherwise no triangle exists and no result is shown.</li>
+            <li>Regular-polygon and Heron results usually involve square roots or trigonometric values, so they are shown as decimals rounded to 6 places.</li>
+          </ul>
+        </section>

@@ -1,0 +1,502 @@
+{
+  "categories": [
+    { "id": "solid-mensuration", "name": "Solid Mensuration", "glyph": "◭", "description": "Surface areas and volumes of three-dimensional solids such as prisms, cylinders, cones, pyramids, frustums and spheres." },
+    { "id": "analytic-geometry", "name": "Analytic Geometry", "glyph": "⟂", "description": "Points, lines and conic sections studied with coordinates: distances, slopes, intersections and equations of curves." },
+    { "id": "algebra", "name": "Algebra", "glyph": "x²", "description": "Equations, polynomials, systems of equations, exponents, radicals and logarithms." },
+    { "id": "trigonometry", "name": "Trigonometry", "glyph": "△", "description": "Angles, triangles and periodic functions: right-triangle ratios, the laws of sines and cosines, identities and equations." },
+    { "id": "calculus", "name": "Calculus", "glyph": "∫", "description": "Derivatives, tangent lines, critical points and integrals for analysing rates of change and areas." },
+    { "id": "statistics-probability", "name": "Statistics & Probability", "glyph": "σ", "description": "Describing data and quantifying uncertainty: averages, spread, normal and binomial distributions, confidence intervals." },
+    { "id": "combinatorics", "name": "Combinatorics", "glyph": "n!", "description": "Systematic counting: factorials, arrangements, selections, the binomial theorem and inclusion–exclusion." },
+    { "id": "engineering-mathematics", "name": "Engineering Mathematics", "glyph": "⚙", "description": "Complex numbers, matrices and the numerical methods engineers use for roots, derivatives and integrals." }
+  ],
+  "calculators": [
+    {
+      "id": "frustum-of-a-cone", "name": "Frustum of a Cone Calculator", "shortName": "Frustum of a Cone", "category": "solid-mensuration", "url": "calculators/frustum-of-a-cone/", "featured": true,
+      "summary": "Find the slant height, perpendicular height, lateral area, total surface area and volume of a truncated cone, with every substitution shown.",
+      "keywords": ["truncated cone", "frustum", "volume", "lateral surface area", "total surface area", "slant height", "bucket", "hopper"],
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "sphere", "name": "Sphere Calculator", "shortName": "Sphere", "category": "solid-mensuration", "generated": true, "featured": true,
+      "summary": "Surface area and volume of a sphere from its radius, diameter, area or volume, with exact answers in terms of π.",
+      "keywords": ["sphere", "ball", "surface area", "volume", "radius", "diameter", "4πr²"],
+      "related": ["cylinder", "cone", "frustum-of-a-cone"],
+      "title": "Sphere Calculator – Surface Area & Volume with Steps | Solver Hub",
+      "description": "Free sphere calculator: enter the radius, diameter, surface area or volume to find all the others, with exact π answers, formulas and step-by-step working.",
+      "lead": "Enter any one measurement of a sphere — radius, diameter, surface area or volume — and get all the others, with exact answers in terms of π and each step explained.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "cylinder", "name": "Cylinder Calculator", "shortName": "Cylinder", "category": "solid-mensuration", "generated": true,
+      "summary": "Lateral area, total surface area and volume of a right circular cylinder from its radius or diameter and height.",
+      "keywords": ["cylinder", "can", "tank", "pipe", "lateral area", "surface area", "volume", "πr²h"],
+      "related": ["cone", "sphere", "prism"],
+      "title": "Cylinder Calculator – Lateral Area, Surface Area & Volume | Solver Hub",
+      "description": "Calculate the lateral area, total surface area and volume of a cylinder with exact π answers, a labelled diagram and step-by-step solutions.",
+      "lead": "Enter the radius (or diameter) and height of a right circular cylinder to find its curved area, total surface area and volume, with exact multiples of π.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "cone", "name": "Cone Calculator", "shortName": "Cone", "category": "solid-mensuration", "generated": true,
+      "summary": "Slant height, lateral area, total surface area and volume of a right circular cone from the radius and either height.",
+      "keywords": ["cone", "slant height", "lateral area", "surface area", "volume", "πrs", "1/3 πr²h"],
+      "related": ["frustum-of-a-cone", "cylinder", "pyramid"],
+      "title": "Cone Calculator – Slant Height, Surface Area & Volume | Solver Hub",
+      "description": "Find the slant height, surface area and volume of a right circular cone from the radius and height or slant height. Exact π and radical answers with steps.",
+      "lead": "Give the base radius and either the perpendicular height or the slant height. The calculator finds the missing height, the surface areas and the volume, in exact form where possible.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "prism", "name": "Prism Calculator", "shortName": "Prism", "category": "solid-mensuration", "generated": true,
+      "summary": "Surface area and volume of rectangular, cube, triangular and regular-polygon right prisms.",
+      "keywords": ["prism", "rectangular prism", "box", "cube", "triangular prism", "hexagonal prism", "surface area", "volume", "Heron"],
+      "related": ["pyramid", "cylinder", "frustum-of-a-pyramid"],
+      "title": "Prism Calculator – Surface Area & Volume of Any Prism | Solver Hub",
+      "description": "Surface area and volume of rectangular, cube, triangular and regular polygon prisms, with base area, perimeter, diagrams and step-by-step working.",
+      "lead": "Choose a prism type — box, cube, triangular or regular polygon — and enter its dimensions to get the base area, perimeter, lateral area, total surface area and volume.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "pyramid", "name": "Pyramid Calculator", "shortName": "Pyramid", "category": "solid-mensuration", "generated": true,
+      "summary": "Slant height, lateral and total surface area and volume of right pyramids with regular or rectangular bases.",
+      "keywords": ["pyramid", "square pyramid", "rectangular pyramid", "slant height", "lateral edge", "surface area", "volume", "1/3 Bh"],
+      "related": ["frustum-of-a-pyramid", "prism", "cone"],
+      "title": "Pyramid Calculator – Surface Area, Slant Height & Volume | Solver Hub",
+      "description": "Calculate the volume, slant height, lateral area and total surface area of square, rectangular and regular polygon pyramids with clear steps.",
+      "lead": "Enter the base of a right pyramid (regular polygon or rectangle) and its height. The calculator finds the slant heights, lateral edge, surface areas and volume.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "frustum-of-a-pyramid", "name": "Frustum of a Pyramid Calculator", "shortName": "Frustum of a Pyramid", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume, slant height and surface area of a truncated pyramid with regular or rectangular similar bases.",
+      "keywords": ["frustum of a pyramid", "truncated pyramid", "square frustum", "volume", "surface area", "slant height", "hopper"],
+      "related": ["pyramid", "frustum-of-a-cone", "prism"],
+      "title": "Frustum of a Pyramid Calculator – Volume & Surface Area | Solver Hub",
+      "description": "Volume and surface area of a truncated pyramid with square, regular polygon or rectangular bases. Uses V = h/3(A₁ + A₂ + √(A₁A₂)) with every step shown.",
+      "lead": "Enter the bottom and top base dimensions and the height of a truncated right pyramid to find its volume, slant height, lateral area and total surface area.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "distance-from-point-to-line", "name": "Distance from a Point to a Line Calculator", "shortName": "Point-to-Line Distance", "category": "analytic-geometry", "url": "calculators/distance-from-point-to-line/", "featured": true,
+      "summary": "Compute the shortest (perpendicular) distance from a point to the line Ax + By + C = 0, plus the foot of the perpendicular and a plotted graph.",
+      "keywords": ["perpendicular distance", "point to line", "Ax+By+C=0", "general form", "foot of perpendicular", "coordinate geometry"],
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "midpoint-and-distance", "name": "Midpoint and Distance Calculator", "shortName": "Midpoint & Distance", "category": "analytic-geometry", "generated": true, "featured": true,
+      "summary": "Midpoint of a segment and the distance between two points, with exact radicals, fractions and a graph.",
+      "keywords": ["midpoint formula", "distance formula", "distance between two points", "segment", "coordinates"],
+      "related": ["slope-and-equation-of-a-line", "distance-from-point-to-line", "circle-equation"],
+      "title": "Midpoint and Distance Calculator – Between Two Points | Solver Hub",
+      "description": "Find the midpoint and the distance between two points with exact square-root answers, fraction support, a graph and step-by-step solutions.",
+      "lead": "Enter two points to get the midpoint of the segment joining them and the distance between them — exact, simplified and graphed.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "slope-and-equation-of-a-line", "name": "Slope and Equation of a Line Calculator", "shortName": "Slope & Line Equation", "category": "analytic-geometry", "generated": true,
+      "summary": "Slope, point–slope, slope–intercept and general form of a line from two points or a point and a slope.",
+      "keywords": ["slope", "equation of a line", "slope-intercept form", "point-slope form", "general form", "y = mx + b", "intercepts"],
+      "related": ["midpoint-and-distance", "intersection-of-two-lines", "distance-from-point-to-line"],
+      "title": "Slope and Equation of a Line Calculator (y = mx + b) | Solver Hub",
+      "description": "Find the slope and equation of a line from two points or a point and slope: point–slope, slope–intercept and general form, intercepts, angle and graph.",
+      "lead": "Give two points, or one point and the slope, to get the slope and every common form of the line's equation, with exact fractions and a graph.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "intersection-of-two-lines", "name": "Intersection of Two Lines Calculator", "shortName": "Intersection of Two Lines", "category": "analytic-geometry", "generated": true,
+      "summary": "Point where two lines meet, or whether they are parallel or identical, using Cramer's rule with exact fractions.",
+      "keywords": ["intersection of lines", "point of intersection", "Cramer's rule", "parallel lines", "angle between lines", "simultaneous equations"],
+      "related": ["slope-and-equation-of-a-line", "systems-of-linear-equations", "line-circle-intersection"],
+      "title": "Intersection of Two Lines Calculator – Point & Angle | Solver Hub",
+      "description": "Find where two lines intersect, or detect parallel and coincident lines. Exact fractions, the angle between the lines, a graph and full working.",
+      "lead": "Enter two lines in general form Ax + By + C = 0. The calculator finds the intersection point exactly, or explains why the lines are parallel or identical.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "line-circle-intersection", "name": "Line and Circle Intersection Calculator", "shortName": "Line–Circle Intersection", "category": "analytic-geometry", "generated": true,
+      "summary": "Points where a line meets a circle, including tangent and no-intersection cases, with a graph.",
+      "keywords": ["line circle intersection", "secant", "tangent line", "chord", "circle", "intersection points"],
+      "related": ["circle-equation", "distance-from-point-to-line", "intersection-of-two-lines"],
+      "title": "Line and Circle Intersection Calculator – Secant or Tangent | Solver Hub",
+      "description": "Find the intersection points of a line and a circle. Detects secant, tangent and no-intersection cases using the centre-to-line distance, with a graph.",
+      "lead": "Enter a line and a circle. The calculator compares the centre-to-line distance with the radius, then finds zero, one or two intersection points.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "circle-equation", "name": "Circle Equation Calculator", "shortName": "Circle Equation", "category": "analytic-geometry", "generated": true,
+      "summary": "Centre, radius, standard and general form of a circle — from centre and radius, a point, the general form or three points.",
+      "keywords": ["equation of a circle", "standard form", "general form", "centre and radius", "complete the square", "circle through three points"],
+      "related": ["line-circle-intersection", "parabola", "midpoint-and-distance"],
+      "title": "Circle Equation Calculator – Centre, Radius, Standard & General Form | Solver Hub",
+      "description": "Convert between standard and general form of a circle, find the centre and radius by completing the square, or find the circle through three points.",
+      "lead": "Find a circle's centre, radius, standard form and general form from whichever information you have, with exact working and a graph.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "parabola", "name": "Parabola Calculator", "shortName": "Parabola", "category": "analytic-geometry", "generated": true,
+      "summary": "Vertex, focus, directrix, axis and intercepts of a parabola in standard or vertex form, with a graph.",
+      "keywords": ["parabola", "vertex", "focus", "directrix", "axis of symmetry", "latus rectum", "conic section", "quadratic"],
+      "related": ["quadratic-equation-solver", "circle-equation", "slope-and-equation-of-a-line"],
+      "title": "Parabola Calculator – Vertex, Focus & Directrix | Solver Hub",
+      "description": "Find the vertex, focus, directrix, axis of symmetry, latus rectum and intercepts of a parabola from y = ax² + bx + c or vertex form, with a graph.",
+      "lead": "Enter a parabola in standard or vertex form to find its vertex, focus, directrix and other features exactly, shown on a graph.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "linear-equation-solver", "name": "Linear Equation Solver", "shortName": "Linear Equations", "category": "algebra", "generated": true,
+      "summary": "Solve linear equations in x with brackets and fractions, showing every step, the check and special cases.",
+      "keywords": ["linear equation", "solve for x", "one variable", "equation solver", "no solution", "identity"],
+      "related": ["quadratic-equation-solver", "systems-of-linear-equations", "slope-and-equation-of-a-line"],
+      "title": "Linear Equation Solver – Solve for x Step by Step | Solver Hub",
+      "description": "Solve any linear equation in x, including brackets and fractions, with exact answers, a graph and steps. Detects no-solution and all-real-numbers cases.",
+      "lead": "Type a linear equation such as 2(x − 3) + 4 = 5x − 11. The solver expands, collects terms, isolates x exactly and checks the answer.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "quadratic-equation-solver", "name": "Quadratic Equation Solver", "shortName": "Quadratic Equations", "category": "algebra", "generated": true, "featured": true,
+      "summary": "Real and complex roots of ax² + bx + c = 0 with the discriminant, exact radicals, factored form and graph.",
+      "keywords": ["quadratic formula", "quadratic equation", "discriminant", "complex roots", "roots", "ax^2+bx+c", "factoring"],
+      "related": ["polynomial-factoring", "parabola", "linear-equation-solver"],
+      "title": "Quadratic Equation Solver – Real & Complex Roots with Steps | Solver Hub",
+      "description": "Solve ax² + bx + c = 0 with the quadratic formula: discriminant, exact roots in simplest radical form, complex roots, factored form, vertex and graph.",
+      "lead": "Enter a, b and c. The solver interprets the discriminant and gives both roots exactly — fractions, simplified radicals or complex numbers — with decimals and a graph.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "polynomial-factoring", "name": "Polynomial Factoring Calculator", "shortName": "Polynomial Factoring", "category": "algebra", "generated": true,
+      "summary": "Factor polynomials of degree 2–6 completely over the rationals: GCF, rational roots, quadratic and cubic factors.",
+      "keywords": ["factor polynomial", "factoring", "rational root theorem", "difference of squares", "sum of cubes", "synthetic division", "GCF"],
+      "related": ["quadratic-equation-solver", "binomial-theorem-expansion", "linear-equation-solver"],
+      "title": "Polynomial Factoring Calculator – Factor Completely with Steps | Solver Hub",
+      "description": "Factor polynomials up to degree 6 over the rationals: greatest common factor, rational root theorem, synthetic division and higher-degree factors, checked exactly.",
+      "lead": "Enter a polynomial in x of degree 2 to 6. The calculator factors it completely over the rational numbers and checks the result by expanding.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "systems-of-linear-equations", "name": "Systems of Linear Equations Solver", "shortName": "Systems of Equations", "category": "algebra", "generated": true,
+      "summary": "Solve 2×2 and 3×3 linear systems by elimination with exact fractions; detects no-solution and infinite cases.",
+      "keywords": ["system of equations", "simultaneous equations", "elimination method", "two variables", "three variables", "Gaussian elimination"],
+      "related": ["matrix-method-linear-systems", "intersection-of-two-lines", "linear-equation-solver"],
+      "title": "Systems of Linear Equations Solver (2 or 3 Variables) | Solver Hub",
+      "description": "Solve systems of two or three linear equations by elimination with exact fractions and row-operation steps. Shows unique, no-solution and infinite cases.",
+      "lead": "Enter the coefficients of two or three linear equations. The solver eliminates step by step with exact fractions and explains the type of solution.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "exponent-and-radical-simplifier", "name": "Exponent and Radical Simplifier", "shortName": "Exponents & Radicals", "category": "algebra", "generated": true,
+      "summary": "Simplify monomials with exponent laws, radicals of single terms and rational powers of numbers, step by step.",
+      "keywords": ["simplify exponents", "laws of exponents", "simplify radicals", "negative exponents", "fractional exponents", "nth root"],
+      "related": ["logarithm-calculator", "polynomial-factoring", "quadratic-equation-solver"],
+      "title": "Exponent and Radical Simplifier – Laws of Exponents & Roots | Solver Hub",
+      "description": "Simplify expressions with exponents, radicals such as √(72x⁵y²) and powers like 16^(−3/4), with each exponent law and step explained.",
+      "lead": "Choose a supported form — an exponent expression, a radical or a rational power — and get the simplified result with every law of exponents explained.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "logarithm-calculator", "name": "Logarithm Calculator", "shortName": "Logarithms", "category": "algebra", "generated": true,
+      "summary": "Evaluate log_b(x) exactly when possible and solve logarithmic and exponential equations with domain checks.",
+      "keywords": ["logarithm", "log base", "natural log", "ln", "change of base", "exponential equation", "logarithmic equation"],
+      "related": ["exponent-and-radical-simplifier", "linear-equation-solver", "derivative-calculator"],
+      "title": "Logarithm Calculator – Evaluate & Solve Log Equations | Solver Hub",
+      "description": "Evaluate logarithms in any base (exactly when possible) and solve equations log_b(ax + c) = d and b^(ax + c) = k with steps and domain checks.",
+      "lead": "Evaluate a logarithm in any base or solve a logarithmic or exponential equation, with the change-of-base step and the domain checked.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "right-triangle-solver", "name": "Right Triangle Solver", "shortName": "Right Triangle", "category": "trigonometry", "generated": true, "featured": true,
+      "summary": "Solve a right triangle from any two values: sides, angles, area and perimeter with SOH-CAH-TOA steps and a scaled diagram.",
+      "keywords": ["right triangle", "SOH CAH TOA", "hypotenuse", "Pythagorean theorem", "sine", "cosine", "tangent", "solve triangle"],
+      "related": ["law-of-sines", "law-of-cosines", "degrees-radians-unit-circle"],
+      "title": "Right Triangle Solver – Sides, Angles & Area with Steps | Solver Hub",
+      "description": "Solve any right triangle from two known values. Finds the missing sides and angles with the Pythagorean theorem and SOH-CAH-TOA, with a scaled diagram.",
+      "lead": "Enter any two values of a right triangle — at least one side — and leave the rest blank. You get every side and angle, the area and a diagram drawn to scale.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "law-of-sines", "name": "Law of Sines Calculator", "shortName": "Law of Sines", "category": "trigonometry", "generated": true,
+      "summary": "Solve AAS, ASA and the ambiguous SSA case (0, 1 or 2 triangles) with the law of sines.",
+      "keywords": ["law of sines", "sine rule", "ambiguous case", "SSA", "AAS", "ASA", "oblique triangle"],
+      "related": ["law-of-cosines", "right-triangle-solver", "degrees-radians-unit-circle"],
+      "title": "Law of Sines Calculator – Including the Ambiguous Case | Solver Hub",
+      "description": "Solve triangles with the law of sines: AAS, ASA and the ambiguous SSA case with 0, 1 or 2 solutions, each drawn to scale with step-by-step working.",
+      "lead": "Enter three values of a triangle including a side and its opposite angle. The calculator solves AAS and ASA triangles and handles every outcome of the ambiguous SSA case.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "law-of-cosines", "name": "Law of Cosines Calculator", "shortName": "Law of Cosines", "category": "trigonometry", "generated": true,
+      "summary": "Solve SAS and SSS triangles with the law of cosines, including triangle-inequality checks and a scaled diagram.",
+      "keywords": ["law of cosines", "cosine rule", "SAS", "SSS", "oblique triangle", "triangle inequality", "find angle"],
+      "related": ["law-of-sines", "right-triangle-solver", "prism"],
+      "title": "Law of Cosines Calculator – SAS and SSS Triangles | Solver Hub",
+      "description": "Find the missing side and angles of a triangle from two sides and the included angle, or all angles from three sides, with the law of cosines and steps.",
+      "lead": "Give two sides and the angle between them, or all three sides. The calculator finds every unknown part of the triangle with the law of cosines.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "trig-identity-checker", "name": "Trigonometric Identity Checker and Simplifier", "shortName": "Trig Identities", "category": "trigonometry", "generated": true,
+      "summary": "Rewrite expressions in sin and cos, verify identities numerically with counterexamples, and match common simplified forms.",
+      "keywords": ["trig identities", "verify identity", "simplify trig expression", "Pythagorean identity", "sin cos tan", "counterexample"],
+      "related": ["trig-equation-solver", "degrees-radians-unit-circle", "derivative-calculator"],
+      "title": "Trigonometric Identity Checker & Simplifier | Solver Hub",
+      "description": "Check whether a trigonometric equation is an identity, find a counterexample if it is not, and simplify expressions to common forms like 1 or sin x.",
+      "lead": "Enter a trigonometric equation to test it at many angles, or an expression to simplify. Expressions are rewritten in sin x and cos x and compared with common simple forms.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "trig-equation-solver", "name": "Trigonometric Equation Solver", "shortName": "Trig Equations", "category": "trigonometry", "generated": true,
+      "summary": "Solve a·sin, cos or tan(bx + c) + d = k on [0, 2π) or [0°, 360°) with exact angles and the general solution.",
+      "keywords": ["trig equation", "solve sin x", "general solution", "trigonometric equation", "solutions in 0 to 2pi", "inverse trig"],
+      "related": ["trig-identity-checker", "degrees-radians-unit-circle", "right-triangle-solver"],
+      "title": "Trigonometric Equation Solver – Solutions on [0, 2π) | Solver Hub",
+      "description": "Solve sin, cos and tan equations of the form a·f(bx + c) + d = k with exact angles, the general solution, all solutions in one turn and a graph.",
+      "lead": "Solve equations like 2 sin x − 1 = 0 or cos 2x = √3/2. You get every solution in one full turn, the general solution and a graph of the intersections.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "degrees-radians-unit-circle", "name": "Degrees and Radians Converter with Unit Circle", "shortName": "Degrees ↔ Radians", "category": "trigonometry", "generated": true,
+      "summary": "Convert between degrees and radians and get the quadrant, reference angle and exact sin, cos and tan on the unit circle.",
+      "keywords": ["degrees to radians", "radians to degrees", "unit circle", "reference angle", "exact values", "quadrant", "coterminal angle"],
+      "related": ["trig-equation-solver", "right-triangle-solver", "trig-identity-checker"],
+      "title": "Degrees to Radians Converter with Unit Circle Values | Solver Hub",
+      "description": "Convert degrees to radians and back (with π), and find the quadrant, reference angle and exact sine, cosine and tangent on the unit circle.",
+      "lead": "Convert any angle between degrees and radians — type radians with π — and see it on the unit circle with exact trigonometric values.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "derivative-calculator", "name": "Derivative Calculator", "shortName": "Derivatives", "category": "calculus", "generated": true, "featured": true,
+      "summary": "Symbolic first and second derivatives with the rule used for each term, values at a point and a graph of f and f′.",
+      "keywords": ["derivative", "differentiate", "product rule", "quotient rule", "chain rule", "power rule", "second derivative", "f'(x)"],
+      "related": ["tangent-line-calculator", "critical-points", "numerical-differentiation"],
+      "title": "Derivative Calculator with Steps – Product, Quotient & Chain Rule | Solver Hub",
+      "description": "Differentiate polynomial, rational, trigonometric, exponential and logarithmic functions step by step, with second derivatives, values and a graph.",
+      "lead": "Type a function of x to get its derivative with every rule explained — power, product, quotient and chain rule — checked numerically and graphed alongside f.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "tangent-line-calculator", "name": "Tangent Line Calculator", "shortName": "Tangent Line", "category": "calculus", "generated": true,
+      "summary": "Equation of the tangent and normal lines to y = f(x) at a point, with exact values for polynomials and a graph.",
+      "keywords": ["tangent line", "equation of tangent", "normal line", "slope of curve", "point of tangency", "linear approximation"],
+      "related": ["derivative-calculator", "slope-and-equation-of-a-line", "critical-points"],
+      "title": "Tangent Line Calculator – Equation of Tangent & Normal | Solver Hub",
+      "description": "Find the equation of the tangent line and normal line to a curve at a point, with the derivative, slope, exact fractions for polynomials and a graph.",
+      "lead": "Enter a function and a point x₀. The calculator differentiates, finds the slope there and gives the tangent and normal lines, drawn on the graph.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "critical-points", "name": "Critical Points and Increasing/Decreasing Intervals", "shortName": "Critical Points", "category": "calculus", "generated": true,
+      "summary": "Critical numbers, local maxima and minima, and intervals of increase and decrease for polynomials, with a sign chart.",
+      "keywords": ["critical points", "local maximum", "local minimum", "increasing decreasing intervals", "first derivative test", "sign chart", "extrema"],
+      "related": ["derivative-calculator", "tangent-line-calculator", "polynomial-factoring"],
+      "title": "Critical Points Calculator – Increasing & Decreasing Intervals | Solver Hub",
+      "description": "Find critical numbers, local maxima and minima and the intervals where a polynomial increases or decreases, with a sign chart of f′ and a graph.",
+      "lead": "Enter a polynomial. The calculator solves f′(x) = 0, builds the sign chart of f′ and classifies each critical point with the first-derivative test.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "indefinite-integral", "name": "Indefinite Integral Calculator", "shortName": "Indefinite Integrals", "category": "calculus", "generated": true,
+      "summary": "Antiderivatives by standard rules — powers, exponentials, trig and linear substitutions — checked by differentiation.",
+      "keywords": ["indefinite integral", "antiderivative", "integration rules", "integral calculator", "power rule integration", "+ C"],
+      "related": ["definite-integral", "derivative-calculator", "area-between-curves"],
+      "title": "Indefinite Integral Calculator – Antiderivatives with Steps | Solver Hub",
+      "description": "Find antiderivatives term by term using standard integration rules for powers, exponentials, logarithms and trigonometric functions, with each rule shown.",
+      "lead": "Type an integrand to get its antiderivative, the rule used for each term and a check by differentiation. Unsupported forms are clearly reported.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "definite-integral", "name": "Definite Integral Calculator", "shortName": "Definite Integrals", "category": "calculus", "generated": true,
+      "summary": "Exact values by the Fundamental Theorem of Calculus, or adaptive Simpson's rule when no antiderivative is found — clearly labelled.",
+      "keywords": ["definite integral", "fundamental theorem of calculus", "area under curve", "Simpson's rule", "numerical integration", "integral from a to b"],
+      "related": ["indefinite-integral", "area-between-curves", "numerical-integration"],
+      "title": "Definite Integral Calculator – Exact or Numerical with Steps | Solver Hub",
+      "description": "Evaluate definite integrals exactly with F(b) − F(a) or numerically with adaptive Simpson's rule, with the method clearly identified and a shaded graph.",
+      "lead": "Enter f(x) and the limits. You get the exact value when an antiderivative exists, or an accurate numerical value otherwise — always with the method stated.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "area-between-curves", "name": "Area Between Curves Calculator", "shortName": "Area Between Curves", "category": "calculus", "generated": true,
+      "summary": "Area between two curves on an interval or between their intersections, split at every crossing, with a shaded graph.",
+      "keywords": ["area between curves", "area between two functions", "enclosed area", "integral of difference", "intersection points"],
+      "related": ["definite-integral", "indefinite-integral", "intersection-of-two-lines"],
+      "title": "Area Between Curves Calculator – With Intersections & Graph | Solver Hub",
+      "description": "Find the area between two curves on an interval or between their intersection points. Splits the integral at each crossing and shades the region.",
+      "lead": "Enter two functions and an interval — or let the calculator use their intersection points — to find the enclosed area, piece by piece.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "mean-median-mode-range", "name": "Mean, Median, Mode and Range Calculator", "shortName": "Mean, Median, Mode", "category": "statistics-probability", "generated": true, "featured": true,
+      "summary": "Mean, median, mode(s) and range of a data set with sorted data, exact means and a frequency chart.",
+      "keywords": ["mean", "median", "mode", "range", "average", "central tendency", "data set", "statistics"],
+      "related": ["variance-and-standard-deviation", "z-score-calculator", "confidence-interval"],
+      "title": "Mean, Median, Mode and Range Calculator with Steps | Solver Hub",
+      "description": "Find the mean, median, mode and range of a data set step by step, with exact averages, a frequency chart and an explanation of skew.",
+      "lead": "Paste a list of numbers to get the mean, median, mode and range, each explained, with a chart of the data.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "variance-and-standard-deviation", "name": "Variance and Standard Deviation Calculator", "shortName": "Variance & Std Dev", "category": "statistics-probability", "generated": true,
+      "summary": "Sample and population variance and standard deviation with a table of deviations and exact sums.",
+      "keywords": ["standard deviation", "variance", "sample standard deviation", "population standard deviation", "n-1", "spread", "deviation"],
+      "related": ["mean-median-mode-range", "z-score-calculator", "normal-distribution"],
+      "title": "Variance and Standard Deviation Calculator (Sample & Population) | Solver Hub",
+      "description": "Calculate sample (n − 1) and population (N) variance and standard deviation with a table of deviations, exact sums of squares and clear steps.",
+      "lead": "Enter your data and choose sample or population. The calculator shows every deviation, the sum of squares, the variance and the standard deviation.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "z-score-calculator", "name": "Z-Score Calculator", "shortName": "Z-Score", "category": "statistics-probability", "generated": true,
+      "summary": "Convert a value to a z-score (or back) and find its percentile under the normal curve.",
+      "keywords": ["z-score", "standard score", "standardize", "percentile", "normal curve", "how many standard deviations"],
+      "related": ["normal-distribution", "variance-and-standard-deviation", "confidence-interval"],
+      "title": "Z-Score Calculator – Value to z and Percentile | Solver Hub",
+      "description": "Calculate z = (x − μ)/σ, convert z back to x, and find the percentile and tail probabilities under the normal curve, with a shaded graph.",
+      "lead": "Find how many standard deviations a value is from the mean, the matching percentile, or the value for a given z-score.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "normal-distribution", "name": "Normal Distribution Calculator", "shortName": "Normal Distribution", "category": "statistics-probability", "generated": true,
+      "summary": "Probabilities below, above or between values and percentiles (inverse normal) for any normal distribution.",
+      "keywords": ["normal distribution", "bell curve", "normal probability", "inverse normal", "percentile", "z-table", "area under curve"],
+      "related": ["z-score-calculator", "binomial-probability", "confidence-interval"],
+      "title": "Normal Distribution Calculator – Probabilities & Percentiles | Solver Hub",
+      "description": "Find P(X < a), P(X > a), P(a < X < b) and percentiles for any normal distribution, with shaded bell-curve graphs and step-by-step z-scores.",
+      "lead": "Enter the mean and standard deviation, then find the probability of a range of values or the value at a given percentile.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "binomial-probability", "name": "Binomial Probability Calculator", "shortName": "Binomial Probability", "category": "statistics-probability", "generated": true,
+      "summary": "Exact and cumulative binomial probabilities, mean and standard deviation, with a highlighted distribution chart.",
+      "keywords": ["binomial probability", "binomial distribution", "P(X = k)", "cumulative probability", "at least", "at most", "Bernoulli trials"],
+      "related": ["permutations-and-combinations", "normal-distribution", "binomial-theorem-expansion"],
+      "title": "Binomial Probability Calculator – Exactly, At Most, At Least | Solver Hub",
+      "description": "Calculate binomial probabilities P(X = k), P(X ≤ k), P(X ≥ k) and ranges with the formula, exact fractions where possible and a probability chart.",
+      "lead": "Enter the number of trials, the probability of success and the number of successes to get exact or cumulative binomial probabilities.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "confidence-interval", "name": "Confidence Interval Calculator", "shortName": "Confidence Intervals", "category": "statistics-probability", "generated": true,
+      "summary": "z- and t-intervals for a mean and the one-proportion interval, with critical values, margin of error and assumptions.",
+      "keywords": ["confidence interval", "margin of error", "t-interval", "z-interval", "proportion", "critical value", "95% confidence"],
+      "related": ["z-score-calculator", "normal-distribution", "variance-and-standard-deviation"],
+      "title": "Confidence Interval Calculator – Mean & Proportion | Solver Hub",
+      "description": "Build 90–99.9% confidence intervals for a mean (z or t) or a proportion from summary statistics, with the critical value, standard error and assumptions.",
+      "lead": "Enter summary statistics and a confidence level to get the interval, margin of error and critical value, with the conditions that must hold.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "factorial-calculator", "name": "Factorial Calculator", "shortName": "Factorial", "category": "combinatorics", "generated": true,
+      "summary": "Exact n! with every digit up to 40,000!, scientific notation beyond, plus digit count and trailing zeros.",
+      "keywords": ["factorial", "n!", "factorial calculator", "trailing zeros", "Stirling's approximation", "big numbers"],
+      "related": ["permutations-and-combinations", "permutations-with-repetition", "circular-permutations"],
+      "title": "Factorial Calculator – Exact n! with All Digits | Solver Hub",
+      "description": "Compute n! exactly with every digit (up to 40,000!), or in scientific notation for huge n, with the number of digits and trailing zeros explained.",
+      "lead": "Enter a whole number to get its factorial exactly — every digit — along with the digit count and the number of trailing zeros.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "permutations-with-repetition", "name": "Permutations with Repeated Items Calculator", "shortName": "Repeated-Item Permutations", "category": "combinatorics", "generated": true,
+      "summary": "Distinguishable arrangements of a word or of groups of identical items: n!/(n₁! n₂! ⋯).",
+      "keywords": ["permutations with repetition", "repeated letters", "arrangements of a word", "multinomial", "MISSISSIPPI", "distinguishable permutations"],
+      "related": ["permutations-and-combinations", "factorial-calculator", "circular-permutations"],
+      "title": "Permutations with Repeated Letters Calculator (MISSISSIPPI) | Solver Hub",
+      "description": "Count the distinguishable arrangements of a word with repeated letters or of identical objects with n!/(n₁! n₂! ⋯), with steps and listed arrangements.",
+      "lead": "Type a word or the sizes of groups of identical items to count the distinct arrangements, with every step and small cases listed in full.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "circular-permutations", "name": "Circular Permutations Calculator", "shortName": "Circular Permutations", "category": "combinatorics", "generated": true,
+      "summary": "Arrangements around a circle — round tables and necklaces — including choosing r of n objects.",
+      "keywords": ["circular permutations", "round table", "necklace", "(n-1)!", "arrangements in a circle", "bracelet"],
+      "related": ["permutations-and-combinations", "factorial-calculator", "permutations-with-repetition"],
+      "title": "Circular Permutations Calculator – Round Tables & Necklaces | Solver Hub",
+      "description": "Count arrangements of objects in a circle with (n − 1)!, divide by 2 when mirror images are identical, or seat r of n objects, with a diagram.",
+      "lead": "Count the ways to arrange people around a table or beads on a necklace, with or without mirror images treated as the same.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "binomial-theorem-expansion", "name": "Binomial Theorem Expansion Calculator", "shortName": "Binomial Expansion", "category": "combinatorics", "generated": true,
+      "summary": "Expand (a + b)ⁿ with exact coefficients from Pascal's triangle, or find any single term.",
+      "keywords": ["binomial theorem", "binomial expansion", "expand (a+b)^n", "Pascal's triangle", "general term", "binomial coefficient"],
+      "related": ["permutations-and-combinations", "polynomial-factoring", "binomial-probability"],
+      "title": "Binomial Theorem Expansion Calculator – Expand (a + b)ⁿ | Solver Hub",
+      "description": "Expand (a + b)ⁿ for monomial terms like 2x and −3, or find a specific term, with binomial coefficients, each term worked out and exact results.",
+      "lead": "Enter two terms and a power to see the full expansion term by term, or jump straight to the term you need.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "inclusion-exclusion", "name": "Inclusion–Exclusion Calculator", "shortName": "Inclusion–Exclusion", "category": "combinatorics", "generated": true,
+      "summary": "Size of the union of two or three sets, every Venn region and the count outside all sets, with consistency checks.",
+      "keywords": ["inclusion exclusion", "union of sets", "Venn diagram", "set counting", "three sets", "neither"],
+      "related": ["permutations-and-combinations", "binomial-probability", "mean-median-mode-range"],
+      "title": "Inclusion–Exclusion Principle Calculator with Venn Diagram | Solver Hub",
+      "description": "Find |A ∪ B| or |A ∪ B ∪ C| with the inclusion–exclusion principle, the size of every Venn region and the number in none of the sets.",
+      "lead": "Enter the sizes of two or three sets and their overlaps to get the union, each Venn-diagram region and the elements in none of the sets.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "complex-number-calculator", "name": "Complex Number Calculator", "shortName": "Complex Numbers", "category": "engineering-mathematics", "generated": true, "featured": true,
+      "summary": "Exact complex arithmetic, modulus, argument, polar and exponential forms, de Moivre powers and an Argand diagram.",
+      "keywords": ["complex numbers", "a+bi", "polar form", "modulus", "argument", "de Moivre", "phasor", "Argand diagram", "conjugate"],
+      "related": ["matrix-calculator", "quadratic-equation-solver", "degrees-radians-unit-circle"],
+      "title": "Complex Number Calculator – Arithmetic, Polar Form & Argand Diagram | Solver Hub",
+      "description": "Add, subtract, multiply and divide complex numbers exactly, find the modulus, argument and polar form, raise to powers and plot on an Argand diagram.",
+      "lead": "Enter complex numbers as a + bi to calculate exactly, convert to polar and exponential form and see the result on an Argand diagram.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "matrix-calculator", "name": "Matrix Calculator", "shortName": "Matrix Calculator", "category": "engineering-mathematics", "generated": true,
+      "summary": "Exact matrix addition, multiplication, scalar multiples, transpose, determinant and inverse up to 6 × 6.",
+      "keywords": ["matrix calculator", "matrix multiplication", "determinant", "inverse matrix", "transpose", "linear algebra"],
+      "related": ["matrix-method-linear-systems", "systems-of-linear-equations", "complex-number-calculator"],
+      "title": "Matrix Calculator – Multiply, Determinant & Inverse with Steps | Solver Hub",
+      "description": "Multiply, add and transpose matrices and find determinants and inverses exactly with fractions, showing cofactor expansion and Gauss–Jordan steps.",
+      "lead": "Type matrices row by row to multiply, add, transpose or find the determinant and inverse — with exact fractions and every step shown.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "matrix-method-linear-systems", "name": "Linear Systems by Matrix Methods", "shortName": "Matrix Methods for Systems", "category": "engineering-mathematics", "generated": true,
+      "summary": "Solve Ax = b by Gauss–Jordan elimination, Cramer's rule or the inverse matrix, for 2 to 6 unknowns.",
+      "keywords": ["Cramer's rule", "Gauss-Jordan", "augmented matrix", "inverse matrix method", "Ax = b", "linear system"],
+      "related": ["systems-of-linear-equations", "matrix-calculator", "intersection-of-two-lines"],
+      "title": "Solve Linear Systems: Gauss–Jordan, Cramer's Rule, Inverse Matrix | Solver Hub",
+      "description": "Solve systems of 2 to 6 linear equations with Gauss–Jordan elimination, Cramer's rule or x = A⁻¹b, with exact fractions and every step.",
+      "lead": "Enter the augmented matrix [A | b] and choose a method. Each row operation, determinant or matrix product is shown exactly.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "numerical-root-finder", "name": "Numerical Root Finder (Bisection and Newton–Raphson)", "shortName": "Root Finder", "category": "engineering-mathematics", "generated": true,
+      "summary": "Solve f(x) = 0 by bisection or Newton–Raphson with an iteration table, stopping rule and failure detection.",
+      "keywords": ["bisection method", "Newton-Raphson", "Newton's method", "root finding", "solve f(x)=0", "numerical methods", "iteration"],
+      "related": ["numerical-differentiation", "numerical-integration", "derivative-calculator"],
+      "title": "Root Finder: Bisection & Newton–Raphson Method Calculator | Solver Hub",
+      "description": "Find roots of f(x) = 0 with the bisection method or Newton–Raphson, with every iteration, convergence checks and clear warnings when a method fails.",
+      "lead": "Choose bisection or Newton–Raphson, enter f(x) and a starting interval or guess, and follow the iterations to the root — or see why they fail.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "numerical-differentiation", "name": "Numerical Differentiation Calculator", "shortName": "Numerical Differentiation", "category": "engineering-mathematics", "generated": true,
+      "summary": "Forward, backward and central differences compared with the exact derivative, with an error table for shrinking h.",
+      "keywords": ["finite difference", "numerical derivative", "central difference", "forward difference", "backward difference", "truncation error"],
+      "related": ["derivative-calculator", "numerical-integration", "numerical-root-finder"],
+      "title": "Numerical Differentiation – Forward, Backward & Central Differences | Solver Hub",
+      "description": "Approximate derivatives with forward, backward and central finite differences, compare with the exact value and see the O(h) and O(h²) error behaviour.",
+      "lead": "Enter a function, a point and a step size h to estimate the derivative with finite differences and see how accurate each formula is.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "numerical-integration", "name": "Numerical Integration: Trapezoidal and Simpson's Rule", "shortName": "Numerical Integration", "category": "engineering-mathematics", "generated": true,
+      "summary": "Composite trapezoidal and Simpson's rules with a table of sample points and the error against an accurate value.",
+      "keywords": ["trapezoidal rule", "Simpson's rule", "numerical integration", "composite rule", "approximate integral", "quadrature"],
+      "related": ["definite-integral", "numerical-differentiation", "area-between-curves"],
+      "title": "Trapezoidal and Simpson's Rule Calculator with Table | Solver Hub",
+      "description": "Approximate definite integrals with the composite trapezoidal rule and Simpson's rule, with the table of points, weights and the error.",
+      "lead": "Enter f(x), the limits and the number of sub-intervals to compare the trapezoidal and Simpson's rules, with every sample point and the actual error.",
+      "updated": "2026-10-31"
+    },
+    {
+      "id": "permutations-and-combinations", "name": "Permutations and Combinations Calculator", "shortName": "Permutations & Combinations", "category": "combinatorics", "url": "calculators/permutations-and-combinations/", "featured": true,
+      "summary": "Calculate nPr and nCr exactly — even for very large numbers — with factorial expansions, cancellation steps and listed examples for small cases.",
+      "keywords": ["nPr", "nCr", "permutation", "combination", "factorial", "binomial coefficient", "arrangements", "selections"],
+      "updated": "2026-10-31"
+    }
+  ]
+}

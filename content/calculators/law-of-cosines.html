@@ -1,0 +1,40 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">The law of cosines</h2>
+          <p>The <strong>law of cosines</strong> extends the Pythagorean theorem to every triangle. It solves the two cases the law of sines cannot start: two sides with the angle between them (SAS), and three sides (SSS). Unlike the law of sines it is never ambiguous, because the inverse cosine gives a unique angle between 0° and 180°.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Set the included angle to 90°: the \(-2ab\cos C\) term vanishes and the formula becomes \(c^2 = a^2 + b^2\). Make it larger than 90° and the third side grows beyond the Pythagorean value.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ c^2 = a^2 + b^2 - 2ab\cos C \qquad \cos A = \frac{b^2 + c^2 - a^2}{2bc} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a, b, c\)</td><td>Side lengths.</td></tr>
+              <tr><td>\(A, B, C\)</td><td>Angles opposite those sides; \(C\) is the angle between \(a\) and \(b\).</td></tr>
+            </tbody>
+          </table>
+          <p>For three sides to form a triangle, the two shorter sides must add up to more than the longest — the <strong>triangle inequality</strong>.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Sides 5, 7, 8</h3>
+            <h4>Step 1 — Angle B (opposite the side 7)</h4>
+            \[ \cos B = \frac{5^2 + 8^2 - 7^2}{2(5)(8)} = \frac{40}{80} = \frac{1}{2} \;\Rightarrow\; B = 60^\circ \]
+            <h4>Step 2 — Angle A</h4>
+            \[ \cos A = \frac{7^2 + 8^2 - 5^2}{2(7)(8)} = \frac{88}{112} \approx 0.7857 \;\Rightarrow\; A \approx 38.21^\circ \]
+            <h4>Step 3 — Angle C</h4>
+            \[ C = 180^\circ - 60^\circ - 38.21^\circ \approx 81.79^\circ \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>SAS: the angle must be the one <em>between</em> the two given sides, strictly between 0° and 180°.</li>
+            <li>SSS: the sides must satisfy the triangle inequality; impossible triangles are rejected with an explanation.</li>
+            <li>Angles are in degrees; results are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

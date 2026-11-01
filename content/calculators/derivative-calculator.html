@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the derivative calculator does</h2>
+          <p>The <strong>derivative</strong> \(f'(x)\) measures the instantaneous rate of change of \(f\): the slope of its graph at each point. This calculator differentiates symbolically — it applies the same rules you use by hand and shows which rule handles each term — then double-checks the answer numerically. It can also find the second derivative and evaluate either derivative at a point.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Compare the graphs of \(f\) and \(f'\). Wherever \(f\) has a peak or valley, the graph of \(f'\) crosses the x-axis; where \(f\) is steepest, \(f'\) reaches its largest size.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Supported functions and rules</h2>
+          <table>
+            <thead><tr><th scope="col">Rule</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Power</td><td>\(\frac{d}{dx}x^n = nx^{n-1}\) (any real \(n\), so roots too)</td></tr>
+              <tr><td>Sum and constant multiple</td><td>\((f + g)' = f' + g'\), \((cf)' = cf'\)</td></tr>
+              <tr><td>Product</td><td>\((uv)' = u'v + uv'\)</td></tr>
+              <tr><td>Quotient</td><td>\(\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}\)</td></tr>
+              <tr><td>Chain</td><td>\(\frac{d}{dx}f(g(x)) = f'(g(x))\,g'(x)\)</td></tr>
+              <tr><td>Exponential and log</td><td>\((e^x)' = e^x\), \((a^x)' = a^x\ln a\), \((\ln x)' = \frac{1}{x}\)</td></tr>
+              <tr><td>Trigonometric</td><td>\((\sin x)' = \cos x\), \((\cos x)' = -\sin x\), \((\tan x)' = \sec^2 x\), and sec, csc, cot</td></tr>
+              <tr><td>Inverse trig, hyperbolic</td><td>\((\arctan x)' = \frac{1}{1 + x^2}\), \((\arcsin x)' = \frac{1}{\sqrt{1 - x^2}}\), sinh, cosh, tanh</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Differentiate \(f(x) = x^3 \sin x\)</h3>
+            <h4>Step 1 — Identify the rule</h4>
+            <p>A product of \(u = x^3\) and \(v = \sin x\), so use the product rule.</p>
+            <h4>Step 2 — Differentiate each factor</h4>
+            \[ u' = 3x^2, \qquad v' = \cos x \]
+            <h4>Step 3 — Combine</h4>
+            \[ f'(x) = u'v + uv' = 3x^2\sin x + x^3\cos x \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The variable is \(x\); constants \(\pi\) and \(e\) are recognised. Implicit multiplication such as <code>3x</code> or <code>x sin(x)</code> is allowed.</li>
+            <li>The derivative is valid where the function is differentiable; for example \(\frac{d}{dx}|x|\) is undefined at \(x = 0\).</li>
+            <li>Results are exact but may be written differently from your textbook (for example, factored or not). Every answer is checked against a numerical derivative before it is shown.</li>
+            <li>Values at a point are rounded to 6 decimal places.</li>
+          </ul>
+        </section>

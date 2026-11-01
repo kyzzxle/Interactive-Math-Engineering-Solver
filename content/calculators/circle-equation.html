@@ -1,0 +1,43 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Equation of a circle</h2>
+          <p>A circle is the set of points at a fixed distance \(r\) (the radius) from a fixed point \((h, k)\) (the centre). Its equation can be written in <strong>standard form</strong>, which shows the centre and radius directly, or in <strong>general form</strong>, which is what you get after expanding. This calculator converts between them, finds a circle from its centre and one point, and finds the unique circle through three points.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>In general form, make F larger: the right-hand side after completing the square shrinks, the circle gets smaller, and eventually there is no real circle at all.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ (x - h)^2 + (y - k)^2 = r^2 \qquad x^2 + y^2 + Dx + Ey + F = 0 \]</div>
+          <div class="formula-box">\[ h = -\frac{D}{2}, \qquad k = -\frac{E}{2}, \qquad r^2 = \frac{D^2 + E^2}{4} - F \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((h, k)\)</td><td>Centre of the circle.</td></tr>
+              <tr><td>\(r\)</td><td>Radius (must be positive).</td></tr>
+              <tr><td>\(D, E, F\)</td><td>Coefficients of the general form (coefficients of \(x^2\) and \(y^2\) are both 1).</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Convert \(x^2 + y^2 - 4x + 6y - 12 = 0\) to standard form</h3>
+            <h4>Step 1 — Group and move the constant</h4>
+            \[ (x^2 - 4x) + (y^2 + 6y) = 12 \]
+            <h4>Step 2 — Complete each square</h4>
+            \[ (x^2 - 4x + 4) + (y^2 + 6y + 9) = 12 + 4 + 9 \]
+            <h4>Step 3 — Standard form</h4>
+            \[ (x - 2)^2 + (y + 3)^2 = 25 \]
+            <p>The centre is \((2, -3)\) and the radius is \(\sqrt{25} = 5\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>General-form input assumes the coefficients of \(x^2\) and \(y^2\) are 1. Divide the whole equation first if they are another equal number.</li>
+            <li>If \(r^2 \le 0\) after completing the square there is no real circle (or only a single point), and no result is shown.</li>
+            <li>Three points must not lie on one straight line.</li>
+            <li>All work uses exact fractions; radii are given in simplest radical form, and circumference and area are rounded.</li>
+          </ul>
+        </section>

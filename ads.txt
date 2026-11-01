@@ -1,0 +1,10 @@
+# ads.txt — Authorized Digital Sellers for Interactive Math & Engineering Solver Hub
+#
+# No advertising account is configured yet, so this file intentionally lists no sellers.
+# After Google AdSense approves your site, put your publisher ID (ca-pub-XXXXXXXXXXXXXXXX)
+# in site.config.json -> adsense.publisherId and run "npm run build". This file is then
+# regenerated with a line in the format Google publishes in your AdSense account:
+#
+#   google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+#
+# Always copy the exact line shown under AdSense -> Sites -> ads.txt if it differs.

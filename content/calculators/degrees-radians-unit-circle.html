@@ -1,0 +1,41 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Degrees, radians and the unit circle</h2>
+          <p>Angles can be measured in <strong>degrees</strong> (360 in a full turn) or <strong>radians</strong> (\(2\pi\) in a full turn). Radians are the natural unit in calculus and physics. This converter works in both directions — you can type radians with \(\pi\), such as <code>5pi/4</code> — and also places the angle on the <strong>unit circle</strong>, giving its quadrant, reference angle and exact sine, cosine and tangent for every multiple of 15°.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter 30°, 150°, 210° and 330°. The reference angle stays 30°, so the values have the same size; only the signs change with the quadrant.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and key values</h2>
+          <div class="formula-box">\[ \text{radians} = \text{degrees}\times\frac{\pi}{180} \qquad \text{degrees} = \text{radians}\times\frac{180}{\pi} \]</div>
+          <table>
+            <thead><tr><th scope="col">\(\theta\)</th><th scope="col">\(0^\circ\)</th><th scope="col">\(30^\circ = \frac{\pi}{6}\)</th><th scope="col">\(45^\circ = \frac{\pi}{4}\)</th><th scope="col">\(60^\circ = \frac{\pi}{3}\)</th><th scope="col">\(90^\circ = \frac{\pi}{2}\)</th></tr></thead>
+            <tbody>
+              <tr><td>\(\sin\theta\)</td><td>\(0\)</td><td>\(\frac{1}{2}\)</td><td>\(\frac{\sqrt{2}}{2}\)</td><td>\(\frac{\sqrt{3}}{2}\)</td><td>\(1\)</td></tr>
+              <tr><td>\(\cos\theta\)</td><td>\(1\)</td><td>\(\frac{\sqrt{3}}{2}\)</td><td>\(\frac{\sqrt{2}}{2}\)</td><td>\(\frac{1}{2}\)</td><td>\(0\)</td></tr>
+              <tr><td>\(\tan\theta\)</td><td>\(0\)</td><td>\(\frac{\sqrt{3}}{3}\)</td><td>\(1\)</td><td>\(\sqrt{3}\)</td><td>undefined</td></tr>
+            </tbody>
+          </table>
+          <p>On the unit circle (radius 1) the point at angle \(\theta\) is \((\cos\theta, \sin\theta)\). The <strong>reference angle</strong> is the acute angle between the terminal side and the x-axis; the quadrant decides the signs (sine is positive in quadrants I and II, cosine in I and IV, tangent in I and III).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Convert 150° and find its trigonometric values</h3>
+            <h4>Step 1 — Convert</h4>
+            \[ 150^\circ \times \frac{\pi}{180} = \frac{5\pi}{6} \approx 2.618 \text{ rad} \]
+            <h4>Step 2 — Quadrant and reference angle</h4>
+            <p>150° lies in quadrant II; its reference angle is \(180^\circ - 150^\circ = 30^\circ\).</p>
+            <h4>Step 3 — Values with signs</h4>
+            \[ \sin 150^\circ = \frac{1}{2}, \qquad \cos 150^\circ = -\frac{\sqrt{3}}{2}, \qquad \tan 150^\circ = -\frac{\sqrt{3}}{3} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>Any real angle is accepted, including negative angles and angles larger than a full turn.</li>
+            <li>Exact values are given for multiples of 15°; other angles give rounded decimals.</li>
+            <li>A radian answer is shown as a multiple of \(\pi\) whenever it is a simple fraction of \(\pi\).</li>
+          </ul>
+        </section>

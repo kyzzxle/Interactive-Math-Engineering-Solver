@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the sphere calculator does</h2>
+          <p>A <strong>sphere</strong> is the set of all points in space at the same distance — the <strong>radius</strong> \(r\) — from a centre point. Because one length fixes the whole shape, knowing any one of the radius, diameter, surface area or volume is enough to find all the others. This calculator works in any direction: it can turn a volume back into a radius as easily as it turns a radius into a volume.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Double the radius and watch the results: the surface area grows 4 times (it depends on \(r^2\)) and the volume grows 8 times (it depends on \(r^3\)).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ A = 4\pi r^2 \qquad V = \frac{4}{3}\pi r^3 \qquad d = 2r \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Radius: distance from the centre to the surface.</td></tr>
+              <tr><td>\(d\)</td><td>Diameter: the longest straight line through the sphere, \(d = 2r\).</td></tr>
+              <tr><td>\(A\)</td><td>Surface area, in square units.</td></tr>
+              <tr><td>\(V\)</td><td>Volume, in cubic units.</td></tr>
+            </tbody>
+          </table>
+          <p>To work backwards, rearrange: \(r = \sqrt{\dfrac{A}{4\pi}}\) from the area, or \(r = \sqrt[3]{\dfrac{3V}{4\pi}}\) from the volume.</p>
+          <p>Archimedes showed that a sphere's surface area equals the curved area of the cylinder that just encloses it (\(2\pi r \times 2r = 4\pi r^2\)), and its volume is two thirds of that cylinder's volume.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A ball with radius 3 cm</h3>
+            <h4>Step 1 — Known value</h4>
+            <p>\(r = 3\) cm.</p>
+            <h4>Step 2 — Surface area</h4>
+            \[ A = 4\pi r^2 = 4\pi(3)^2 = 36\pi \approx 113.10 \text{ cm}^2 \]
+            <h4>Step 3 — Volume</h4>
+            \[ V = \frac{4}{3}\pi r^3 = \frac{4}{3}\pi (27) = 36\pi \approx 113.10 \text{ cm}^3 \]
+            <p>The two numbers match only because \(r = 3\): the area is in cm² and the volume in cm³, so they are different kinds of quantity.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <ul>
+            <li>The input must be a positive number. A radius of zero is a single point, not a sphere.</li>
+            <li>Exact answers in terms of \(\pi\) are shown when you enter the radius or diameter. Working back from an area or volume involves roots, so those results are decimals.</li>
+            <li>Decimals are rounded to 6 places and marked "approx." whenever they are not exact.</li>
+            <li>Use consistent units: if the radius is in cm, the area is in cm² and the volume in cm³ (1000 cm³ = 1 litre).</li>
+          </ul>
+        </section>
