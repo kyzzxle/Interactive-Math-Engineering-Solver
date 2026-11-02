@@ -6,6 +6,7 @@ import { validator } from '../lib/calc-kit.js';
 import { factorial, log10Factorial, scientificFromBigInt, scientificFromLog10, groupDigits } from '../lib/bigint.js';
 import { escapeHtml } from '../lib/ui.js';
 
+import { arrangementsExplore, countingPractice } from '../explore/data.js';
 export const EXACT_LIMIT = 40000;
 
 export function trailingZeros(n) {
@@ -16,6 +17,8 @@ export function trailingZeros(n) {
 
 export const calculator = {
   id: 'factorial-calculator',
+  explore: arrangementsExplore,
+  practice: countingPractice,
   fields: [{ name: 'n', label: 'n', type: 'number', inputmode: 'numeric', placeholder: 'e.g. 20', hint: 'A whole number from 0 to 1,000,000,000. Exact digits are shown up to n = 40,000.' }],
   examples: [
     { label: '5!', values: { n: '5' } },

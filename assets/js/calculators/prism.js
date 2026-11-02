@@ -6,8 +6,10 @@ import { validator, answer, fmt, tx, eq, units, UNIT_FIELD } from '../lib/calc-k
 import { heron, regularArea, apothem, polygonName, SIDES_OPTIONS } from '../lib/geometry.js';
 import { boxSketch, prismSketch } from '../lib/diagrams.js';
 
+import { prismExplore } from '../explore/solids.js';
 export const calculator = {
   id: 'prism',
+  explore: prismExplore,
   fields: [
     { name: 'type', label: 'Prism type', type: 'select', options: [['rect', 'Rectangular prism (box)'], ['cube', 'Cube'], ['tri', 'Triangular prism (any triangle)'], ['regular', 'Regular polygon prism']] },
     { name: 'l', label: 'Length l', type: 'number', signed: false, placeholder: 'e.g. 8', affix: 'len', row: 'box', showWhen: { type: ['rect'] }, rowShowWhen: { type: ['rect'] } },

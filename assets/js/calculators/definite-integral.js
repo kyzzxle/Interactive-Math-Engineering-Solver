@@ -13,6 +13,7 @@ import { parseFunction, parseNumberExpr, FUNCTION_HINT, compile } from '../lib/c
 import { adaptiveSimpson } from '../lib/numeric.js';
 import { plot } from '../lib/plot.js';
 
+import { riemannExplore } from '../explore/functions.js';
 /** Value of ∫ₐᵇ f by the best available method. Shared with the area-between-curves calculator. */
 export function definiteIntegral(node, a, b, aText, bText) {
   const f = compile(node);
@@ -45,6 +46,7 @@ export function definiteIntegral(node, a, b, aText, bText) {
 
 export const calculator = {
   id: 'definite-integral',
+  explore: riemannExplore,
   fields: [
     { name: 'f', label: 'Integrand f(x)', type: 'text', placeholder: 'e.g. x^2 + 1', hint: FUNCTION_HINT },
     { name: 'a', label: 'Lower limit a', type: 'text', placeholder: 'e.g. 0', row: 'lim', hint: 'Numbers or expressions such as pi/2.' },

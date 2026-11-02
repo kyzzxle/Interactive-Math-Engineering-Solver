@@ -81,6 +81,27 @@ export function renderForm(calc) {
           </form>`;
 }
 
+/** "Explore" and "Try it" panels, only for calculators whose module defines them. */
+export function renderLearn(calc) {
+  if (!calc.explore && !calc.practice) return '';
+  const panel = (key, kicker, title, body) => `<div class="panel learn-panel" id="${key}">
+          <div class="panel-head"><div><p class="learn-kicker">${kicker}</p><h3 class="panel-title">${esc(title)}</h3></div></div>
+          <div class="panel-body" data-${key}-root><p class="text-sm text-slate-500">${body}</p></div>
+        </div>`;
+  const parts = [];
+  if (calc.explore) parts.push(panel('explore', 'Explore', calc.explore.title, 'The interactive explorer needs JavaScript.'));
+  if (calc.practice) parts.push(panel('practice', 'Try it', calc.practice.title || 'Practice problem', 'Practice problems need JavaScript.'));
+  return `
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">${calc.explore ? 'Change the values and watch the picture respond. ' : ''}${calc.practice ? 'Then test yourself on a fresh problem — use a hint if you get stuck.' : ''}</p>
+      <div class="learn-grid${parts.length === 1 ? ' is-single' : ''}">
+        ${parts.join('\n        ')}
+      </div>
+    </section>
+`;
+}
+
 export function renderCalculatorPage({ entry, calc, content, category, related, siteUrl }) {
   const url = `${siteUrl}/${entry.url}`;
   const toc = [...content.matchAll(/<h2 id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/g)].map((m) => [m[1], m[2].replace(/<[^>]+>/g, '').replace(/\\\(|\\\)/g, '')]);
@@ -157,6 +178,7 @@ export function renderCalculatorPage({ entry, calc, content, category, related, 
       </section>
     </div>
 
+${renderLearn(calc)}
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">

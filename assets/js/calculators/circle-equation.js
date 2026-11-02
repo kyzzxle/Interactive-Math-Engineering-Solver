@@ -10,11 +10,13 @@ import { linearTex, linearText } from '../lib/lines.js';
 import { solveLinear } from '../lib/linalg.js';
 import { plot } from '../lib/plot.js';
 
+import { circleExplore } from '../explore/geometry.js';
 const shifted = (v, h) => (h.isZero() ? `${v}^2` : `\\left(${v} ${h.sign() < 0 ? '+' : '-'} ${h.abs().toTex()}\\right)^2`);
 const shiftedText = (v, h) => (h.isZero() ? `${v}²` : `(${v} ${h.sign() < 0 ? '+' : '−'} ${h.abs().toString()})²`);
 
 export const calculator = {
   id: 'circle-equation',
+  explore: circleExplore,
   fields: [
     { name: 'mode', label: 'What do you know?', type: 'select', options: [['cr', 'Centre and radius'], ['cp', 'Centre and a point on the circle'], ['gen', 'General form x² + y² + Dx + Ey + F = 0'], ['three', 'Three points on the circle']] },
     { name: 'h', label: 'Centre h', type: 'number', placeholder: 'e.g. 2', row: 'c', showWhen: { mode: ['cr', 'cp'] }, rowShowWhen: { mode: ['cr', 'cp'] } },

@@ -236,6 +236,357 @@ function wireCalculator(o) {
 
 return { escapeHtml, tex, resultCard, finalAnswerBlock, stepsBlock, tableBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, readForm, fillForm, writeUrlState, clearUrlState, readUrlState, enableCopyButtons, wireCalculator };
 })();
+__m["lib/learn.js"] = (function () {
+/**
+ * Guided-learning widgets shared by calculator pages (browser only).
+ *
+ *   mountExplorer(root, spec)  "Explore": sliders (each paired with a number box), optional
+ *                              draggable points, optional Play / Pause / Reset animation.
+ *   mountPractice(root, spec)  "Try it": a generated problem with Hint, Check, Show solution
+ *                              and New problem.
+ *
+ * Specs are plain objects defined in assets/js/explore/*.js. They contain no DOM code, so the
+ * Node tests can call spec.render() and spec.generate() directly.
+ *
+ * Explorer spec:
+ *   { title, intro?, controls: [Control], presets?: [{ label, values }],
+ *     drag?: { A: { x: 'x1', y: 'y1' } },        // data-drag="A" points move these controls
+ *     rotate?: { yaw: 'yaw' },                   // dragging the figure changes this control
+ *     animate?: { control: 't', seconds: 4 },    // Play moves this control from min to max
+ *     render(values) => { svg?, html?, readouts?: [{ label, tex?, text?, tone? }], caption?, note? } }
+ * Control: { name, label, min, max (number or values => number), step, value, unit?, type?: 'select', options? }
+ *
+ * Practice spec:
+ *   { title?, generate(rand) => { prompt (HTML), promptTex?, answers: [{ label, value, decimals?, unit?, int? }],
+ *       unordered?: boolean, hint, hintTex?, steps: [step], final? } }
+ */
+const { tex, escapeHtml, stepsBlock } = __m["lib/ui.js"];
+
+const reduceMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+let seq = 0;
+
+function decimalsOf(step) {
+  const s = String(step);
+  return s.includes('e-') ? Number(s.split('e-')[1]) : (s.split('.')[1] || '').length;
+}
+const roundTo = (v, step, min) => {
+  const k = Math.round((v - min) / step);
+  return Number((min + k * step).toFixed(decimalsOf(step)));
+};
+
+function readoutHtml(r) {
+  const val = r.tex !== undefined ? tex(r.tex) : escapeHtml(r.text ?? '');
+  return `<div class="readout${r.tone ? ` is-${r.tone}` : ''}"><span class="readout-label">${escapeHtml(r.label)}</span><span class="readout-value">${val}</span></div>`;
+}
+
+/** Explore panel: controls on one side, live figure and readouts on the other. */
+function mountExplorer(root, spec) {
+  if (!root || !spec) return null;
+  const id = `ex${++seq}`;
+  const ctrls = spec.controls;
+  const values = Object.fromEntries(ctrls.map((c) => [c.name, c.value]));
+  const maxOf = (c) => (typeof c.max === 'function' ? c.max(values) : c.max);
+  const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
+
+  const controlHtml = (c) => {
+    const cid = `${id}-${c.name}`;
+    if (c.type === 'select') {
+      return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+        <select id="${cid}" class="select" data-ctrl="${c.name}">${c.options.map(([v, l]) => `<option value="${escapeHtml(v)}"${String(v) === String(c.value) ? ' selected' : ''}>${escapeHtml(l)}</option>`).join('')}</select></div>`;
+    }
+    const unit = c.unit ? `<span class="ex-unit">${escapeHtml(c.unit)}</span>` : '';
+    return `<div class="ex-control">
+        <div class="ex-control-head"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+          <span class="ex-num"><input class="input" type="number" inputmode="decimal" data-num="${c.name}" step="${c.step}" aria-label="${escapeHtml(c.label)} value">${unit}</span></div>
+        <input id="${cid}" class="range" type="range" data-ctrl="${c.name}" step="${c.step}">
+      </div>`;
+  };
+
+  const anim = spec.animate;
+  const motionOk = !reduceMotion();
+  const animHtml = anim ? `<div class="ex-player">
+      <button type="button" class="btn btn-primary btn-sm" data-play aria-pressed="false">▶ Play</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-anim-reset>Reset</button>
+      <p class="field-hint w-full">${motionOk ? 'Or drag the time slider to step through it yourself.' : 'Your device asks for reduced motion, so nothing moves until you press Play. You can also drag the time slider instead.'}</p>
+    </div>` : '';
+  const presets = spec.presets && spec.presets.length
+    ? `<div class="example-row"><span>Try:</span>${spec.presets.map((p, i) => `<button type="button" class="chip" data-preset="${i}">${escapeHtml(p.label)}</button>`).join('')}</div>` : '';
+  const dragHint = spec.drag || spec.rotate ? `<p class="field-hint mt-3">${spec.rotate ? 'Drag the figure to turn it.' : 'Drag the points on the graph, or type exact values.'}</p>` : '';
+
+  root.innerHTML = `<div class="explore">
+      <div class="explore-controls">
+        ${spec.intro ? `<p class="explore-intro">${escapeHtml(spec.intro)}</p>` : ''}
+        ${ctrls.map(controlHtml).join('')}
+        ${animHtml}${presets}
+        <div class="form-actions mt-4"><button type="button" class="btn btn-ghost btn-sm" data-ex-reset>Reset values</button></div>
+        ${dragHint}
+      </div>
+      <div class="explore-stage">
+        <figure class="explore-figure" data-figure></figure>
+        <div class="readouts" data-readouts aria-live="polite"></div>
+        <p class="explore-note" data-note hidden></p>
+      </div>
+    </div>`;
+
+  const fig = root.querySelector('[data-figure]');
+  const out = root.querySelector('[data-readouts]');
+  const note = root.querySelector('[data-note]');
+
+  const sync = () => {
+    for (const c of ctrls) {
+      if (c.type === 'select') { root.querySelector(`[data-ctrl="${c.name}"]`).value = values[c.name]; continue; }
+      const lo = minOf(c), hi = maxOf(c);
+      if (values[c.name] > hi) values[c.name] = hi;
+      if (values[c.name] < lo) values[c.name] = lo;
+      const range = root.querySelector(`[data-ctrl="${c.name}"]`);
+      range.min = lo; range.max = hi; range.value = values[c.name];
+      const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));
+      range.setAttribute('aria-valuetext', `${shown}${c.unit ? ` ${c.unit}` : ''}`);
+      const num = root.querySelector(`[data-num="${c.name}"]`);
+      if (document.activeElement !== num) num.value = shown;
+      num.min = lo; num.max = hi;
+    }
+  };
+
+  let frame = 0;
+  const draw = () => {
+    frame = 0;
+    let res;
+    try { res = spec.render({ ...values }); } catch (e) { res = { html: `<p class="alert alert-error">This combination cannot be drawn: ${escapeHtml(e.message)}</p>` }; }
+    fig.innerHTML = (res.svg || '') + (res.html || '') + (res.caption ? `<figcaption class="diagram-caption">${escapeHtml(res.caption)}</figcaption>` : '');
+    out.innerHTML = (res.readouts || []).map(readoutHtml).join('');
+    note.hidden = !res.note;
+    note.textContent = res.note || '';
+  };
+  const update = () => { sync(); if (!frame) frame = requestAnimationFrame(draw); };
+
+  root.addEventListener('input', (e) => {
+    const name = e.target.getAttribute('data-ctrl') || e.target.getAttribute('data-num');
+    if (!name) return;
+    const c = ctrls.find((x) => x.name === name);
+    if (c.type === 'select') { values[name] = e.target.value; update(); return; }
+    const v = Number(e.target.value);
+    if (e.target.value === '' || !Number.isFinite(v)) return;
+    values[name] = Math.min(maxOf(c), Math.max(minOf(c), v));
+    if (anim && name !== anim.control) stop();
+    update();
+  });
+  root.addEventListener('change', (e) => { if (e.target.hasAttribute('data-num')) sync(); });
+
+  const reset = (vals) => {
+    stop();
+    for (const c of ctrls) values[c.name] = c.value;
+    Object.assign(values, vals || {});
+    update();
+  };
+  root.querySelector('[data-ex-reset]').addEventListener('click', () => reset());
+  root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => reset(spec.presets[Number(b.getAttribute('data-preset'))].values)));
+
+  // ------------------------------------------------ animation (always user-started)
+  let raf = 0, last = 0;
+  const playBtn = root.querySelector('[data-play]');
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    if (playBtn) { playBtn.textContent = '▶ Play'; playBtn.setAttribute('aria-pressed', 'false'); }
+  }
+  if (anim) {
+    const c = ctrls.find((x) => x.name === anim.control);
+    const tick = (now) => {
+      const hi = maxOf(c), lo = minOf(c);
+      const dt = last ? (now - last) / 1000 : 0;
+      last = now;
+      let v = values[c.name] + ((hi - lo) / (anim.seconds || 4)) * dt;
+      if (v >= hi) { if (anim.loop) v = lo + (v - hi); else { values[c.name] = hi; update(); stop(); return; } }
+      values[c.name] = v;
+      update();
+      raf = requestAnimationFrame(tick);
+    };
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (raf) { stop(); return; }
+        if (!anim.loop && values[c.name] >= maxOf(c)) values[c.name] = minOf(c);
+        last = 0;
+        playBtn.textContent = '❚❚ Pause';
+        playBtn.setAttribute('aria-pressed', 'true');
+        raf = requestAnimationFrame(tick);
+      });
+    }
+    root.querySelector('[data-anim-reset]').addEventListener('click', () => { stop(); values[c.name] = minOf(c); update(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  }
+
+  // ------------------------------------------------ dragging points / rotating
+  const toGraph = (svg, clientX, clientY) => {
+    const view = (svg.getAttribute('data-view') || '').split(' ').map(Number);
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = clientY;
+    const m = svg.getScreenCTM();
+    if (!m || view.length < 8) return null;
+    const p = pt.matrixTransform(m.inverse());
+    const [xmin, xmax, ymin, ymax, l, t, pw, ph] = view;
+    return { x: xmin + ((p.x - l) / pw) * (xmax - xmin), y: ymax - ((p.y - t) / ph) * (ymax - ymin) };
+  };
+  let dragging = null;
+  fig.addEventListener('pointerdown', (e) => {
+    const svg = fig.querySelector('svg');
+    if (!svg) return;
+    const handle = e.target.closest('[data-drag]');
+    if (handle && spec.drag && spec.drag[handle.getAttribute('data-drag')]) {
+      dragging = { kind: 'point', key: handle.getAttribute('data-drag') };
+    } else if (spec.rotate) {
+      dragging = { kind: 'rotate', x: e.clientX, y: e.clientY, start: { ...values } };
+    } else return;
+    e.preventDefault();
+    stop();
+    fig.classList.add('is-dragging');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    if (dragging.kind === 'rotate') {
+      const yaw = spec.rotate.yaw, pitch = spec.rotate.pitch;
+      const cy = ctrls.find((c) => c.name === yaw);
+      let v = dragging.start[yaw] + (e.clientX - dragging.x) * 0.6;
+      while (v > cy.max) v -= cy.max - cy.min;
+      while (v < cy.min) v += cy.max - cy.min;
+      values[yaw] = Math.round(v);
+      if (pitch) {
+        const cp = ctrls.find((c) => c.name === pitch);
+        values[pitch] = Math.round(Math.max(cp.min, Math.min(cp.max, dragging.start[pitch] - (e.clientY - dragging.y) * 0.4)));
+      }
+      update();
+      return;
+    }
+    const svg = fig.querySelector('svg');
+    const g = svg && toGraph(svg, e.clientX, e.clientY);
+    if (!g) return;
+    const map = spec.drag[dragging.key];
+    const target = typeof map === 'function' ? map(g, { ...values }) : Object.fromEntries(Object.entries(map).map(([axis, name]) => [name, g[axis]]));
+    for (const [name, raw] of Object.entries(target)) {
+      const c = ctrls.find((x) => x.name === name);
+      if (!c || !Number.isFinite(raw)) continue;
+      values[name] = roundTo(Math.min(maxOf(c), Math.max(minOf(c), raw)), c.step, minOf(c));
+    }
+    update();
+  });
+  const endDrag = () => { if (dragging) { dragging = null; fig.classList.remove('is-dragging'); } };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  sync();
+  draw();
+  return { values, update, reset };
+}
+
+// ------------------------------------------------------------------------------------ practice
+
+/** Parse a typed answer: decimals, fractions like 3/4, a leading minus, commas as decimal point. */
+function parseAnswer(raw) {
+  const s = String(raw ?? '').trim().replace(/\s+/g, '').replace(/−/g, '-').replace(/,(?=\d{1,2}$)/, '.');
+  if (!s) return null;
+  const frac = s.match(/^(-?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+  if (frac) { const d = Number(frac[2]); return d === 0 ? null : Number(frac[1]) / d; }
+  if (!/^-?(\d+\.?\d*|\.\d+)(e-?\d+)?$/i.test(s)) return null;
+  return Number(s);
+}
+
+/** 'correct' | 'close' | 'wrong' for a typed value against the expected answer. */
+function judge(user, expected, decimals = 2) {
+  if (user === null || !Number.isFinite(user)) return 'invalid';
+  const err = Math.abs(user - expected);
+  const tol = 0.5 * 10 ** -decimals * 1.05 + 1e-9;
+  if (err <= tol || err <= Math.abs(expected) * 5e-4) return 'correct';
+  if (err <= Math.max(Math.abs(expected) * 0.05, tol * 4)) return 'close';
+  return 'wrong';
+}
+
+function mountPractice(root, spec) {
+  if (!root || !spec) return null;
+  const id = `pr${++seq}`;
+  let problem, attempts = 0;
+
+  const build = () => {
+    problem = spec.generate(Math.random);
+    attempts = 0;
+    const inputs = problem.answers.map((a, i) => `<div class="field">
+        <label class="field-label" for="${id}-a${i}">${escapeHtml(a.label)}</label>
+        <div class="input-affix"><input id="${id}-a${i}" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-answer="${i}" aria-describedby="${id}-h${i}">${a.unit ? `<span class="affix">${escapeHtml(a.unit)}</span>` : ''}</div>
+        <p class="field-hint" id="${id}-h${i}">${a.int ? 'A whole number' : `Round to ${a.decimals ?? 2} decimal places`}</p>
+      </div>`).join('');
+    root.innerHTML = `<form class="practice" novalidate>
+        <div class="practice-prompt">${problem.prompt}${problem.promptTex ? `<div class="step-math">${tex(problem.promptTex, true)}</div>` : ''}</div>
+        <div class="field-row mt-4">${inputs}</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Check answer</button>
+          <button type="button" class="btn btn-secondary" data-hint>Hint</button>
+          <button type="button" class="btn btn-ghost" data-solution>Show solution</button>
+          <button type="button" class="btn btn-ghost" data-new>New problem</button>
+        </div>
+        <div class="practice-feedback" data-feedback role="status" aria-live="polite"></div>
+        <div data-hint-box hidden></div>
+        <div data-solution-box hidden></div>
+      </form>`;
+    const form = root.querySelector('form');
+    const fb = root.querySelector('[data-feedback]');
+    const hintBox = root.querySelector('[data-hint-box]');
+    const solBox = root.querySelector('[data-solution-box]');
+    const showHint = () => {
+      hintBox.hidden = false;
+      hintBox.innerHTML = `<div class="alert alert-info"><p class="alert-title">Hint</p><p>${escapeHtml(problem.hint)}</p>${problem.hintTex ? `<div class="step-math">${tex(problem.hintTex, true)}</div>` : ''}</div>`;
+    };
+    const showSolution = () => {
+      solBox.hidden = false;
+      const final = problem.answers.map((a) => `${a.label}: ${a.int ? a.value : Number(a.value.toFixed(a.decimals ?? 2))}${a.unit ? ` ${a.unit}` : ''}`).join(' · ');
+      solBox.innerHTML = stepsBlock(problem.steps, { title: 'Worked solution' }) + `<p class="practice-final">Answer — ${escapeHtml(final)}</p>`;
+    };
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const typed = problem.answers.map((_, i) => parseAnswer(form.querySelector(`[data-answer="${i}"]`).value));
+      if (typed.some((v) => v === null)) {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = 'Enter a number in every box (decimals or fractions such as 3/4).';
+        return;
+      }
+      let verdicts;
+      if (problem.unordered) {
+        const exp = problem.answers.map((a) => a.value).sort((x, y) => x - y);
+        const got = typed.slice().sort((x, y) => x - y);
+        verdicts = got.map((g, i) => judge(g, exp[i], problem.answers[i].decimals ?? 2));
+      } else {
+        verdicts = typed.map((g, i) => judge(g, problem.answers[i].value, problem.answers[i].int ? 0 : problem.answers[i].decimals ?? 2));
+      }
+      problem.answers.forEach((_, i) => {
+        const el = form.querySelector(`[data-answer="${i}"]`);
+        el.setAttribute('aria-invalid', verdicts[i] === 'correct' || problem.unordered ? 'false' : 'true');
+      });
+      attempts++;
+      if (verdicts.every((v) => v === 'correct')) {
+        fb.className = 'practice-feedback is-correct';
+        fb.textContent = attempts === 1 ? 'Correct — well done!' : `Correct after ${attempts} tries. Open the worked solution to compare your method.`;
+        form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      } else if (verdicts.some((v) => v === 'close')) {
+        fb.className = 'practice-feedback is-close';
+        fb.textContent = 'Very close. Check your rounding, or a sign or unit in the last step.';
+      } else {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = attempts >= 2 ? 'Not yet. Take the hint, or open the worked solution and compare it step by step.' : 'Not quite. Check your working and try again.';
+        if (attempts >= 2 && hintBox.hidden) showHint();
+      }
+    });
+    root.querySelector('[data-hint]').addEventListener('click', showHint);
+    root.querySelector('[data-solution]').addEventListener('click', showSolution);
+    root.querySelector('[data-new]').addEventListener('click', () => { build(); root.querySelector('input').focus(); });
+  };
+  build();
+  return { next: build };
+}
+
+/** Random helpers for problem generators (pass the generator's rand). */
+const pick = (rand, list) => list[Math.floor(rand() * list.length)];
+const randInt = (rand, lo, hi) => lo + Math.floor(rand() * (hi - lo + 1));
+
+return { mountExplorer, parseAnswer, judge, mountPractice, pick, randInt };
+})();
 __m["pages/calculator-page.js"] = (function () {
 /*
  * Generic calculator page controller used by every generated calculator page.
@@ -246,6 +597,7 @@ __m["pages/calculator-page.js"] = (function () {
  *   { ok: true, final, answers, visual: { svg, caption, legend }, notes, formula, steps, tables }
  */
 const { resultCard, stepsBlock, alertBlock, notesBlock, finalAnswerBlock, tableBlock, showFieldErrors, clearFieldErrors, wireCalculator, fillForm, tex, escapeHtml } = __m["lib/ui.js"];
+const { mountExplorer, mountPractice } = __m["lib/learn.js"];
 
 function isVisible(form, name) {
   const el = form.elements.namedItem(name);
@@ -364,6 +716,9 @@ function mountCalculator(calc) {
       render(values, { live: true });
     }, 150);
   });
+
+  if (calc.explore) mountExplorer(document.querySelector('[data-explore-root]'), calc.explore);
+  if (calc.practice) mountPractice(document.querySelector('[data-practice-root]'), calc.practice);
 
   copyAllBtn.addEventListener('click', () => {
     const t = copyAllBtn.getAttribute('data-copy') || '';
@@ -919,6 +1274,1562 @@ function groupDigits(s) {
 
 return { productRange, fallingFactorial, factorial, binomial, log10Factorial, digitCount, scientificFromLog10, scientificFromBigInt, groupDigits };
 })();
+__m["lib/plot.js"] = (function () {
+/**
+ * Graphs as SVG strings (no DOM needed, so they can be tested in Node).
+ * Colours come from CSS classes in styles.css, so graphs follow light/dark mode.
+ */
+let uid = 0;
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const r2 = (v) => Math.round(v * 100) / 100;
+
+function niceStep(range, target = 6) {
+  const raw = range / target;
+  const p = 10 ** Math.floor(Math.log10(raw));
+  const m = raw / p;
+  return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p;
+}
+
+function fmtTick(v, step) {
+  const d = Math.max(0, -Math.floor(Math.log10(step) + 1e-9));
+  const s = v.toFixed(Math.min(d, 6));
+  return s === '-0' ? '0' : s.replace(/\.0+$/, '');
+}
+
+/** Choose a y-range that shows the curves without letting asymptotes flatten everything. */
+function autoY(opts, xmin, xmax) {
+  const ys = [];
+  for (const c of opts.curves || []) {
+    for (let i = 0; i <= 240; i++) {
+      const x = xmin + ((xmax - xmin) * i) / 240;
+      const y = c.f(x);
+      if (Number.isFinite(y)) ys.push(y);
+    }
+  }
+  for (const s of opts.shade || []) {
+    for (let i = 0; i <= 60; i++) { const x = s.a + ((s.b - s.a) * i) / 60; [s.f(x), s.g ? s.g(x) : 0].forEach((y) => Number.isFinite(y) && ys.push(y)); }
+  }
+  for (const p of opts.points || []) ys.push(p.y);
+  for (const s of opts.segments || []) ys.push(s.y1, s.y2);
+  for (const h of opts.hlines || []) ys.push(h.y);
+  for (const c of opts.circles || []) ys.push(c.cy - c.r, c.cy + c.r);
+  for (const b of opts.bars || []) ys.push(0, b.h);
+  if (!ys.length) return [-1, 1];
+  ys.sort((a, b) => a - b);
+  let lo = ys[0], hi = ys[ys.length - 1];
+  if ((opts.curves || []).length && ys.length > 40) {
+    const q = (t) => ys[Math.floor(t * (ys.length - 1))];
+    const iqr = q(0.95) - q(0.05);
+    if (hi - lo > 8 * Math.max(iqr, 1e-9)) {
+      const py = (opts.points || []).map((p) => p.y);
+      lo = Math.min(q(0.05), ...py);
+      hi = Math.max(q(0.95), ...py);
+    }
+  }
+  if (opts.includeZero !== false) { lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
+  if (hi - lo < 1e-9) { lo -= 1; hi += 1; }
+  const pad = (hi - lo) * 0.1;
+  return [lo - pad, hi + pad];
+}
+
+/**
+ * opts: { width, height, x: [min, max], y?: [min, max], equal?, curves: [{ f, cls }], shade: [{ f, g?, a, b, cls }],
+ *         points: [{ x, y, label, cls }], segments, vlines, hlines, circles, bars: [{ x, h, w, cls }],
+ *         title, desc, xLabel, yLabel, xTicks?: [{x, label}] }
+ */
+function plot(opts) {
+  const W = opts.width || 360, H = opts.height || 270;
+  const pad = { l: 34, r: 12, t: 12, b: 26 };
+  let [xmin, xmax] = opts.x;
+  if (!Number.isFinite(xmin) || !Number.isFinite(xmax)) { xmin = -5; xmax = 5; }
+  if (!(xmax - xmin > 1e-12 * Math.max(1, Math.abs(xmin), Math.abs(xmax)))) { const c = (xmin + xmax) / 2; xmin = c - 1; xmax = c + 1; }
+  let [ymin, ymax] = opts.y || autoY(opts, xmin, xmax);
+  if (!Number.isFinite(ymin) || !Number.isFinite(ymax)) { ymin = -5; ymax = 5; }
+  if (!(ymax - ymin > 1e-12 * Math.max(1, Math.abs(ymin), Math.abs(ymax)))) { const c = (ymin + ymax) / 2; ymin = c - 1; ymax = c + 1; }
+  const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
+  if (opts.equal) {
+    const sx = pw / (xmax - xmin), sy = ph / (ymax - ymin);
+    if (sx > sy) { const c = (xmin + xmax) / 2, half = (pw / sy) / 2; xmin = c - half; xmax = c + half; }
+    else { const c = (ymin + ymax) / 2, half = (ph / sx) / 2; ymin = c - half; ymax = c + half; }
+  }
+  const X = (x) => pad.l + ((x - xmin) / (xmax - xmin)) * pw;
+  const Y = (y) => pad.t + ph - ((y - ymin) / (ymax - ymin)) * ph;
+  const id = `clip${++uid}`;
+  const out = [];
+  // data-view lets interactive explorers convert pointer positions back to graph coordinates.
+  out.push(`<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || 'Graph')}" data-view="${[xmin, xmax, ymin, ymax, pad.l, pad.t, pw, ph].map((v) => +v.toPrecision(10)).join(' ')}"><title>${esc(opts.title || 'Graph')}</title>${opts.desc ? `<desc>${esc(opts.desc)}</desc>` : ''}`);
+  out.push(`<defs><clipPath id="${id}"><rect x="${pad.l}" y="${pad.t}" width="${pw}" height="${ph}"/></clipPath></defs>`);
+
+  const xs = niceStep(xmax - xmin), ys = niceStep(ymax - ymin, 5);
+  const grid = [], ticks = [];
+  // Tolerances are relative to the step, and loops are capped, so tiny or huge ranges stay safe.
+  for (let x = Math.ceil(xmin / xs) * xs, i = 0; x <= xmax + xs * 1e-6 && i < 60; x += xs, i++) {
+    grid.push(`<line class="d-grid" x1="${r2(X(x))}" y1="${pad.t}" x2="${r2(X(x))}" y2="${pad.t + ph}"/>`);
+    if (!opts.xTicks) ticks.push(`<text class="d-tick" x="${r2(X(x))}" y="${H - 8}" text-anchor="middle">${fmtTick(x, xs)}</text>`);
+  }
+  for (const t of opts.xTicks || []) ticks.push(`<text class="d-tick" x="${r2(X(t.x))}" y="${H - 8}" text-anchor="middle">${esc(t.label)}</text>`);
+  for (let y = Math.ceil(ymin / ys) * ys, i = 0; y <= ymax + ys * 1e-6 && i < 60; y += ys, i++) {
+    grid.push(`<line class="d-grid" x1="${pad.l}" y1="${r2(Y(y))}" x2="${pad.l + pw}" y2="${r2(Y(y))}"/>`);
+    ticks.push(`<text class="d-tick" x="${pad.l - 4}" y="${r2(Y(y) + 3)}" text-anchor="end">${fmtTick(y, ys)}</text>`);
+  }
+  out.push(grid.join(''));
+  if (xmin < 0 && xmax > 0) out.push(`<line class="d-axis" x1="${r2(X(0))}" y1="${pad.t}" x2="${r2(X(0))}" y2="${pad.t + ph}"/>`);
+  if (ymin < 0 && ymax > 0) out.push(`<line class="d-axis" x1="${pad.l}" y1="${r2(Y(0))}" x2="${pad.l + pw}" y2="${r2(Y(0))}"/>`);
+  out.push(ticks.join(''));
+
+  const body = [];
+  for (const s of opts.shade || []) {
+    const n = 120;
+    const top = [], bottom = [];
+    for (let i = 0; i <= n; i++) {
+      const x = s.a + ((s.b - s.a) * i) / n;
+      const y1 = s.f(x), y2 = s.g ? s.g(x) : 0;
+      if (!Number.isFinite(y1) || !Number.isFinite(y2)) continue;
+      top.push(`${r2(X(x))},${r2(Y(y1))}`);
+      bottom.unshift(`${r2(X(x))},${r2(Y(y2))}`);
+    }
+    if (top.length) body.push(`<polygon class="${s.cls || 'd-shade'}" points="${top.concat(bottom).join(' ')}"/>`);
+  }
+  for (const b of opts.bars || []) {
+    const x0 = X(b.x - b.w / 2), x1 = X(b.x + b.w / 2);
+    const yTop = Y(Math.max(b.h, 0)), yBot = Y(Math.min(b.h, 0));
+    body.push(`<rect class="${b.cls || 'd-bar'}" x="${r2(x0)}" y="${r2(yTop)}" width="${r2(Math.max(x1 - x0, 0.5))}" height="${r2(Math.max(yBot - yTop, 0))}"/>`);
+  }
+  for (const c of opts.circles || []) {
+    body.push(`<ellipse class="${c.cls || 'd-line'}" cx="${r2(X(c.cx))}" cy="${r2(Y(c.cy))}" rx="${r2(Math.abs(X(c.cx + c.r) - X(c.cx)))}" ry="${r2(Math.abs(Y(c.cy + c.r) - Y(c.cy)))}" fill="none"/>`);
+  }
+  for (const c of opts.curves || []) {
+    const n = c.samples || 500;
+    let d = '', pen = false, lastY = null;
+    for (let i = 0; i <= n; i++) {
+      const x = xmin + ((xmax - xmin) * i) / n;
+      const y = c.f(x);
+      if (!Number.isFinite(y)) { pen = false; continue; }
+      const py = Y(y);
+      if (pen && lastY !== null && Math.abs(py - lastY) > ph * 1.5) pen = false; // vertical asymptote
+      const cy = Math.max(-ph * 3, Math.min(ph * 4, py));
+      d += `${pen ? 'L' : 'M'}${r2(X(x))} ${r2(cy)} `;
+      pen = true;
+      lastY = py;
+    }
+    if (d) body.push(`<path class="${c.cls || 'd-line'}" d="${d.trim()}"/>`);
+  }
+  for (const v of opts.vlines || []) body.push(`<line class="${v.cls || 'd-perp'}" x1="${r2(X(v.x))}" y1="${pad.t}" x2="${r2(X(v.x))}" y2="${pad.t + ph}"/>`);
+  for (const h of opts.hlines || []) body.push(`<line class="${h.cls || 'd-perp'}" x1="${pad.l}" y1="${r2(Y(h.y))}" x2="${pad.l + pw}" y2="${r2(Y(h.y))}"/>`);
+  for (const s of opts.segments || []) body.push(`<line class="${s.cls || 'd-perp'}" x1="${r2(X(s.x1))}" y1="${r2(Y(s.y1))}" x2="${r2(X(s.x2))}" y2="${r2(Y(s.y2))}"/>`);
+  out.push(`<g clip-path="url(#${id})">${body.join('')}</g>`);
+
+  const labels = [];
+  for (const v of opts.vlines || []) if (v.label) labels.push(`<text class="d-text-muted" x="${r2(Math.min(X(v.x) + 3, W - 40))}" y="${pad.t + 11}">${esc(v.label)}</text>`);
+  for (const h of opts.hlines || []) if (h.label) labels.push(`<text class="d-text-muted" x="${pad.l + 4}" y="${r2(Y(h.y) - 4)}">${esc(h.label)}</text>`);
+  for (const p of opts.points || []) {
+    if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) continue;
+    const px = X(p.x), py = Y(p.y);
+    if (px < pad.l - 1 || px > pad.l + pw + 1 || py < pad.t - 1 || py > pad.t + ph + 1) continue;
+    if (p.drag) labels.push(`<circle class="d-drag-hit" data-drag="${esc(p.drag)}" cx="${r2(px)}" cy="${r2(py)}" r="14"/>`);
+    labels.push(`<circle class="${p.cls || 'd-point'}${p.drag ? ' d-draggable' : ''}" cx="${r2(px)}" cy="${r2(py)}" r="${p.r || (p.drag ? 6 : 4.5)}"${p.drag ? ` data-drag="${esc(p.drag)}"` : ''}/>`);
+    if (p.label) {
+      const right = px < W - 90;
+      labels.push(`<text class="d-text" x="${r2(right ? px + 7 : px - 7)}" y="${r2(py < pad.t + 16 ? py + 15 : py - 7)}" text-anchor="${right ? 'start' : 'end'}">${esc(p.label)}</text>`);
+    }
+  }
+  if (opts.xLabel) labels.push(`<text class="d-text-muted" x="${W - pad.r}" y="${r2(Math.min(Math.max(Y(0) - 5, pad.t + 10), pad.t + ph - 4))}" text-anchor="end">${esc(opts.xLabel)}</text>`);
+  if (opts.yLabel) labels.push(`<text class="d-text-muted" x="${r2(Math.min(Math.max(X(0) + 5, pad.l + 4), W - 30))}" y="${pad.t + 10}">${esc(opts.yLabel)}</text>`);
+  out.push(labels.join(''));
+  out.push('</svg>');
+  const svg = out.join('');
+  return /NaN|Infinity/.test(svg) ? unavailableSvg(W, H, opts.title) : svg;
+}
+
+/** Shown instead of a graph when the values are too large or too small to draw. */
+function unavailableSvg(W = 360, H = 120, title = 'Graph') {
+  return `<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title || 'Graph')} not drawn"><text class="d-text-muted" x="${W / 2}" y="${H / 2}" text-anchor="middle">Graph not drawn: the values are too large or too small to show to scale.</text></svg>`;
+}
+
+/** Legend HTML: items [{ cls: '' | 'l2' | 'l3', label }] */
+function legend(items) {
+  return `<div class="legend">${items.map((i) => `<span><i class="${i.cls || ''}"></i>${esc(i.label)}</span>`).join('')}</div>`;
+}
+
+/** Pick an x-window that contains all the given x-values with margin. */
+function windowAround(xs, minHalf = 3) {
+  const fin = xs.filter(Number.isFinite);
+  if (!fin.length) return [-5, 5];
+  const lo = Math.min(...fin), hi = Math.max(...fin);
+  const span = Math.max(hi - lo, 2 * minHalf);
+  const c = (lo + hi) / 2;
+  return [c - span * 0.65, c + span * 0.65];
+}
+
+
+
+return { niceStep, fmtTick, plot, unavailableSvg, legend, windowAround, escapeSvg: esc };
+})();
+__m["lib/expr.js"] = (function () {
+/**
+ * Expression engine: parser, exact simplifier, evaluator, symbolic derivative,
+ * rule-based integrator and TeX printer for functions of one variable.
+ *
+ * Node shapes (all coefficients are exact Frac values):
+ *   { t: 'num', v: Frac }            { t: 'sym', n: 'x' | 'pi' | 'e' }
+ *   { t: 'add', a: [nodes] }         { t: 'mul', a: [nodes] }
+ *   { t: 'pow', b: node, e: node }   { t: 'fn', n: 'sin' | 'ln' | ..., a: node }
+ * Subtraction is a + (-1)·b; division is a·b^(-1).
+ */
+const { Frac, parseFrac } = __m["lib/fraction.js"];
+
+class ExprError extends Error {}
+class UnsupportedError extends Error {}
+
+// ------------------------------------------------------------------ constructors
+const num = (v) => ({ t: 'num', v: Frac.of(v) });
+const sym = (n) => ({ t: 'sym', n });
+const X = sym('x');
+const add = (...a) => ({ t: 'add', a });
+const mul = (...a) => ({ t: 'mul', a });
+const pow = (b, e) => ({ t: 'pow', b, e: typeof e === 'number' ? num(e) : e });
+const fn = (n, a) => ({ t: 'fn', n, a });
+const neg = (a) => mul(num(-1), a);
+const div = (a, b) => mul(a, pow(b, num(-1)));
+const sub = (a, b) => add(a, neg(b));
+
+const FUNCTIONS = ['sin', 'cos', 'tan', 'sec', 'csc', 'cot', 'asin', 'acos', 'atan', 'sinh', 'cosh', 'tanh', 'exp', 'ln', 'log', 'sqrt', 'cbrt', 'abs'];
+const ALIASES = { arcsin: 'asin', arccos: 'acos', arctan: 'atan', cosec: 'csc', log10: 'log' };
+
+// ------------------------------------------------------------------ tokenizer
+function tokenize(src, vars) {
+  const s = String(src)
+    .replace(/[−–]/g, '-').replace(/[×·]/g, '*').replace(/÷/g, '/').replace(/\*\*/g, '^')
+    .replace(/²/g, '^2').replace(/³/g, '^3').replace(/π/g, ' pi ').replace(/θ/g, ' theta ').replace(/√/g, ' sqrt ');
+  const names = [...FUNCTIONS, ...Object.keys(ALIASES), 'pi', 'theta'].sort((a, b) => b.length - a.length);
+  const tokens = [];
+  let i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (/\s/.test(c)) { i++; continue; }
+    const m = /^(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?/.exec(s.slice(i));
+    if (m) { tokens.push({ k: 'num', v: m[0] }); i += m[0].length; continue; }
+    if (/[a-zA-Z]/.test(c)) {
+      const word = /^[a-zA-Z]+/.exec(s.slice(i))[0];
+      let j = 0;
+      while (j < word.length) {
+        const rest = word.slice(j).toLowerCase();
+        const name = names.find((n) => rest.startsWith(n));
+        if (name) {
+          j += name.length;
+          if (name === 'pi') tokens.push({ k: 'sym', v: 'pi' });
+          else if (name === 'theta') tokens.push({ k: 'sym', v: vars.includes('theta') ? 'theta' : 'x', raw: 'θ' });
+          else tokens.push({ k: 'fn', v: ALIASES[name] || name });
+          // log_b( ... ): base given after an underscore
+          if (name === 'log' && s[i + j] === '_') {
+            const b = /^_\{?(\d+\.?\d*)\}?/.exec(s.slice(i + j));
+            if (b) { tokens[tokens.length - 1].base = b[1]; i += b[0].length; }
+          }
+          continue;
+        }
+        const ch = word[j];
+        if (ch === 'e') tokens.push({ k: 'sym', v: 'e' });
+        else if (vars.includes(ch)) tokens.push({ k: 'sym', v: ch });
+        else throw new ExprError(`Unknown symbol "${ch}". Use ${vars.join(', ')} as the variable${vars.length > 1 ? 's' : ''}.`);
+        j++;
+      }
+      i += word.length;
+      continue;
+    }
+    if ('+-*/^(),|!'.includes(c) || c === '[' || c === ']') { tokens.push({ k: 'op', v: c === '[' ? '(' : c === ']' ? ')' : c }); i++; continue; }
+    throw new ExprError(`Unexpected character "${c}".`);
+  }
+  return tokens;
+}
+
+// ------------------------------------------------------------------ parser
+/**
+ * Parse a math expression. Supports + − × ÷ ^, parentheses, implicit multiplication (2x, 3sin(x), x(x+1)),
+ * functions (sin, cos, tan, sec, csc, cot, asin, acos, atan, sinh, cosh, tanh, exp, ln, log, log_b, sqrt, cbrt, abs),
+ * |x| bars, pi/π and e.
+ */
+function parse(src, { vars = ['x'], raw = false } = {}) {
+  if (!String(src ?? '').trim()) throw new ExprError('Enter an expression.');
+  const tokens = tokenize(src, vars);
+  let p = 0;
+  const peek = () => tokens[p];
+  const isOp = (v) => peek() && peek().k === 'op' && peek().v === v;
+  const expect = (v) => { if (!isOp(v)) throw new ExprError(v === ')' ? 'A closing parenthesis ")" is missing.' : `Expected "${v}".`); p++; };
+  const startsFactor = () => { const t = peek(); return t && (t.k === 'num' || t.k === 'sym' || t.k === 'fn' || (t.k === 'op' && (t.v === '(' || t.v === '|'))); };
+
+  function expression() {
+    let left = term();
+    while (isOp('+') || isOp('-')) {
+      const op = tokens[p++].v;
+      const right = term();
+      left = op === '+' ? add(left, right) : sub(left, right);
+    }
+    return left;
+  }
+  function term() {
+    let left = unary();
+    for (;;) {
+      if (isOp('*')) { p++; left = mul(left, unary()); }
+      else if (isOp('/')) { p++; left = div(left, unary()); }
+      else if (startsFactor() && !(isOp('|') && absDepth > 0)) left = mul(left, power());
+      else break;
+    }
+    return left;
+  }
+  function unary() {
+    if (isOp('-')) { p++; return neg(unary()); }
+    if (isOp('+')) { p++; return unary(); }
+    return power();
+  }
+  function power() {
+    const base = postfix();
+    if (isOp('^')) { p++; return pow(base, unary()); }
+    return base;
+  }
+  function postfix() {
+    const node = primary();
+    if (isOp('!')) throw new ExprError('Factorials (!) are not supported in expressions here.');
+    return node;
+  }
+  let absDepth = 0;
+  function primary() {
+    const t = peek();
+    if (!t) throw new ExprError('The expression ends unexpectedly.');
+    if (t.k === 'num') {
+      p++;
+      const f = parseFrac(t.v);
+      if (!f) throw new ExprError(`"${t.v}" is not a valid number.`);
+      return num(f);
+    }
+    if (t.k === 'sym') { p++; return sym(t.v); }
+    if (t.k === 'op' && t.v === '(') { p++; const e = expression(); expect(')'); return e; }
+    if (t.k === 'op' && t.v === '|') { p++; absDepth++; const e = expression(); absDepth--; expect('|'); return fn('abs', e); }
+    if (t.k === 'fn') {
+      p++;
+      let exponent = null;
+      if (isOp('^')) { p++; exponent = unary(); } // sin^2(x)
+      let arg;
+      if (isOp('(')) { p++; arg = expression(); expect(')'); }
+      else if (peek() && (peek().k === 'num' || peek().k === 'sym')) {
+        // sin x, sin 2x, ln x^2 → argument is a simple implicit product
+        arg = power();
+        while (peek() && peek().k === 'sym') arg = mul(arg, power());
+      } else throw new ExprError(`Write the argument of ${t.v} in parentheses, for example ${t.v}(x).`);
+      let node;
+      if (t.v === 'log' && t.base) node = div(fn('ln', arg), fn('ln', num(parseFrac(t.base))));
+      else if (t.v === 'sqrt') node = pow(arg, num(new Frac(1n, 2n)));
+      else if (t.v === 'cbrt') node = pow(arg, num(new Frac(1n, 3n)));
+      else if (t.v === 'exp') node = pow(sym('e'), arg);
+      else node = fn(t.v, arg);
+      return exponent ? pow(node, exponent) : node;
+    }
+    if (t.k === 'op' && t.v === ')') throw new ExprError('There is an extra closing parenthesis ")".');
+    throw new ExprError(`Unexpected "${t.v}".`);
+  }
+
+  const tree = expression();
+  if (p < tokens.length) throw new ExprError(tokens[p].v === ')' ? 'There is an extra closing parenthesis ")".' : `Unexpected "${tokens[p].v}" in the expression.`);
+  return raw ? tree : simplify(tree);
+}
+
+// ------------------------------------------------------------------ inspection helpers
+const isNum = (n, v) => n.t === 'num' && (v === undefined || n.v.eq(v));
+function hasVar(n, v = 'x') {
+  switch (n.t) {
+    case 'num': return false;
+    case 'sym': return n.n === v;
+    case 'add': case 'mul': return n.a.some((c) => hasVar(c, v));
+    case 'pow': return hasVar(n.b, v) || hasVar(n.e, v);
+    case 'fn': return hasVar(n.a, v);
+    default: return false;
+  }
+}
+function key(n) {
+  switch (n.t) {
+    case 'num': return n.v.toString();
+    case 'sym': return n.n;
+    case 'add': return `(+ ${n.a.map(key).join(' ')})`;
+    case 'mul': return `(* ${n.a.map(key).join(' ')})`;
+    case 'pow': return `(^ ${key(n.b)} ${key(n.e)})`;
+    case 'fn': return `(${n.n} ${key(n.a)})`;
+    default: return '?';
+  }
+}
+const equal = (a, b) => key(a) === key(b);
+/** True if the node contains any variable symbol (not pi or e). */
+function hasAnyVar(n) {
+  switch (n.t) {
+    case 'sym': return n.n !== 'pi' && n.n !== 'e';
+    case 'add': case 'mul': return n.a.some(hasAnyVar);
+    case 'pow': return hasAnyVar(n.b) || hasAnyVar(n.e);
+    case 'fn': return hasAnyVar(n.a);
+    default: return false;
+  }
+}
+
+/** Split a product into [numeric coefficient, rest node or null]. */
+function splitCoef(n) {
+  if (n.t === 'num') return [n.v, null];
+  if (n.t === 'mul') {
+    let c = Frac.of(1);
+    const rest = [];
+    for (const f of n.a) { if (f.t === 'num') c = c.mul(f.v); else rest.push(f); }
+    return [c, rest.length === 0 ? null : rest.length === 1 ? rest[0] : { t: 'mul', a: rest }];
+  }
+  return [Frac.of(1), n];
+}
+
+// ------------------------------------------------------------------ simplifier
+const MAX_EXP = 400;
+
+function integerRoot(n, k) {
+  // exact k-th root of a nonnegative BigInt, or null
+  if (n < 0n) return null;
+  if (n < 2n) return n;
+  let x = BigInt(Math.round(Number(n) ** (1 / k)));
+  for (const c of [x - 1n, x, x + 1n]) if (c >= 0n && c ** BigInt(k) === n) return c;
+  return null;
+}
+
+function powNum(b, e) {
+  // b, e: Frac. Returns Frac when exact, else null.
+  if (e.isInt()) {
+    const k = Number(e.n);
+    if (Math.abs(k) > MAX_EXP) return null;
+    if (b.isZero() && k < 0) throw new ExprError('Division by zero (0 raised to a negative power).');
+    return b.pow(k);
+  }
+  const q = Number(e.d);
+  if (q > 12) return null;
+  const sign = b.sign();
+  if (sign < 0 && q % 2 === 0) return null;
+  const rn = integerRoot(sign < 0 ? -b.n : b.n, q);
+  const rd = integerRoot(b.d, q);
+  if (rn === null || rd === null) return null;
+  const root = new Frac(sign < 0 ? -rn : rn, rd);
+  const k = Number(e.n);
+  if (Math.abs(k) > MAX_EXP) return null;
+  if (root.isZero() && k < 0) throw new ExprError('Division by zero.');
+  return root.pow(k);
+}
+
+function simplify(n) {
+  switch (n.t) {
+    case 'num': case 'sym': return n;
+    case 'fn': return simplifyFn(n.n, simplify(n.a));
+    case 'pow': return simplifyPow(simplify(n.b), simplify(n.e));
+    case 'mul': return simplifyMul(n.a.map(simplify));
+    case 'add': return simplifyAdd(n.a.map(simplify));
+    default: return n;
+  }
+}
+
+function simplifyFn(name, a) {
+  if (a.t === 'num') {
+    const v = a.v;
+    if (v.isZero() && ['sin', 'tan', 'asin', 'atan', 'sinh', 'tanh'].includes(name)) return num(0);
+    if (v.isZero() && ['cos', 'sec', 'cosh'].includes(name)) return num(1);
+    if (name === 'ln' && v.isOne()) return num(0);
+    if (name === 'abs') return num(v.abs());
+    if (name === 'log' && v.sign() > 0) {
+      // log10 of an exact power of ten
+      const s = v.toString();
+      if (/^10*$/.test(s)) return num(s.length - 1);
+      if (/^1\/10*$/.test(s)) return num(-(s.length - 2));
+    }
+  }
+  if (name === 'ln' && a.t === 'sym' && a.n === 'e') return num(1);
+  if (name === 'ln' && a.t === 'pow' && a.b.t === 'sym' && a.b.n === 'e') return a.e; // ln(e^u) = u
+  if (name === 'abs' && a.t === 'fn' && a.n === 'abs') return a;
+  return fn(name, a);
+}
+
+function simplifyPow(b, e) {
+  if (isNum(e, 0)) return num(1);
+  if (isNum(e, 1)) return b;
+  if (b.t === 'num' && e.t === 'num') {
+    const r = powNum(b.v, e.v);
+    if (r) return num(r);
+    // pull perfect powers out of roots: 12^(1/2) = 2·3^(1/2)
+    if (!e.v.isInt() && b.v.isInt() && b.v.sign() > 0 && e.v.n === 1n) {
+      const q = Number(e.v.d);
+      let outside = 1n, inside = b.v.n;
+      for (let p = 2n; p ** BigInt(q) <= inside && p < 100000n; p++) {
+        const pk = p ** BigInt(q);
+        while (inside % pk === 0n) { inside /= pk; outside *= p; }
+      }
+      if (outside > 1n) return simplifyMul([num(outside), { t: 'pow', b: num(inside), e }]);
+    }
+  }
+  if (isNum(b, 1)) return num(1);
+  if (isNum(b, 0) && e.t === 'num' && e.v.sign() > 0) return num(0);
+  if (b.t === 'pow' && e.t === 'num' && e.v.isInt()) return simplifyPow(b.b, simplifyMul([b.e, e]));
+  if (b.t === 'pow' && e.t === 'num' && b.e.t === 'num' && b.e.v.isInt() && Number(b.e.v.n) % 2 === 1) {
+    // (x^3)^(1/3) = x for odd integer inner powers (real roots)
+    return simplifyPow(b.b, simplifyMul([b.e, e]));
+  }
+  if (b.t === 'mul' && e.t === 'num' && e.v.isInt()) return simplifyMul(b.a.map((f) => simplifyPow(f, e)));
+  if (b.t === 'sym' && b.n === 'e' && e.t === 'fn' && e.n === 'ln') return e.a; // e^(ln u) = u
+  return { t: 'pow', b, e };
+}
+
+function baseExp(f) { return f.t === 'pow' ? [f.b, f.e] : [f, num(1)]; }
+
+function factorRank(f) {
+  if (f.t === 'pow' && f.b.t === 'sym' && f.b.n === 'e' && hasAnyVar(f.e)) return 2.5; // e^x after variables, before functions
+  const b = f.t === 'pow' ? f.b : f;
+  if (b.t === 'num') return 0;
+  if (b.t === 'sym') return b.n === 'pi' || b.n === 'e' ? 1 : 2; // constants first, then variables alphabetically
+  if (b.t === 'fn') return 3;
+  return 4;
+}
+
+function simplifyMul(items) {
+  let coef = Frac.of(1);
+  const flat = [];
+  for (const it of items) {
+    if (it.t === 'mul') flat.push(...it.a); else flat.push(it);
+  }
+  const groups = new Map();
+  for (const f of flat) {
+    if (f.t === 'num') { coef = coef.mul(f.v); continue; }
+    const [b, e] = baseExp(f);
+    const k = key(b);
+    if (groups.has(k)) groups.get(k).e.push(e); else groups.set(k, { b, e: [e] });
+  }
+  if (coef.isZero()) return num(0);
+  const factors = [];
+  for (const { b, e } of groups.values()) {
+    const exp = e.length === 1 ? e[0] : simplifyAdd(e);
+    const p = simplifyPow(b, exp);
+    if (p.t === 'num') coef = coef.mul(p.v);
+    else if (p.t === 'mul') {
+      for (const q of p.a) { if (q.t === 'num') coef = coef.mul(q.v); else factors.push(q); }
+    } else factors.push(p);
+  }
+  if (coef.isZero()) return num(0);
+  const baseKey = (f) => key(f.t === 'pow' ? f.b : f);
+  factors.sort((a, b) => factorRank(a) - factorRank(b) || (baseKey(a) < baseKey(b) ? -1 : baseKey(a) > baseKey(b) ? 1 : key(a) < key(b) ? -1 : 1));
+  if (!factors.length) return num(coef);
+  if (coef.isOne() && factors.length === 1) return factors[0];
+  return { t: 'mul', a: coef.isOne() ? factors : [num(coef), ...factors] };
+}
+
+/** Degree of a monomial in x (for ordering terms); -1 if not a monomial in x. */
+function monoDegree(rest) {
+  if (!rest) return 0;
+  if (!hasVar(rest)) return 0;
+  if (rest.t === 'sym') return 1;
+  if (rest.t === 'pow' && rest.b.t === 'sym' && rest.e.t === 'num') return rest.e.v.toNumber();
+  if (rest.t === 'mul') {
+    let d = 0;
+    for (const f of rest.a) { const k = monoDegree(f); if (k < 0) return -1; d += k; }
+    return d;
+  }
+  return -1;
+}
+
+function simplifyAdd(items) {
+  const flat = [];
+  for (const it of items) { if (it.t === 'add') flat.push(...it.a); else flat.push(it); }
+  let constant = Frac.of(0);
+  const groups = new Map();
+  const order = [];
+  for (const term of flat) {
+    if (term.t === 'num') { constant = constant.add(term.v); continue; }
+    const [c, rest] = splitCoef(term);
+    const k = key(rest);
+    if (groups.has(k)) groups.get(k).c = groups.get(k).c.add(c);
+    else { groups.set(k, { c, rest }); order.push(k); }
+  }
+  const terms = [];
+  for (const k of order) {
+    const { c, rest } = groups.get(k);
+    if (c.isZero()) continue;
+    terms.push(c.isOne() ? rest : simplifyMul([num(c), rest]));
+  }
+  terms.sort((a, b) => {
+    const da = monoDegree(splitCoef(a)[1]), db = monoDegree(splitCoef(b)[1]);
+    if (da >= 0 && db >= 0) return db - da;
+    if (da >= 0) return -1;
+    if (db >= 0) return 1;
+    return 0;
+  });
+  if (!constant.isZero()) terms.push(num(constant));
+  if (!terms.length) return num(0);
+  if (terms.length === 1) return terms[0];
+  return { t: 'add', a: terms };
+}
+
+// ------------------------------------------------------------------ evaluation
+const SPECIAL = { pi: Math.PI, e: Math.E };
+function evaluate(n, scope = {}) {
+  switch (n.t) {
+    case 'num': return n.v.toNumber();
+    case 'sym': {
+      if (n.n in scope) return scope[n.n];
+      if (n.n in SPECIAL) return SPECIAL[n.n];
+      throw new ExprError(`No value for ${n.n}.`);
+    }
+    case 'add': return n.a.reduce((s, c) => s + evaluate(c, scope), 0);
+    case 'mul': return n.a.reduce((s, c) => s * evaluate(c, scope), 1);
+    case 'pow': {
+      const b = evaluate(n.b, scope);
+      if (n.e.t === 'num' && b < 0 && !n.e.v.isInt()) {
+        // real odd roots of negative numbers, e.g. (-8)^(1/3) = -2
+        if (n.e.v.d % 2n === 1n) {
+          const r = -Math.pow(-b, n.e.v.toNumber());
+          return n.e.v.n % 2n === 0n ? -r : r;
+        }
+        return NaN;
+      }
+      return Math.pow(b, evaluate(n.e, scope));
+    }
+    case 'fn': {
+      const a = evaluate(n.a, scope);
+      switch (n.n) {
+        case 'sin': return Math.sin(a);
+        case 'cos': return Math.cos(a);
+        case 'tan': return Math.abs(Math.cos(a)) < 1e-15 ? NaN : Math.tan(a);
+        case 'sec': return 1 / Math.cos(a);
+        case 'csc': return 1 / Math.sin(a);
+        case 'cot': return Math.cos(a) / Math.sin(a);
+        case 'asin': return Math.asin(a);
+        case 'acos': return Math.acos(a);
+        case 'atan': return Math.atan(a);
+        case 'sinh': return Math.sinh(a);
+        case 'cosh': return Math.cosh(a);
+        case 'tanh': return Math.tanh(a);
+        case 'ln': return a > 0 ? Math.log(a) : NaN;
+        case 'log': return a > 0 ? Math.log10(a) : NaN;
+        case 'abs': return Math.abs(a);
+        default: throw new ExprError(`Unknown function ${n.n}.`);
+      }
+    }
+    default: return NaN;
+  }
+}
+
+/** Compile to a fast JS function f(x). Non-real results become NaN. */
+function compile(n, v = 'x') {
+  return (x) => {
+    try {
+      const r = evaluate(n, { [v]: x });
+      return Number.isFinite(r) ? r : NaN;
+    } catch (e) {
+      return NaN;
+    }
+  };
+}
+
+// ------------------------------------------------------------------ polynomials
+/** Convert to polynomial coefficients [c0, c1, ...] (Frac) in x, or null if not a polynomial. */
+function toPoly(n, v = 'x') {
+  switch (n.t) {
+    case 'num': return [n.v];
+    case 'sym': return n.n === v ? [Frac.of(0), Frac.of(1)] : null;
+    case 'add': {
+      let acc = [Frac.of(0)];
+      for (const c of n.a) { const p = toPoly(c, v); if (!p) return null; acc = polyAdd(acc, p); }
+      return polyTrim(acc);
+    }
+    case 'mul': {
+      let acc = [Frac.of(1)];
+      for (const c of n.a) { const p = toPoly(c, v); if (!p) return null; acc = polyMul(acc, p); if (acc.length > 61) return null; }
+      return polyTrim(acc);
+    }
+    case 'pow': {
+      if (n.e.t !== 'num' || !n.e.v.isInt() || n.e.v.sign() < 0) return hasVar(n, v) ? null : null;
+      const k = Number(n.e.v.n);
+      if (k > 60) return null;
+      const base = toPoly(n.b, v);
+      if (!base) return null;
+      let acc = [Frac.of(1)];
+      for (let i = 0; i < k; i++) acc = polyMul(acc, base);
+      return polyTrim(acc);
+    }
+    default: return null;
+  }
+}
+function polyTrim(p) {
+  const q = p.slice();
+  while (q.length > 1 && q[q.length - 1].isZero()) q.pop();
+  return q;
+}
+function polyAdd(a, b) {
+  const out = [];
+  for (let i = 0; i < Math.max(a.length, b.length); i++) out.push((a[i] || Frac.of(0)).add(b[i] || Frac.of(0)));
+  return out;
+}
+function polyMul(a, b) {
+  const out = Array.from({ length: a.length + b.length - 1 }, () => Frac.of(0));
+  a.forEach((x, i) => b.forEach((y, j) => { out[i + j] = out[i + j].add(x.mul(y)); }));
+  return out;
+}
+function polyDeriv(p) {
+  if (p.length <= 1) return [Frac.of(0)];
+  return p.slice(1).map((c, i) => c.mul(i + 1));
+}
+function polyEval(p, x) { let s = 0; for (let i = p.length - 1; i >= 0; i--) s = s * x + p[i].toNumber(); return s; }
+function polyEvalFrac(p, x) { let s = Frac.of(0); for (let i = p.length - 1; i >= 0; i--) s = s.mul(x).add(p[i]); return s; }
+function polyToNode(p, v = 'x') {
+  const terms = [];
+  p.forEach((c, i) => { if (!c.isZero()) terms.push(simplifyMul([num(c), i === 0 ? num(1) : i === 1 ? sym(v) : pow(sym(v), num(i))])); });
+  return simplifyAdd(terms.length ? terms : [num(0)]);
+}
+
+// ------------------------------------------------------------------ TeX printer
+const FN_TEX = {
+  sin: '\\sin', cos: '\\cos', tan: '\\tan', sec: '\\sec', csc: '\\csc', cot: '\\cot', asin: '\\arcsin', acos: '\\arccos',
+  atan: '\\arctan', sinh: '\\sinh', cosh: '\\cosh', tanh: '\\tanh', ln: '\\ln', log: '\\log',
+};
+const isNegative = (n) => (n.t === 'num' && n.v.sign() < 0) || (n.t === 'mul' && n.a[0].t === 'num' && n.a[0].v.sign() < 0);
+
+function symTex(n) { return n.n === 'pi' ? '\\pi' : n.n === 'theta' ? '\\theta' : n.n; }
+
+function argTex(a) {
+  if (a.t === 'fn' && a.n === 'abs') return texOf(a); // ln|x| rather than ln(|x|)
+  return a.t === 'sym' || (a.t === 'num' && a.v.isInt() && a.v.sign() >= 0) ? ` ${texOf(a)}` : `\\left(${texOf(a)}\\right)`;
+}
+
+function wrapBase(b) {
+  const t = texOf(b);
+  if (b.t === 'sym' || (b.t === 'num' && b.v.isInt() && b.v.sign() > 0)) return t;
+  if (b.t === 'fn' && b.n === 'abs') return t;
+  return `\\left(${t}\\right)`;
+}
+
+function powTex(b, e) {
+  if (e.t === 'num' && !e.v.isInt() && e.v.n === 1n) return e.v.d === 2n ? `\\sqrt{${texOf(b)}}` : `\\sqrt[${e.v.d}]{${texOf(b)}}`;
+  if (b.t === 'sym' && b.n === 'e') return `e^{${texOf(e)}}`;
+  if (b.t === 'fn' && b.n !== 'abs' && e.t === 'num' && e.v.isInt() && e.v.sign() > 0) {
+    return `${FN_TEX[b.n] || `\\operatorname{${b.n}}`}^{${texOf(e)}}${argTex(b.a)}`;
+  }
+  return `${wrapBase(b)}^{${texOf(e)}}`;
+}
+
+function factorTex(f) {
+  if (f.t === 'add') return `\\left(${texOf(f)}\\right)`;
+  return texOf(f);
+}
+
+function joinFactors(list) {
+  let out = '';
+  list.forEach((t, i) => {
+    if (i > 0 && /^[\d.]/.test(t)) out += ' \\cdot ';
+    else if (i > 0) out += ' ';
+    out += t;
+  });
+  return out;
+}
+
+function texOf(n) {
+  switch (n.t) {
+    case 'num': return n.v.toTex();
+    case 'sym': return symTex(n);
+    case 'fn':
+      if (n.n === 'abs') return `\\left|${texOf(n.a)}\\right|`;
+      return `${FN_TEX[n.n] || `\\operatorname{${n.n}}`}${argTex(n.a)}`;
+    case 'pow':
+      if (n.e.t === 'num' && n.e.v.sign() < 0) return texOf({ t: 'mul', a: [num(1), n] });
+      return powTex(n.b, n.e);
+    case 'add': {
+      let out = '';
+      n.a.forEach((term, i) => {
+        if (i === 0) { out += texOf(term); return; }
+        if (isNegative(term)) out += ` - ${texOf(simplifyMul([num(-1), term]))}`;
+        else out += ` + ${texOf(term)}`;
+      });
+      return out;
+    }
+    case 'mul': {
+      let coef = Frac.of(1);
+      const top = [], bottom = [];
+      for (const f of n.a) {
+        if (f.t === 'num') { coef = coef.mul(f.v); continue; }
+        if (f.t === 'pow' && f.e.t === 'num' && f.e.v.sign() < 0) {
+          const inv = simplifyPow(f.b, num(f.e.v.neg()));
+          bottom.push(inv);
+        } else top.push(f);
+      }
+      const sign = coef.sign() < 0 ? '-' : '';
+      const c = coef.abs();
+      const inFraction = bottom.length > 0 || c.d !== 1n;
+      const paren = (f) => `\\left(${texOf(f)}\\right)`;
+      // A sum needs brackets unless it is the only thing in a numerator or denominator.
+      const topTex = top.map((f) => (f.t === 'add' && (top.length > 1 || c.n !== 1n || !inFraction) ? paren(f) : texOf(f)));
+      const bottomTex = bottom.map((f) => (f.t === 'add' && (bottom.length > 1 || c.d !== 1n) ? paren(f) : texOf(f)));
+      const cn = c.n.toString(), cd = c.d.toString();
+      if (!bottom.length && c.d === 1n) {
+        const parts = cn === '1' && topTex.length ? topTex : [cn, ...topTex];
+        return sign + joinFactors(parts);
+      }
+      const numParts = cn === '1' && topTex.length ? topTex : [cn, ...topTex];
+      const denParts = cd === '1' ? bottomTex : [cd, ...bottomTex];
+      return `${sign}\\frac{${joinFactors(numParts)}}{${joinFactors(denParts)}}`;
+    }
+    default: return '?';
+  }
+}
+
+/** Plain-text form (for copying), e.g. "3x^2 - sin(x)/x". */
+function textOf(n) {
+  const T = (m) => textOf(m);
+  switch (n.t) {
+    case 'num': return n.v.toString();
+    case 'sym': return n.n === 'pi' ? 'π' : n.n === 'theta' ? 'θ' : n.n;
+    case 'fn': return n.n === 'abs' ? `|${T(n.a)}|` : `${n.n}(${T(n.a)})`;
+    case 'pow': {
+      if (n.e.t === 'num' && n.e.v.eq(new Frac(1n, 2n))) return `sqrt(${T(n.b)})`;
+      const b = n.b.t === 'sym' || (n.b.t === 'num' && n.b.v.isInt() && n.b.v.sign() > 0) || n.b.t === 'fn' ? T(n.b) : `(${T(n.b)})`;
+      const e = n.e.t === 'num' && n.e.v.isInt() ? T(n.e) : `(${T(n.e)})`;
+      return `${b}^${e}`;
+    }
+    case 'add': return n.a.map((t, i) => (i === 0 ? T(t) : isNegative(t) ? ` - ${T(simplifyMul([num(-1), t]))}` : ` + ${T(t)}`)).join('');
+    case 'mul': {
+      const parts = n.a.map((f) => (f.t === 'add' ? `(${T(f)})` : T(f)));
+      return parts.join('*').replace(/^-1\*/, '-').replace(/^(\d+)\*(?=[a-zπθ(])/i, '$1');
+    }
+    default: return '?';
+  }
+}
+
+// ------------------------------------------------------------------ derivative
+const one = () => num(1);
+
+/** Raw derivative (call simplify on the result). */
+function derivRaw(n, v = 'x') {
+  if (!hasVar(n, v)) return num(0);
+  switch (n.t) {
+    case 'sym': return one();
+    case 'add': return add(...n.a.map((c) => derivRaw(c, v)));
+    case 'mul': {
+      const consts = n.a.filter((f) => !hasVar(f, v));
+      const vars = n.a.filter((f) => hasVar(f, v));
+      const terms = vars.map((f, i) => mul(...consts, ...vars.map((g, j) => (i === j ? derivRaw(g, v) : g))));
+      return add(...terms);
+    }
+    case 'pow': {
+      const { b, e } = n;
+      if (!hasVar(e, v)) return mul(e, pow(b, add(e, num(-1))), derivRaw(b, v));
+      if (!hasVar(b, v)) {
+        const lnb = b.t === 'sym' && b.n === 'e' ? one() : fn('ln', b);
+        return mul(n, lnb, derivRaw(e, v));
+      }
+      return mul(n, add(mul(derivRaw(e, v), fn('ln', b)), mul(e, derivRaw(b, v), pow(b, num(-1)))));
+    }
+    case 'fn': {
+      const u = n.a, du = derivRaw(u, v);
+      const outer = {
+        sin: () => fn('cos', u),
+        cos: () => neg(fn('sin', u)),
+        tan: () => pow(fn('sec', u), 2),
+        sec: () => mul(fn('sec', u), fn('tan', u)),
+        csc: () => neg(mul(fn('csc', u), fn('cot', u))),
+        cot: () => neg(pow(fn('csc', u), 2)),
+        asin: () => pow(sub(num(1), pow(u, 2)), num(new Frac(-1n, 2n))),
+        acos: () => neg(pow(sub(num(1), pow(u, 2)), num(new Frac(-1n, 2n)))),
+        atan: () => pow(add(num(1), pow(u, 2)), -1),
+        sinh: () => fn('cosh', u),
+        cosh: () => fn('sinh', u),
+        tanh: () => sub(num(1), pow(fn('tanh', u), 2)),
+        ln: () => pow(u, -1),
+        log: () => pow(mul(u, fn('ln', num(10))), -1),
+        abs: () => mul(u, pow(fn('abs', u), -1)),
+      }[n.n];
+      if (!outer) throw new UnsupportedError(`Cannot differentiate ${n.n}.`);
+      return mul(outer(), du);
+    }
+    default: return num(0);
+  }
+}
+
+function derivative(n, v = 'x') { return simplify(derivRaw(n, v)); }
+
+/** Name of the main rule used to differentiate a term (for step-by-step explanations). */
+function derivRuleName(n, v = 'x') {
+  if (!hasVar(n, v)) return 'Constant rule: the derivative of a constant is 0';
+  const [c, rest] = splitCoef(n);
+  const prefix = c.isOne() ? '' : 'Constant multiple rule with the ';
+  const r = rest || n;
+  const describe = (f) => {
+    if (f.t === 'sym') return 'rule d/dx[x] = 1';
+    if (f.t === 'pow') {
+      if (!hasVar(f.e, v)) return f.b.t === 'sym' ? 'power rule d/dx[xⁿ] = n·xⁿ⁻¹' : 'power rule combined with the chain rule';
+      if (!hasVar(f.b, v)) return f.b.t === 'sym' && f.b.n === 'e' ? (f.e.t === 'sym' ? 'exponential rule d/dx[eˣ] = eˣ' : 'exponential rule with the chain rule') : 'exponential rule d/dx[aᵘ] = aᵘ·ln a·u′';
+      return 'logarithmic differentiation (variable base and exponent)';
+    }
+    if (f.t === 'fn') return f.a.t === 'sym' ? `derivative of ${f.n}` : `chain rule (outer function ${f.n})`;
+    if (f.t === 'mul') {
+      const varFactors = f.a.filter((g) => hasVar(g, v));
+      if (varFactors.length === 1) return `constant multiple rule with the ${describe(varFactors[0]).replace(/^./, (ch) => ch.toLowerCase())}`;
+      const quotient = varFactors.some((g) => g.t === 'pow' && g.e.t === 'num' && g.e.v.sign() < 0 && hasVar(g.b, v));
+      return quotient ? 'quotient rule (written as a product with a negative power)' : 'product rule';
+    }
+    if (f.t === 'add') return 'sum rule';
+    return 'differentiation rules';
+  };
+  const d = describe(r);
+  return prefix ? prefix + d : d.charAt(0).toUpperCase() + d.slice(1);
+}
+
+// ------------------------------------------------------------------ integration
+/** If node is linear a·x + b (a ≠ 0) return {a, b} as Frac, else null. */
+function linearCoeffs(n, v = 'x') {
+  const p = toPoly(n, v);
+  if (!p || p.length !== 2 || p[1].isZero()) return null;
+  return { a: p[1], b: p[0] };
+}
+
+function polyIntegralNode(p, v) {
+  return polyToNode([Frac.of(0), ...p.map((c, i) => c.div(i + 1))], v);
+}
+
+/**
+ * Integrate one term (without its numeric coefficient). Returns { result, rule } or throws UnsupportedError.
+ */
+function integrateBasic(r, v) {
+  const x = sym(v);
+  const isLinearPower = r.t === 'pow' && r.e.t === 'num' && linearCoeffs(r.b, v) && !(r.b.t === 'sym');
+  const poly = isLinearPower ? null : toPoly(r, v);
+  if (poly) return { result: polyIntegralNode(poly, v), rule: monoDegree(r) >= 0 ? 'Power rule ∫xⁿ dx = xⁿ⁺¹/(n+1)' : 'Expand into a polynomial, then use the power rule' };
+  if (r.t === 'pow' && !hasVar(r.e, v)) {
+    const L = linearCoeffs(r.b, v);
+    if (L && r.e.t === 'num') {
+      const n = r.e.v;
+      if (n.eq(-1)) {
+        const res = mul(num(L.a.inv()), fn('ln', fn('abs', r.b)));
+        return { result: res, rule: L.a.isOne() && L.b.isZero() ? '∫(1/x) dx = ln|x|' : '∫ 1/(ax+b) dx = (1/a)·ln|ax+b| (linear substitution)' };
+      }
+      const k = n.add(1);
+      return { result: mul(num(L.a.mul(k).inv()), pow(r.b, num(k))), rule: L.a.isOne() && L.b.isZero() ? 'Power rule ∫xⁿ dx = xⁿ⁺¹/(n+1)' : 'Power rule with linear substitution u = ax + b' };
+    }
+    // 1/(x^2 + c) and 1/sqrt(c - x^2)
+    const bp = toPoly(r.b, v);
+    if (bp && bp.length === 3 && bp[1].isZero() && r.e.t === 'num') {
+      const a2 = bp[2], c = bp[0];
+      if (r.e.v.eq(-1) && a2.isOne() && c.sign() > 0) {
+        const root = simplify(pow(num(c), num(new Frac(1n, 2n))));
+        return { result: simplify(mul(pow(root, -1), fn('atan', mul(x, pow(root, -1))))), rule: '∫ dx/(x² + a²) = (1/a)·arctan(x/a)' };
+      }
+      if (r.e.v.eq(new Frac(-1n, 2n)) && a2.eq(-1) && c.sign() > 0) {
+        const root = simplify(pow(num(c), num(new Frac(1n, 2n))));
+        return { result: simplify(fn('asin', mul(x, pow(root, -1)))), rule: '∫ dx/√(a² − x²) = arcsin(x/a)' };
+      }
+    }
+  }
+  if (r.t === 'pow' && !hasVar(r.b, v) && hasVar(r.e, v)) {
+    const L = linearCoeffs(r.e, v);
+    if (L) {
+      if (r.b.t === 'sym' && r.b.n === 'e') return { result: mul(num(L.a.inv()), r), rule: L.a.isOne() ? '∫eˣ dx = eˣ' : '∫e^(ax+b) dx = (1/a)·e^(ax+b)' };
+      if (r.b.t === 'num' && r.b.v.sign() > 0 && !r.b.v.isOne()) return { result: mul(num(L.a.inv()), r, pow(fn('ln', r.b), -1)), rule: '∫aᵘ dx = aᵘ/(ln a) (with linear u)' };
+    }
+  }
+  if (r.t === 'pow' && r.b.t === 'fn' && isNum(r.e, 2)) {
+    const L = linearCoeffs(r.b.a, v);
+    if (L && r.b.n === 'sec') return { result: mul(num(L.a.inv()), fn('tan', r.b.a)), rule: '∫sec²(u) dx = tan(u)/a' };
+    if (L && r.b.n === 'csc') return { result: mul(num(L.a.inv().neg()), fn('cot', r.b.a)), rule: '∫csc²(u) dx = −cot(u)/a' };
+  }
+  if (r.t === 'fn') {
+    const L = linearCoeffs(r.a, v);
+    if (L) {
+      const k = num(L.a.inv());
+      const u = r.a;
+      const table = {
+        sin: [neg(mul(k, fn('cos', u))), '∫sin(u) dx = −cos(u)/a'],
+        cos: [mul(k, fn('sin', u)), '∫cos(u) dx = sin(u)/a'],
+        tan: [neg(mul(k, fn('ln', fn('abs', fn('cos', u))))), '∫tan(u) dx = −ln|cos u|/a'],
+        cot: [mul(k, fn('ln', fn('abs', fn('sin', u)))), '∫cot(u) dx = ln|sin u|/a'],
+        sec: [mul(k, fn('ln', fn('abs', add(fn('sec', u), fn('tan', u))))), '∫sec(u) dx = ln|sec u + tan u|/a'],
+        csc: [neg(mul(k, fn('ln', fn('abs', add(fn('csc', u), fn('cot', u)))))), '∫csc(u) dx = −ln|csc u + cot u|/a'],
+        sinh: [mul(k, fn('cosh', u)), '∫sinh(u) dx = cosh(u)/a'],
+        cosh: [mul(k, fn('sinh', u)), '∫cosh(u) dx = sinh(u)/a'],
+      }[r.n];
+      if (table) return { result: table[0], rule: table[1] };
+    }
+  }
+  if (r.t === 'mul' && r.a.length === 2 && r.a.every((f) => f.t === 'fn')) {
+    const [f, g] = r.a;
+    const names = [f.n, g.n].sort().join(',');
+    if (equal(f.a, g.a)) {
+      const L = linearCoeffs(f.a, v);
+      if (L && names === 'sec,tan') return { result: mul(num(L.a.inv()), fn('sec', f.a)), rule: '∫sec(u)tan(u) dx = sec(u)/a' };
+      if (L && names === 'cot,csc') return { result: mul(num(L.a.inv().neg()), fn('csc', f.a)), rule: '∫csc(u)cot(u) dx = −csc(u)/a' };
+    }
+  }
+  throw new UnsupportedError(`The term ${textOf(r)} is not one of the supported forms.`);
+}
+
+/**
+ * Indefinite integral by linearity and a table of basic forms.
+ * Returns { result (without +C), steps: [{ term, rule, result }] }.
+ */
+function integrate(n, v = 'x') {
+  const node = simplify(n);
+  const terms0 = node.t === 'add' ? node.a : [node];
+  const expanded = terms0.every((t) => monoDegree(splitCoef(t)[1]) >= 0);
+  const poly = expanded ? toPoly(node, v) : null;
+  if (poly) {
+    const steps = poly.map((c, i) => (c.isZero() ? null : {
+      term: polyToNode([...Array(i).fill(Frac.of(0)), c], v),
+      rule: i === 0 ? 'Constant rule ∫k dx = kx' : 'Power rule ∫xⁿ dx = xⁿ⁺¹/(n+1)',
+      result: polyToNode([...Array(i + 1).fill(Frac.of(0)), c.div(i + 1)], v),
+    })).filter(Boolean);
+    return { result: polyIntegralNode(poly, v), steps };
+  }
+  const terms = node.t === 'add' ? node.a : [node];
+  const steps = [];
+  const parts = [];
+  for (const term of terms) {
+    if (!hasVar(term, v)) {
+      const res = simplify(mul(term, sym(v)));
+      steps.push({ term, rule: 'Constant rule ∫k dx = kx', result: res });
+      parts.push(res);
+      continue;
+    }
+    const [c, rest] = splitCoef(term);
+    // separate constant (x-free) factors such as pi or e
+    let constPart = num(c);
+    let varPart = rest;
+    if (rest && rest.t === 'mul') {
+      const k = rest.a.filter((f) => !hasVar(f, v));
+      const w = rest.a.filter((f) => hasVar(f, v));
+      if (k.length) { constPart = simplify(mul(num(c), ...k)); varPart = w.length === 1 ? w[0] : { t: 'mul', a: w }; }
+    }
+    const { result, rule } = integrateBasic(varPart, v);
+    const res = simplify(mul(constPart, result));
+    steps.push({ term, rule: isNum(constPart, 1) ? rule : `Constant multiple rule, then ${rule}`, result: res });
+    parts.push(res);
+  }
+  return { result: simplify(add(...parts)), steps };
+}
+
+return { ExprError, UnsupportedError, num, sym, X, add, mul, pow, fn, neg, div, sub, FUNCTIONS, parse, isNum, hasVar, key, equal, splitCoef, simplify, evaluate, compile, toPoly, polyTrim, polyAdd, polyMul, polyDeriv, polyEval, polyEvalFrac, polyToNode, texOf, textOf, derivRaw, derivative, derivRuleName, linearCoeffs, integrate };
+})();
+__m["lib/numeric.js"] = (function () {
+/**
+ * Numerical methods: special functions for statistics, integration, root finding
+ * and real polynomial roots. All functions are pure and unit-tested.
+ */
+const { Frac } = __m["lib/fraction.js"];
+const { polyDeriv, polyEval, polyTrim, polyEvalFrac } = __m["lib/expr.js"];
+
+// ------------------------------------------------------------------ special functions
+/** erf(x) to ~1e-15: Taylor series for |x| < 2.5, continued fraction for erfc beyond. */
+function erf(x) {
+  if (x < 0) return -erf(-x);
+  if (x < 2.5) {
+    let sum = x, term = x;
+    for (let n = 1; n < 200; n++) {
+      term *= -x * x / n;
+      const add = term / (2 * n + 1);
+      sum += add;
+      if (Math.abs(add) < 1e-17 * Math.abs(sum)) break;
+    }
+    return (2 / Math.sqrt(Math.PI)) * sum;
+  }
+  return 1 - erfc(x);
+}
+
+/** erfc(x) for x ≥ 0 via Lentz's continued fraction (accurate in the tails). */
+function erfc(x) {
+  if (x < 2.5) return 1 - erf(x);
+  // erfc(x) = exp(-x²)/√π · 1/(x + 1/2/(x + 1/(x + 3/2/(x + ...))))
+  const tiny = 1e-300;
+  let f = x, C = x, D = 0;
+  for (let n = 1; n < 500; n++) {
+    const a = n / 2;
+    D = x + a * D; D = Math.abs(D) < tiny ? tiny : D; D = 1 / D;
+    C = x + a / C; C = Math.abs(C) < tiny ? tiny : C;
+    const delta = C * D;
+    f *= delta;
+    if (Math.abs(delta - 1) < 1e-16) break;
+  }
+  return Math.exp(-x * x) / (Math.sqrt(Math.PI) * f);
+}
+
+/** Standard normal CDF Φ(z). */
+function normalCdf(z) {
+  if (z < 0) return 0.5 * erfc(-z / Math.SQRT2);
+  return 1 - 0.5 * erfc(z / Math.SQRT2);
+}
+function normalPdf(z) { return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI); }
+
+/** Inverse standard normal CDF (Acklam's approximation refined with Halley steps). */
+function normalInv(p) {
+  if (!(p > 0 && p < 1)) throw new RangeError('Probability must be strictly between 0 and 1');
+  const a = [-3.969683028665376e1, 2.209460984245205e2, -2.759285104469687e2, 1.383577518672690e2, -3.066479806614716e1, 2.506628277459239];
+  const b = [-5.447609879822406e1, 1.615858368580409e2, -1.556989798598866e2, 6.680131188771972e1, -1.328068155288572e1];
+  const c = [-7.784894002430293e-3, -3.223964580411365e-1, -2.400758277161838, -2.549732539343734, 4.374664141464968, 2.938163982698783];
+  const d = [7.784695709041462e-3, 3.224671290700398e-1, 2.445134137142996, 3.754408661907416];
+  const lo = 0.02425;
+  let x;
+  if (p < lo) { const q = Math.sqrt(-2 * Math.log(p)); x = (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+  else if (p > 1 - lo) { const q = Math.sqrt(-2 * Math.log(1 - p)); x = -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+  else { const q = p - 0.5, r = q * q; x = (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1); }
+  for (let i = 0; i < 2; i++) {
+    const e = normalCdf(x) - p;
+    const u = e * Math.sqrt(2 * Math.PI) * Math.exp(x * x / 2);
+    x -= u / (1 + x * u / 2);
+  }
+  return x;
+}
+
+/** ln Γ(x) for x > 0 (Lanczos, g = 7). */
+function lgamma(x) {
+  const g = 7;
+  const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059,
+    12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  if (x < 0.5) return Math.log(Math.PI / Math.abs(Math.sin(Math.PI * x))) - lgamma(1 - x);
+  x -= 1;
+  let a = c[0];
+  const t = x + g + 0.5;
+  for (let i = 1; i < g + 2; i++) a += c[i] / (x + i);
+  return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(a);
+}
+
+/** Regularized incomplete beta I_x(a, b) (Numerical Recipes continued fraction). */
+function incBeta(x, a, b) {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+  const cf = (xx, aa, bb) => {
+    const tiny = 1e-300;
+    let c = 1, d = 1 - (aa + bb) * xx / (aa + 1);
+    d = Math.abs(d) < tiny ? tiny : d; d = 1 / d;
+    let h = d;
+    for (let m = 1; m <= 300; m++) {
+      const m2 = 2 * m;
+      let aa1 = m * (bb - m) * xx / ((aa + m2 - 1) * (aa + m2));
+      d = 1 + aa1 * d; d = Math.abs(d) < tiny ? tiny : d; c = 1 + aa1 / c; c = Math.abs(c) < tiny ? tiny : c; d = 1 / d; h *= d * c;
+      aa1 = -(aa + m) * (aa + bb + m) * xx / ((aa + m2) * (aa + m2 + 1));
+      d = 1 + aa1 * d; d = Math.abs(d) < tiny ? tiny : d; c = 1 + aa1 / c; c = Math.abs(c) < tiny ? tiny : c; d = 1 / d;
+      const del = d * c; h *= del;
+      if (Math.abs(del - 1) < 1e-15) break;
+    }
+    return h;
+  };
+  return x < (a + 1) / (a + b + 2) ? bt * cf(x, a, b) / a : 1 - bt * cf(1 - x, b, a) / b;
+}
+
+/** Student t CDF with df degrees of freedom. */
+function tCdf(t, df) {
+  const x = df / (df + t * t);
+  const tail = 0.5 * incBeta(x, df / 2, 0.5);
+  return t >= 0 ? 1 - tail : tail;
+}
+
+/** Inverse Student t CDF by bisection (60+ correct bits). */
+function tInv(p, df) {
+  if (!(p > 0 && p < 1)) throw new RangeError('Probability must be strictly between 0 and 1');
+  let lo = -1e4, hi = 1e4;
+  for (let i = 0; i < 200; i++) {
+    const mid = (lo + hi) / 2;
+    if (tCdf(mid, df) < p) lo = mid; else hi = mid;
+    if (hi - lo < 1e-13 * Math.max(1, Math.abs(mid))) break;
+  }
+  return (lo + hi) / 2;
+}
+
+// ------------------------------------------------------------------ integration
+/** Adaptive Simpson's rule. Throws if the function is not finite on [a, b]. */
+function adaptiveSimpson(f, a, b, tol = 1e-10, maxDepth = 40) {
+  let evaluations = 0;
+  const F = (x) => {
+    const y = f(x);
+    evaluations++;
+    if (!Number.isFinite(y)) throw new RangeError(`The function is undefined or infinite at x = ${+x.toPrecision(6)}.`);
+    return y;
+  };
+  const simpson = (x0, x2, f0, f1, f2) => ((x2 - x0) / 6) * (f0 + 4 * f1 + f2);
+  const rec = (x0, x2, f0, f1, f2, whole, eps, depth) => {
+    const x1 = (x0 + x2) / 2;
+    const xl = (x0 + x1) / 2, xr = (x1 + x2) / 2;
+    const fl = F(xl), fr = F(xr);
+    const left = simpson(x0, x1, f0, fl, f1), right = simpson(x1, x2, f1, fr, f2);
+    const diff = left + right - whole;
+    if (depth <= 0 || Math.abs(diff) <= 15 * eps) return left + right + diff / 15;
+    return rec(x0, x1, f0, fl, f1, left, eps / 2, depth - 1) + rec(x1, x2, f1, fr, f2, right, eps / 2, depth - 1);
+  };
+  if (a === b) return { value: 0, evaluations: 0 };
+  const sign = a < b ? 1 : -1;
+  const [lo, hi] = a < b ? [a, b] : [b, a];
+  // split into 16 panels so narrow features are not missed
+  let total = 0;
+  const panels = 16;
+  for (let i = 0; i < panels; i++) {
+    const x0 = lo + ((hi - lo) * i) / panels, x2 = lo + ((hi - lo) * (i + 1)) / panels;
+    const f0 = F(x0), f2 = F(x2), f1 = F((x0 + x2) / 2);
+    total += rec(x0, x2, f0, f1, f2, simpson(x0, x2, f0, f1, f2), tol / panels, maxDepth);
+  }
+  return { value: sign * total, evaluations };
+}
+
+/** Composite trapezoidal and Simpson's rules with the table of points. */
+function trapezoid(f, a, b, n) {
+  const h = (b - a) / n;
+  const pts = Array.from({ length: n + 1 }, (_, i) => { const x = a + i * h; return { i, x, y: f(x), w: i === 0 || i === n ? 1 : 2 }; });
+  const sum = pts.reduce((s, p) => s + p.w * p.y, 0);
+  return { h, points: pts, sum, value: (h / 2) * sum };
+}
+function simpson(f, a, b, n) {
+  const h = (b - a) / n;
+  const pts = Array.from({ length: n + 1 }, (_, i) => { const x = a + i * h; return { i, x, y: f(x), w: i === 0 || i === n ? 1 : i % 2 ? 4 : 2 }; });
+  const sum = pts.reduce((s, p) => s + p.w * p.y, 0);
+  return { h, points: pts, sum, value: (h / 3) * sum };
+}
+
+// ------------------------------------------------------------------ roots
+/** Find sign changes of f on [a, b] using a grid, then refine each by bisection. */
+function findRoots(f, a, b, { samples = 2000, tol = 1e-13 } = {}) {
+  const roots = [];
+  let x0 = a, y0 = f(a);
+  if (Math.abs(y0) < 1e-14) roots.push(a);
+  for (let i = 1; i <= samples; i++) {
+    const x1 = a + ((b - a) * i) / samples;
+    const y1 = f(x1);
+    if (Number.isFinite(y0) && Number.isFinite(y1)) {
+      if (Math.abs(y1) < 1e-14) roots.push(x1);
+      else if (y0 * y1 < 0 && Math.abs(y0) > 1e-14) {
+        const r = bisect(f, x0, x1, tol).root;
+        // reject sign changes caused by poles (|f| grows instead of shrinking)
+        if (Math.abs(f(r)) < 1e-6 * Math.max(1, Math.abs(y0), Math.abs(y1))) roots.push(r);
+      }
+    }
+    x0 = x1; y0 = y1;
+  }
+  return dedupe(roots, (b - a) * 1e-9);
+}
+
+function dedupe(xs, eps) {
+  const out = [];
+  xs.sort((p, q) => p - q).forEach((x) => { if (!out.length || Math.abs(x - out[out.length - 1]) > eps) out.push(x); });
+  return out;
+}
+
+/** Bisection with an iteration log. f(a) and f(b) must have opposite signs. */
+function bisect(f, a, b, tol = 1e-12, maxIter = 200) {
+  let fa = f(a);
+  const log = [];
+  let m = a;
+  for (let i = 1; i <= maxIter; i++) {
+    m = (a + b) / 2;
+    const fm = f(m);
+    log.push({ i, a, b, m, fm, width: b - a });
+    if (fm === 0 || (b - a) / 2 < tol) return { root: m, iterations: i, log, converged: true };
+    if (fa * fm < 0) b = m; else { a = m; fa = fm; }
+  }
+  return { root: m, iterations: maxIter, log, converged: false };
+}
+
+/** Real roots of a polynomial with Frac or number coefficients [c0, c1, ...], sorted ascending. */
+function polyRealRoots(coeffs) {
+  const p = polyTrim(coeffs.map((c) => (c instanceof Frac ? c : Frac.of(c))));
+  const deg = p.length - 1;
+  if (deg < 1) return [];
+  const pn = p.map((c) => c.toNumber());
+  if (deg === 1) return [-pn[0] / pn[1]];
+  // Cauchy bound
+  const lead = Math.abs(pn[deg]);
+  const bound = 1 + Math.max(...pn.slice(0, deg).map((c) => Math.abs(c) / lead));
+  const crit = polyRealRoots(polyDeriv(p)).filter((c) => Math.abs(c) <= bound);
+  const pts = [-bound, ...crit, bound];
+  const f = (x) => polyEval(p, x);
+  const roots = [];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i], b = pts[i + 1];
+    const fa = f(a), fb = f(b);
+    if (fa === 0) roots.push(a);
+    if (fa * fb < 0) roots.push(bisect(f, a, b, 1e-15 * Math.max(1, Math.abs(a), Math.abs(b))).root);
+  }
+  if (f(pts[pts.length - 1]) === 0) roots.push(pts[pts.length - 1]);
+  // repeated roots touch zero at a critical point without a sign change
+  const scale = Math.max(...pn.map(Math.abs));
+  for (const c of crit) if (Math.abs(f(c)) <= 1e-10 * scale * Math.max(1, Math.abs(c) ** deg)) roots.push(c);
+  return dedupe(roots, 1e-9 * Math.max(1, bound));
+}
+
+/** Exact rational roots of an integer-coefficient polynomial via the rational root theorem. */
+function rationalRoots(coeffs) {
+  let p = polyTrim(coeffs.map((c) => Frac.of(c)));
+  // scale to integers
+  let l = 1n;
+  for (const c of p) l = (l * c.d) / gcdBig(l, c.d);
+  let ints = p.map((c) => (c.n * l) / c.d);
+  const roots = [];
+  // zero roots
+  while (ints.length > 1 && ints[0] === 0n) { roots.push(Frac.of(0)); ints = ints.slice(1); }
+  if (ints.length < 2) return roots;
+  const a0 = absBig(ints[0]), an = absBig(ints[ints.length - 1]);
+  if (a0 > 10n ** 12n || an > 10n ** 12n) return roots;
+  const divs = (n) => { const out = []; for (let d = 1n; d * d <= n; d++) if (n % d === 0n) { out.push(d); if (d * d !== n) out.push(n / d); } return out; };
+  const P = divs(a0), Q = divs(an);
+  const seen = new Set();
+  let poly = ints.map((c) => Frac.of(c));
+  for (const q of Q) for (const pp of P) for (const s of [1n, -1n]) {
+    const r = new Frac(s * pp, q);
+    const k = r.toString();
+    if (seen.has(k)) continue;
+    seen.add(k);
+    while (poly.length > 1 && polyEvalFrac(poly, r).isZero()) { roots.push(r); poly = synthDiv(poly, r); }
+  }
+  return roots.sort((a, b) => a.cmp(b));
+}
+
+/** Divide polynomial by (x - r) exactly (r must be a root). Coefficients low → high. */
+function synthDiv(p, r) {
+  const n = p.length - 1;
+  const out = new Array(n);
+  let carry = Frac.of(0);
+  for (let i = n; i >= 1; i--) { carry = p[i].add(carry.mul(r)); out[i - 1] = carry; }
+  return out;
+}
+
+function gcdBig(a, b) { a = absBig(a); b = absBig(b); while (b) [a, b] = [b, a % b]; return a || 1n; }
+function absBig(a) { return a < 0n ? -a : a; }
+
+/** Numerical derivative (central difference, used for checks). */
+function numDeriv(f, x, h = 1e-5) { return (f(x + h) - f(x - h)) / (2 * h); }
+
+return { erf, erfc, normalCdf, normalPdf, normalInv, lgamma, incBeta, tCdf, tInv, adaptiveSimpson, trapezoid, simpson, findRoots, bisect, polyRealRoots, rationalRoots, synthDiv, numDeriv };
+})();
+__m["explore/data.js"] = (function () {
+/**
+ * Explorers for statistics, combinatorics and numerical methods: distributions with a
+ * highlighted probability region, listed arrangements/selections, and root-finding iterations.
+ */
+const { plot } = __m["lib/plot.js"];
+const { tx } = __m["lib/calc-kit.js"];
+const { normalCdf, normalPdf, lgamma } = __m["lib/numeric.js"];
+const { parse, derivative, texOf, compile } = __m["lib/expr.js"];
+const { escapeHtml } = __m["lib/ui.js"];
+const { randInt, pick } = __m["lib/learn.js"];
+
+const t = (v, d = 4) => tx(v, d);
+
+// ------------------------------------------------------------------ statistics
+const normalExplore = {
+  title: 'Shade a normal probability',
+  intro: 'The shaded area is P(a < X < b). Changing μ slides the curve; changing σ makes it wider and flatter, but the total area stays 1.',
+  controls: [
+    { name: 'mu', label: 'Mean μ', min: -4, max: 4, step: 0.1, value: 0 },
+    { name: 'sigma', label: 'Standard deviation σ', min: 0.4, max: 3, step: 0.1, value: 1 },
+    { name: 'a', label: 'From a', min: -10, max: 10, step: 0.1, value: -1 },
+    { name: 'b', label: 'To b', min: (v) => v.a, max: 10, step: 0.1, value: 1 },
+  ],
+  presets: [{ label: 'μ ± 1σ (68%)', values: { mu: 0, sigma: 1, a: -1, b: 1 } }, { label: 'μ ± 2σ (95%)', values: { mu: 0, sigma: 1, a: -2, b: 2 } }, { label: 'Upper tail', values: { mu: 0, sigma: 1, a: 1.5, b: 10 } }],
+  render({ mu, sigma, a, b }) {
+    const pdf = (x) => normalPdf((x - mu) / sigma) / sigma;
+    const za = (a - mu) / sigma, zb = (b - mu) / sigma;
+    const p = normalCdf(zb) - normalCdf(za);
+    return {
+      svg: plot({ x: [-10, 10], y: [0, 1.05], width: 400, height: 260, title: 'Normal curve with shaded probability', curves: [{ f: pdf }], shade: [{ f: pdf, a: Math.max(a, -10), b: Math.min(b, 10) }], vlines: [{ x: mu, cls: 'd-line3', label: 'μ' }] }),
+      readouts: [
+        { label: 'z-scores', tex: `z_a = \\frac{a - \\mu}{\\sigma} \\approx ${t(za, 3)},\\ z_b \\approx ${t(zb, 3)}` },
+        { label: 'Probability (shaded)', tex: `P(a < X < b) \\approx ${t(p)}`, tone: 'good' },
+        { label: 'As a percentage', text: `${(p * 100).toFixed(2)}%` },
+      ],
+    };
+  },
+};
+
+function binomPmf(n, p, k) {
+  if (p === 0) return k === 0 ? 1 : 0;
+  if (p === 1) return k === n ? 1 : 0;
+  return Math.exp(lgamma(n + 1) - lgamma(k + 1) - lgamma(n - k + 1) + k * Math.log(p) + (n - k) * Math.log(1 - p));
+}
+const binomialExplore = {
+  title: 'Shape a binomial distribution',
+  intro: 'Each bar is P(X = k) for n independent trials with success probability p. The highlighted bars add up to the probability shown.',
+  controls: [
+    { name: 'n', label: 'Trials n', min: 1, max: 40, step: 1, value: 10 },
+    { name: 'p', label: 'Success probability p', min: 0, max: 1, step: 0.01, value: 0.5 },
+    { name: 'lo', label: 'From k =', min: 0, max: (v) => v.n, step: 1, value: 4 },
+    { name: 'hi', label: 'To k =', min: (v) => v.lo, max: (v) => v.n, step: 1, value: 6 },
+  ],
+  presets: [{ label: 'Fair coin, 10 tosses', values: { n: 10, p: 0.5, lo: 4, hi: 6 } }, { label: 'Skewed (p = 0.15)', values: { n: 20, p: 0.15, lo: 0, hi: 2 } }],
+  render({ n, p, lo, hi }) {
+    const pm = Array.from({ length: n + 1 }, (_, k) => binomPmf(n, p, k));
+    const prob = pm.slice(lo, hi + 1).reduce((s, v) => s + v, 0);
+    const bars = pm.map((h, k) => ({ x: k, w: 0.8, h, cls: k >= lo && k <= hi ? 'd-bar-hi' : 'd-bar' }));
+    return {
+      svg: plot({ x: [-0.8, n + 0.8], width: 400, height: 260, title: 'Binomial probabilities', bars, xTicks: n <= 20 ? pm.map((_, k) => ({ x: k, label: String(k) })).filter((_, k) => n <= 12 || k % 2 === 0) : undefined }),
+      readouts: [
+        { label: 'Probability (highlighted)', tex: `P(${lo} \\le X \\le ${hi}) \\approx ${t(prob)}`, tone: 'good' },
+        { label: 'Mean and spread', tex: `\\mu = np = ${t(n * p, 3)},\\ \\sigma = \\sqrt{np(1-p)} \\approx ${t(Math.sqrt(n * p * (1 - p)), 3)}` },
+        { label: 'Most likely value', text: `k = ${pm.indexOf(Math.max(...pm))}` },
+      ],
+    };
+  },
+};
+
+const zScorePractice = {
+  title: 'Standardise a value',
+  generate(rand) {
+    const mu = pick(rand, [50, 60, 70, 100, 170, 500]);
+    const sigma = pick(rand, [4, 5, 8, 10, 12, 15]);
+    const x = mu + randInt(rand, -25, 25) / 10 * sigma;
+    const z = (x - mu) / sigma;
+    const pBelow = normalCdf(z);
+    return {
+      prompt: `<p>Scores are normally distributed with mean <strong>μ = ${mu}</strong> and standard deviation <strong>σ = ${sigma}</strong>. A student scores <strong>x = ${Number(x.toFixed(2))}</strong>. Find the z-score and the proportion of students who scored lower.</p>`,
+      answers: [{ label: 'z-score', value: z }, { label: 'P(X < x)', value: pBelow, decimals: 2 }],
+      hint: 'The z-score counts how many standard deviations x is from the mean. Then use the standard normal table or Φ(z).',
+      hintTex: 'z = \\frac{x - \\mu}{\\sigma}',
+      steps: [
+        { title: 'Known values', tex: `x = ${Number(x.toFixed(2))},\\ \\mu = ${mu},\\ \\sigma = ${sigma}` },
+        { title: 'z-score', tex: `z = \\frac{${Number(x.toFixed(2))} - ${mu}}{${sigma}} = ${t(z, 2)}` },
+        { title: 'Area to the left', tex: `P(X < x) = \\Phi(${t(z, 2)}) \\approx ${t(pBelow, 4)}` },
+      ],
+    };
+  },
+};
+
+// ------------------------------------------------------------------ combinatorics
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
+function perms(items, r) {
+  if (r === 0) return [[]];
+  const out = [];
+  items.forEach((it, i) => { for (const rest of perms(items.filter((_, j) => j !== i), r - 1)) out.push([it, ...rest]); });
+  return out;
+}
+function combs(items, r, start = 0) {
+  if (r === 0) return [[]];
+  const out = [];
+  for (let i = start; i <= items.length - r; i++) for (const rest of combs(items, r - 1, i + 1)) out.push([items[i], ...rest]);
+  return out;
+}
+const fact = (n) => (n <= 1 ? 1 : n * fact(n - 1));
+
+const arrangementsExplore = {
+  title: 'List every arrangement',
+  intro: 'With small numbers you can see every case. Order matters for permutations (AB ≠ BA) but not for combinations, so each combination appears r! times among the permutations.',
+  controls: [
+    { name: 'n', label: 'Items to choose from n', min: 2, max: 6, step: 1, value: 4 },
+    { name: 'r', label: 'Items chosen r', min: 1, max: (v) => v.n, step: 1, value: 2 },
+    { name: 'mode', label: 'Show', type: 'select', options: [['perm', 'Permutations (order matters)'], ['comb', 'Combinations (order does not matter)']], value: 'perm' },
+  ],
+  presets: [{ label: '3 of 3 (3! = 6)', values: { n: 3, r: 3 } }, { label: '2 of 5', values: { n: 5, r: 2 } }],
+  render({ n, r, mode }) {
+    const items = LETTERS.slice(0, n);
+    const nPr = fact(n) / fact(n - r), nCr = nPr / fact(r);
+    let html;
+    if (mode === 'perm') {
+      // group the permutations by the set they use, so the r! orderings sit together
+      const groups = combs(items, r).map((c) => perms(c, r));
+      html = `<p class="combo-head">${nPr} permutations of ${r} from {${items.join(', ')}}${r > 1 ? ` — grouped by which letters are used (${fact(r)} orderings each)` : ''}</p>
+        <ul class="combo-list">${groups.map((g) => g.map((p, i) => `<li${i === 0 && r > 1 ? ' class="is-group-start"' : ''}>${p.join('')}</li>`).join('')).join('')}</ul>`;
+    } else {
+      html = `<p class="combo-head">${nCr} combinations of ${r} from {${items.join(', ')}}</p>
+        <ul class="combo-list">${combs(items, r).map((c) => `<li>{${c.join(', ')}}</li>`).join('')}</ul>`;
+    }
+    return {
+      html: `<div class="p-2" role="img" aria-label="${escapeHtml(`List of ${mode === 'perm' ? nPr + ' permutations' : nCr + ' combinations'}`)}">${html}</div>`,
+      readouts: [
+        { label: 'Permutations', tex: `{}_{${n}}P_{${r}} = \\frac{${n}!}{(${n} - ${r})!} = ${nPr}`, tone: mode === 'perm' ? 'good' : undefined },
+        { label: 'Combinations', tex: `\\binom{${n}}{${r}} = \\frac{${n}!}{${r}!\\,(${n} - ${r})!} = ${nCr}`, tone: mode === 'comb' ? 'good' : undefined },
+        { label: 'Link between them', tex: `{}_{${n}}P_{${r}} = \\binom{${n}}{${r}} \\cdot ${r}! = ${nCr} \\cdot ${fact(r)}` },
+      ],
+    };
+  },
+};
+
+const countingPractice = {
+  title: 'Count the arrangements',
+  generate(rand) {
+    const n = randInt(rand, 5, 10), r = randInt(rand, 2, Math.min(4, n - 1));
+    const nPr = fact(n) / fact(n - r), nCr = nPr / fact(r);
+    const ctx = pick(rand, [['students', 'a president, a secretary', 'a committee'], ['runners', 'gold, silver', 'a relay squad'], ['books', 'shelf positions 1, 2', 'a bundle']]);
+    return {
+      prompt: `<p>There are <strong>${n} ${ctx[0]}</strong>. In how many ways can you choose <strong>${r}</strong> of them (a) when the order matters (for example ${ctx[1]}, …), and (b) when it does not (for example ${ctx[2]})?</p>`,
+      answers: [{ label: '(a) Order matters', value: nPr, int: true }, { label: '(b) Order does not matter', value: nCr, int: true }],
+      hint: 'Ordered choices: multiply n × (n − 1) × … for r factors. Unordered: divide that by r! because each group can be ordered r! ways.',
+      hintTex: '{}_nP_r = \\frac{n!}{(n-r)!} \\qquad \\binom{n}{r} = \\frac{{}_nP_r}{r!}',
+      steps: [
+        { title: 'Ordered (permutations)', tex: `{}_{${n}}P_{${r}} = ${Array.from({ length: r }, (_, i) => n - i).join(' \\times ')} = ${nPr}` },
+        { title: 'Unordered (combinations)', tex: `\\binom{${n}}{${r}} = \\frac{${nPr}}{${r}!} = \\frac{${nPr}}{${fact(r)}} = ${nCr}` },
+      ],
+    };
+  },
+};
+
+// ------------------------------------------------------------------ numerical methods
+const ROOT_FUNCS = {
+  'x^3 - x - 2': { a: 1, b: 2, x0: 2, view: [0, 2.6] },
+  'cos(x) - x': { a: 0, b: 1, x0: 1, view: [-0.3, 1.6] },
+  'x^2 - 2': { a: 0, b: 2, x0: 2, view: [-0.3, 2.6] },
+  'e^x - 3': { a: 0, b: 2, x0: 2, view: [-0.3, 2.4] },
+};
+const rootCache = new Map();
+function rootRuns(src) {
+  if (rootCache.has(src)) return rootCache.get(src);
+  const node = parse(src), d = derivative(node);
+  const f = compile(node), df = compile(d), cfg = ROOT_FUNCS[src];
+  const bis = [];
+  let a = cfg.a, b = cfg.b;
+  for (let k = 0; k <= 15; k++) {
+    const m = (a + b) / 2;
+    bis.push({ a, b, x: m, fx: f(m) });
+    if (f(a) * f(m) <= 0) b = m; else a = m;
+  }
+  const newt = [];
+  let x = cfg.x0;
+  for (let k = 0; k <= 15; k++) {
+    const fx = f(x), dfx = df(x);
+    newt.push({ x, fx, dfx });
+    if (!dfx) break;
+    x -= fx / dfx;
+  }
+  const res = { f, tex: texOf(node), bis, newt, cfg };
+  rootCache.set(src, res);
+  return res;
+}
+
+const rootFinderExplore = {
+  title: 'Step through the iterations',
+  intro: 'Bisection halves a bracket that must contain the root. Newton–Raphson follows the tangent line down to the x-axis. Step forward and compare how fast each one closes in.',
+  controls: [
+    { name: 'fn', label: 'Function', type: 'select', options: Object.keys(ROOT_FUNCS).map((k) => [k, `f(x) = ${k.replace('^3', '³').replace('^2', '²').replace('e^x', 'eˣ')}`]), value: 'x^3 - x - 2' },
+    { name: 'method', label: 'Method', type: 'select', options: [['bisection', 'Bisection'], ['newton', 'Newton–Raphson']], value: 'bisection' },
+    { name: 'k', label: 'Iteration k', min: 0, max: (v) => (v.method === 'newton' ? 6 : 15), step: 1, value: 0 },
+  ],
+  animate: { control: 'k', seconds: 6 },
+  render({ fn, method, k }) {
+    const R = rootRuns(fn);
+    const [x0, x1] = R.cfg.view;
+    const ys = Array.from({ length: 81 }, (_, i) => R.f(x0 + ((x1 - x0) * i) / 80)).filter(Number.isFinite);
+    const ylo = Math.min(0, ...ys), yhi = Math.max(0, ...ys), pad = (yhi - ylo) * 0.1;
+    const plotBase = { x: [x0, x1], y: [ylo - pad, yhi + pad], width: 400, height: 280, title: `Iteration ${k}`, curves: [{ f: R.f }] };
+    let svg, rows, cur;
+    if (method === 'bisection') {
+      cur = R.bis[k];
+      svg = plot({ ...plotBase, shade: [{ f: () => yhi + pad, g: () => ylo - pad, a: cur.a, b: cur.b, cls: 'd-shade2' }], vlines: [{ x: cur.a, cls: 'd-line3' }, { x: cur.b, cls: 'd-line3' }], points: [{ x: cur.x, y: 0, label: `x${k}`, cls: 'd-point3' }, { x: cur.x, y: cur.fx }] });
+      rows = R.bis.slice(0, k + 1).map((r, i) => `<tr${i === k ? ' class="is-current"' : ''}><td>${i}</td><td>${r.a.toFixed(6)}</td><td>${r.b.toFixed(6)}</td><td>${r.x.toFixed(8)}</td><td>${r.fx.toExponential(2)}</td></tr>`);
+      rows.unshift('<tr><th scope="col">k</th><th scope="col">a</th><th scope="col">b</th><th scope="col">midpoint</th><th scope="col">f(mid)</th></tr>');
+    } else {
+      const kk = Math.min(k, R.newt.length - 1);
+      cur = R.newt[kk];
+      const next = R.newt[kk + 1];
+      svg = plot({ ...plotBase, curves: [{ f: R.f }, { f: (x) => cur.fx + cur.dfx * (x - cur.x), cls: 'd-line2' }], points: [{ x: cur.x, y: cur.fx, label: `x${kk}` }, ...(next ? [{ x: next.x, y: 0, label: `x${kk + 1}`, cls: 'd-point3' }] : [])] });
+      rows = R.newt.slice(0, kk + 1).map((r, i) => `<tr${i === kk ? ' class="is-current"' : ''}><td>${i}</td><td>${r.x.toFixed(10)}</td><td>${r.fx.toExponential(2)}</td></tr>`);
+      rows.unshift('<tr><th scope="col">k</th><th scope="col">x<sub>k</sub></th><th scope="col">f(x<sub>k</sub>)</th></tr>');
+    }
+    return {
+      svg,
+      html: `<div class="table-wrap iter-table mt-2"><table class="data-table">${rows.join('')}</table></div>`,
+      readouts: [
+        { label: 'Equation', tex: `f(x) = ${R.tex} = 0` },
+        method === 'bisection'
+          ? { label: 'Bracket width', tex: `b - a = ${t(cur.b - cur.a, 8)} = \\frac{${t(R.bis[0].b - R.bis[0].a, 2)}}{2^{${k}}}` }
+          : { label: 'Newton step', tex: `x_{k+1} = x_k - \\frac{f(x_k)}{f'(x_k)}` },
+        { label: `Estimate after ${method === 'bisection' ? k : Math.min(k, R.newt.length - 1)} steps`, tex: `x \\approx ${t(cur.x, 10)}`, tone: Math.abs(cur.fx) < 1e-8 ? 'good' : undefined },
+      ],
+    };
+  },
+};
+
+return { normalExplore, binomialExplore, zScorePractice, arrangementsExplore, countingPractice, rootFinderExplore };
+})();
 __m["calculators/factorial-calculator.js"] = (function () {
 /**
  * n! exactly (BigInt, binary splitting) for n ≤ 40,000; larger n (up to 10⁹) in scientific notation
@@ -928,6 +2839,7 @@ const { validator } = __m["lib/calc-kit.js"];
 const { factorial, log10Factorial, scientificFromBigInt, scientificFromLog10, groupDigits } = __m["lib/bigint.js"];
 const { escapeHtml } = __m["lib/ui.js"];
 
+const { arrangementsExplore, countingPractice } = __m["explore/data.js"];
 const EXACT_LIMIT = 40000;
 
 function trailingZeros(n) {
@@ -938,6 +2850,8 @@ function trailingZeros(n) {
 
 const calculator = {
   id: 'factorial-calculator',
+  explore: arrangementsExplore,
+  practice: countingPractice,
   fields: [{ name: 'n', label: 'n', type: 'number', inputmode: 'numeric', placeholder: 'e.g. 20', hint: 'A whole number from 0 to 1,000,000,000. Exact digits are shown up to n = 40,000.' }],
   examples: [
     { label: '5!', values: { n: '5' } },

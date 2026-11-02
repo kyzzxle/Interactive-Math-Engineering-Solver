@@ -3,8 +3,11 @@ import { validator, fracAnswer, fp, pointTex, sqrtFrac, fmt, tx } from '../lib/c
 import { simplifySqrt } from '../lib/exact.js';
 import { plot, windowAround } from '../lib/plot.js';
 
+import { distanceExplore, distancePractice } from '../explore/geometry.js';
 export const calculator = {
   id: 'midpoint-and-distance',
+  explore: distanceExplore,
+  practice: distancePractice,
   fields: [
     { name: 'x1', label: 'x₁', type: 'number', placeholder: 'e.g. -2', row: 'p1' },
     { name: 'y1', label: 'y₁', type: 'number', placeholder: 'e.g. 1', row: 'p1' },

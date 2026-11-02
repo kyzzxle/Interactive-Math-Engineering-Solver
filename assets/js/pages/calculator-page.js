@@ -10,6 +10,7 @@ import {
   resultCard, stepsBlock, alertBlock, notesBlock, finalAnswerBlock, tableBlock, showFieldErrors, clearFieldErrors,
   wireCalculator, fillForm, tex, escapeHtml,
 } from '../lib/ui.js';
+import { mountExplorer, mountPractice } from '../lib/learn.js';
 
 function isVisible(form, name) {
   const el = form.elements.namedItem(name);
@@ -128,6 +129,9 @@ export function mountCalculator(calc) {
       render(values, { live: true });
     }, 150);
   });
+
+  if (calc.explore) mountExplorer(document.querySelector('[data-explore-root]'), calc.explore);
+  if (calc.practice) mountPractice(document.querySelector('[data-practice-root]'), calc.practice);
 
   copyAllBtn.addEventListener('click', () => {
     const t = copyAllBtn.getAttribute('data-copy') || '';

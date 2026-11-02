@@ -5,8 +5,10 @@
 import { fmt, tx, eq, UNIT_FIELD } from '../lib/calc-kit.js';
 import { readOptional, triangleOutput, sinD, cosD, asinD } from '../lib/triangle-kit.js';
 
+import { rightTriangleExplore } from '../explore/functions.js';
 export const calculator = {
   id: 'right-triangle-solver',
+  explore: rightTriangleExplore,
   fields: [
     { name: 'a', label: 'Leg a', type: 'number', signed: false, placeholder: 'unknown', row: 's', affix: 'len' },
     { name: 'b', label: 'Leg b', type: 'number', signed: false, placeholder: 'unknown', row: 's', affix: 'len' },

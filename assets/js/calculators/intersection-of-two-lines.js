@@ -6,6 +6,7 @@ import { validator, fp, pointTex, fmt } from '../lib/calc-kit.js';
 import { generalTex } from '../lib/lines.js';
 import { plot, windowAround } from '../lib/plot.js';
 
+import { twoLinesExplore } from '../explore/geometry.js';
 const line = (n) => [
   { name: `A${n}`, label: `A${n === 1 ? '₁' : '₂'}`, type: 'number', placeholder: n === 1 ? 'e.g. 2' : 'e.g. 1', row: `l${n}` },
   { name: `B${n}`, label: `B${n === 1 ? '₁' : '₂'}`, type: 'number', placeholder: n === 1 ? 'e.g. 3' : 'e.g. -1', row: `l${n}` },
@@ -14,6 +15,7 @@ const line = (n) => [
 
 export const calculator = {
   id: 'intersection-of-two-lines',
+  explore: twoLinesExplore,
   fields: [...line(1), ...line(2)],
   examples: [
     { label: '2x + 3y − 12 = 0 and x − y − 1 = 0', values: { A1: '2', B1: '3', C1: '-12', A2: '1', B2: '-1', C2: '-1' } },

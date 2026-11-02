@@ -236,6 +236,357 @@ function wireCalculator(o) {
 
 return { escapeHtml, tex, resultCard, finalAnswerBlock, stepsBlock, tableBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, readForm, fillForm, writeUrlState, clearUrlState, readUrlState, enableCopyButtons, wireCalculator };
 })();
+__m["lib/learn.js"] = (function () {
+/**
+ * Guided-learning widgets shared by calculator pages (browser only).
+ *
+ *   mountExplorer(root, spec)  "Explore": sliders (each paired with a number box), optional
+ *                              draggable points, optional Play / Pause / Reset animation.
+ *   mountPractice(root, spec)  "Try it": a generated problem with Hint, Check, Show solution
+ *                              and New problem.
+ *
+ * Specs are plain objects defined in assets/js/explore/*.js. They contain no DOM code, so the
+ * Node tests can call spec.render() and spec.generate() directly.
+ *
+ * Explorer spec:
+ *   { title, intro?, controls: [Control], presets?: [{ label, values }],
+ *     drag?: { A: { x: 'x1', y: 'y1' } },        // data-drag="A" points move these controls
+ *     rotate?: { yaw: 'yaw' },                   // dragging the figure changes this control
+ *     animate?: { control: 't', seconds: 4 },    // Play moves this control from min to max
+ *     render(values) => { svg?, html?, readouts?: [{ label, tex?, text?, tone? }], caption?, note? } }
+ * Control: { name, label, min, max (number or values => number), step, value, unit?, type?: 'select', options? }
+ *
+ * Practice spec:
+ *   { title?, generate(rand) => { prompt (HTML), promptTex?, answers: [{ label, value, decimals?, unit?, int? }],
+ *       unordered?: boolean, hint, hintTex?, steps: [step], final? } }
+ */
+const { tex, escapeHtml, stepsBlock } = __m["lib/ui.js"];
+
+const reduceMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+let seq = 0;
+
+function decimalsOf(step) {
+  const s = String(step);
+  return s.includes('e-') ? Number(s.split('e-')[1]) : (s.split('.')[1] || '').length;
+}
+const roundTo = (v, step, min) => {
+  const k = Math.round((v - min) / step);
+  return Number((min + k * step).toFixed(decimalsOf(step)));
+};
+
+function readoutHtml(r) {
+  const val = r.tex !== undefined ? tex(r.tex) : escapeHtml(r.text ?? '');
+  return `<div class="readout${r.tone ? ` is-${r.tone}` : ''}"><span class="readout-label">${escapeHtml(r.label)}</span><span class="readout-value">${val}</span></div>`;
+}
+
+/** Explore panel: controls on one side, live figure and readouts on the other. */
+function mountExplorer(root, spec) {
+  if (!root || !spec) return null;
+  const id = `ex${++seq}`;
+  const ctrls = spec.controls;
+  const values = Object.fromEntries(ctrls.map((c) => [c.name, c.value]));
+  const maxOf = (c) => (typeof c.max === 'function' ? c.max(values) : c.max);
+  const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
+
+  const controlHtml = (c) => {
+    const cid = `${id}-${c.name}`;
+    if (c.type === 'select') {
+      return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+        <select id="${cid}" class="select" data-ctrl="${c.name}">${c.options.map(([v, l]) => `<option value="${escapeHtml(v)}"${String(v) === String(c.value) ? ' selected' : ''}>${escapeHtml(l)}</option>`).join('')}</select></div>`;
+    }
+    const unit = c.unit ? `<span class="ex-unit">${escapeHtml(c.unit)}</span>` : '';
+    return `<div class="ex-control">
+        <div class="ex-control-head"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+          <span class="ex-num"><input class="input" type="number" inputmode="decimal" data-num="${c.name}" step="${c.step}" aria-label="${escapeHtml(c.label)} value">${unit}</span></div>
+        <input id="${cid}" class="range" type="range" data-ctrl="${c.name}" step="${c.step}">
+      </div>`;
+  };
+
+  const anim = spec.animate;
+  const motionOk = !reduceMotion();
+  const animHtml = anim ? `<div class="ex-player">
+      <button type="button" class="btn btn-primary btn-sm" data-play aria-pressed="false">▶ Play</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-anim-reset>Reset</button>
+      <p class="field-hint w-full">${motionOk ? 'Or drag the time slider to step through it yourself.' : 'Your device asks for reduced motion, so nothing moves until you press Play. You can also drag the time slider instead.'}</p>
+    </div>` : '';
+  const presets = spec.presets && spec.presets.length
+    ? `<div class="example-row"><span>Try:</span>${spec.presets.map((p, i) => `<button type="button" class="chip" data-preset="${i}">${escapeHtml(p.label)}</button>`).join('')}</div>` : '';
+  const dragHint = spec.drag || spec.rotate ? `<p class="field-hint mt-3">${spec.rotate ? 'Drag the figure to turn it.' : 'Drag the points on the graph, or type exact values.'}</p>` : '';
+
+  root.innerHTML = `<div class="explore">
+      <div class="explore-controls">
+        ${spec.intro ? `<p class="explore-intro">${escapeHtml(spec.intro)}</p>` : ''}
+        ${ctrls.map(controlHtml).join('')}
+        ${animHtml}${presets}
+        <div class="form-actions mt-4"><button type="button" class="btn btn-ghost btn-sm" data-ex-reset>Reset values</button></div>
+        ${dragHint}
+      </div>
+      <div class="explore-stage">
+        <figure class="explore-figure" data-figure></figure>
+        <div class="readouts" data-readouts aria-live="polite"></div>
+        <p class="explore-note" data-note hidden></p>
+      </div>
+    </div>`;
+
+  const fig = root.querySelector('[data-figure]');
+  const out = root.querySelector('[data-readouts]');
+  const note = root.querySelector('[data-note]');
+
+  const sync = () => {
+    for (const c of ctrls) {
+      if (c.type === 'select') { root.querySelector(`[data-ctrl="${c.name}"]`).value = values[c.name]; continue; }
+      const lo = minOf(c), hi = maxOf(c);
+      if (values[c.name] > hi) values[c.name] = hi;
+      if (values[c.name] < lo) values[c.name] = lo;
+      const range = root.querySelector(`[data-ctrl="${c.name}"]`);
+      range.min = lo; range.max = hi; range.value = values[c.name];
+      const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));
+      range.setAttribute('aria-valuetext', `${shown}${c.unit ? ` ${c.unit}` : ''}`);
+      const num = root.querySelector(`[data-num="${c.name}"]`);
+      if (document.activeElement !== num) num.value = shown;
+      num.min = lo; num.max = hi;
+    }
+  };
+
+  let frame = 0;
+  const draw = () => {
+    frame = 0;
+    let res;
+    try { res = spec.render({ ...values }); } catch (e) { res = { html: `<p class="alert alert-error">This combination cannot be drawn: ${escapeHtml(e.message)}</p>` }; }
+    fig.innerHTML = (res.svg || '') + (res.html || '') + (res.caption ? `<figcaption class="diagram-caption">${escapeHtml(res.caption)}</figcaption>` : '');
+    out.innerHTML = (res.readouts || []).map(readoutHtml).join('');
+    note.hidden = !res.note;
+    note.textContent = res.note || '';
+  };
+  const update = () => { sync(); if (!frame) frame = requestAnimationFrame(draw); };
+
+  root.addEventListener('input', (e) => {
+    const name = e.target.getAttribute('data-ctrl') || e.target.getAttribute('data-num');
+    if (!name) return;
+    const c = ctrls.find((x) => x.name === name);
+    if (c.type === 'select') { values[name] = e.target.value; update(); return; }
+    const v = Number(e.target.value);
+    if (e.target.value === '' || !Number.isFinite(v)) return;
+    values[name] = Math.min(maxOf(c), Math.max(minOf(c), v));
+    if (anim && name !== anim.control) stop();
+    update();
+  });
+  root.addEventListener('change', (e) => { if (e.target.hasAttribute('data-num')) sync(); });
+
+  const reset = (vals) => {
+    stop();
+    for (const c of ctrls) values[c.name] = c.value;
+    Object.assign(values, vals || {});
+    update();
+  };
+  root.querySelector('[data-ex-reset]').addEventListener('click', () => reset());
+  root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => reset(spec.presets[Number(b.getAttribute('data-preset'))].values)));
+
+  // ------------------------------------------------ animation (always user-started)
+  let raf = 0, last = 0;
+  const playBtn = root.querySelector('[data-play]');
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    if (playBtn) { playBtn.textContent = '▶ Play'; playBtn.setAttribute('aria-pressed', 'false'); }
+  }
+  if (anim) {
+    const c = ctrls.find((x) => x.name === anim.control);
+    const tick = (now) => {
+      const hi = maxOf(c), lo = minOf(c);
+      const dt = last ? (now - last) / 1000 : 0;
+      last = now;
+      let v = values[c.name] + ((hi - lo) / (anim.seconds || 4)) * dt;
+      if (v >= hi) { if (anim.loop) v = lo + (v - hi); else { values[c.name] = hi; update(); stop(); return; } }
+      values[c.name] = v;
+      update();
+      raf = requestAnimationFrame(tick);
+    };
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (raf) { stop(); return; }
+        if (!anim.loop && values[c.name] >= maxOf(c)) values[c.name] = minOf(c);
+        last = 0;
+        playBtn.textContent = '❚❚ Pause';
+        playBtn.setAttribute('aria-pressed', 'true');
+        raf = requestAnimationFrame(tick);
+      });
+    }
+    root.querySelector('[data-anim-reset]').addEventListener('click', () => { stop(); values[c.name] = minOf(c); update(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  }
+
+  // ------------------------------------------------ dragging points / rotating
+  const toGraph = (svg, clientX, clientY) => {
+    const view = (svg.getAttribute('data-view') || '').split(' ').map(Number);
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = clientY;
+    const m = svg.getScreenCTM();
+    if (!m || view.length < 8) return null;
+    const p = pt.matrixTransform(m.inverse());
+    const [xmin, xmax, ymin, ymax, l, t, pw, ph] = view;
+    return { x: xmin + ((p.x - l) / pw) * (xmax - xmin), y: ymax - ((p.y - t) / ph) * (ymax - ymin) };
+  };
+  let dragging = null;
+  fig.addEventListener('pointerdown', (e) => {
+    const svg = fig.querySelector('svg');
+    if (!svg) return;
+    const handle = e.target.closest('[data-drag]');
+    if (handle && spec.drag && spec.drag[handle.getAttribute('data-drag')]) {
+      dragging = { kind: 'point', key: handle.getAttribute('data-drag') };
+    } else if (spec.rotate) {
+      dragging = { kind: 'rotate', x: e.clientX, y: e.clientY, start: { ...values } };
+    } else return;
+    e.preventDefault();
+    stop();
+    fig.classList.add('is-dragging');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    if (dragging.kind === 'rotate') {
+      const yaw = spec.rotate.yaw, pitch = spec.rotate.pitch;
+      const cy = ctrls.find((c) => c.name === yaw);
+      let v = dragging.start[yaw] + (e.clientX - dragging.x) * 0.6;
+      while (v > cy.max) v -= cy.max - cy.min;
+      while (v < cy.min) v += cy.max - cy.min;
+      values[yaw] = Math.round(v);
+      if (pitch) {
+        const cp = ctrls.find((c) => c.name === pitch);
+        values[pitch] = Math.round(Math.max(cp.min, Math.min(cp.max, dragging.start[pitch] - (e.clientY - dragging.y) * 0.4)));
+      }
+      update();
+      return;
+    }
+    const svg = fig.querySelector('svg');
+    const g = svg && toGraph(svg, e.clientX, e.clientY);
+    if (!g) return;
+    const map = spec.drag[dragging.key];
+    const target = typeof map === 'function' ? map(g, { ...values }) : Object.fromEntries(Object.entries(map).map(([axis, name]) => [name, g[axis]]));
+    for (const [name, raw] of Object.entries(target)) {
+      const c = ctrls.find((x) => x.name === name);
+      if (!c || !Number.isFinite(raw)) continue;
+      values[name] = roundTo(Math.min(maxOf(c), Math.max(minOf(c), raw)), c.step, minOf(c));
+    }
+    update();
+  });
+  const endDrag = () => { if (dragging) { dragging = null; fig.classList.remove('is-dragging'); } };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  sync();
+  draw();
+  return { values, update, reset };
+}
+
+// ------------------------------------------------------------------------------------ practice
+
+/** Parse a typed answer: decimals, fractions like 3/4, a leading minus, commas as decimal point. */
+function parseAnswer(raw) {
+  const s = String(raw ?? '').trim().replace(/\s+/g, '').replace(/−/g, '-').replace(/,(?=\d{1,2}$)/, '.');
+  if (!s) return null;
+  const frac = s.match(/^(-?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+  if (frac) { const d = Number(frac[2]); return d === 0 ? null : Number(frac[1]) / d; }
+  if (!/^-?(\d+\.?\d*|\.\d+)(e-?\d+)?$/i.test(s)) return null;
+  return Number(s);
+}
+
+/** 'correct' | 'close' | 'wrong' for a typed value against the expected answer. */
+function judge(user, expected, decimals = 2) {
+  if (user === null || !Number.isFinite(user)) return 'invalid';
+  const err = Math.abs(user - expected);
+  const tol = 0.5 * 10 ** -decimals * 1.05 + 1e-9;
+  if (err <= tol || err <= Math.abs(expected) * 5e-4) return 'correct';
+  if (err <= Math.max(Math.abs(expected) * 0.05, tol * 4)) return 'close';
+  return 'wrong';
+}
+
+function mountPractice(root, spec) {
+  if (!root || !spec) return null;
+  const id = `pr${++seq}`;
+  let problem, attempts = 0;
+
+  const build = () => {
+    problem = spec.generate(Math.random);
+    attempts = 0;
+    const inputs = problem.answers.map((a, i) => `<div class="field">
+        <label class="field-label" for="${id}-a${i}">${escapeHtml(a.label)}</label>
+        <div class="input-affix"><input id="${id}-a${i}" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-answer="${i}" aria-describedby="${id}-h${i}">${a.unit ? `<span class="affix">${escapeHtml(a.unit)}</span>` : ''}</div>
+        <p class="field-hint" id="${id}-h${i}">${a.int ? 'A whole number' : `Round to ${a.decimals ?? 2} decimal places`}</p>
+      </div>`).join('');
+    root.innerHTML = `<form class="practice" novalidate>
+        <div class="practice-prompt">${problem.prompt}${problem.promptTex ? `<div class="step-math">${tex(problem.promptTex, true)}</div>` : ''}</div>
+        <div class="field-row mt-4">${inputs}</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Check answer</button>
+          <button type="button" class="btn btn-secondary" data-hint>Hint</button>
+          <button type="button" class="btn btn-ghost" data-solution>Show solution</button>
+          <button type="button" class="btn btn-ghost" data-new>New problem</button>
+        </div>
+        <div class="practice-feedback" data-feedback role="status" aria-live="polite"></div>
+        <div data-hint-box hidden></div>
+        <div data-solution-box hidden></div>
+      </form>`;
+    const form = root.querySelector('form');
+    const fb = root.querySelector('[data-feedback]');
+    const hintBox = root.querySelector('[data-hint-box]');
+    const solBox = root.querySelector('[data-solution-box]');
+    const showHint = () => {
+      hintBox.hidden = false;
+      hintBox.innerHTML = `<div class="alert alert-info"><p class="alert-title">Hint</p><p>${escapeHtml(problem.hint)}</p>${problem.hintTex ? `<div class="step-math">${tex(problem.hintTex, true)}</div>` : ''}</div>`;
+    };
+    const showSolution = () => {
+      solBox.hidden = false;
+      const final = problem.answers.map((a) => `${a.label}: ${a.int ? a.value : Number(a.value.toFixed(a.decimals ?? 2))}${a.unit ? ` ${a.unit}` : ''}`).join(' · ');
+      solBox.innerHTML = stepsBlock(problem.steps, { title: 'Worked solution' }) + `<p class="practice-final">Answer — ${escapeHtml(final)}</p>`;
+    };
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const typed = problem.answers.map((_, i) => parseAnswer(form.querySelector(`[data-answer="${i}"]`).value));
+      if (typed.some((v) => v === null)) {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = 'Enter a number in every box (decimals or fractions such as 3/4).';
+        return;
+      }
+      let verdicts;
+      if (problem.unordered) {
+        const exp = problem.answers.map((a) => a.value).sort((x, y) => x - y);
+        const got = typed.slice().sort((x, y) => x - y);
+        verdicts = got.map((g, i) => judge(g, exp[i], problem.answers[i].decimals ?? 2));
+      } else {
+        verdicts = typed.map((g, i) => judge(g, problem.answers[i].value, problem.answers[i].int ? 0 : problem.answers[i].decimals ?? 2));
+      }
+      problem.answers.forEach((_, i) => {
+        const el = form.querySelector(`[data-answer="${i}"]`);
+        el.setAttribute('aria-invalid', verdicts[i] === 'correct' || problem.unordered ? 'false' : 'true');
+      });
+      attempts++;
+      if (verdicts.every((v) => v === 'correct')) {
+        fb.className = 'practice-feedback is-correct';
+        fb.textContent = attempts === 1 ? 'Correct — well done!' : `Correct after ${attempts} tries. Open the worked solution to compare your method.`;
+        form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      } else if (verdicts.some((v) => v === 'close')) {
+        fb.className = 'practice-feedback is-close';
+        fb.textContent = 'Very close. Check your rounding, or a sign or unit in the last step.';
+      } else {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = attempts >= 2 ? 'Not yet. Take the hint, or open the worked solution and compare it step by step.' : 'Not quite. Check your working and try again.';
+        if (attempts >= 2 && hintBox.hidden) showHint();
+      }
+    });
+    root.querySelector('[data-hint]').addEventListener('click', showHint);
+    root.querySelector('[data-solution]').addEventListener('click', showSolution);
+    root.querySelector('[data-new]').addEventListener('click', () => { build(); root.querySelector('input').focus(); });
+  };
+  build();
+  return { next: build };
+}
+
+/** Random helpers for problem generators (pass the generator's rand). */
+const pick = (rand, list) => list[Math.floor(rand() * list.length)];
+const randInt = (rand, lo, hi) => lo + Math.floor(rand() * (hi - lo + 1));
+
+return { mountExplorer, parseAnswer, judge, mountPractice, pick, randInt };
+})();
 __m["pages/calculator-page.js"] = (function () {
 /*
  * Generic calculator page controller used by every generated calculator page.
@@ -246,6 +597,7 @@ __m["pages/calculator-page.js"] = (function () {
  *   { ok: true, final, answers, visual: { svg, caption, legend }, notes, formula, steps, tables }
  */
 const { resultCard, stepsBlock, alertBlock, notesBlock, finalAnswerBlock, tableBlock, showFieldErrors, clearFieldErrors, wireCalculator, fillForm, tex, escapeHtml } = __m["lib/ui.js"];
+const { mountExplorer, mountPractice } = __m["lib/learn.js"];
 
 function isVisible(form, name) {
   const el = form.elements.namedItem(name);
@@ -364,6 +716,9 @@ function mountCalculator(calc) {
       render(values, { live: true });
     }, 150);
   });
+
+  if (calc.explore) mountExplorer(document.querySelector('[data-explore-root]'), calc.explore);
+  if (calc.practice) mountPractice(document.querySelector('[data-practice-root]'), calc.practice);
 
   copyAllBtn.addEventListener('click', () => {
     const t = copyAllBtn.getAttribute('data-copy') || '';
@@ -899,7 +1254,8 @@ function plot(opts) {
   const Y = (y) => pad.t + ph - ((y - ymin) / (ymax - ymin)) * ph;
   const id = `clip${++uid}`;
   const out = [];
-  out.push(`<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || 'Graph')}"><title>${esc(opts.title || 'Graph')}</title>${opts.desc ? `<desc>${esc(opts.desc)}</desc>` : ''}`);
+  // data-view lets interactive explorers convert pointer positions back to graph coordinates.
+  out.push(`<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || 'Graph')}" data-view="${[xmin, xmax, ymin, ymax, pad.l, pad.t, pw, ph].map((v) => +v.toPrecision(10)).join(' ')}"><title>${esc(opts.title || 'Graph')}</title>${opts.desc ? `<desc>${esc(opts.desc)}</desc>` : ''}`);
   out.push(`<defs><clipPath id="${id}"><rect x="${pad.l}" y="${pad.t}" width="${pw}" height="${ph}"/></clipPath></defs>`);
 
   const xs = niceStep(xmax - xmin), ys = niceStep(ymax - ymin, 5);
@@ -968,7 +1324,8 @@ function plot(opts) {
     if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) continue;
     const px = X(p.x), py = Y(p.y);
     if (px < pad.l - 1 || px > pad.l + pw + 1 || py < pad.t - 1 || py > pad.t + ph + 1) continue;
-    labels.push(`<circle class="${p.cls || 'd-point'}" cx="${r2(px)}" cy="${r2(py)}" r="${p.r || 4.5}"/>`);
+    if (p.drag) labels.push(`<circle class="d-drag-hit" data-drag="${esc(p.drag)}" cx="${r2(px)}" cy="${r2(py)}" r="14"/>`);
+    labels.push(`<circle class="${p.cls || 'd-point'}${p.drag ? ' d-draggable' : ''}" cx="${r2(px)}" cy="${r2(py)}" r="${p.r || (p.drag ? 6 : 4.5)}"${p.drag ? ` data-drag="${esc(p.drag)}"` : ''}/>`);
     if (p.label) {
       const right = px < W - 90;
       labels.push(`<text class="d-text" x="${r2(right ? px + 7 : px - 7)}" y="${r2(py < pad.t + 16 ? py + 15 : py - 7)}" text-anchor="${right ? 'start' : 'end'}">${esc(p.label)}</text>`);
@@ -1006,6 +1363,177 @@ function windowAround(xs, minHalf = 3) {
 
 return { niceStep, fmtTick, plot, unavailableSvg, legend, windowAround, escapeSvg: esc };
 })();
+__m["explore/geometry.js"] = (function () {
+/**
+ * Analytic-geometry explorers: draggable points on a fixed coordinate grid, with distances,
+ * slopes, equations and intersections recomputed as they move.
+ */
+const { plot } = __m["lib/plot.js"];
+const { tx, txp } = __m["lib/calc-kit.js"];
+const { randInt, pick } = __m["lib/learn.js"];
+
+const GRID = { x: [-10, 10], y: [-8, 8], width: 400, height: 330, includeZero: true };
+const coord = (name, label, value, axis) => ({ name, label, min: axis === 'x' ? -10 : -8, max: axis === 'x' ? 10 : 8, step: 0.5, value });
+const t = (v) => tx(v, 3);
+const pt = (x, y) => `(${t(x)},\\ ${t(y)})`;
+
+const POINTS = [coord('x1', 'A: x₁', -6, 'x'), coord('y1', 'A: y₁', -3, 'y'), coord('x2', 'B: x₂', 4, 'x'), coord('y2', 'B: y₂', 5, 'y')];
+const DRAG_AB = { A: { x: 'x1', y: 'y1' }, B: { x: 'x2', y: 'y2' } };
+
+const distanceExplore = {
+  title: 'Drag two points',
+  intro: 'The distance formula is Pythagoras: the dashed legs are Δx and Δy, and the segment AB is the hypotenuse.',
+  controls: POINTS,
+  drag: DRAG_AB,
+  presets: [{ label: '3-4-5 triangle', values: { x1: 0, y1: 0, x2: 3, y2: 4 } }, { label: 'Horizontal segment', values: { x1: -5, y1: 2, x2: 5, y2: 2 } }],
+  render({ x1, y1, x2, y2 }) {
+    const dx = x2 - x1, dy = y2 - y1, d = Math.hypot(dx, dy);
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    const svg = plot({
+      ...GRID, title: 'Distance and midpoint of AB',
+      segments: [{ x1, y1, x2, y2, cls: 'd-line' }, { x1, y1, x2, y2: y1, cls: 'd-perp' }, { x1: x2, y1, x2, y2, cls: 'd-perp' }],
+      points: [{ x: x1, y: y1, label: 'A', drag: 'A' }, { x: x2, y: y2, label: 'B', drag: 'B' }, { x: mx, y: my, label: 'M', cls: 'd-point2' }],
+    });
+    return {
+      svg,
+      readouts: [
+        { label: 'Legs', tex: `\\Delta x = ${t(dx)},\\ \\Delta y = ${t(dy)}` },
+        { label: 'Distance', tex: `d = \\sqrt{(${t(dx)})^2 + (${t(dy)})^2} ${Number.isInteger(d) ? '=' : '\\approx'} ${t(d)}`, tone: 'good' },
+        { label: 'Midpoint M', tex: `M = ${pt(mx, my)}` },
+      ],
+    };
+  },
+};
+
+const slopeExplore = {
+  title: 'Drag a line through two points',
+  intro: 'Slope is rise over run. Make the line steeper, flatter, falling or vertical and watch m and the equation change.',
+  controls: POINTS,
+  drag: DRAG_AB,
+  presets: [{ label: 'Rising (m = 2)', values: { x1: 0, y1: -2, x2: 3, y2: 4 } }, { label: 'Falling', values: { x1: -4, y1: 5, x2: 4, y2: -3 } }, { label: 'Vertical', values: { x1: 3, y1: -4, x2: 3, y2: 4 } }],
+  render({ x1, y1, x2, y2 }) {
+    const dx = x2 - x1, dy = y2 - y1;
+    const pts = [{ x: x1, y: y1, label: 'A', drag: 'A' }, { x: x2, y: y2, label: 'B', drag: 'B' }];
+    if (dx === 0 && dy === 0) return { svg: plot({ ...GRID, points: pts }), readouts: [{ label: 'Slope', text: 'A and B are the same point, so they do not define a line.', tone: 'warn' }] };
+    if (dx === 0) {
+      return {
+        svg: plot({ ...GRID, title: 'Vertical line', vlines: [{ x: x1, cls: 'd-line' }], points: pts }),
+        readouts: [{ label: 'Slope', text: 'Undefined — the line is vertical, so the run Δx is 0', tone: 'warn' }, { label: 'Equation', tex: `x = ${t(x1)}` }],
+      };
+    }
+    const m = dy / dx, b = y1 - m * x1;
+    const angle = (Math.atan(m) * 180) / Math.PI;
+    return {
+      svg: plot({ ...GRID, title: `Line with slope ${t(m)}`, curves: [{ f: (x) => m * x + b }], segments: [{ x1, y1, x2, y2: y1 }, { x1: x2, y1, x2, y2 }], points: pts }),
+      readouts: [
+        { label: 'Slope', tex: `m = \\frac{\\Delta y}{\\Delta x} = \\frac{${t(dy)}}{${t(dx)}} ${Number.isInteger(m * 1000) ? '=' : '\\approx'} ${t(m)}`, tone: 'good' },
+        { label: 'Slope-intercept form', tex: `y = ${t(m)}x ${b < 0 ? '-' : '+'} ${t(Math.abs(b))}` },
+        { label: 'Angle of inclination', tex: `\\theta = \\tan^{-1} m \\approx ${tx(angle < 0 ? angle + 180 : angle, 2)}^\\circ` },
+      ],
+    };
+  },
+};
+
+const twoLinesExplore = {
+  title: 'Move two lines',
+  intro: 'Two lines meet in exactly one point unless their slopes are equal. Make the slopes equal to see parallel lines.',
+  controls: [
+    { name: 'm1', label: 'Line 1 slope m₁', min: -5, max: 5, step: 0.25, value: 1 },
+    { name: 'b1', label: 'Line 1 intercept b₁', min: -8, max: 8, step: 0.5, value: 1 },
+    { name: 'm2', label: 'Line 2 slope m₂', min: -5, max: 5, step: 0.25, value: -0.5 },
+    { name: 'b2', label: 'Line 2 intercept b₂', min: -8, max: 8, step: 0.5, value: 4 },
+  ],
+  presets: [{ label: 'Parallel', values: { m1: 2, b1: -3, m2: 2, b2: 3 } }, { label: 'Perpendicular', values: { m1: 2, b1: 1, m2: -0.5, b2: -2 } }],
+  render({ m1, b1, m2, b2 }) {
+    const curves = [{ f: (x) => m1 * x + b1 }, { f: (x) => m2 * x + b2, cls: 'd-line2' }];
+    if (m1 === m2) {
+      const same = b1 === b2;
+      return {
+        svg: plot({ ...GRID, title: same ? 'The same line' : 'Parallel lines', curves }),
+        readouts: [{ label: 'Intersection', text: same ? 'The lines are identical: every point is shared.' : 'None: equal slopes, different intercepts (parallel).', tone: 'warn' }],
+      };
+    }
+    const x = (b2 - b1) / (m1 - m2), y = m1 * x + b1;
+    const perp = Math.abs(m1 * m2 + 1) < 1e-9;
+    return {
+      svg: plot({ ...GRID, title: 'Two intersecting lines', curves, points: [{ x, y, label: 'P' }] }),
+      readouts: [
+        { label: 'Set equal', tex: `${t(m1)}x ${b1 < 0 ? '-' : '+'} ${t(Math.abs(b1))} = ${t(m2)}x ${b2 < 0 ? '-' : '+'} ${t(Math.abs(b2))}` },
+        { label: 'Intersection P', tex: `x = \\frac{b_2 - b_1}{m_1 - m_2} \\approx ${t(x)},\\ y \\approx ${t(y)}`, tone: 'good' },
+        { label: 'Angle between', text: perp ? '90° — perpendicular (m₁·m₂ = −1)' : `${tx((Math.abs(Math.atan(m1) - Math.atan(m2)) * 180) / Math.PI > 90 ? 180 - (Math.abs(Math.atan(m1) - Math.atan(m2)) * 180) / Math.PI : (Math.abs(Math.atan(m1) - Math.atan(m2)) * 180) / Math.PI, 2)}°` },
+      ],
+      note: Number.isFinite(x) && (Math.abs(x) > 10 || Math.abs(y) > 8) ? 'The intersection is outside the visible grid.' : '',
+    };
+  },
+};
+
+const circleExplore = {
+  title: 'Move and resize a circle',
+  intro: 'Drag the centre C. The standard form shows the centre and radius directly; expanding it gives the general form.',
+  controls: [coord('h', 'Centre h', 2, 'x'), coord('k', 'Centre k', -1, 'y'), { name: 'r', label: 'Radius r', min: 0.5, max: 8, step: 0.5, value: 4 }],
+  drag: { C: { x: 'h', y: 'k' } },
+  render({ h, k, r }) {
+    const D = -2 * h, E = -2 * k, F = h * h + k * k - r * r;
+    const term = (c, s) => (c === 0 ? '' : `${c < 0 ? ' - ' : ' + '}${Math.abs(c) === 1 && s ? '' : t(Math.abs(c))}${s}`);
+    return {
+      svg: plot({ ...GRID, equal: true, title: 'Circle', circles: [{ cx: h, cy: k, r }], segments: [{ x1: h, y1: k, x2: h + r, y2: k }], points: [{ x: h, y: k, label: 'C', drag: 'C' }] }),
+      readouts: [
+        { label: 'Standard form', tex: `(x ${h < 0 ? '+' : '-'} ${t(Math.abs(h))})^2 + (y ${k < 0 ? '+' : '-'} ${t(Math.abs(k))})^2 = ${t(r * r)}`, tone: 'good' },
+        { label: 'General form', tex: `x^2 + y^2${term(D, 'x')}${term(E, 'y')}${term(F, '')} = 0` },
+        { label: 'Circumference and area', tex: `2\\pi r \\approx ${tx(2 * Math.PI * r, 2)},\\ \\pi r^2 \\approx ${tx(Math.PI * r * r, 2)}` },
+      ],
+    };
+  },
+};
+
+const lineCircleExplore = {
+  title: 'Slide a line across a circle',
+  intro: 'Substituting the line into the circle gives a quadratic. Its discriminant decides: 2 points (secant), 1 point (tangent) or none.',
+  controls: [{ name: 'm', label: 'Line slope m', min: -4, max: 4, step: 0.25, value: 0.5 }, { name: 'b', label: 'Line intercept b', min: -8, max: 8, step: 0.25, value: 1 }, { name: 'r', label: 'Circle radius r (centre at origin)', min: 1, max: 7, step: 0.5, value: 4 }],
+  presets: [{ label: 'Tangent', values: { m: 0, b: 4, r: 4 } }, { label: 'Missing', values: { m: 0, b: 6, r: 4 } }],
+  render({ m, b, r }) {
+    // x² + (mx + b)² = r²  →  (1 + m²)x² + 2mb x + (b² − r²) = 0
+    const A = 1 + m * m, B = 2 * m * b, C = b * b - r * r;
+    const disc = B * B - 4 * A * C;
+    const pts = [];
+    if (disc > 1e-9) for (const s of [-1, 1]) { const x = (-B + s * Math.sqrt(disc)) / (2 * A); pts.push({ x, y: m * x + b }); }
+    else if (Math.abs(disc) <= 1e-9) { const x = -B / (2 * A); pts.push({ x, y: m * x + b }); }
+    const kind = pts.length === 2 ? 'secant: 2 intersection points' : pts.length === 1 ? 'tangent: 1 point of contact' : 'no intersection';
+    return {
+      svg: plot({ ...GRID, equal: true, title: 'Line and circle', circles: [{ cx: 0, cy: 0, r }], curves: [{ f: (x) => m * x + b, cls: 'd-line2' }], points: pts.map((p, i) => ({ ...p, label: `P${i + 1}`, cls: 'd-point3' })) }),
+      readouts: [
+        { label: 'Quadratic in x', tex: `${t(A)}x^2 ${B < 0 ? '-' : '+'} ${t(Math.abs(B))}x ${C < 0 ? '-' : '+'} ${t(Math.abs(C))} = 0` },
+        { label: 'Discriminant', tex: `\\Delta = B^2 - 4AC \\approx ${t(disc)}`, tone: disc < -1e-9 ? 'warn' : 'good' },
+        { label: 'Result', text: `${kind}${pts.length ? ` — ${pts.map((p) => `(${p.x.toFixed(2)}, ${p.y.toFixed(2)})`).join(', ')}` : ''}` },
+      ],
+    };
+  },
+};
+
+const distancePractice = {
+  title: 'Distance and midpoint',
+  generate(rand) {
+    const [a, b] = pick(rand, [[3, 4], [5, 12], [6, 8], [8, 15], [2, 3], [1, 5], [4, 7]]);
+    const x1 = randInt(rand, -6, 4), y1 = randInt(rand, -6, 4);
+    const sx = rand() < 0.5 ? -1 : 1, sy = rand() < 0.5 ? -1 : 1;
+    const x2 = x1 + sx * a, y2 = y1 + sy * b;
+    const d = Math.hypot(a, b);
+    return {
+      prompt: `<p>Find the distance between <strong>A(${x1}, ${y1})</strong> and <strong>B(${x2}, ${y2})</strong>, and the x-coordinate of their midpoint.</p>`,
+      answers: [{ label: 'Distance AB', value: d }, { label: 'Midpoint x', value: (x1 + x2) / 2 }],
+      hint: 'Subtract the coordinates first, square both differences, add, then take the square root. The midpoint averages the coordinates.',
+      hintTex: 'd = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}',
+      steps: [
+        { title: 'Differences', tex: `\\Delta x = ${x2} - ${txp(x1)} = ${x2 - x1},\\quad \\Delta y = ${y2} - ${txp(y1)} = ${y2 - y1}` },
+        { title: 'Distance formula', texLines: [`d = \\sqrt{(${x2 - x1})^2 + (${y2 - y1})^2} = \\sqrt{${a * a + b * b}}`, `d ${Number.isInteger(d) ? '=' : '\\approx'} ${tx(d, 2)}`] },
+        { title: 'Midpoint', tex: `x_M = \\frac{${x1} + ${txp(x2)}}{2} = ${tx((x1 + x2) / 2)}` },
+      ],
+    };
+  },
+};
+
+return { distanceExplore, slopeExplore, twoLinesExplore, circleExplore, lineCircleExplore, distancePractice };
+})();
 __m["calculators/line-circle-intersection.js"] = (function () {
 /**
  * Points where the line Ax + By + C = 0 meets the circle (x − h)² + (y − k)² = r².
@@ -1015,11 +1543,13 @@ __m["calculators/line-circle-intersection.js"] = (function () {
 const { validator, fmt, tx, txp, eq, isExact } = __m["lib/calc-kit.js"];
 const { plot } = __m["lib/plot.js"];
 
+const { lineCircleExplore } = __m["explore/geometry.js"];
 const rel2 = (p) => (isExact(p[0]) && isExact(p[1]) ? '=' : '\\approx');
 const ptTex = (p) => `(${tx(p[0])},\\ ${tx(p[1])})`;
 
 const calculator = {
   id: 'line-circle-intersection',
+  explore: lineCircleExplore,
   fields: [
     { name: 'A', label: 'Line: A', type: 'number', placeholder: 'e.g. 1', row: 'l' },
     { name: 'B', label: 'B', type: 'number', placeholder: 'e.g. -1', row: 'l' },

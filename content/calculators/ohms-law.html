@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the Ohm's law calculator does</h2>
+          <p><strong>Ohm's law</strong> links the voltage across a resistor, the current through it and its resistance. Voltage is the "push" that drives charge around a circuit, current is the rate at which charge flows, and resistance is how strongly the component opposes that flow. Know any two and you can find the third.</p>
+          <p>The calculator also finds the <strong>power</strong> the resistor turns into heat, and draws the circuit with the values labelled.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, double the voltage: the current doubles too. Then increase the resistance and watch the I–V line become flatter.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V = I\,R \qquad I = \frac{V}{R} \qquad R = \frac{V}{I} \]</div>
+          <div class="formula-box">\[ P = V I = I^2 R = \frac{V^2}{R} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th><th scope="col">SI unit</th></tr></thead>
+            <tbody>
+              <tr><td>\(V\)</td><td>Voltage (potential difference)</td><td>volts, V</td></tr>
+              <tr><td>\(I\)</td><td>Current</td><td>amperes, A (1 mA = 0.001 A)</td></tr>
+              <tr><td>\(R\)</td><td>Resistance</td><td>ohms, Ω</td></tr>
+              <tr><td>\(P\)</td><td>Power dissipated</td><td>watts, W</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A 9 V battery across a 450 Ω resistor</h3>
+            <h4>Step 1 — Known values</h4>
+            <p>\(V = 9\) V, \(R = 450\) Ω.</p>
+            <h4>Step 2 — Current</h4>
+            \[ I = \frac{V}{R} = \frac{9}{450} = 0.02\ \text{A} = 20\ \text{mA} \]
+            <h4>Step 3 — Power</h4>
+            \[ P = V I = 9 \times 0.02 = 0.18\ \text{W} \]
+            <p>A standard 0.25 W resistor would handle this, but only just — designers usually allow a safety margin.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The resistor is <strong>ohmic</strong>: its resistance stays the same whatever the current. Filament lamps, diodes and LEDs do not obey Ohm's law.</li>
+            <li>Temperature is constant. Real resistances change as components heat up.</li>
+            <li>Wires and the power supply are ideal (no internal resistance). For several resistors, use the <a href="../series-parallel-resistance/">series and parallel calculator</a> first.</li>
+            <li>Values are direct-current (DC) magnitudes and must not be negative; resistance must be greater than 0.</li>
+          </ul>
+        </section>

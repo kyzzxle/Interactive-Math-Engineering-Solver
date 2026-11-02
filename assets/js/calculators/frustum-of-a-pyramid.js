@@ -8,8 +8,10 @@ import { validator, answer, fmt, tx, eq, units, UNIT_FIELD } from '../lib/calc-k
 import { regularArea, apothem, polygonName, SIDES_OPTIONS } from '../lib/geometry.js';
 import { frustumPyramidSketch } from '../lib/diagrams.js';
 
+import { frustumPyramidExplore } from '../explore/solids.js';
 export const calculator = {
   id: 'frustum-of-a-pyramid',
+  explore: frustumPyramidExplore,
   fields: [
     { name: 'type', label: 'Base shape', type: 'select', options: [['regular', 'Regular polygon (square, hexagon, …)'], ['rect', 'Rectangle']] },
     { name: 'n', label: 'Number of sides', type: 'select', options: SIDES_OPTIONS, default: '4', showWhen: { type: ['regular'] } },

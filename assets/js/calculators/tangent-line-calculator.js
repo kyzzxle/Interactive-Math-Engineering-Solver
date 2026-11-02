@@ -9,8 +9,11 @@ import { parseFunction, parseNumberExpr, FUNCTION_HINT, compile } from '../lib/c
 import { slopeInterceptTex, generalTex, integerLine } from '../lib/lines.js';
 import { plot } from '../lib/plot.js';
 
+import { tangentExplore, derivativePractice } from '../explore/functions.js';
 export const calculator = {
   id: 'tangent-line-calculator',
+  explore: tangentExplore,
+  practice: derivativePractice,
   fields: [
     { name: 'f', label: 'Function f(x)', type: 'text', placeholder: 'e.g. x^2 - 3x + 1', hint: FUNCTION_HINT },
     { name: 'x0', label: 'Point of tangency x₀', type: 'text', placeholder: 'e.g. 2 or pi/3' },

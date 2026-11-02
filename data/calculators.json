@@ -7,7 +7,8 @@
     { "id": "calculus", "name": "Calculus", "glyph": "∫", "description": "Derivatives, tangent lines, critical points and integrals for analysing rates of change and areas." },
     { "id": "statistics-probability", "name": "Statistics & Probability", "glyph": "σ", "description": "Describing data and quantifying uncertainty: averages, spread, normal and binomial distributions, confidence intervals." },
     { "id": "combinatorics", "name": "Combinatorics", "glyph": "n!", "description": "Systematic counting: factorials, arrangements, selections, the binomial theorem and inclusion–exclusion." },
-    { "id": "engineering-mathematics", "name": "Engineering Mathematics", "glyph": "⚙", "description": "Complex numbers, matrices and the numerical methods engineers use for roots, derivatives and integrals." }
+    { "id": "engineering-mathematics", "name": "Engineering Mathematics", "glyph": "⚙", "description": "Complex numbers, matrices and the numerical methods engineers use for roots, derivatives and integrals." },
+    { "id": "physics", "name": "Physics", "glyph": "Δv", "description": "Motion, forces, energy, circuits and waves: kinematics, projectiles, Newton's second law, Ohm's law and resistor networks, each with its assumptions stated." }
   ],
   "calculators": [
     {
@@ -497,6 +498,86 @@
       "summary": "Calculate nPr and nCr exactly — even for very large numbers — with factorial expansions, cancellation steps and listed examples for small cases.",
       "keywords": ["nPr", "nCr", "permutation", "combination", "factorial", "binomial coefficient", "arrangements", "selections"],
       "updated": "2026-10-31"
+    },
+    {
+      "id": "motion-calculator", "name": "Speed, Distance and Time Calculator", "shortName": "Speed, Distance & Time", "category": "physics", "generated": true,
+      "summary": "Solve speed = distance ÷ time for any one quantity, for speed or signed velocity, with unit conversions and a position–time graph.",
+      "keywords": ["speed", "velocity", "distance", "displacement", "time", "d = vt", "average speed", "km/h"],
+      "related": ["kinematics-calculator", "projectile-motion", "wave-calculator"],
+      "title": "Speed, Distance and Time Calculator with Steps | Solver Hub",
+      "description": "Find speed, velocity, distance or time for constant motion, with the formula, substitution, km/h conversion and a position–time graph.",
+      "lead": "Choose what to find, enter the other two quantities in SI units, and see the rearranged formula, every substitution and a position–time graph.",
+      "updated": "2026-11-02"
+    },
+    {
+      "id": "kinematics-calculator", "name": "Kinematics (SUVAT) Calculator", "shortName": "Kinematics (SUVAT)", "category": "physics", "generated": true, "featured": true,
+      "summary": "Enter any three of u, v, a, t and s for constant acceleration; the solver picks the right equations and shows both solutions when there are two.",
+      "keywords": ["kinematics", "SUVAT", "constant acceleration", "v = u + at", "s = ut + 1/2at^2", "v^2 = u^2 + 2as", "free fall", "braking distance"],
+      "related": ["motion-calculator", "projectile-motion", "newtons-second-law"],
+      "title": "Kinematics SUVAT Calculator – Constant Acceleration Solver | Solver Hub",
+      "description": "Solve constant-acceleration problems from any three of u, v, a, t and s. Shows which SUVAT equation is used, each step and a velocity–time graph.",
+      "lead": "Enter exactly three of the five SUVAT quantities. The solver shows which equation it uses and why, finds the other two, and draws the velocity–time graph.",
+      "updated": "2026-11-02"
+    },
+    {
+      "id": "projectile-motion", "name": "Projectile Motion Simulator", "shortName": "Projectile Motion", "category": "physics", "generated": true, "featured": true,
+      "summary": "Flight time, maximum height, range and impact velocity of a projectile, with an animated trajectory you can pause and scrub.",
+      "keywords": ["projectile motion", "trajectory", "range", "maximum height", "time of flight", "launch angle", "45 degrees", "parabola"],
+      "related": ["kinematics-calculator", "motion-calculator", "work-energy-power"],
+      "title": "Projectile Motion Calculator and Simulator with Steps | Solver Hub",
+      "description": "Find time of flight, maximum height and range for any launch speed, angle and height, with step-by-step working and an animated trajectory.",
+      "lead": "Enter the launch speed, angle and height to get the flight time, maximum height, range and impact speed — then animate the trajectory below.",
+      "updated": "2026-11-02"
+    },
+    {
+      "id": "newtons-second-law", "name": "Newton's Second Law Calculator (F = ma)", "shortName": "Newton's Second Law", "category": "physics", "generated": true,
+      "summary": "Calculate net force, mass or acceleration from F = ma, with signed directions, a free-body diagram and the weight on Earth.",
+      "keywords": ["Newton's second law", "F = ma", "force", "mass", "acceleration", "net force", "free-body diagram", "newton"],
+      "related": ["kinematics-calculator", "work-energy-power", "motion-calculator"],
+      "title": "Newton's Second Law Calculator (F = ma) with Diagram | Solver Hub",
+      "description": "Solve F = ma for net force, mass or acceleration, with signed directions, step-by-step working and a free-body diagram of the forces.",
+      "lead": "Choose force, mass or acceleration, enter the other two, and see the rearranged formula, the substitution and a force diagram.",
+      "updated": "2026-11-02"
+    },
+    {
+      "id": "work-energy-power", "name": "Work, Energy and Power Calculator", "shortName": "Work, Energy & Power", "category": "physics", "generated": true,
+      "summary": "Work done by a force at an angle, kinetic and potential energy, power, and the speed after a fall from energy conservation.",
+      "keywords": ["work", "energy", "power", "kinetic energy", "potential energy", "joule", "watt", "conservation of energy", "Fd cos theta"],
+      "related": ["newtons-second-law", "projectile-motion", "ohms-law"],
+      "title": "Work, Energy and Power Calculator – KE, PE, W = Fd cos θ | Solver Hub",
+      "description": "Calculate work, kinetic energy, potential energy, power or the speed after a fall, with formulas, substituted values and an energy bar chart.",
+      "lead": "Pick a quantity — work, kinetic or potential energy, power, or speed after a fall — and get the formula, every substitution and the stated assumptions.",
+      "updated": "2026-11-02"
+    },
+    {
+      "id": "ohms-law", "name": "Ohm's Law Calculator", "shortName": "Ohm's Law", "category": "physics", "generated": true,
+      "summary": "Find voltage, current or resistance from V = IR, plus the power dissipated, with a labelled circuit diagram.",
+      "keywords": ["Ohm's law", "V = IR", "voltage", "current", "resistance", "ohm", "amp", "volt", "electrical power"],
+      "related": ["series-parallel-resistance", "work-energy-power", "wave-calculator"],
+      "title": "Ohm's Law Calculator – Voltage, Current, Resistance & Power | Solver Hub",
+      "description": "Solve V = IR for voltage, current or resistance and find the power dissipated, with step-by-step working and a simple circuit diagram.",
+      "lead": "Choose what to find, enter the other two values, and see the rearranged formula, the substitution, the power and a labelled circuit.",
+      "updated": "2026-11-02"
+    },
+    {
+      "id": "series-parallel-resistance", "name": "Series and Parallel Resistance Calculator", "shortName": "Series & Parallel Resistors", "category": "physics", "generated": true,
+      "summary": "Equivalent resistance for resistors in series, in parallel, or as parallel branches, with each resistor's current and voltage.",
+      "keywords": ["series resistance", "parallel resistance", "equivalent resistance", "resistor network", "product over sum", "circuit", "ohms"],
+      "related": ["ohms-law", "work-energy-power", "motion-calculator"],
+      "title": "Series and Parallel Resistor Calculator with Steps | Solver Hub",
+      "description": "Combine resistors in series, in parallel or as parallel branches, with every step, a circuit diagram and per-resistor current and voltage.",
+      "lead": "List the resistances, choose how they are connected and optionally a supply voltage, to get the equivalent resistance and every current and voltage.",
+      "updated": "2026-11-02"
+    },
+    {
+      "id": "wave-calculator", "name": "Wave Speed, Frequency and Wavelength Calculator", "shortName": "Wave Calculator", "category": "physics", "generated": true,
+      "summary": "Relate wave speed, frequency and wavelength with v = fλ, plus period, angular frequency and an animated travelling wave.",
+      "keywords": ["wave equation", "v = f lambda", "frequency", "wavelength", "wave speed", "period", "hertz", "sound", "light"],
+      "related": ["motion-calculator", "ohms-law", "projectile-motion"],
+      "title": "Wave Calculator – Speed, Frequency and Wavelength (v = fλ) | Solver Hub",
+      "description": "Solve v = fλ for wave speed, frequency or wavelength, with the period, angular frequency, worked steps and an animated travelling wave.",
+      "lead": "Choose what to find, enter the other two quantities, and get the period and wave number too — then set a wave moving in the explorer below.",
+      "updated": "2026-11-02"
     }
   ]
 }

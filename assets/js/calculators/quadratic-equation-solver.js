@@ -9,6 +9,7 @@ import { simplifySqrt } from '../lib/exact.js';
 import { plot } from '../lib/plot.js';
 import { texOf, polyToNode } from '../lib/expr.js';
 
+import { quadraticExplore, quadraticPractice } from '../explore/functions.js';
 /** √|D| as (a√b)/d with integers. */
 function sqrtParts(D) {
   const A = D.abs();
@@ -40,6 +41,8 @@ function rootForm(a, b, D) {
 
 export const calculator = {
   id: 'quadratic-equation-solver',
+  explore: quadraticExplore,
+  practice: quadraticPractice,
   fields: [
     { name: 'a', label: 'a (coefficient of x²)', type: 'number', placeholder: 'e.g. 1', row: 'c' },
     { name: 'b', label: 'b (coefficient of x)', type: 'number', placeholder: 'e.g. -3', row: 'c' },

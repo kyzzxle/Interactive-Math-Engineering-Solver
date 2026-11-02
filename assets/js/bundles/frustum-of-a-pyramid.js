@@ -236,6 +236,357 @@ function wireCalculator(o) {
 
 return { escapeHtml, tex, resultCard, finalAnswerBlock, stepsBlock, tableBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, readForm, fillForm, writeUrlState, clearUrlState, readUrlState, enableCopyButtons, wireCalculator };
 })();
+__m["lib/learn.js"] = (function () {
+/**
+ * Guided-learning widgets shared by calculator pages (browser only).
+ *
+ *   mountExplorer(root, spec)  "Explore": sliders (each paired with a number box), optional
+ *                              draggable points, optional Play / Pause / Reset animation.
+ *   mountPractice(root, spec)  "Try it": a generated problem with Hint, Check, Show solution
+ *                              and New problem.
+ *
+ * Specs are plain objects defined in assets/js/explore/*.js. They contain no DOM code, so the
+ * Node tests can call spec.render() and spec.generate() directly.
+ *
+ * Explorer spec:
+ *   { title, intro?, controls: [Control], presets?: [{ label, values }],
+ *     drag?: { A: { x: 'x1', y: 'y1' } },        // data-drag="A" points move these controls
+ *     rotate?: { yaw: 'yaw' },                   // dragging the figure changes this control
+ *     animate?: { control: 't', seconds: 4 },    // Play moves this control from min to max
+ *     render(values) => { svg?, html?, readouts?: [{ label, tex?, text?, tone? }], caption?, note? } }
+ * Control: { name, label, min, max (number or values => number), step, value, unit?, type?: 'select', options? }
+ *
+ * Practice spec:
+ *   { title?, generate(rand) => { prompt (HTML), promptTex?, answers: [{ label, value, decimals?, unit?, int? }],
+ *       unordered?: boolean, hint, hintTex?, steps: [step], final? } }
+ */
+const { tex, escapeHtml, stepsBlock } = __m["lib/ui.js"];
+
+const reduceMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+let seq = 0;
+
+function decimalsOf(step) {
+  const s = String(step);
+  return s.includes('e-') ? Number(s.split('e-')[1]) : (s.split('.')[1] || '').length;
+}
+const roundTo = (v, step, min) => {
+  const k = Math.round((v - min) / step);
+  return Number((min + k * step).toFixed(decimalsOf(step)));
+};
+
+function readoutHtml(r) {
+  const val = r.tex !== undefined ? tex(r.tex) : escapeHtml(r.text ?? '');
+  return `<div class="readout${r.tone ? ` is-${r.tone}` : ''}"><span class="readout-label">${escapeHtml(r.label)}</span><span class="readout-value">${val}</span></div>`;
+}
+
+/** Explore panel: controls on one side, live figure and readouts on the other. */
+function mountExplorer(root, spec) {
+  if (!root || !spec) return null;
+  const id = `ex${++seq}`;
+  const ctrls = spec.controls;
+  const values = Object.fromEntries(ctrls.map((c) => [c.name, c.value]));
+  const maxOf = (c) => (typeof c.max === 'function' ? c.max(values) : c.max);
+  const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
+
+  const controlHtml = (c) => {
+    const cid = `${id}-${c.name}`;
+    if (c.type === 'select') {
+      return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+        <select id="${cid}" class="select" data-ctrl="${c.name}">${c.options.map(([v, l]) => `<option value="${escapeHtml(v)}"${String(v) === String(c.value) ? ' selected' : ''}>${escapeHtml(l)}</option>`).join('')}</select></div>`;
+    }
+    const unit = c.unit ? `<span class="ex-unit">${escapeHtml(c.unit)}</span>` : '';
+    return `<div class="ex-control">
+        <div class="ex-control-head"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+          <span class="ex-num"><input class="input" type="number" inputmode="decimal" data-num="${c.name}" step="${c.step}" aria-label="${escapeHtml(c.label)} value">${unit}</span></div>
+        <input id="${cid}" class="range" type="range" data-ctrl="${c.name}" step="${c.step}">
+      </div>`;
+  };
+
+  const anim = spec.animate;
+  const motionOk = !reduceMotion();
+  const animHtml = anim ? `<div class="ex-player">
+      <button type="button" class="btn btn-primary btn-sm" data-play aria-pressed="false">▶ Play</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-anim-reset>Reset</button>
+      <p class="field-hint w-full">${motionOk ? 'Or drag the time slider to step through it yourself.' : 'Your device asks for reduced motion, so nothing moves until you press Play. You can also drag the time slider instead.'}</p>
+    </div>` : '';
+  const presets = spec.presets && spec.presets.length
+    ? `<div class="example-row"><span>Try:</span>${spec.presets.map((p, i) => `<button type="button" class="chip" data-preset="${i}">${escapeHtml(p.label)}</button>`).join('')}</div>` : '';
+  const dragHint = spec.drag || spec.rotate ? `<p class="field-hint mt-3">${spec.rotate ? 'Drag the figure to turn it.' : 'Drag the points on the graph, or type exact values.'}</p>` : '';
+
+  root.innerHTML = `<div class="explore">
+      <div class="explore-controls">
+        ${spec.intro ? `<p class="explore-intro">${escapeHtml(spec.intro)}</p>` : ''}
+        ${ctrls.map(controlHtml).join('')}
+        ${animHtml}${presets}
+        <div class="form-actions mt-4"><button type="button" class="btn btn-ghost btn-sm" data-ex-reset>Reset values</button></div>
+        ${dragHint}
+      </div>
+      <div class="explore-stage">
+        <figure class="explore-figure" data-figure></figure>
+        <div class="readouts" data-readouts aria-live="polite"></div>
+        <p class="explore-note" data-note hidden></p>
+      </div>
+    </div>`;
+
+  const fig = root.querySelector('[data-figure]');
+  const out = root.querySelector('[data-readouts]');
+  const note = root.querySelector('[data-note]');
+
+  const sync = () => {
+    for (const c of ctrls) {
+      if (c.type === 'select') { root.querySelector(`[data-ctrl="${c.name}"]`).value = values[c.name]; continue; }
+      const lo = minOf(c), hi = maxOf(c);
+      if (values[c.name] > hi) values[c.name] = hi;
+      if (values[c.name] < lo) values[c.name] = lo;
+      const range = root.querySelector(`[data-ctrl="${c.name}"]`);
+      range.min = lo; range.max = hi; range.value = values[c.name];
+      const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));
+      range.setAttribute('aria-valuetext', `${shown}${c.unit ? ` ${c.unit}` : ''}`);
+      const num = root.querySelector(`[data-num="${c.name}"]`);
+      if (document.activeElement !== num) num.value = shown;
+      num.min = lo; num.max = hi;
+    }
+  };
+
+  let frame = 0;
+  const draw = () => {
+    frame = 0;
+    let res;
+    try { res = spec.render({ ...values }); } catch (e) { res = { html: `<p class="alert alert-error">This combination cannot be drawn: ${escapeHtml(e.message)}</p>` }; }
+    fig.innerHTML = (res.svg || '') + (res.html || '') + (res.caption ? `<figcaption class="diagram-caption">${escapeHtml(res.caption)}</figcaption>` : '');
+    out.innerHTML = (res.readouts || []).map(readoutHtml).join('');
+    note.hidden = !res.note;
+    note.textContent = res.note || '';
+  };
+  const update = () => { sync(); if (!frame) frame = requestAnimationFrame(draw); };
+
+  root.addEventListener('input', (e) => {
+    const name = e.target.getAttribute('data-ctrl') || e.target.getAttribute('data-num');
+    if (!name) return;
+    const c = ctrls.find((x) => x.name === name);
+    if (c.type === 'select') { values[name] = e.target.value; update(); return; }
+    const v = Number(e.target.value);
+    if (e.target.value === '' || !Number.isFinite(v)) return;
+    values[name] = Math.min(maxOf(c), Math.max(minOf(c), v));
+    if (anim && name !== anim.control) stop();
+    update();
+  });
+  root.addEventListener('change', (e) => { if (e.target.hasAttribute('data-num')) sync(); });
+
+  const reset = (vals) => {
+    stop();
+    for (const c of ctrls) values[c.name] = c.value;
+    Object.assign(values, vals || {});
+    update();
+  };
+  root.querySelector('[data-ex-reset]').addEventListener('click', () => reset());
+  root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => reset(spec.presets[Number(b.getAttribute('data-preset'))].values)));
+
+  // ------------------------------------------------ animation (always user-started)
+  let raf = 0, last = 0;
+  const playBtn = root.querySelector('[data-play]');
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    if (playBtn) { playBtn.textContent = '▶ Play'; playBtn.setAttribute('aria-pressed', 'false'); }
+  }
+  if (anim) {
+    const c = ctrls.find((x) => x.name === anim.control);
+    const tick = (now) => {
+      const hi = maxOf(c), lo = minOf(c);
+      const dt = last ? (now - last) / 1000 : 0;
+      last = now;
+      let v = values[c.name] + ((hi - lo) / (anim.seconds || 4)) * dt;
+      if (v >= hi) { if (anim.loop) v = lo + (v - hi); else { values[c.name] = hi; update(); stop(); return; } }
+      values[c.name] = v;
+      update();
+      raf = requestAnimationFrame(tick);
+    };
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (raf) { stop(); return; }
+        if (!anim.loop && values[c.name] >= maxOf(c)) values[c.name] = minOf(c);
+        last = 0;
+        playBtn.textContent = '❚❚ Pause';
+        playBtn.setAttribute('aria-pressed', 'true');
+        raf = requestAnimationFrame(tick);
+      });
+    }
+    root.querySelector('[data-anim-reset]').addEventListener('click', () => { stop(); values[c.name] = minOf(c); update(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  }
+
+  // ------------------------------------------------ dragging points / rotating
+  const toGraph = (svg, clientX, clientY) => {
+    const view = (svg.getAttribute('data-view') || '').split(' ').map(Number);
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = clientY;
+    const m = svg.getScreenCTM();
+    if (!m || view.length < 8) return null;
+    const p = pt.matrixTransform(m.inverse());
+    const [xmin, xmax, ymin, ymax, l, t, pw, ph] = view;
+    return { x: xmin + ((p.x - l) / pw) * (xmax - xmin), y: ymax - ((p.y - t) / ph) * (ymax - ymin) };
+  };
+  let dragging = null;
+  fig.addEventListener('pointerdown', (e) => {
+    const svg = fig.querySelector('svg');
+    if (!svg) return;
+    const handle = e.target.closest('[data-drag]');
+    if (handle && spec.drag && spec.drag[handle.getAttribute('data-drag')]) {
+      dragging = { kind: 'point', key: handle.getAttribute('data-drag') };
+    } else if (spec.rotate) {
+      dragging = { kind: 'rotate', x: e.clientX, y: e.clientY, start: { ...values } };
+    } else return;
+    e.preventDefault();
+    stop();
+    fig.classList.add('is-dragging');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    if (dragging.kind === 'rotate') {
+      const yaw = spec.rotate.yaw, pitch = spec.rotate.pitch;
+      const cy = ctrls.find((c) => c.name === yaw);
+      let v = dragging.start[yaw] + (e.clientX - dragging.x) * 0.6;
+      while (v > cy.max) v -= cy.max - cy.min;
+      while (v < cy.min) v += cy.max - cy.min;
+      values[yaw] = Math.round(v);
+      if (pitch) {
+        const cp = ctrls.find((c) => c.name === pitch);
+        values[pitch] = Math.round(Math.max(cp.min, Math.min(cp.max, dragging.start[pitch] - (e.clientY - dragging.y) * 0.4)));
+      }
+      update();
+      return;
+    }
+    const svg = fig.querySelector('svg');
+    const g = svg && toGraph(svg, e.clientX, e.clientY);
+    if (!g) return;
+    const map = spec.drag[dragging.key];
+    const target = typeof map === 'function' ? map(g, { ...values }) : Object.fromEntries(Object.entries(map).map(([axis, name]) => [name, g[axis]]));
+    for (const [name, raw] of Object.entries(target)) {
+      const c = ctrls.find((x) => x.name === name);
+      if (!c || !Number.isFinite(raw)) continue;
+      values[name] = roundTo(Math.min(maxOf(c), Math.max(minOf(c), raw)), c.step, minOf(c));
+    }
+    update();
+  });
+  const endDrag = () => { if (dragging) { dragging = null; fig.classList.remove('is-dragging'); } };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  sync();
+  draw();
+  return { values, update, reset };
+}
+
+// ------------------------------------------------------------------------------------ practice
+
+/** Parse a typed answer: decimals, fractions like 3/4, a leading minus, commas as decimal point. */
+function parseAnswer(raw) {
+  const s = String(raw ?? '').trim().replace(/\s+/g, '').replace(/−/g, '-').replace(/,(?=\d{1,2}$)/, '.');
+  if (!s) return null;
+  const frac = s.match(/^(-?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+  if (frac) { const d = Number(frac[2]); return d === 0 ? null : Number(frac[1]) / d; }
+  if (!/^-?(\d+\.?\d*|\.\d+)(e-?\d+)?$/i.test(s)) return null;
+  return Number(s);
+}
+
+/** 'correct' | 'close' | 'wrong' for a typed value against the expected answer. */
+function judge(user, expected, decimals = 2) {
+  if (user === null || !Number.isFinite(user)) return 'invalid';
+  const err = Math.abs(user - expected);
+  const tol = 0.5 * 10 ** -decimals * 1.05 + 1e-9;
+  if (err <= tol || err <= Math.abs(expected) * 5e-4) return 'correct';
+  if (err <= Math.max(Math.abs(expected) * 0.05, tol * 4)) return 'close';
+  return 'wrong';
+}
+
+function mountPractice(root, spec) {
+  if (!root || !spec) return null;
+  const id = `pr${++seq}`;
+  let problem, attempts = 0;
+
+  const build = () => {
+    problem = spec.generate(Math.random);
+    attempts = 0;
+    const inputs = problem.answers.map((a, i) => `<div class="field">
+        <label class="field-label" for="${id}-a${i}">${escapeHtml(a.label)}</label>
+        <div class="input-affix"><input id="${id}-a${i}" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-answer="${i}" aria-describedby="${id}-h${i}">${a.unit ? `<span class="affix">${escapeHtml(a.unit)}</span>` : ''}</div>
+        <p class="field-hint" id="${id}-h${i}">${a.int ? 'A whole number' : `Round to ${a.decimals ?? 2} decimal places`}</p>
+      </div>`).join('');
+    root.innerHTML = `<form class="practice" novalidate>
+        <div class="practice-prompt">${problem.prompt}${problem.promptTex ? `<div class="step-math">${tex(problem.promptTex, true)}</div>` : ''}</div>
+        <div class="field-row mt-4">${inputs}</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Check answer</button>
+          <button type="button" class="btn btn-secondary" data-hint>Hint</button>
+          <button type="button" class="btn btn-ghost" data-solution>Show solution</button>
+          <button type="button" class="btn btn-ghost" data-new>New problem</button>
+        </div>
+        <div class="practice-feedback" data-feedback role="status" aria-live="polite"></div>
+        <div data-hint-box hidden></div>
+        <div data-solution-box hidden></div>
+      </form>`;
+    const form = root.querySelector('form');
+    const fb = root.querySelector('[data-feedback]');
+    const hintBox = root.querySelector('[data-hint-box]');
+    const solBox = root.querySelector('[data-solution-box]');
+    const showHint = () => {
+      hintBox.hidden = false;
+      hintBox.innerHTML = `<div class="alert alert-info"><p class="alert-title">Hint</p><p>${escapeHtml(problem.hint)}</p>${problem.hintTex ? `<div class="step-math">${tex(problem.hintTex, true)}</div>` : ''}</div>`;
+    };
+    const showSolution = () => {
+      solBox.hidden = false;
+      const final = problem.answers.map((a) => `${a.label}: ${a.int ? a.value : Number(a.value.toFixed(a.decimals ?? 2))}${a.unit ? ` ${a.unit}` : ''}`).join(' · ');
+      solBox.innerHTML = stepsBlock(problem.steps, { title: 'Worked solution' }) + `<p class="practice-final">Answer — ${escapeHtml(final)}</p>`;
+    };
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const typed = problem.answers.map((_, i) => parseAnswer(form.querySelector(`[data-answer="${i}"]`).value));
+      if (typed.some((v) => v === null)) {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = 'Enter a number in every box (decimals or fractions such as 3/4).';
+        return;
+      }
+      let verdicts;
+      if (problem.unordered) {
+        const exp = problem.answers.map((a) => a.value).sort((x, y) => x - y);
+        const got = typed.slice().sort((x, y) => x - y);
+        verdicts = got.map((g, i) => judge(g, exp[i], problem.answers[i].decimals ?? 2));
+      } else {
+        verdicts = typed.map((g, i) => judge(g, problem.answers[i].value, problem.answers[i].int ? 0 : problem.answers[i].decimals ?? 2));
+      }
+      problem.answers.forEach((_, i) => {
+        const el = form.querySelector(`[data-answer="${i}"]`);
+        el.setAttribute('aria-invalid', verdicts[i] === 'correct' || problem.unordered ? 'false' : 'true');
+      });
+      attempts++;
+      if (verdicts.every((v) => v === 'correct')) {
+        fb.className = 'practice-feedback is-correct';
+        fb.textContent = attempts === 1 ? 'Correct — well done!' : `Correct after ${attempts} tries. Open the worked solution to compare your method.`;
+        form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      } else if (verdicts.some((v) => v === 'close')) {
+        fb.className = 'practice-feedback is-close';
+        fb.textContent = 'Very close. Check your rounding, or a sign or unit in the last step.';
+      } else {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = attempts >= 2 ? 'Not yet. Take the hint, or open the worked solution and compare it step by step.' : 'Not quite. Check your working and try again.';
+        if (attempts >= 2 && hintBox.hidden) showHint();
+      }
+    });
+    root.querySelector('[data-hint]').addEventListener('click', showHint);
+    root.querySelector('[data-solution]').addEventListener('click', showSolution);
+    root.querySelector('[data-new]').addEventListener('click', () => { build(); root.querySelector('input').focus(); });
+  };
+  build();
+  return { next: build };
+}
+
+/** Random helpers for problem generators (pass the generator's rand). */
+const pick = (rand, list) => list[Math.floor(rand() * list.length)];
+const randInt = (rand, lo, hi) => lo + Math.floor(rand() * (hi - lo + 1));
+
+return { mountExplorer, parseAnswer, judge, mountPractice, pick, randInt };
+})();
 __m["pages/calculator-page.js"] = (function () {
 /*
  * Generic calculator page controller used by every generated calculator page.
@@ -246,6 +597,7 @@ __m["pages/calculator-page.js"] = (function () {
  *   { ok: true, final, answers, visual: { svg, caption, legend }, notes, formula, steps, tables }
  */
 const { resultCard, stepsBlock, alertBlock, notesBlock, finalAnswerBlock, tableBlock, showFieldErrors, clearFieldErrors, wireCalculator, fillForm, tex, escapeHtml } = __m["lib/ui.js"];
+const { mountExplorer, mountPractice } = __m["lib/learn.js"];
 
 function isVisible(form, name) {
   const el = form.elements.namedItem(name);
@@ -364,6 +716,9 @@ function mountCalculator(calc) {
       render(values, { live: true });
     }, 150);
   });
+
+  if (calc.explore) mountExplorer(document.querySelector('[data-explore-root]'), calc.explore);
+  if (calc.practice) mountPractice(document.querySelector('[data-practice-root]'), calc.practice);
 
   copyAllBtn.addEventListener('click', () => {
     const t = copyAllBtn.getAttribute('data-copy') || '';
@@ -917,7 +1272,8 @@ function plot(opts) {
   const Y = (y) => pad.t + ph - ((y - ymin) / (ymax - ymin)) * ph;
   const id = `clip${++uid}`;
   const out = [];
-  out.push(`<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || 'Graph')}"><title>${esc(opts.title || 'Graph')}</title>${opts.desc ? `<desc>${esc(opts.desc)}</desc>` : ''}`);
+  // data-view lets interactive explorers convert pointer positions back to graph coordinates.
+  out.push(`<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || 'Graph')}" data-view="${[xmin, xmax, ymin, ymax, pad.l, pad.t, pw, ph].map((v) => +v.toPrecision(10)).join(' ')}"><title>${esc(opts.title || 'Graph')}</title>${opts.desc ? `<desc>${esc(opts.desc)}</desc>` : ''}`);
   out.push(`<defs><clipPath id="${id}"><rect x="${pad.l}" y="${pad.t}" width="${pw}" height="${ph}"/></clipPath></defs>`);
 
   const xs = niceStep(xmax - xmin), ys = niceStep(ymax - ymin, 5);
@@ -986,7 +1342,8 @@ function plot(opts) {
     if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) continue;
     const px = X(p.x), py = Y(p.y);
     if (px < pad.l - 1 || px > pad.l + pw + 1 || py < pad.t - 1 || py > pad.t + ph + 1) continue;
-    labels.push(`<circle class="${p.cls || 'd-point'}" cx="${r2(px)}" cy="${r2(py)}" r="${p.r || 4.5}"/>`);
+    if (p.drag) labels.push(`<circle class="d-drag-hit" data-drag="${esc(p.drag)}" cx="${r2(px)}" cy="${r2(py)}" r="14"/>`);
+    labels.push(`<circle class="${p.cls || 'd-point'}${p.drag ? ' d-draggable' : ''}" cx="${r2(px)}" cy="${r2(py)}" r="${p.r || (p.drag ? 6 : 4.5)}"${p.drag ? ` data-drag="${esc(p.drag)}"` : ''}/>`);
     if (p.label) {
       const right = px < W - 90;
       labels.push(`<text class="d-text" x="${r2(right ? px + 7 : px - 7)}" y="${r2(py < pad.t + 16 ? py + 15 : py - 7)}" text-anchor="${right ? 'start' : 'end'}">${esc(p.label)}</text>`);
@@ -1197,6 +1554,291 @@ function venn(sets, regions, title = 'Venn diagram') {
 
 return { triangle, sphereSketch, cylinderSketch, coneSketch, boxSketch, prismSketch, pyramidSketch, frustumPyramidSketch, venn };
 })();
+__m["lib/solid3d.js"] = (function () {
+/**
+ * Tiny 3D renderer for convex solids, returning an SVG string (no DOM, no WebGL).
+ * Solids are lists of polygon faces in 3D (y is up). Only faces that point towards the
+ * viewer are drawn (correct for convex solids), shaded by a fixed light.
+ */
+const r2 = (v) => Math.round(v * 100) / 100;
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** Frustum of a cone/pyramid with n sides: bottom radius R, top radius r (0 = apex), height h. */
+function frustumMesh(R, r, h, n, { smooth = false, phase = 0 } = {}) {
+  const ring = (rad, y) => Array.from({ length: n }, (_, i) => {
+    const t = phase + (2 * Math.PI * i) / n;
+    return [rad * Math.cos(t), y, rad * Math.sin(t)];
+  });
+  const bottom = ring(R, -h / 2);
+  const faces = [{ pts: bottom.slice().reverse(), cap: true }];
+  if (r > 1e-9) {
+    const top = ring(r, h / 2);
+    faces.push({ pts: top, cap: true });
+    for (let i = 0; i < n; i++) faces.push({ pts: [bottom[i], bottom[(i + 1) % n], top[(i + 1) % n], top[i]], side: true });
+  } else {
+    const apex = [0, h / 2, 0];
+    for (let i = 0; i < n; i++) faces.push({ pts: [bottom[i], bottom[(i + 1) % n], apex], side: true });
+  }
+  return { faces, smooth };
+}
+
+function sphereMesh(R, lat = 14, lon = 28) {
+  const faces = [];
+  const P = (i, j) => {
+    const th = (Math.PI * i) / lat, ph = (2 * Math.PI * j) / lon;
+    return [R * Math.sin(th) * Math.cos(ph), R * Math.cos(th), R * Math.sin(th) * Math.sin(ph)];
+  };
+  for (let i = 0; i < lat; i++) {
+    for (let j = 0; j < lon; j++) {
+      const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)];
+      faces.push({ pts: i === 0 ? [pts[0], pts[1], pts[2]] : i === lat - 1 ? [pts[0], pts[1], pts[3]] : pts, side: true });
+    }
+  }
+  return { faces, smooth: true };
+}
+
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const norm = (a) => { const l = Math.hypot(...a) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+
+/**
+ * opts: { yaw, pitch (degrees), scale (px per unit), width, height, title, lines: [{ a, b, cls, label }] }
+ * lines are 3D segments drawn on top (dimension lines), dashed when cls = 'd-dim'.
+ */
+function renderSolid(mesh, opts = {}) {
+  const W = opts.width || 360, H = opts.height || 300;
+  const yaw = ((opts.yaw ?? 30) * Math.PI) / 180, pitch = ((opts.pitch ?? 20) * Math.PI) / 180;
+  const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  const rot = ([x, y, z]) => {
+    const x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
+    return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
+  };
+  const s = opts.scale || 10;
+  const proj = (p) => [W / 2 + s * p[0], H / 2 - s * p[1]];
+  const light = norm([-0.45, 0.75, 0.6]);
+  const all = mesh.faces.flatMap((f) => f.pts);
+  const centre = all.reduce((acc, p) => [acc[0] + p[0] / all.length, acc[1] + p[1] / all.length, acc[2] + p[2] / all.length], [0, 0, 0]);
+  const C = rot(centre);
+  const polys = [];
+  for (const f of mesh.faces) {
+    const pts = f.pts.map(rot);
+    let n = norm(cross(sub(pts[1], pts[0]), sub(pts[2], pts[0])));
+    const fc = pts.reduce((a, p) => [a[0] + p[0] / pts.length, a[1] + p[1] / pts.length, a[2] + p[2] / pts.length], [0, 0, 0]);
+    if (dot(n, sub(fc, C)) < 0) n = n.map((v) => -v);
+    if (n[2] <= 1e-6) continue; // faces away from the viewer
+    const b = Math.max(0, dot(n, light));
+    const mix = Math.round(62 - 40 * b);
+    const fill = `color-mix(in srgb, var(--primary) ${mix}%, var(--surface))`;
+    const stroke = mesh.smooth && f.side ? fill : 'var(--primary)';
+    const sw = mesh.smooth && f.side ? 0.8 : 1.6;
+    const d = pts.map((p) => proj(p).map(r2).join(',')).join(' ');
+    polys.push({ z: fc[2], svg: `<polygon class="d-face" points="${d}" style="fill:${fill};stroke:${stroke};stroke-width:${sw}"/>` });
+  }
+  polys.sort((a, b) => a.z - b.z);
+  const lines = (opts.lines || []).map((l) => {
+    const [x1, y1] = proj(rot(l.a)), [x2, y2] = proj(rot(l.b));
+    const label = l.label ? `<text class="d-label" x="${r2((x1 + x2) / 2 + 6)}" y="${r2((y1 + y2) / 2 - 4)}">${esc(l.label)}</text>` : '';
+    return `<line class="${l.cls || 'd-dim'}" x1="${r2(x1)}" y1="${r2(y1)}" x2="${r2(x2)}" y2="${r2(y2)}" stroke-dasharray="5 4"/>${label}`;
+  });
+  const svg = `<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || '3D solid')}"><title>${esc(opts.title || '3D solid')}</title>${polys.map((p) => p.svg).join('')}${lines.join('')}</svg>`;
+  return /NaN|Infinity/.test(svg) ? '' : svg;
+}
+
+return { frustumMesh, sphereMesh, renderSolid };
+})();
+__m["explore/solids.js"] = (function () {
+/**
+ * Explorers and practice problems for solid mensuration: rotatable 3D solids whose
+ * surface area and volume update as the dimensions change. The drawing scale is fixed,
+ * so growing a dimension visibly grows the solid.
+ */
+const { frustumMesh, sphereMesh, renderSolid } = __m["lib/solid3d.js"];
+const { tx } = __m["lib/calc-kit.js"];
+const { randInt } = __m["lib/learn.js"];
+
+const VIEW = [
+  { name: 'yaw', label: 'Turn', min: 0, max: 360, step: 1, value: 35, unit: '°' },
+  { name: 'pitch', label: 'Tilt', min: -10, max: 60, step: 1, value: 22, unit: '°' },
+];
+const SIDES = [['3', 'Triangle (3)'], ['4', 'Square (4)'], ['5', 'Pentagon (5)'], ['6', 'Hexagon (6)'], ['8', 'Octagon (8)']];
+const f2 = (x) => tx(x, 2);
+const ratio = (x, x0) => (x0 > 0 ? `×${(x / x0).toFixed(2)}` : '');
+
+/** Compare with the starting shape so the scaling laws (r², r³) are visible. */
+function scaling(V, A, V0, A0) {
+  return { label: 'Compared with the starting shape', text: `volume ${ratio(V, V0)}, surface area ${ratio(A, A0)}` };
+}
+const poly = (n, a) => ({ B: (n * a * a) / (4 * Math.tan(Math.PI / n)), P: n * a, ap: a / (2 * Math.tan(Math.PI / n)), R: a / (2 * Math.sin(Math.PI / n)) });
+
+const sphereVals = (r) => ({ A: 4 * Math.PI * r * r, V: (4 / 3) * Math.PI * r ** 3 });
+const sphereExplore = {
+  title: 'Resize and turn a sphere',
+  intro: 'Change the radius and compare the area and volume with the starting sphere: area grows with r², volume with r³.',
+  controls: [{ name: 'r', label: 'Radius r', min: 0.5, max: 8, step: 0.1, value: 3 }, ...VIEW],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: 'Double the radius (r = 6)', values: { r: 6 } }, { label: 'Half the radius (r = 1.5)', values: { r: 1.5 } }],
+  render({ r, yaw, pitch }) {
+    const { A, V } = sphereVals(r), s0 = sphereVals(3);
+    return {
+      svg: renderSolid(sphereMesh(r), { yaw, pitch, scale: 18, title: `Sphere with radius ${r}`, lines: [{ a: [0, 0, 0], b: [r, 0, 0], label: 'r' }] }),
+      readouts: [
+        { label: 'Surface area', tex: `A = 4\\pi r^2 \\approx ${f2(A)}` },
+        { label: 'Volume', tex: `V = \\tfrac{4}{3}\\pi r^3 \\approx ${f2(V)}` },
+        scaling(V, A, s0.V, s0.A),
+      ],
+    };
+  },
+};
+
+const cylVals = (r, h) => ({ L: 2 * Math.PI * r * h, A: 2 * Math.PI * r * (r + h), V: Math.PI * r * r * h });
+const cylinderExplore = {
+  title: 'Resize and turn a cylinder',
+  intro: 'Doubling the height doubles the volume; doubling the radius multiplies it by 4.',
+  controls: [{ name: 'r', label: 'Radius r', min: 0.5, max: 7, step: 0.1, value: 3 }, { name: 'h', label: 'Height h', min: 0.5, max: 14, step: 0.1, value: 6 }, ...VIEW],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: 'Double h', values: { r: 3, h: 12 } }, { label: 'Double r', values: { r: 6, h: 6 } }],
+  render({ r, h, yaw, pitch }) {
+    const v = cylVals(r, h), v0 = cylVals(3, 6);
+    return {
+      svg: renderSolid(frustumMesh(r, r, h, 48, { smooth: true }), { yaw, pitch, scale: 16, title: `Cylinder r = ${r}, h = ${h}`, lines: [{ a: [0, -h / 2, 0], b: [0, h / 2, 0], label: 'h' }, { a: [0, h / 2, 0], b: [r, h / 2, 0], label: 'r' }] }),
+      readouts: [
+        { label: 'Volume', tex: `V = \\pi r^2 h \\approx ${f2(v.V)}` },
+        { label: 'Lateral area', tex: `2\\pi r h \\approx ${f2(v.L)}` },
+        { label: 'Total surface area', tex: `2\\pi r(r + h) \\approx ${f2(v.A)}` },
+        scaling(v.V, v.A, v0.V, v0.A),
+      ],
+    };
+  },
+};
+
+const coneVals = (r, h) => { const s = Math.hypot(r, h); return { s, A: Math.PI * r * (r + s), L: Math.PI * r * s, V: (Math.PI * r * r * h) / 3 }; };
+const coneExplore = {
+  title: 'Resize and turn a cone',
+  intro: 'The slant height s is the hypotenuse of a right triangle with legs r and h.',
+  controls: [{ name: 'r', label: 'Radius r', min: 0.5, max: 7, step: 0.1, value: 3 }, { name: 'h', label: 'Height h', min: 0.5, max: 14, step: 0.1, value: 4 }, ...VIEW],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: '3-4-5 cone', values: { r: 3, h: 4 } }, { label: 'Tall and thin', values: { r: 1.5, h: 12 } }],
+  render({ r, h, yaw, pitch }) {
+    const v = coneVals(r, h), v0 = coneVals(3, 4);
+    return {
+      svg: renderSolid(frustumMesh(r, 0, h, 48, { smooth: true }), { yaw, pitch, scale: 16, title: `Cone r = ${r}, h = ${h}`, lines: [{ a: [0, -h / 2, 0], b: [0, h / 2, 0], label: 'h' }, { a: [0, -h / 2, 0], b: [r, -h / 2, 0], label: 'r' }] }),
+      readouts: [
+        { label: 'Slant height', tex: `s = \\sqrt{r^2 + h^2} \\approx ${f2(v.s)}` },
+        { label: 'Volume', tex: `V = \\tfrac{1}{3}\\pi r^2 h \\approx ${f2(v.V)}` },
+        { label: 'Total surface area', tex: `\\pi r(r + s) \\approx ${f2(v.A)}` },
+        scaling(v.V, v.A, v0.V, v0.A),
+      ],
+    };
+  },
+};
+
+const prismVals = (n, a, h) => { const p = poly(n, a); return { ...p, A: 2 * p.B + p.P * h, V: p.B * h }; };
+const prismExplore = {
+  title: 'Build a regular prism',
+  intro: 'Every prism has volume = base area × height, whatever the shape of the base.',
+  controls: [{ name: 'n', label: 'Base shape', type: 'select', options: SIDES, value: '6' }, { name: 'a', label: 'Base edge a', min: 0.5, max: 6, step: 0.1, value: 3 }, { name: 'h', label: 'Height h', min: 0.5, max: 12, step: 0.1, value: 6 }, ...VIEW],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  render({ n, a, h, yaw, pitch }) {
+    const k = Number(n), v = prismVals(k, a, h), v0 = prismVals(k, 3, 6);
+    return {
+      svg: renderSolid(frustumMesh(v.R, v.R, h, k), { yaw, pitch, scale: 14, title: `Prism with a ${k}-sided base`, lines: [{ a: [0, -h / 2, 0], b: [0, h / 2, 0], label: 'h' }] }),
+      readouts: [
+        { label: 'Base area', tex: `B = \\frac{n a^2}{4\\tan(180^\\circ/n)} \\approx ${f2(v.B)}` },
+        { label: 'Volume', tex: `V = B h \\approx ${f2(v.V)}` },
+        { label: 'Total surface area', tex: `2B + P h \\approx ${f2(v.A)}` },
+        scaling(v.V, v.A, v0.V, v0.A),
+      ],
+    };
+  },
+};
+
+const pyrVals = (n, a, h) => { const p = poly(n, a); const l = Math.hypot(h, p.ap); return { ...p, l, A: p.B + (p.P * l) / 2, V: (p.B * h) / 3 }; };
+const pyramidExplore = {
+  title: 'Build a regular pyramid',
+  intro: 'A pyramid holds exactly one third of the prism with the same base and height.',
+  controls: [{ name: 'n', label: 'Base shape', type: 'select', options: SIDES, value: '4' }, { name: 'a', label: 'Base edge a', min: 0.5, max: 8, step: 0.1, value: 6 }, { name: 'h', label: 'Height h', min: 0.5, max: 12, step: 0.1, value: 4 }, ...VIEW],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  render({ n, a, h, yaw, pitch }) {
+    const k = Number(n), v = pyrVals(k, a, h), v0 = pyrVals(k, 6, 4);
+    return {
+      svg: renderSolid(frustumMesh(v.R, 0, h, k), { yaw, pitch, scale: 14, title: `Pyramid with a ${k}-sided base`, lines: [{ a: [0, -h / 2, 0], b: [0, h / 2, 0], label: 'h' }] }),
+      readouts: [
+        { label: 'Slant height (apothem)', tex: `l = \\sqrt{h^2 + \\text{ap}^2} \\approx ${f2(v.l)}` },
+        { label: 'Volume', tex: `V = \\tfrac{1}{3} B h \\approx ${f2(v.V)}` },
+        { label: 'Same-base prism', tex: `B h \\approx ${f2(3 * v.V)}` },
+        { label: 'Total surface area', tex: `B + \\tfrac{1}{2} P l \\approx ${f2(v.A)}` },
+        scaling(v.V, v.A, v0.V, v0.A),
+      ],
+    };
+  },
+};
+
+function frustVals(n, a, b, h) {
+  const p1 = poly(n, a), p2 = poly(n, b);
+  const l = Math.hypot(h, p1.ap - p2.ap);
+  return { p1, p2, l, V: (h / 3) * (p1.B + p2.B + Math.sqrt(p1.B * p2.B)), A: p1.B + p2.B + (n * (a + b) * l) / 2 };
+}
+const frustumPyramidExplore = {
+  title: 'Slice the top off a pyramid',
+  intro: 'Shrink the top edge to 0 and the frustum becomes a pyramid; make it equal to the bottom edge and it becomes a prism.',
+  controls: [{ name: 'n', label: 'Base shape', type: 'select', options: SIDES, value: '4' }, { name: 'a', label: 'Bottom edge a', min: 1, max: 8, step: 0.1, value: 6 }, { name: 'b', label: 'Top edge b', min: 0, max: 8, step: 0.1, value: 3 }, { name: 'h', label: 'Height h', min: 0.5, max: 10, step: 0.1, value: 4 }, ...VIEW],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: 'Pyramid (b = 0)', values: { b: 0 } }, { label: 'Prism (b = a)', values: { a: 6, b: 6 } }],
+  render({ n, a, b, h, yaw, pitch }) {
+    const k = Number(n), v = frustVals(k, a, b, h);
+    return {
+      svg: renderSolid(frustumMesh(v.p1.R, v.p2.R, h, k), { yaw, pitch, scale: 14, title: `Frustum with a ${k}-sided base`, lines: [{ a: [0, -h / 2, 0], b: [0, h / 2, 0], label: 'h' }] }),
+      readouts: [
+        { label: 'Volume', tex: `V = \\tfrac{h}{3}\\left(B_1 + B_2 + \\sqrt{B_1 B_2}\\right) \\approx ${f2(v.V)}` },
+        { label: 'Slant height', tex: `l \\approx ${f2(v.l)}` },
+        { label: 'Total surface area', tex: `A \\approx ${f2(v.A)}` },
+      ],
+      note: b === 0 ? 'With b = 0 the top face disappears: this is a pyramid, V = Bh/3.' : Math.abs(a - b) < 1e-9 ? 'With b = a the sides are vertical: this is a prism, V = Bh.' : '',
+    };
+  },
+};
+
+const spherePractice = {
+  title: 'Volume and area of a sphere',
+  generate(rand) {
+    const r = randInt(rand, 2, 12);
+    const V = (4 / 3) * Math.PI * r ** 3, A = 4 * Math.PI * r * r;
+    return {
+      prompt: `<p>A ball has radius <strong>${r} cm</strong>. Find its surface area and volume.</p>`,
+      answers: [{ label: 'Surface area', value: A, unit: 'cm²' }, { label: 'Volume', value: V, unit: 'cm³' }],
+      hint: 'Surface area uses r squared; volume uses r cubed and the fraction 4/3.',
+      hintTex: 'A = 4\\pi r^2 \\qquad V = \\frac{4}{3}\\pi r^3',
+      steps: [
+        { title: 'Known value', tex: `r = ${r}\\text{ cm}` },
+        { title: 'Surface area', texLines: ['A = 4\\pi r^2', `A = 4\\pi(${r})^2 = ${4 * r * r}\\pi \\approx ${f2(A)}\\text{ cm}^2`] },
+        { title: 'Volume', texLines: ['V = \\frac{4}{3}\\pi r^3', `V = \\frac{4}{3}\\pi(${r})^3 \\approx ${f2(V)}\\text{ cm}^3`] },
+      ],
+    };
+  },
+};
+
+const cylinderPractice = {
+  title: 'Volume of a cylinder',
+  generate(rand) {
+    const r = randInt(rand, 2, 9), h = randInt(rand, 3, 20);
+    const V = Math.PI * r * r * h;
+    return {
+      prompt: `<p>A cylindrical tank has radius <strong>${r} m</strong> and height <strong>${h} m</strong>. How much does it hold?</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'Volume = area of the circular base × height.',
+      hintTex: 'V = \\pi r^2 h',
+      steps: [
+        { title: 'Known values', tex: `r = ${r}\\text{ m}, \\quad h = ${h}\\text{ m}` },
+        { title: 'Formula', tex: 'V = \\pi r^2 h' },
+        { title: 'Substitute and simplify', texLines: [`V = \\pi (${r})^2 (${h})`, `V = ${r * r * h}\\pi \\approx ${f2(V)}\\text{ m}^3`] },
+      ],
+    };
+  },
+};
+
+return { sphereExplore, cylinderExplore, coneExplore, prismExplore, pyramidExplore, frustumPyramidExplore, spherePractice, cylinderPractice };
+})();
 __m["calculators/frustum-of-a-pyramid.js"] = (function () {
 /**
  * Frustum of a right pyramid with parallel, similar bases:
@@ -1208,8 +1850,10 @@ const { validator, answer, fmt, tx, eq, units, UNIT_FIELD } = __m["lib/calc-kit.
 const { regularArea, apothem, polygonName, SIDES_OPTIONS } = __m["lib/geometry.js"];
 const { frustumPyramidSketch } = __m["lib/diagrams.js"];
 
+const { frustumPyramidExplore } = __m["explore/solids.js"];
 const calculator = {
   id: 'frustum-of-a-pyramid',
+  explore: frustumPyramidExplore,
   fields: [
     { name: 'type', label: 'Base shape', type: 'select', options: [['regular', 'Regular polygon (square, hexagon, …)'], ['rect', 'Rectangle']] },
     { name: 'n', label: 'Number of sides', type: 'select', options: SIDES_OPTIONS, default: '4', showWhen: { type: ['regular'] } },

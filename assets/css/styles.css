@@ -278,7 +278,7 @@ legend { padding: 0; }
 .result-card.is-primary { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent-bright) 45%, transparent); }
 /* No text-transform here: labels contain case-sensitive symbols such as r and R. */
 .result-label { font-size: 0.82rem; font-weight: 650; color: var(--muted); padding-right: 3.5rem; }
-.result-value { font-size: 1.35rem; font-weight: 750; color: var(--text); margin-top: 0.25rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.result-value { font-size: 1.35rem; font-weight: 750; color: var(--text); margin-top: 0.25rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; overflow-x: auto; overflow-y: hidden; }
 .result-exact { font-size: 0.92rem; color: var(--text-2); margin-top: 0.2rem; overflow-x: auto; overflow-y: hidden; }
 .result-tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.1rem 0.45rem; border-radius: 6px; margin-left: 0.35rem; vertical-align: middle; }
 .tag-exact { background: var(--accent-soft); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent-bright) 40%, transparent); }
@@ -476,7 +476,80 @@ math { font-family: "Latin Modern Math", "STIX Two Math", "Cambria Math", "Noto 
 .input.font-mono, textarea.input { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95rem; }
 textarea.input { resize: vertical; min-height: 5.5rem; }
 
+/* ---------------------------------------------------------------- small-screen polish */
+@media (max-width: 479px) {
+  /* The main action spans the row so it is always the obvious next step. */
+  .form-actions > .btn-primary:first-child { flex: 1 1 100%; }
+  .panel-body { padding: 1rem; }
+  .segmented { display: grid; grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); width: 100%; }
+}
+.final-math math, .result-value math { max-width: 100%; }
+
+/* ---------------------------------------------------------------- explore and practise */
+.learn-shell { margin-top: 3rem; }
+.section-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+.section-sub { margin-top: 0.25rem; color: var(--muted); max-width: 65ch; }
+.learn-grid { display: grid; gap: 1.25rem; margin-top: 1.25rem; grid-template-columns: minmax(0, 1fr); }
+.learn-grid > * { min-width: 0; }
+#practice .panel-body { max-width: 52rem; }
+.learn-kicker { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+
+.explore { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); }
+.explore > * { min-width: 0; }
+@media (min-width: 760px) { .explore { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; } }
+.explore-intro { font-size: 0.92rem; color: var(--text-2); margin-bottom: 0.75rem; }
+.ex-control + .ex-control { margin-top: 0.9rem; }
+.ex-control-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.ex-num { display: inline-flex; align-items: center; gap: 0.35rem; }
+.ex-num .input { width: 6.2rem; padding: 0.3rem 0.5rem; font-size: 0.9rem; text-align: right; }
+.ex-unit { font-size: 0.8rem; color: var(--muted); min-width: 1.5rem; }
+.range { width: 100%; margin-top: 0.35rem; accent-color: var(--primary); height: 1.75rem; cursor: pointer; }
+.ex-player { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 1rem; }
+.explore-figure { margin: 0; border: 1px solid var(--border); border-radius: 12px; padding: 0.5rem; background: var(--surface); touch-action: none; }
+.explore-figure.is-dragging { cursor: grabbing; }
+.explore-figure .diagram { max-height: 26rem; }
+.explore-note { margin-top: 0.6rem; font-size: 0.88rem; color: var(--text-2); }
+.readouts { display: grid; gap: 0.5rem; margin-top: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); }
+.readout { border: 1px solid var(--border); background: var(--surface-2); border-radius: 10px; padding: 0.5rem 0.7rem; min-width: 0; }
+.readout-label { display: block; font-size: 0.75rem; font-weight: 650; color: var(--muted); }
+.readout-value { display: block; font-weight: 700; color: var(--text); overflow-x: auto; overflow-y: hidden; font-variant-numeric: tabular-nums; }
+.readout.is-good { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent-bright) 45%, transparent); }
+.readout.is-warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 30%, transparent); }
+.diagram .d-draggable { cursor: grab; stroke: var(--surface); stroke-width: 2; }
+.diagram .d-drag-hit { fill: transparent; cursor: grab; }
+.diagram .d-point2 { fill: var(--accent-bright); }
+.diagram .d-point3 { fill: #f59e0b; }
+.diagram .d-arrow { stroke: var(--accent-bright); stroke-width: 3; fill: none; }
+.diagram .d-arrow-head { fill: var(--accent-bright); }
+.diagram .d-arrow2 { stroke: #f59e0b; stroke-width: 3; fill: none; }
+.diagram .d-arrow2-head { fill: #f59e0b; }
+.diagram .d-ground { stroke: var(--muted); stroke-width: 2; }
+.diagram .d-body { fill: var(--primary-soft); stroke: var(--primary); stroke-width: 2; }
+.diagram .d-wire { stroke: var(--text-2); stroke-width: 2; fill: none; }
+.diagram .d-resistor { stroke: var(--primary); stroke-width: 2.4; fill: none; stroke-linejoin: round; }
+.diagram .d-source { stroke: var(--text-2); stroke-width: 2; fill: var(--surface); }
+.diagram .d-face { stroke-linejoin: round; }
+
+.combo-list { display: flex; flex-wrap: wrap; gap: 0.35rem; list-style: none; padding: 0; margin: 0; max-height: 15rem; overflow-y: auto; }
+.combo-list li { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; padding: 0.2rem 0.5rem; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); }
+.combo-list li.is-group-start { border-color: var(--primary); color: var(--primary); }
+.combo-head { font-size: 0.85rem; font-weight: 650; color: var(--text); margin: 0.6rem 0 0.35rem; }
+.iter-table { max-height: 14rem; overflow: auto; }
+.iter-table tr.is-current td { background: var(--primary-soft); font-weight: 650; }
+
+.practice-prompt { color: var(--text); font-size: 1rem; }
+.practice-prompt p + p { margin-top: 0.5rem; }
+.practice-feedback { margin-top: 0.85rem; font-weight: 650; font-size: 0.95rem; }
+.practice-feedback:empty { display: none; }
+.practice-feedback.is-correct { color: var(--accent); }
+.practice-feedback.is-correct::before { content: "✓ "; }
+.practice-feedback.is-close { color: var(--warn); }
+.practice-feedback.is-wrong { color: var(--danger); }
+.practice [data-hint-box], .practice [data-solution-box] { margin-top: 0.85rem; }
+.practice-final { margin-top: 0.6rem; font-weight: 700; color: var(--text); }
+
 @media print {
+  .learn-shell { display: none !important; }
   .site-header, .site-footer, .ad-slot, .form-actions, .copy-btn, .toc-aside, .skip-link { display: none !important; }
   body { background: #fff; color: #000; }
 }

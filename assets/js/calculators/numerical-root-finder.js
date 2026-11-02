@@ -9,8 +9,10 @@ import { derivative, texOf } from '../lib/expr.js';
 import { parseFunction, parseNumberExpr, FUNCTION_HINT, compile } from '../lib/calculus-kit.js';
 import { plot } from '../lib/plot.js';
 
+import { rootFinderExplore } from '../explore/data.js';
 export const calculator = {
   id: 'numerical-root-finder',
+  explore: rootFinderExplore,
   fields: [
     { name: 'f', label: 'Function f(x)', type: 'text', placeholder: 'e.g. x^3 - x - 2', hint: FUNCTION_HINT },
     { name: 'method', label: 'Method', type: 'radio', options: [['bisection', 'Bisection'], ['newton', 'Newton–Raphson']] },

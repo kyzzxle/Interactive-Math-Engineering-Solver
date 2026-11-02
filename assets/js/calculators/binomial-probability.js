@@ -9,8 +9,10 @@ import { fmtP, texP } from '../lib/stats-kit.js';
 import { Frac, parseFrac } from '../lib/fraction.js';
 import { plot } from '../lib/plot.js';
 
+import { binomialExplore } from '../explore/data.js';
 export const calculator = {
   id: 'binomial-probability',
+  explore: binomialExplore,
   fields: [
     { name: 'n', label: 'Number of trials n', type: 'number', inputmode: 'numeric', placeholder: 'e.g. 10', row: 'np' },
     { name: 'p', label: 'Probability of success p', type: 'number', signed: false, placeholder: 'e.g. 0.3', row: 'np' },

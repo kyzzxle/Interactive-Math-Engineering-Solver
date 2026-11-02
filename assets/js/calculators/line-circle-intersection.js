@@ -6,11 +6,13 @@
 import { validator, fmt, tx, txp, eq, isExact } from '../lib/calc-kit.js';
 import { plot } from '../lib/plot.js';
 
+import { lineCircleExplore } from '../explore/geometry.js';
 const rel2 = (p) => (isExact(p[0]) && isExact(p[1]) ? '=' : '\\approx');
 const ptTex = (p) => `(${tx(p[0])},\\ ${tx(p[1])})`;
 
 export const calculator = {
   id: 'line-circle-intersection',
+  explore: lineCircleExplore,
   fields: [
     { name: 'A', label: 'Line: A', type: 'number', placeholder: 'e.g. 1', row: 'l' },
     { name: 'B', label: 'B', type: 'number', placeholder: 'e.g. -1', row: 'l' },

@@ -6,8 +6,11 @@ import { fmt, tx, eq, isExact } from '../lib/calc-kit.js';
 import { piMultiple, piFracTex, piFracText, exactTrig, parseValue } from '../lib/trig.js';
 import { plot } from '../lib/plot.js';
 
+import { unitCircleExplore, unitCirclePractice } from '../explore/functions.js';
 export const calculator = {
   id: 'degrees-radians-unit-circle',
+  explore: unitCircleExplore,
+  practice: unitCirclePractice,
   fields: [
     { name: 'from', label: 'Convert from', type: 'radio', options: [['deg', 'Degrees → radians'], ['rad', 'Radians → degrees']] },
     { name: 'angle', label: 'Angle', type: 'text', placeholder: 'e.g. 150 or 5pi/6', hint: 'Radians may be written with pi, e.g. 2pi/3 or 0.75pi. Negative and large angles are fine.' },

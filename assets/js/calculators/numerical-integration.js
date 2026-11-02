@@ -10,8 +10,10 @@ import { trapezoid, simpson } from '../lib/numeric.js';
 import { definiteIntegral } from './definite-integral.js';
 import { plot } from '../lib/plot.js';
 
+import { riemannExplore } from '../explore/functions.js';
 export const calculator = {
   id: 'numerical-integration',
+  explore: riemannExplore,
   fields: [
     { name: 'f', label: 'Integrand f(x)', type: 'text', placeholder: 'e.g. e^(-x^2)', hint: FUNCTION_HINT },
     { name: 'a', label: 'a', type: 'text', placeholder: '0', row: 'ab' },

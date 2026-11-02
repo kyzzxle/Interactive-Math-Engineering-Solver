@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the kinematics calculator does</h2>
+          <p>When an object speeds up or slows down at a <strong>constant rate</strong>, its motion along a straight line is described by five quantities: initial velocity \(u\), final velocity \(v\), acceleration \(a\), time \(t\) and displacement \(s\) — often remembered as <strong>SUVAT</strong>. Any three of them fix the other two.</p>
+          <p>Enter exactly three values and leave two blank. The calculator chooses an equation that contains only one unknown, explains why it chose it, and solves step by step. When a problem has two valid answers — a ball thrown upwards passes the same height on the way up and on the way down — both are shown.</p>
+          <div class="callout try-it"><p class="callout-title">Sign convention</p><p>Pick one direction as positive and stick to it. If up is positive, a ball's acceleration under gravity is \(a = -9.81\ \text{m/s}^2\), and a displacement below the starting point is negative.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">The five SUVAT equations</h2>
+          <div class="formula-box">\[ \begin{aligned} (1)\quad & v = u + at && \text{no } s \\ (2)\quad & s = ut + \tfrac{1}{2}at^2 && \text{no } v \\ (3)\quad & v^2 = u^2 + 2as && \text{no } t \\ (4)\quad & s = \tfrac{1}{2}(u + v)\,t && \text{no } a \\ (5)\quad & s = vt - \tfrac{1}{2}at^2 && \text{no } u \end{aligned} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th><th scope="col">SI unit</th></tr></thead>
+            <tbody>
+              <tr><td>\(u\)</td><td>Initial velocity</td><td>m/s</td></tr>
+              <tr><td>\(v\)</td><td>Final velocity</td><td>m/s</td></tr>
+              <tr><td>\(a\)</td><td>Acceleration (constant)</td><td>m/s²</td></tr>
+              <tr><td>\(t\)</td><td>Time</td><td>s</td></tr>
+              <tr><td>\(s\)</td><td>Displacement (change in position)</td><td>m</td></tr>
+            </tbody>
+          </table>
+          <p>Each equation leaves out one quantity, so the strategy is: find the quantity you neither know nor want, and use the equation without it. On a velocity–time graph the slope is \(a\) and the area under the line is \(s\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A car brakes from 20 m/s at 4 m/s² until it stops</h3>
+            <h4>Step 1 — Known values</h4>
+            <p>\(u = 20\) m/s, \(v = 0\), \(a = -4\) m/s² (negative because it slows down). Unknown: \(t\) and \(s\).</p>
+            <h4>Step 2 — Time, from equation (1)</h4>
+            \[ t = \frac{v - u}{a} = \frac{0 - 20}{-4} = 5\ \text{s} \]
+            <h4>Step 3 — Stopping distance, from equation (3)</h4>
+            \[ s = \frac{v^2 - u^2}{2a} = \frac{0 - 400}{-8} = 50\ \text{m} \]
+            <p>Check with equation (4): \(s = \tfrac{1}{2}(20 + 0)(5) = 50\) m.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions, domain and limitations</h2>
+          <ul>
+            <li>The acceleration is <strong>constant</strong> for the whole interval. Real motion with changing acceleration needs calculus or numerical methods.</li>
+            <li>Motion is along one straight line. For two-dimensional motion such as a thrown ball, treat horizontal and vertical motion separately, as the <a href="../projectile-motion/">projectile motion simulator</a> does.</li>
+            <li>Time must be positive. If the values imply a negative time or a square root of a negative number, the calculator explains why no solution exists.</li>
+            <li>Displacement is not the same as distance travelled: if the velocity changes sign during the motion, the distance is larger.</li>
+          </ul>
+        </section>

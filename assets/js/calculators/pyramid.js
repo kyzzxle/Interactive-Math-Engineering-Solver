@@ -6,8 +6,10 @@ import { validator, answer, fmt, tx, eq, units, UNIT_FIELD } from '../lib/calc-k
 import { regularArea, apothem, circumradius, polygonName, SIDES_OPTIONS } from '../lib/geometry.js';
 import { pyramidSketch } from '../lib/diagrams.js';
 
+import { pyramidExplore } from '../explore/solids.js';
 export const calculator = {
   id: 'pyramid',
+  explore: pyramidExplore,
   fields: [
     { name: 'type', label: 'Base shape', type: 'select', options: [['regular', 'Regular polygon (square, triangle, hexagon, …)'], ['rect', 'Rectangle']] },
     { name: 'n', label: 'Number of sides of the base', type: 'select', options: SIDES_OPTIONS, default: '4', showWhen: { type: ['regular'] } },

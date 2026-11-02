@@ -4,8 +4,10 @@ import { Frac } from '../lib/fraction.js';
 import { integerLine, generalTex, generalText, slopeInterceptTex, slopeInterceptText, pointSlopeTex } from '../lib/lines.js';
 import { plot, windowAround } from '../lib/plot.js';
 
+import { slopeExplore } from '../explore/geometry.js';
 export const calculator = {
   id: 'slope-and-equation-of-a-line',
+  explore: slopeExplore,
   fields: [
     { name: 'mode', label: 'What do you know?', type: 'radio', options: [['two', 'Two points'], ['ps', 'A point and the slope']] },
     { name: 'x1', label: 'x₁', type: 'number', placeholder: 'e.g. 1', row: 'p1' },

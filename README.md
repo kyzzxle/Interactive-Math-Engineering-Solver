@@ -2,7 +2,7 @@
 
 A static educational website of step-by-step math and engineering calculators.
 Plain HTML + Tailwind CSS (CDN) + vanilla JavaScript; formulas are rendered to MathML
-with a self-hosted copy of KaTeX. 50 calculators across 8 subjects.
+with a self-hosted copy of KaTeX. 58 calculators across 9 subjects, many with interactive explorers and practice problems.
 No backend, no database, no framework — it runs on GitHub Pages.
 
 ---
@@ -71,6 +71,8 @@ There is nothing to install: the tools use only Node's built-in modules.
 │       │                           (parse, simplify, differentiate, integrate),
 │       │                           numerical methods, matrices, graphs, diagrams, UI
 │       ├── calculators/            Pure math for each calculator (no DOM)
+│       ├── explore/                "Explore" and "Try it" specs (no DOM): solids, geometry,
+│       │                           functions (algebra/trig/calculus), data, physics
 │       ├── pages/                  Page scripts (source, ES modules)
 │       └── bundles/                ← generated: one plain script per page, so pages
 │                                     also work when opened straight from disk
@@ -243,6 +245,23 @@ The build also reports problems: missing canonical links, canonicals that do not
 4. Run `npm run build` and `npm test`. The generic tests automatically solve every worked
    example, check that every formula renders, and fuzz every field with invalid input.
 
+**Optional: an explorer and a practice problem.** Add `explore` and/or `practice` to the
+calculator object and the page gets an "Explore and practise" section automatically.
+
+- `explore` — `{ title, intro, controls, presets?, drag?, rotate?, animate?, render(values) }`.
+  Each numeric control becomes a slider paired with a number box; `render` returns
+  `{ svg, html?, readouts: [{ label, tex | text, tone? }], note? }`. Points drawn with
+  `plot({ points: [{ drag: 'A' }] })` can be dragged; `animate: { control: 't' }` adds Play,
+  Pause and Reset (never autoplays; the slider is the non-animated alternative).
+- `practice` — `{ title, generate(rand) }` returning a prompt, answers (`{ label, value,
+  decimals?, int?, unit? }`), a hint and worked `steps`. The page adds Check, Hint, Show
+  solution and New problem.
+- Put specs in `assets/js/explore/` (see the existing files). `tests/learn.test.mjs`
+  renders every explorer at its defaults, presets and slider limits and generates 60
+  practice problems per calculator, checking for NaN and invalid TeX.
+
+Use these selectively: a simple calculator should stay simple.
+
 **Alternative: a hand-written page** (like the three original calculators):
 
 1. **Math module** — create `assets/js/calculators/<name>.js` exporting a `solve…(input)` function that takes the raw input strings and returns `{ ok: false, errors: [{ field, message }] }` or `{ ok: true, values, steps, notes }`. Reuse `lib/parse.js` (strict parsing), `lib/format.js`, `lib/exact.js` and `lib/bigint.js`. Keep it free of DOM code so it can be tested.
@@ -262,8 +281,10 @@ Do not publish empty "coming soon" pages: add a calculator to the registry only 
 
 - **Calculator math** (`tests/frustum`, `point-line`, `combinatorics`, `lib`): textbook examples, comparison with independent formulas (difference of two cones, closest-point parametrisation, Pascal's triangle and naive factorials), exact symbolic forms, special cases (cone, cylinder, point on the line, r = 0, r = n), huge numbers, and invalid inputs.
 - **Library tests** (`tests/lib.test.mjs`): parsing, formatting and exact arithmetic helpers.
+- **Learning widgets** (`tests/learn.test.mjs`): every explorer and practice generator, plus answer checking (fractions, rounding tolerance, "close" answers).
+- **Physics** (`tests/physics.test.mjs`): textbook answers, and all ten "three known, two unknown" kinematics combinations checked against an independently simulated motion.
 - **Every generated calculator** (`tests/calculators-generic.test.mjs`): each worked example solves, has a step-by-step solution and renders without TeX errors; no output ever contains `NaN`, `Infinity`, `undefined` or `[object Object]`; every field is fuzzed with about 20 invalid or extreme inputs (empty, text, `1/0`, `1e400`, `1e-300`, …) and must give a helpful error or a clean result.
-- **Site checks** (`tests/site.test.mjs`): all 57 indexable pages have required files, unique titles and descriptions, one `<h1>`, no skipped heading levels, valid JSON-LD, the required lesson sections, and no raw TeX in visible text; sitemap matches canonicals, robots.txt, 404 is `noindex`, no ad code without a publisher ID, and generated files up to date.
+- **Site checks** (`tests/site.test.mjs`): all 65 indexable pages have required files, unique titles and descriptions, one `<h1>`, no skipped heading levels, valid JSON-LD, the required lesson sections, and no raw TeX in visible text; sitemap matches canonicals, robots.txt, 404 is `noindex`, no ad code without a publisher ID, and generated files up to date.
 - **Link check** (`tools/check-links.mjs`): every internal link, asset and `#anchor`.
 
 The GitHub Action runs the same tests before every deployment and stops if any fail.
@@ -282,6 +303,7 @@ The GitHub Action runs the same tests before every deployment and stops if any f
 - **One shared calculator controller.** Generated pages use `pages/calculator-page.js`, which handles validation messages, live recalculation, worked examples, show/hide steps, copying and shareable URLs the same way on every page.
 - **Tailwind via the Play CDN** (pinned 3.4.16) as requested. Components that JavaScript creates are styled in `styles.css` so they never depend on the CDN's runtime class generation.
 - **Shareable results.** Inputs are stored in the URL query (`?r=6&R=9…`); canonical links always point to the clean URL, so this creates no duplicate pages for search engines.
+- **Learning widgets without libraries.** Explorers redraw a small SVG on each change (2D graphs with `lib/plot.js`, rotatable solids with `lib/solid3d.js`, which draws only the faces that point towards the viewer). Animations run only after the visitor presses Play and pause when the tab is hidden.
 - **Privacy by design.** No analytics, no cookies of our own; only a `theme` value in localStorage.
 
 ---
@@ -303,11 +325,12 @@ The GitHub Action runs the same tests before every deployment and stops if any f
 - *Polynomial factoring* works over the rationals for degrees 2 to 6; factors that are irreducible over the rationals are left as they are.
 - *Trig equation solver* handles equations of the form a·f(bx + c) + d = k.
 - *Confidence intervals* use summary statistics; the proportion interval is the Wald interval and requires at least 10 successes and 10 failures.
+- *Physics calculators* use SI units and simplified models, stated on each page: constant velocity or acceleration along a line, no air resistance for projectiles and falls, constant g, ohmic resistors and ideal wires. Resistor networks support series, parallel, and parallel branches of series resistors (no bridges).
 - *Logarithm calculator* evaluates logarithms and solves two equation types: log_b(ax + c) = d and b^(ax + c) = k. The *exponent simplifier* has three modes: exponent laws, radicals, and numeric powers.
 
 **Recommended improvements**
 1. Compile Tailwind with the Tailwind CLI into a static CSS file (removes the console warning, faster first paint).
 2. Add an Open Graph image (1200×630 PNG) per page and a PNG `apple-touch-icon`.
 3. Extend the generated pages with FAQ and common-mistakes sections like the three original pages.
-4. Add printable "practice problem" sets with answers to each lesson.
+4. Add explorers or practice problems to more calculators (for example the three hand-written pages), and printable practice sets.
 5. Add privacy-friendly analytics only if you need it — and update the privacy policy first.

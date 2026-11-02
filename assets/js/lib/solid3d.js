@@ -1,0 +1,89 @@
+/**
+ * Tiny 3D renderer for convex solids, returning an SVG string (no DOM, no WebGL).
+ * Solids are lists of polygon faces in 3D (y is up). Only faces that point towards the
+ * viewer are drawn (correct for convex solids), shaded by a fixed light.
+ */
+const r2 = (v) => Math.round(v * 100) / 100;
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** Frustum of a cone/pyramid with n sides: bottom radius R, top radius r (0 = apex), height h. */
+export function frustumMesh(R, r, h, n, { smooth = false, phase = 0 } = {}) {
+  const ring = (rad, y) => Array.from({ length: n }, (_, i) => {
+    const t = phase + (2 * Math.PI * i) / n;
+    return [rad * Math.cos(t), y, rad * Math.sin(t)];
+  });
+  const bottom = ring(R, -h / 2);
+  const faces = [{ pts: bottom.slice().reverse(), cap: true }];
+  if (r > 1e-9) {
+    const top = ring(r, h / 2);
+    faces.push({ pts: top, cap: true });
+    for (let i = 0; i < n; i++) faces.push({ pts: [bottom[i], bottom[(i + 1) % n], top[(i + 1) % n], top[i]], side: true });
+  } else {
+    const apex = [0, h / 2, 0];
+    for (let i = 0; i < n; i++) faces.push({ pts: [bottom[i], bottom[(i + 1) % n], apex], side: true });
+  }
+  return { faces, smooth };
+}
+
+export function sphereMesh(R, lat = 14, lon = 28) {
+  const faces = [];
+  const P = (i, j) => {
+    const th = (Math.PI * i) / lat, ph = (2 * Math.PI * j) / lon;
+    return [R * Math.sin(th) * Math.cos(ph), R * Math.cos(th), R * Math.sin(th) * Math.sin(ph)];
+  };
+  for (let i = 0; i < lat; i++) {
+    for (let j = 0; j < lon; j++) {
+      const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)];
+      faces.push({ pts: i === 0 ? [pts[0], pts[1], pts[2]] : i === lat - 1 ? [pts[0], pts[1], pts[3]] : pts, side: true });
+    }
+  }
+  return { faces, smooth: true };
+}
+
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const norm = (a) => { const l = Math.hypot(...a) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+
+/**
+ * opts: { yaw, pitch (degrees), scale (px per unit), width, height, title, lines: [{ a, b, cls, label }] }
+ * lines are 3D segments drawn on top (dimension lines), dashed when cls = 'd-dim'.
+ */
+export function renderSolid(mesh, opts = {}) {
+  const W = opts.width || 360, H = opts.height || 300;
+  const yaw = ((opts.yaw ?? 30) * Math.PI) / 180, pitch = ((opts.pitch ?? 20) * Math.PI) / 180;
+  const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  const rot = ([x, y, z]) => {
+    const x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
+    return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
+  };
+  const s = opts.scale || 10;
+  const proj = (p) => [W / 2 + s * p[0], H / 2 - s * p[1]];
+  const light = norm([-0.45, 0.75, 0.6]);
+  const all = mesh.faces.flatMap((f) => f.pts);
+  const centre = all.reduce((acc, p) => [acc[0] + p[0] / all.length, acc[1] + p[1] / all.length, acc[2] + p[2] / all.length], [0, 0, 0]);
+  const C = rot(centre);
+  const polys = [];
+  for (const f of mesh.faces) {
+    const pts = f.pts.map(rot);
+    let n = norm(cross(sub(pts[1], pts[0]), sub(pts[2], pts[0])));
+    const fc = pts.reduce((a, p) => [a[0] + p[0] / pts.length, a[1] + p[1] / pts.length, a[2] + p[2] / pts.length], [0, 0, 0]);
+    if (dot(n, sub(fc, C)) < 0) n = n.map((v) => -v);
+    if (n[2] <= 1e-6) continue; // faces away from the viewer
+    const b = Math.max(0, dot(n, light));
+    const mix = Math.round(62 - 40 * b);
+    const fill = `color-mix(in srgb, var(--primary) ${mix}%, var(--surface))`;
+    const stroke = mesh.smooth && f.side ? fill : 'var(--primary)';
+    const sw = mesh.smooth && f.side ? 0.8 : 1.6;
+    const d = pts.map((p) => proj(p).map(r2).join(',')).join(' ');
+    polys.push({ z: fc[2], svg: `<polygon class="d-face" points="${d}" style="fill:${fill};stroke:${stroke};stroke-width:${sw}"/>` });
+  }
+  polys.sort((a, b) => a.z - b.z);
+  const lines = (opts.lines || []).map((l) => {
+    const [x1, y1] = proj(rot(l.a)), [x2, y2] = proj(rot(l.b));
+    const label = l.label ? `<text class="d-label" x="${r2((x1 + x2) / 2 + 6)}" y="${r2((y1 + y2) / 2 - 4)}">${esc(l.label)}</text>` : '';
+    return `<line class="${l.cls || 'd-dim'}" x1="${r2(x1)}" y1="${r2(y1)}" x2="${r2(x2)}" y2="${r2(y2)}" stroke-dasharray="5 4"/>${label}`;
+  });
+  const svg = `<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || '3D solid')}"><title>${esc(opts.title || '3D solid')}</title>${polys.map((p) => p.svg).join('')}${lines.join('')}</svg>`;
+  return /NaN|Infinity/.test(svg) ? '' : svg;
+}

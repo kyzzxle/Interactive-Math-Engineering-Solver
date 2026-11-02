@@ -3,8 +3,11 @@ import { validator, fmt, tx, eq, isExact } from '../lib/calc-kit.js';
 import { normalCdf } from '../lib/numeric.js';
 import { normalGraph, fmtP, texP } from '../lib/stats-kit.js';
 
+import { normalExplore, zScorePractice } from '../explore/data.js';
 export const calculator = {
   id: 'z-score-calculator',
+  explore: normalExplore,
+  practice: zScorePractice,
   fields: [
     { name: 'mode', label: 'Find', type: 'radio', options: [['z', 'z from a value x'], ['x', 'x from a z-score']] },
     { name: 'mu', label: 'Mean μ', type: 'number', placeholder: 'e.g. 70', row: 'p' },

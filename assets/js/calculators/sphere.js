@@ -3,8 +3,11 @@ import { validator, answer, piAnswer, piTex, fmt, tx, units, UNIT_FIELD } from '
 import { parseFrac } from '../lib/fraction.js';
 import { sphereSketch } from '../lib/diagrams.js';
 
+import { sphereExplore, spherePractice } from '../explore/solids.js';
 export const calculator = {
   id: 'sphere',
+  explore: sphereExplore,
+  practice: spherePractice,
   fields: [
     { name: 'known', label: 'What do you know?', type: 'radio', options: [['r', 'Radius'], ['d', 'Diameter'], ['A', 'Surface area'], ['V', 'Volume']] },
     { name: 'value', label: 'Value', type: 'number', signed: false, placeholder: 'e.g. 3', affix: 'len', hint: 'Enter the measurement you selected above.' },

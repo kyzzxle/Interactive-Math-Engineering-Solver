@@ -1,0 +1,37 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the series and parallel resistance calculator does</h2>
+          <p>Resistors can be joined <strong>in series</strong> (one after another, so the same current flows through each) or <strong>in parallel</strong> (side by side, so each has the same voltage across it). A whole group can be replaced by a single <strong>equivalent resistance</strong> that draws the same current from the supply.</p>
+          <p>This calculator handles series, parallel, and <strong>parallel branches</strong> where each branch contains resistors in series. Add a supply voltage to see the total current and the current, voltage and power for every resistor.</p>
+          <div class="callout try-it"><p class="callout-title">Quick check</p><p>A series total is always larger than the largest resistor. A parallel total is always smaller than the smallest resistor — adding another path makes it easier for current to flow.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ R_{\text{series}} = R_1 + R_2 + \cdots + R_n \qquad \frac{1}{R_{\text{parallel}}} = \frac{1}{R_1} + \frac{1}{R_2} + \cdots + \frac{1}{R_n} \]</div>
+          <p>For exactly two resistors in parallel, the reciprocal formula simplifies to "product over sum":</p>
+          <div class="formula-box">\[ R_{\text{parallel}} = \frac{R_1 R_2}{R_1 + R_2} \]</div>
+          <p>To enter parallel branches, separate the branches with semicolons. For example, <code>10, 20; 30</code> means a 10 Ω and a 20 Ω resistor in series, connected in parallel with a 30 Ω resistor.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>6 Ω and 3 Ω in parallel across 12 V</h3>
+            <h4>Step 1 — Equivalent resistance</h4>
+            \[ R_{\text{eq}} = \frac{6 \times 3}{6 + 3} = \frac{18}{9} = 2\ \Omega \]
+            <h4>Step 2 — Total current</h4>
+            \[ I = \frac{V}{R_{\text{eq}}} = \frac{12}{2} = 6\ \text{A} \]
+            <h4>Step 3 — Current in each branch</h4>
+            \[ I_1 = \frac{12}{6} = 2\ \text{A}, \qquad I_2 = \frac{12}{3} = 4\ \text{A} \]
+            <p>The branch currents add up to the total: 2 A + 4 A = 6 A.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Wires have no resistance and the supply is ideal. All resistors are ohmic and every resistance must be greater than 0.</li>
+            <li>Supported layouts: all in series, all in parallel, or parallel branches that each contain resistors in series. Bridge circuits and networks that need Kirchhoff's laws are not supported.</li>
+            <li>Up to 20 resistors. Values are in ohms; enter 4.7k as 4700.</li>
+          </ul>
+        </section>

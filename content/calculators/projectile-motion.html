@@ -1,0 +1,49 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the projectile motion simulator does</h2>
+          <p>A <strong>projectile</strong> is an object that is launched and then moves only under gravity — a kicked ball, a stone thrown off a cliff, water from a hose. The key idea is that its horizontal and vertical motions are independent: horizontally it keeps a constant velocity, while vertically it accelerates downwards at \(g\).</p>
+          <p>Enter the launch speed, angle and height. The calculator splits the velocity into components, then finds the time to the top, the maximum height, the total flight time, the range and the speed and angle at impact. The explorer below the calculator animates the flight, with Play, Pause, Reset and a time slider.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>From ground level, try 30° and then 60° at the same speed. The ranges are equal — complementary angles always give the same range, and 45° gives the largest.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ v_x = v_0\cos\theta \qquad v_y = v_0\sin\theta \]\[ x(t) = v_x t \qquad y(t) = h_0 + v_y t - \tfrac{1}{2} g t^2 \]</div>
+          <p>Setting the vertical velocity to zero gives the highest point, and setting \(y = 0\) gives the flight time:</p>
+          <div class="formula-box">\[ H = h_0 + \frac{v_y^2}{2g} \qquad T = \frac{v_y + \sqrt{v_y^2 + 2 g h_0}}{g} \qquad R = v_x T \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th><th scope="col">SI unit</th></tr></thead>
+            <tbody>
+              <tr><td>\(v_0\)</td><td>Launch speed</td><td>m/s</td></tr>
+              <tr><td>\(\theta\)</td><td>Launch angle above the horizontal</td><td>degrees</td></tr>
+              <tr><td>\(h_0\)</td><td>Launch height above the landing level</td><td>m</td></tr>
+              <tr><td>\(g\)</td><td>Gravitational acceleration (9.81 m/s² on Earth)</td><td>m/s²</td></tr>
+              <tr><td>\(T,\ H,\ R\)</td><td>Flight time, maximum height, horizontal range</td><td>s, m, m</td></tr>
+            </tbody>
+          </table>
+          <p>From level ground (\(h_0 = 0\)) the range simplifies to \(R = \dfrac{v_0^2 \sin 2\theta}{g}\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A ball kicked at 20 m/s and 45° from the ground</h3>
+            <h4>Step 1 — Components</h4>
+            \[ v_x = v_y = 20\cos 45^\circ \approx 14.142\ \text{m/s} \]
+            <h4>Step 2 — Maximum height</h4>
+            \[ H = \frac{(14.142)^2}{2(9.81)} \approx 10.19\ \text{m} \]
+            <h4>Step 3 — Flight time</h4>
+            \[ T = \frac{2 v_y}{g} = \frac{2(14.142)}{9.81} \approx 2.883\ \text{s} \]
+            <h4>Step 4 — Range</h4>
+            \[ R = v_x T \approx 14.142 \times 2.883 \approx 40.77\ \text{m} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li><strong>No air resistance.</strong> Real projectiles, especially light or fast ones, travel noticeably shorter and lower paths, and the best angle is usually below 45°.</li>
+            <li>Gravity is constant and the ground is flat and level, at height 0. The launch height \(h_0\) is measured above that ground.</li>
+            <li>The projectile is treated as a point: no spin, lift or tumbling.</li>
+            <li>The launch angle must be between 0° and 90°. A horizontal launch (0°) needs a launch height above 0.</li>
+          </ul>
+        </section>

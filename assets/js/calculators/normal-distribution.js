@@ -3,8 +3,10 @@ import { validator, fmt, tx, eq } from '../lib/calc-kit.js';
 import { normalCdf, normalInv } from '../lib/numeric.js';
 import { normalGraph, fmtP, texP } from '../lib/stats-kit.js';
 
+import { normalExplore } from '../explore/data.js';
 export const calculator = {
   id: 'normal-distribution',
+  explore: normalExplore,
   fields: [
     { name: 'mu', label: 'Mean μ', type: 'number', placeholder: 'e.g. 100', row: 'p' },
     { name: 'sigma', label: 'Standard deviation σ', type: 'number', signed: false, placeholder: 'e.g. 15', row: 'p' },

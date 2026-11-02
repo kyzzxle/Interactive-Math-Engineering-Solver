@@ -3,8 +3,11 @@ import { validator, answer, piAnswer, piTex, fmt, tx, units, UNIT_FIELD } from '
 import { parseFrac } from '../lib/fraction.js';
 import { cylinderSketch } from '../lib/diagrams.js';
 
+import { cylinderExplore, cylinderPractice } from '../explore/solids.js';
 export const calculator = {
   id: 'cylinder',
+  explore: cylinderExplore,
+  practice: cylinderPractice,
   fields: [
     { name: 'dim', label: 'Base given as', type: 'radio', options: [['r', 'Radius'], ['d', 'Diameter']] },
     { name: 'r', label: 'Radius or diameter of the base', type: 'number', signed: false, placeholder: 'e.g. 4', affix: 'len', row: 'a' },

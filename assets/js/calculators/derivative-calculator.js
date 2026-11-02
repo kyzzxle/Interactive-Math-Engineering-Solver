@@ -9,6 +9,7 @@ import { Frac } from '../lib/fraction.js';
 import { parseFunction, parseNumberExpr, FUNCTION_HINT, verifyDerivative, compile } from '../lib/calculus-kit.js';
 import { plot } from '../lib/plot.js';
 
+import { tangentExplore, derivativePractice } from '../explore/functions.js';
 /** Steps for one differentiation: sum rule, then each term with its rule. */
 export function derivativeSteps(node, label = "f'(x)") {
   const steps = [];
@@ -59,6 +60,8 @@ function asRational(node) {
 
 export const calculator = {
   id: 'derivative-calculator',
+  explore: tangentExplore,
+  practice: derivativePractice,
   fields: [
     { name: 'f', label: 'Function f(x)', type: 'text', placeholder: 'e.g. x^3 sin(x)', hint: FUNCTION_HINT },
     { name: 'order', label: 'Derivative', type: 'radio', options: [['1', "First f′(x)"], ['2', "Second f″(x)"]] },

@@ -236,6 +236,357 @@ function wireCalculator(o) {
 
 return { escapeHtml, tex, resultCard, finalAnswerBlock, stepsBlock, tableBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, readForm, fillForm, writeUrlState, clearUrlState, readUrlState, enableCopyButtons, wireCalculator };
 })();
+__m["lib/learn.js"] = (function () {
+/**
+ * Guided-learning widgets shared by calculator pages (browser only).
+ *
+ *   mountExplorer(root, spec)  "Explore": sliders (each paired with a number box), optional
+ *                              draggable points, optional Play / Pause / Reset animation.
+ *   mountPractice(root, spec)  "Try it": a generated problem with Hint, Check, Show solution
+ *                              and New problem.
+ *
+ * Specs are plain objects defined in assets/js/explore/*.js. They contain no DOM code, so the
+ * Node tests can call spec.render() and spec.generate() directly.
+ *
+ * Explorer spec:
+ *   { title, intro?, controls: [Control], presets?: [{ label, values }],
+ *     drag?: { A: { x: 'x1', y: 'y1' } },        // data-drag="A" points move these controls
+ *     rotate?: { yaw: 'yaw' },                   // dragging the figure changes this control
+ *     animate?: { control: 't', seconds: 4 },    // Play moves this control from min to max
+ *     render(values) => { svg?, html?, readouts?: [{ label, tex?, text?, tone? }], caption?, note? } }
+ * Control: { name, label, min, max (number or values => number), step, value, unit?, type?: 'select', options? }
+ *
+ * Practice spec:
+ *   { title?, generate(rand) => { prompt (HTML), promptTex?, answers: [{ label, value, decimals?, unit?, int? }],
+ *       unordered?: boolean, hint, hintTex?, steps: [step], final? } }
+ */
+const { tex, escapeHtml, stepsBlock } = __m["lib/ui.js"];
+
+const reduceMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+let seq = 0;
+
+function decimalsOf(step) {
+  const s = String(step);
+  return s.includes('e-') ? Number(s.split('e-')[1]) : (s.split('.')[1] || '').length;
+}
+const roundTo = (v, step, min) => {
+  const k = Math.round((v - min) / step);
+  return Number((min + k * step).toFixed(decimalsOf(step)));
+};
+
+function readoutHtml(r) {
+  const val = r.tex !== undefined ? tex(r.tex) : escapeHtml(r.text ?? '');
+  return `<div class="readout${r.tone ? ` is-${r.tone}` : ''}"><span class="readout-label">${escapeHtml(r.label)}</span><span class="readout-value">${val}</span></div>`;
+}
+
+/** Explore panel: controls on one side, live figure and readouts on the other. */
+function mountExplorer(root, spec) {
+  if (!root || !spec) return null;
+  const id = `ex${++seq}`;
+  const ctrls = spec.controls;
+  const values = Object.fromEntries(ctrls.map((c) => [c.name, c.value]));
+  const maxOf = (c) => (typeof c.max === 'function' ? c.max(values) : c.max);
+  const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
+
+  const controlHtml = (c) => {
+    const cid = `${id}-${c.name}`;
+    if (c.type === 'select') {
+      return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+        <select id="${cid}" class="select" data-ctrl="${c.name}">${c.options.map(([v, l]) => `<option value="${escapeHtml(v)}"${String(v) === String(c.value) ? ' selected' : ''}>${escapeHtml(l)}</option>`).join('')}</select></div>`;
+    }
+    const unit = c.unit ? `<span class="ex-unit">${escapeHtml(c.unit)}</span>` : '';
+    return `<div class="ex-control">
+        <div class="ex-control-head"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+          <span class="ex-num"><input class="input" type="number" inputmode="decimal" data-num="${c.name}" step="${c.step}" aria-label="${escapeHtml(c.label)} value">${unit}</span></div>
+        <input id="${cid}" class="range" type="range" data-ctrl="${c.name}" step="${c.step}">
+      </div>`;
+  };
+
+  const anim = spec.animate;
+  const motionOk = !reduceMotion();
+  const animHtml = anim ? `<div class="ex-player">
+      <button type="button" class="btn btn-primary btn-sm" data-play aria-pressed="false">▶ Play</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-anim-reset>Reset</button>
+      <p class="field-hint w-full">${motionOk ? 'Or drag the time slider to step through it yourself.' : 'Your device asks for reduced motion, so nothing moves until you press Play. You can also drag the time slider instead.'}</p>
+    </div>` : '';
+  const presets = spec.presets && spec.presets.length
+    ? `<div class="example-row"><span>Try:</span>${spec.presets.map((p, i) => `<button type="button" class="chip" data-preset="${i}">${escapeHtml(p.label)}</button>`).join('')}</div>` : '';
+  const dragHint = spec.drag || spec.rotate ? `<p class="field-hint mt-3">${spec.rotate ? 'Drag the figure to turn it.' : 'Drag the points on the graph, or type exact values.'}</p>` : '';
+
+  root.innerHTML = `<div class="explore">
+      <div class="explore-controls">
+        ${spec.intro ? `<p class="explore-intro">${escapeHtml(spec.intro)}</p>` : ''}
+        ${ctrls.map(controlHtml).join('')}
+        ${animHtml}${presets}
+        <div class="form-actions mt-4"><button type="button" class="btn btn-ghost btn-sm" data-ex-reset>Reset values</button></div>
+        ${dragHint}
+      </div>
+      <div class="explore-stage">
+        <figure class="explore-figure" data-figure></figure>
+        <div class="readouts" data-readouts aria-live="polite"></div>
+        <p class="explore-note" data-note hidden></p>
+      </div>
+    </div>`;
+
+  const fig = root.querySelector('[data-figure]');
+  const out = root.querySelector('[data-readouts]');
+  const note = root.querySelector('[data-note]');
+
+  const sync = () => {
+    for (const c of ctrls) {
+      if (c.type === 'select') { root.querySelector(`[data-ctrl="${c.name}"]`).value = values[c.name]; continue; }
+      const lo = minOf(c), hi = maxOf(c);
+      if (values[c.name] > hi) values[c.name] = hi;
+      if (values[c.name] < lo) values[c.name] = lo;
+      const range = root.querySelector(`[data-ctrl="${c.name}"]`);
+      range.min = lo; range.max = hi; range.value = values[c.name];
+      const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));
+      range.setAttribute('aria-valuetext', `${shown}${c.unit ? ` ${c.unit}` : ''}`);
+      const num = root.querySelector(`[data-num="${c.name}"]`);
+      if (document.activeElement !== num) num.value = shown;
+      num.min = lo; num.max = hi;
+    }
+  };
+
+  let frame = 0;
+  const draw = () => {
+    frame = 0;
+    let res;
+    try { res = spec.render({ ...values }); } catch (e) { res = { html: `<p class="alert alert-error">This combination cannot be drawn: ${escapeHtml(e.message)}</p>` }; }
+    fig.innerHTML = (res.svg || '') + (res.html || '') + (res.caption ? `<figcaption class="diagram-caption">${escapeHtml(res.caption)}</figcaption>` : '');
+    out.innerHTML = (res.readouts || []).map(readoutHtml).join('');
+    note.hidden = !res.note;
+    note.textContent = res.note || '';
+  };
+  const update = () => { sync(); if (!frame) frame = requestAnimationFrame(draw); };
+
+  root.addEventListener('input', (e) => {
+    const name = e.target.getAttribute('data-ctrl') || e.target.getAttribute('data-num');
+    if (!name) return;
+    const c = ctrls.find((x) => x.name === name);
+    if (c.type === 'select') { values[name] = e.target.value; update(); return; }
+    const v = Number(e.target.value);
+    if (e.target.value === '' || !Number.isFinite(v)) return;
+    values[name] = Math.min(maxOf(c), Math.max(minOf(c), v));
+    if (anim && name !== anim.control) stop();
+    update();
+  });
+  root.addEventListener('change', (e) => { if (e.target.hasAttribute('data-num')) sync(); });
+
+  const reset = (vals) => {
+    stop();
+    for (const c of ctrls) values[c.name] = c.value;
+    Object.assign(values, vals || {});
+    update();
+  };
+  root.querySelector('[data-ex-reset]').addEventListener('click', () => reset());
+  root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => reset(spec.presets[Number(b.getAttribute('data-preset'))].values)));
+
+  // ------------------------------------------------ animation (always user-started)
+  let raf = 0, last = 0;
+  const playBtn = root.querySelector('[data-play]');
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    if (playBtn) { playBtn.textContent = '▶ Play'; playBtn.setAttribute('aria-pressed', 'false'); }
+  }
+  if (anim) {
+    const c = ctrls.find((x) => x.name === anim.control);
+    const tick = (now) => {
+      const hi = maxOf(c), lo = minOf(c);
+      const dt = last ? (now - last) / 1000 : 0;
+      last = now;
+      let v = values[c.name] + ((hi - lo) / (anim.seconds || 4)) * dt;
+      if (v >= hi) { if (anim.loop) v = lo + (v - hi); else { values[c.name] = hi; update(); stop(); return; } }
+      values[c.name] = v;
+      update();
+      raf = requestAnimationFrame(tick);
+    };
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (raf) { stop(); return; }
+        if (!anim.loop && values[c.name] >= maxOf(c)) values[c.name] = minOf(c);
+        last = 0;
+        playBtn.textContent = '❚❚ Pause';
+        playBtn.setAttribute('aria-pressed', 'true');
+        raf = requestAnimationFrame(tick);
+      });
+    }
+    root.querySelector('[data-anim-reset]').addEventListener('click', () => { stop(); values[c.name] = minOf(c); update(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  }
+
+  // ------------------------------------------------ dragging points / rotating
+  const toGraph = (svg, clientX, clientY) => {
+    const view = (svg.getAttribute('data-view') || '').split(' ').map(Number);
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = clientY;
+    const m = svg.getScreenCTM();
+    if (!m || view.length < 8) return null;
+    const p = pt.matrixTransform(m.inverse());
+    const [xmin, xmax, ymin, ymax, l, t, pw, ph] = view;
+    return { x: xmin + ((p.x - l) / pw) * (xmax - xmin), y: ymax - ((p.y - t) / ph) * (ymax - ymin) };
+  };
+  let dragging = null;
+  fig.addEventListener('pointerdown', (e) => {
+    const svg = fig.querySelector('svg');
+    if (!svg) return;
+    const handle = e.target.closest('[data-drag]');
+    if (handle && spec.drag && spec.drag[handle.getAttribute('data-drag')]) {
+      dragging = { kind: 'point', key: handle.getAttribute('data-drag') };
+    } else if (spec.rotate) {
+      dragging = { kind: 'rotate', x: e.clientX, y: e.clientY, start: { ...values } };
+    } else return;
+    e.preventDefault();
+    stop();
+    fig.classList.add('is-dragging');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    if (dragging.kind === 'rotate') {
+      const yaw = spec.rotate.yaw, pitch = spec.rotate.pitch;
+      const cy = ctrls.find((c) => c.name === yaw);
+      let v = dragging.start[yaw] + (e.clientX - dragging.x) * 0.6;
+      while (v > cy.max) v -= cy.max - cy.min;
+      while (v < cy.min) v += cy.max - cy.min;
+      values[yaw] = Math.round(v);
+      if (pitch) {
+        const cp = ctrls.find((c) => c.name === pitch);
+        values[pitch] = Math.round(Math.max(cp.min, Math.min(cp.max, dragging.start[pitch] - (e.clientY - dragging.y) * 0.4)));
+      }
+      update();
+      return;
+    }
+    const svg = fig.querySelector('svg');
+    const g = svg && toGraph(svg, e.clientX, e.clientY);
+    if (!g) return;
+    const map = spec.drag[dragging.key];
+    const target = typeof map === 'function' ? map(g, { ...values }) : Object.fromEntries(Object.entries(map).map(([axis, name]) => [name, g[axis]]));
+    for (const [name, raw] of Object.entries(target)) {
+      const c = ctrls.find((x) => x.name === name);
+      if (!c || !Number.isFinite(raw)) continue;
+      values[name] = roundTo(Math.min(maxOf(c), Math.max(minOf(c), raw)), c.step, minOf(c));
+    }
+    update();
+  });
+  const endDrag = () => { if (dragging) { dragging = null; fig.classList.remove('is-dragging'); } };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  sync();
+  draw();
+  return { values, update, reset };
+}
+
+// ------------------------------------------------------------------------------------ practice
+
+/** Parse a typed answer: decimals, fractions like 3/4, a leading minus, commas as decimal point. */
+function parseAnswer(raw) {
+  const s = String(raw ?? '').trim().replace(/\s+/g, '').replace(/−/g, '-').replace(/,(?=\d{1,2}$)/, '.');
+  if (!s) return null;
+  const frac = s.match(/^(-?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+  if (frac) { const d = Number(frac[2]); return d === 0 ? null : Number(frac[1]) / d; }
+  if (!/^-?(\d+\.?\d*|\.\d+)(e-?\d+)?$/i.test(s)) return null;
+  return Number(s);
+}
+
+/** 'correct' | 'close' | 'wrong' for a typed value against the expected answer. */
+function judge(user, expected, decimals = 2) {
+  if (user === null || !Number.isFinite(user)) return 'invalid';
+  const err = Math.abs(user - expected);
+  const tol = 0.5 * 10 ** -decimals * 1.05 + 1e-9;
+  if (err <= tol || err <= Math.abs(expected) * 5e-4) return 'correct';
+  if (err <= Math.max(Math.abs(expected) * 0.05, tol * 4)) return 'close';
+  return 'wrong';
+}
+
+function mountPractice(root, spec) {
+  if (!root || !spec) return null;
+  const id = `pr${++seq}`;
+  let problem, attempts = 0;
+
+  const build = () => {
+    problem = spec.generate(Math.random);
+    attempts = 0;
+    const inputs = problem.answers.map((a, i) => `<div class="field">
+        <label class="field-label" for="${id}-a${i}">${escapeHtml(a.label)}</label>
+        <div class="input-affix"><input id="${id}-a${i}" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-answer="${i}" aria-describedby="${id}-h${i}">${a.unit ? `<span class="affix">${escapeHtml(a.unit)}</span>` : ''}</div>
+        <p class="field-hint" id="${id}-h${i}">${a.int ? 'A whole number' : `Round to ${a.decimals ?? 2} decimal places`}</p>
+      </div>`).join('');
+    root.innerHTML = `<form class="practice" novalidate>
+        <div class="practice-prompt">${problem.prompt}${problem.promptTex ? `<div class="step-math">${tex(problem.promptTex, true)}</div>` : ''}</div>
+        <div class="field-row mt-4">${inputs}</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Check answer</button>
+          <button type="button" class="btn btn-secondary" data-hint>Hint</button>
+          <button type="button" class="btn btn-ghost" data-solution>Show solution</button>
+          <button type="button" class="btn btn-ghost" data-new>New problem</button>
+        </div>
+        <div class="practice-feedback" data-feedback role="status" aria-live="polite"></div>
+        <div data-hint-box hidden></div>
+        <div data-solution-box hidden></div>
+      </form>`;
+    const form = root.querySelector('form');
+    const fb = root.querySelector('[data-feedback]');
+    const hintBox = root.querySelector('[data-hint-box]');
+    const solBox = root.querySelector('[data-solution-box]');
+    const showHint = () => {
+      hintBox.hidden = false;
+      hintBox.innerHTML = `<div class="alert alert-info"><p class="alert-title">Hint</p><p>${escapeHtml(problem.hint)}</p>${problem.hintTex ? `<div class="step-math">${tex(problem.hintTex, true)}</div>` : ''}</div>`;
+    };
+    const showSolution = () => {
+      solBox.hidden = false;
+      const final = problem.answers.map((a) => `${a.label}: ${a.int ? a.value : Number(a.value.toFixed(a.decimals ?? 2))}${a.unit ? ` ${a.unit}` : ''}`).join(' · ');
+      solBox.innerHTML = stepsBlock(problem.steps, { title: 'Worked solution' }) + `<p class="practice-final">Answer — ${escapeHtml(final)}</p>`;
+    };
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const typed = problem.answers.map((_, i) => parseAnswer(form.querySelector(`[data-answer="${i}"]`).value));
+      if (typed.some((v) => v === null)) {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = 'Enter a number in every box (decimals or fractions such as 3/4).';
+        return;
+      }
+      let verdicts;
+      if (problem.unordered) {
+        const exp = problem.answers.map((a) => a.value).sort((x, y) => x - y);
+        const got = typed.slice().sort((x, y) => x - y);
+        verdicts = got.map((g, i) => judge(g, exp[i], problem.answers[i].decimals ?? 2));
+      } else {
+        verdicts = typed.map((g, i) => judge(g, problem.answers[i].value, problem.answers[i].int ? 0 : problem.answers[i].decimals ?? 2));
+      }
+      problem.answers.forEach((_, i) => {
+        const el = form.querySelector(`[data-answer="${i}"]`);
+        el.setAttribute('aria-invalid', verdicts[i] === 'correct' || problem.unordered ? 'false' : 'true');
+      });
+      attempts++;
+      if (verdicts.every((v) => v === 'correct')) {
+        fb.className = 'practice-feedback is-correct';
+        fb.textContent = attempts === 1 ? 'Correct — well done!' : `Correct after ${attempts} tries. Open the worked solution to compare your method.`;
+        form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      } else if (verdicts.some((v) => v === 'close')) {
+        fb.className = 'practice-feedback is-close';
+        fb.textContent = 'Very close. Check your rounding, or a sign or unit in the last step.';
+      } else {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = attempts >= 2 ? 'Not yet. Take the hint, or open the worked solution and compare it step by step.' : 'Not quite. Check your working and try again.';
+        if (attempts >= 2 && hintBox.hidden) showHint();
+      }
+    });
+    root.querySelector('[data-hint]').addEventListener('click', showHint);
+    root.querySelector('[data-solution]').addEventListener('click', showSolution);
+    root.querySelector('[data-new]').addEventListener('click', () => { build(); root.querySelector('input').focus(); });
+  };
+  build();
+  return { next: build };
+}
+
+/** Random helpers for problem generators (pass the generator's rand). */
+const pick = (rand, list) => list[Math.floor(rand() * list.length)];
+const randInt = (rand, lo, hi) => lo + Math.floor(rand() * (hi - lo + 1));
+
+return { mountExplorer, parseAnswer, judge, mountPractice, pick, randInt };
+})();
 __m["pages/calculator-page.js"] = (function () {
 /*
  * Generic calculator page controller used by every generated calculator page.
@@ -246,6 +597,7 @@ __m["pages/calculator-page.js"] = (function () {
  *   { ok: true, final, answers, visual: { svg, caption, legend }, notes, formula, steps, tables }
  */
 const { resultCard, stepsBlock, alertBlock, notesBlock, finalAnswerBlock, tableBlock, showFieldErrors, clearFieldErrors, wireCalculator, fillForm, tex, escapeHtml } = __m["lib/ui.js"];
+const { mountExplorer, mountPractice } = __m["lib/learn.js"];
 
 function isVisible(form, name) {
   const el = form.elements.namedItem(name);
@@ -364,6 +716,9 @@ function mountCalculator(calc) {
       render(values, { live: true });
     }, 150);
   });
+
+  if (calc.explore) mountExplorer(document.querySelector('[data-explore-root]'), calc.explore);
+  if (calc.practice) mountPractice(document.querySelector('[data-practice-root]'), calc.practice);
 
   copyAllBtn.addEventListener('click', () => {
     const t = copyAllBtn.getAttribute('data-copy') || '';
@@ -2027,7 +2382,8 @@ function plot(opts) {
   const Y = (y) => pad.t + ph - ((y - ymin) / (ymax - ymin)) * ph;
   const id = `clip${++uid}`;
   const out = [];
-  out.push(`<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || 'Graph')}"><title>${esc(opts.title || 'Graph')}</title>${opts.desc ? `<desc>${esc(opts.desc)}</desc>` : ''}`);
+  // data-view lets interactive explorers convert pointer positions back to graph coordinates.
+  out.push(`<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || 'Graph')}" data-view="${[xmin, xmax, ymin, ymax, pad.l, pad.t, pw, ph].map((v) => +v.toPrecision(10)).join(' ')}"><title>${esc(opts.title || 'Graph')}</title>${opts.desc ? `<desc>${esc(opts.desc)}</desc>` : ''}`);
   out.push(`<defs><clipPath id="${id}"><rect x="${pad.l}" y="${pad.t}" width="${pw}" height="${ph}"/></clipPath></defs>`);
 
   const xs = niceStep(xmax - xmin), ys = niceStep(ymax - ymin, 5);
@@ -2096,7 +2452,8 @@ function plot(opts) {
     if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) continue;
     const px = X(p.x), py = Y(p.y);
     if (px < pad.l - 1 || px > pad.l + pw + 1 || py < pad.t - 1 || py > pad.t + ph + 1) continue;
-    labels.push(`<circle class="${p.cls || 'd-point'}" cx="${r2(px)}" cy="${r2(py)}" r="${p.r || 4.5}"/>`);
+    if (p.drag) labels.push(`<circle class="d-drag-hit" data-drag="${esc(p.drag)}" cx="${r2(px)}" cy="${r2(py)}" r="14"/>`);
+    labels.push(`<circle class="${p.cls || 'd-point'}${p.drag ? ' d-draggable' : ''}" cx="${r2(px)}" cy="${r2(py)}" r="${p.r || (p.drag ? 6 : 4.5)}"${p.drag ? ` data-drag="${esc(p.drag)}"` : ''}/>`);
     if (p.label) {
       const right = px < W - 90;
       labels.push(`<text class="d-text" x="${r2(right ? px + 7 : px - 7)}" y="${r2(py < pad.t + 16 ? py + 15 : py - 7)}" text-anchor="${right ? 'start' : 'end'}">${esc(p.label)}</text>`);
@@ -2186,14 +2543,254 @@ function texP(p) {
 
 return { DATA_FIELD, parseData, normalGraph, fmtP, texP };
 })();
+__m["explore/data.js"] = (function () {
+/**
+ * Explorers for statistics, combinatorics and numerical methods: distributions with a
+ * highlighted probability region, listed arrangements/selections, and root-finding iterations.
+ */
+const { plot } = __m["lib/plot.js"];
+const { tx } = __m["lib/calc-kit.js"];
+const { normalCdf, normalPdf, lgamma } = __m["lib/numeric.js"];
+const { parse, derivative, texOf, compile } = __m["lib/expr.js"];
+const { escapeHtml } = __m["lib/ui.js"];
+const { randInt, pick } = __m["lib/learn.js"];
+
+const t = (v, d = 4) => tx(v, d);
+
+// ------------------------------------------------------------------ statistics
+const normalExplore = {
+  title: 'Shade a normal probability',
+  intro: 'The shaded area is P(a < X < b). Changing μ slides the curve; changing σ makes it wider and flatter, but the total area stays 1.',
+  controls: [
+    { name: 'mu', label: 'Mean μ', min: -4, max: 4, step: 0.1, value: 0 },
+    { name: 'sigma', label: 'Standard deviation σ', min: 0.4, max: 3, step: 0.1, value: 1 },
+    { name: 'a', label: 'From a', min: -10, max: 10, step: 0.1, value: -1 },
+    { name: 'b', label: 'To b', min: (v) => v.a, max: 10, step: 0.1, value: 1 },
+  ],
+  presets: [{ label: 'μ ± 1σ (68%)', values: { mu: 0, sigma: 1, a: -1, b: 1 } }, { label: 'μ ± 2σ (95%)', values: { mu: 0, sigma: 1, a: -2, b: 2 } }, { label: 'Upper tail', values: { mu: 0, sigma: 1, a: 1.5, b: 10 } }],
+  render({ mu, sigma, a, b }) {
+    const pdf = (x) => normalPdf((x - mu) / sigma) / sigma;
+    const za = (a - mu) / sigma, zb = (b - mu) / sigma;
+    const p = normalCdf(zb) - normalCdf(za);
+    return {
+      svg: plot({ x: [-10, 10], y: [0, 1.05], width: 400, height: 260, title: 'Normal curve with shaded probability', curves: [{ f: pdf }], shade: [{ f: pdf, a: Math.max(a, -10), b: Math.min(b, 10) }], vlines: [{ x: mu, cls: 'd-line3', label: 'μ' }] }),
+      readouts: [
+        { label: 'z-scores', tex: `z_a = \\frac{a - \\mu}{\\sigma} \\approx ${t(za, 3)},\\ z_b \\approx ${t(zb, 3)}` },
+        { label: 'Probability (shaded)', tex: `P(a < X < b) \\approx ${t(p)}`, tone: 'good' },
+        { label: 'As a percentage', text: `${(p * 100).toFixed(2)}%` },
+      ],
+    };
+  },
+};
+
+function binomPmf(n, p, k) {
+  if (p === 0) return k === 0 ? 1 : 0;
+  if (p === 1) return k === n ? 1 : 0;
+  return Math.exp(lgamma(n + 1) - lgamma(k + 1) - lgamma(n - k + 1) + k * Math.log(p) + (n - k) * Math.log(1 - p));
+}
+const binomialExplore = {
+  title: 'Shape a binomial distribution',
+  intro: 'Each bar is P(X = k) for n independent trials with success probability p. The highlighted bars add up to the probability shown.',
+  controls: [
+    { name: 'n', label: 'Trials n', min: 1, max: 40, step: 1, value: 10 },
+    { name: 'p', label: 'Success probability p', min: 0, max: 1, step: 0.01, value: 0.5 },
+    { name: 'lo', label: 'From k =', min: 0, max: (v) => v.n, step: 1, value: 4 },
+    { name: 'hi', label: 'To k =', min: (v) => v.lo, max: (v) => v.n, step: 1, value: 6 },
+  ],
+  presets: [{ label: 'Fair coin, 10 tosses', values: { n: 10, p: 0.5, lo: 4, hi: 6 } }, { label: 'Skewed (p = 0.15)', values: { n: 20, p: 0.15, lo: 0, hi: 2 } }],
+  render({ n, p, lo, hi }) {
+    const pm = Array.from({ length: n + 1 }, (_, k) => binomPmf(n, p, k));
+    const prob = pm.slice(lo, hi + 1).reduce((s, v) => s + v, 0);
+    const bars = pm.map((h, k) => ({ x: k, w: 0.8, h, cls: k >= lo && k <= hi ? 'd-bar-hi' : 'd-bar' }));
+    return {
+      svg: plot({ x: [-0.8, n + 0.8], width: 400, height: 260, title: 'Binomial probabilities', bars, xTicks: n <= 20 ? pm.map((_, k) => ({ x: k, label: String(k) })).filter((_, k) => n <= 12 || k % 2 === 0) : undefined }),
+      readouts: [
+        { label: 'Probability (highlighted)', tex: `P(${lo} \\le X \\le ${hi}) \\approx ${t(prob)}`, tone: 'good' },
+        { label: 'Mean and spread', tex: `\\mu = np = ${t(n * p, 3)},\\ \\sigma = \\sqrt{np(1-p)} \\approx ${t(Math.sqrt(n * p * (1 - p)), 3)}` },
+        { label: 'Most likely value', text: `k = ${pm.indexOf(Math.max(...pm))}` },
+      ],
+    };
+  },
+};
+
+const zScorePractice = {
+  title: 'Standardise a value',
+  generate(rand) {
+    const mu = pick(rand, [50, 60, 70, 100, 170, 500]);
+    const sigma = pick(rand, [4, 5, 8, 10, 12, 15]);
+    const x = mu + randInt(rand, -25, 25) / 10 * sigma;
+    const z = (x - mu) / sigma;
+    const pBelow = normalCdf(z);
+    return {
+      prompt: `<p>Scores are normally distributed with mean <strong>μ = ${mu}</strong> and standard deviation <strong>σ = ${sigma}</strong>. A student scores <strong>x = ${Number(x.toFixed(2))}</strong>. Find the z-score and the proportion of students who scored lower.</p>`,
+      answers: [{ label: 'z-score', value: z }, { label: 'P(X < x)', value: pBelow, decimals: 2 }],
+      hint: 'The z-score counts how many standard deviations x is from the mean. Then use the standard normal table or Φ(z).',
+      hintTex: 'z = \\frac{x - \\mu}{\\sigma}',
+      steps: [
+        { title: 'Known values', tex: `x = ${Number(x.toFixed(2))},\\ \\mu = ${mu},\\ \\sigma = ${sigma}` },
+        { title: 'z-score', tex: `z = \\frac{${Number(x.toFixed(2))} - ${mu}}{${sigma}} = ${t(z, 2)}` },
+        { title: 'Area to the left', tex: `P(X < x) = \\Phi(${t(z, 2)}) \\approx ${t(pBelow, 4)}` },
+      ],
+    };
+  },
+};
+
+// ------------------------------------------------------------------ combinatorics
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
+function perms(items, r) {
+  if (r === 0) return [[]];
+  const out = [];
+  items.forEach((it, i) => { for (const rest of perms(items.filter((_, j) => j !== i), r - 1)) out.push([it, ...rest]); });
+  return out;
+}
+function combs(items, r, start = 0) {
+  if (r === 0) return [[]];
+  const out = [];
+  for (let i = start; i <= items.length - r; i++) for (const rest of combs(items, r - 1, i + 1)) out.push([items[i], ...rest]);
+  return out;
+}
+const fact = (n) => (n <= 1 ? 1 : n * fact(n - 1));
+
+const arrangementsExplore = {
+  title: 'List every arrangement',
+  intro: 'With small numbers you can see every case. Order matters for permutations (AB ≠ BA) but not for combinations, so each combination appears r! times among the permutations.',
+  controls: [
+    { name: 'n', label: 'Items to choose from n', min: 2, max: 6, step: 1, value: 4 },
+    { name: 'r', label: 'Items chosen r', min: 1, max: (v) => v.n, step: 1, value: 2 },
+    { name: 'mode', label: 'Show', type: 'select', options: [['perm', 'Permutations (order matters)'], ['comb', 'Combinations (order does not matter)']], value: 'perm' },
+  ],
+  presets: [{ label: '3 of 3 (3! = 6)', values: { n: 3, r: 3 } }, { label: '2 of 5', values: { n: 5, r: 2 } }],
+  render({ n, r, mode }) {
+    const items = LETTERS.slice(0, n);
+    const nPr = fact(n) / fact(n - r), nCr = nPr / fact(r);
+    let html;
+    if (mode === 'perm') {
+      // group the permutations by the set they use, so the r! orderings sit together
+      const groups = combs(items, r).map((c) => perms(c, r));
+      html = `<p class="combo-head">${nPr} permutations of ${r} from {${items.join(', ')}}${r > 1 ? ` — grouped by which letters are used (${fact(r)} orderings each)` : ''}</p>
+        <ul class="combo-list">${groups.map((g) => g.map((p, i) => `<li${i === 0 && r > 1 ? ' class="is-group-start"' : ''}>${p.join('')}</li>`).join('')).join('')}</ul>`;
+    } else {
+      html = `<p class="combo-head">${nCr} combinations of ${r} from {${items.join(', ')}}</p>
+        <ul class="combo-list">${combs(items, r).map((c) => `<li>{${c.join(', ')}}</li>`).join('')}</ul>`;
+    }
+    return {
+      html: `<div class="p-2" role="img" aria-label="${escapeHtml(`List of ${mode === 'perm' ? nPr + ' permutations' : nCr + ' combinations'}`)}">${html}</div>`,
+      readouts: [
+        { label: 'Permutations', tex: `{}_{${n}}P_{${r}} = \\frac{${n}!}{(${n} - ${r})!} = ${nPr}`, tone: mode === 'perm' ? 'good' : undefined },
+        { label: 'Combinations', tex: `\\binom{${n}}{${r}} = \\frac{${n}!}{${r}!\\,(${n} - ${r})!} = ${nCr}`, tone: mode === 'comb' ? 'good' : undefined },
+        { label: 'Link between them', tex: `{}_{${n}}P_{${r}} = \\binom{${n}}{${r}} \\cdot ${r}! = ${nCr} \\cdot ${fact(r)}` },
+      ],
+    };
+  },
+};
+
+const countingPractice = {
+  title: 'Count the arrangements',
+  generate(rand) {
+    const n = randInt(rand, 5, 10), r = randInt(rand, 2, Math.min(4, n - 1));
+    const nPr = fact(n) / fact(n - r), nCr = nPr / fact(r);
+    const ctx = pick(rand, [['students', 'a president, a secretary', 'a committee'], ['runners', 'gold, silver', 'a relay squad'], ['books', 'shelf positions 1, 2', 'a bundle']]);
+    return {
+      prompt: `<p>There are <strong>${n} ${ctx[0]}</strong>. In how many ways can you choose <strong>${r}</strong> of them (a) when the order matters (for example ${ctx[1]}, …), and (b) when it does not (for example ${ctx[2]})?</p>`,
+      answers: [{ label: '(a) Order matters', value: nPr, int: true }, { label: '(b) Order does not matter', value: nCr, int: true }],
+      hint: 'Ordered choices: multiply n × (n − 1) × … for r factors. Unordered: divide that by r! because each group can be ordered r! ways.',
+      hintTex: '{}_nP_r = \\frac{n!}{(n-r)!} \\qquad \\binom{n}{r} = \\frac{{}_nP_r}{r!}',
+      steps: [
+        { title: 'Ordered (permutations)', tex: `{}_{${n}}P_{${r}} = ${Array.from({ length: r }, (_, i) => n - i).join(' \\times ')} = ${nPr}` },
+        { title: 'Unordered (combinations)', tex: `\\binom{${n}}{${r}} = \\frac{${nPr}}{${r}!} = \\frac{${nPr}}{${fact(r)}} = ${nCr}` },
+      ],
+    };
+  },
+};
+
+// ------------------------------------------------------------------ numerical methods
+const ROOT_FUNCS = {
+  'x^3 - x - 2': { a: 1, b: 2, x0: 2, view: [0, 2.6] },
+  'cos(x) - x': { a: 0, b: 1, x0: 1, view: [-0.3, 1.6] },
+  'x^2 - 2': { a: 0, b: 2, x0: 2, view: [-0.3, 2.6] },
+  'e^x - 3': { a: 0, b: 2, x0: 2, view: [-0.3, 2.4] },
+};
+const rootCache = new Map();
+function rootRuns(src) {
+  if (rootCache.has(src)) return rootCache.get(src);
+  const node = parse(src), d = derivative(node);
+  const f = compile(node), df = compile(d), cfg = ROOT_FUNCS[src];
+  const bis = [];
+  let a = cfg.a, b = cfg.b;
+  for (let k = 0; k <= 15; k++) {
+    const m = (a + b) / 2;
+    bis.push({ a, b, x: m, fx: f(m) });
+    if (f(a) * f(m) <= 0) b = m; else a = m;
+  }
+  const newt = [];
+  let x = cfg.x0;
+  for (let k = 0; k <= 15; k++) {
+    const fx = f(x), dfx = df(x);
+    newt.push({ x, fx, dfx });
+    if (!dfx) break;
+    x -= fx / dfx;
+  }
+  const res = { f, tex: texOf(node), bis, newt, cfg };
+  rootCache.set(src, res);
+  return res;
+}
+
+const rootFinderExplore = {
+  title: 'Step through the iterations',
+  intro: 'Bisection halves a bracket that must contain the root. Newton–Raphson follows the tangent line down to the x-axis. Step forward and compare how fast each one closes in.',
+  controls: [
+    { name: 'fn', label: 'Function', type: 'select', options: Object.keys(ROOT_FUNCS).map((k) => [k, `f(x) = ${k.replace('^3', '³').replace('^2', '²').replace('e^x', 'eˣ')}`]), value: 'x^3 - x - 2' },
+    { name: 'method', label: 'Method', type: 'select', options: [['bisection', 'Bisection'], ['newton', 'Newton–Raphson']], value: 'bisection' },
+    { name: 'k', label: 'Iteration k', min: 0, max: (v) => (v.method === 'newton' ? 6 : 15), step: 1, value: 0 },
+  ],
+  animate: { control: 'k', seconds: 6 },
+  render({ fn, method, k }) {
+    const R = rootRuns(fn);
+    const [x0, x1] = R.cfg.view;
+    const ys = Array.from({ length: 81 }, (_, i) => R.f(x0 + ((x1 - x0) * i) / 80)).filter(Number.isFinite);
+    const ylo = Math.min(0, ...ys), yhi = Math.max(0, ...ys), pad = (yhi - ylo) * 0.1;
+    const plotBase = { x: [x0, x1], y: [ylo - pad, yhi + pad], width: 400, height: 280, title: `Iteration ${k}`, curves: [{ f: R.f }] };
+    let svg, rows, cur;
+    if (method === 'bisection') {
+      cur = R.bis[k];
+      svg = plot({ ...plotBase, shade: [{ f: () => yhi + pad, g: () => ylo - pad, a: cur.a, b: cur.b, cls: 'd-shade2' }], vlines: [{ x: cur.a, cls: 'd-line3' }, { x: cur.b, cls: 'd-line3' }], points: [{ x: cur.x, y: 0, label: `x${k}`, cls: 'd-point3' }, { x: cur.x, y: cur.fx }] });
+      rows = R.bis.slice(0, k + 1).map((r, i) => `<tr${i === k ? ' class="is-current"' : ''}><td>${i}</td><td>${r.a.toFixed(6)}</td><td>${r.b.toFixed(6)}</td><td>${r.x.toFixed(8)}</td><td>${r.fx.toExponential(2)}</td></tr>`);
+      rows.unshift('<tr><th scope="col">k</th><th scope="col">a</th><th scope="col">b</th><th scope="col">midpoint</th><th scope="col">f(mid)</th></tr>');
+    } else {
+      const kk = Math.min(k, R.newt.length - 1);
+      cur = R.newt[kk];
+      const next = R.newt[kk + 1];
+      svg = plot({ ...plotBase, curves: [{ f: R.f }, { f: (x) => cur.fx + cur.dfx * (x - cur.x), cls: 'd-line2' }], points: [{ x: cur.x, y: cur.fx, label: `x${kk}` }, ...(next ? [{ x: next.x, y: 0, label: `x${kk + 1}`, cls: 'd-point3' }] : [])] });
+      rows = R.newt.slice(0, kk + 1).map((r, i) => `<tr${i === kk ? ' class="is-current"' : ''}><td>${i}</td><td>${r.x.toFixed(10)}</td><td>${r.fx.toExponential(2)}</td></tr>`);
+      rows.unshift('<tr><th scope="col">k</th><th scope="col">x<sub>k</sub></th><th scope="col">f(x<sub>k</sub>)</th></tr>');
+    }
+    return {
+      svg,
+      html: `<div class="table-wrap iter-table mt-2"><table class="data-table">${rows.join('')}</table></div>`,
+      readouts: [
+        { label: 'Equation', tex: `f(x) = ${R.tex} = 0` },
+        method === 'bisection'
+          ? { label: 'Bracket width', tex: `b - a = ${t(cur.b - cur.a, 8)} = \\frac{${t(R.bis[0].b - R.bis[0].a, 2)}}{2^{${k}}}` }
+          : { label: 'Newton step', tex: `x_{k+1} = x_k - \\frac{f(x_k)}{f'(x_k)}` },
+        { label: `Estimate after ${method === 'bisection' ? k : Math.min(k, R.newt.length - 1)} steps`, tex: `x \\approx ${t(cur.x, 10)}`, tone: Math.abs(cur.fx) < 1e-8 ? 'good' : undefined },
+      ],
+    };
+  },
+};
+
+return { normalExplore, binomialExplore, zScorePractice, arrangementsExplore, countingPractice, rootFinderExplore };
+})();
 __m["calculators/z-score-calculator.js"] = (function () {
 /** z-scores: z = (x − μ)/σ, the reverse x = μ + zσ, and the matching percentile Φ(z). */
 const { validator, fmt, tx, eq, isExact } = __m["lib/calc-kit.js"];
 const { normalCdf } = __m["lib/numeric.js"];
 const { normalGraph, fmtP, texP } = __m["lib/stats-kit.js"];
 
+const { normalExplore, zScorePractice } = __m["explore/data.js"];
 const calculator = {
   id: 'z-score-calculator',
+  explore: normalExplore,
+  practice: zScorePractice,
   fields: [
     { name: 'mode', label: 'Find', type: 'radio', options: [['z', 'z from a value x'], ['x', 'x from a z-score']] },
     { name: 'mu', label: 'Mean μ', type: 'number', placeholder: 'e.g. 70', row: 'p' },
