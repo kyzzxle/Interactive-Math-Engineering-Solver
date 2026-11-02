@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the thermal physics calculator does</h2>
+          <p>Most materials <strong>expand</strong> when heated: the change in length is proportional to the original length and to the temperature change. That is why bridges have expansion joints and rails have gaps.</p>
+          <p><strong>Calorimetry</strong> tracks heat: warming a mass m by ΔT needs Q = mcΔT, where c is the specific heat capacity. When hot and cold objects are mixed in an insulated container, the heat lost by one equals the heat gained by the other.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Water’s specific heat is about 4.6 times aluminium’s — which is why the sea warms so slowly.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \Delta L = \alpha L_0 \Delta T \qquad \Delta V = \beta V_0 \Delta T\ \ (\beta \approx 3\alpha \text{ for solids}) \]\[ Q = m c \Delta T \qquad T_f = \frac{m_1 c_1 T_1 + m_2 c_2 T_2}{m_1 c_1 + m_2 c_2} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(\alpha,\ \beta\)</td><td>Linear and volume expansion coefficients (1/K)</td></tr>
+              <tr><td>\(c\)</td><td>Specific heat capacity (J/(kg K))</td></tr>
+              <tr><td>\(\Delta T\)</td><td>Temperature change (1 °C = 1 K)</td></tr>
+              <tr><td>\(Q\)</td><td>Heat (J)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>0.2 kg of copper at 90 °C dropped into 0.5 kg of water at 20 °C</h3>
+            <h4>Step 1 — Heat capacities</h4>
+            \[ m_1c_1 = 0.2(385) = 77,\quad m_2c_2 = 0.5(4186) = 2093\ \text{J/K} \]
+            <h4>Step 2 — Balance</h4>
+            \[ T_f = \frac{77(90) + 2093(20)}{77 + 2093} \approx 22.48\ ^\circ\text{C} \]
+            <h4>Step 3 — Check</h4>
+            <p>Copper gives out \(77(90 - 22.48) \approx 5199\) J; water takes in \(2093(22.48 - 20) \approx 5199\) J.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>No phase changes (melting, boiling). Material constants are typical room-temperature values.</li>
+            <li>Mixing assumes an insulated container that absorbs no heat.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using °C temperatures in the expansion formula instead of the change ΔT.</li>
+            <li>Forgetting the latent heat when ice melts or water boils.</li>
+          </ul>
+        </section>

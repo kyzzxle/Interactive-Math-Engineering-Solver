@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the continuity explorer does</h2>
+          <p>A function is <strong>continuous</strong> at a point if you can draw its graph through that point without lifting your pencil. Formally, three things must hold: f(a) exists, the limit exists, and the two are equal.</p>
+          <p>When one fails, the type of failure names the discontinuity: a <strong>removable</strong> one (a hole), a <strong>jump</strong> (different one-sided limits), an <strong>infinite</strong> one (a vertical asymptote), or an oscillating one.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, make the two pieces meet and set f(1) to the same height: the function becomes continuous.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ f \text{ is continuous at } a \iff \lim_{x \to a} f(x) = f(a) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(f(a)\)</td><td>Value at the point</td></tr>
+              <tr><td>\(\lim_{x \to a^\pm} f(x)\)</td><td>One-sided limits</td></tr>
+            </tbody>
+          </table>
+          <p>Removable: limits agree but differ from f(a) (or f(a) is missing). Jump: finite one-sided limits that differ. Infinite: at least one side grows without bound.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Is (x² − 1)/(x − 1) continuous at x = 1?</h3>
+            <h4>Step 1 — f(1)</h4>
+            <p>\(f(1) = \tfrac{0}{0}\) is not defined.</p>
+            <h4>Step 2 — Limit</h4>
+            \[ \lim_{x \to 1} \frac{(x - 1)(x + 1)}{x - 1} = \lim_{x \to 1} (x + 1) = 2 \]
+            <h4>Step 3 — Verdict</h4>
+            <p>The limit exists but f(1) does not: a removable discontinuity (a hole at (1, 2)).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>One formula, or a piecewise function made of a left formula, a value at a and a right formula.</li>
+            <li>One-sided limits are estimated numerically.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Thinking “not defined at a” always means “no limit at a”.</li>
+            <li>Checking only one side of a piecewise function.</li>
+          </ul>
+        </section>

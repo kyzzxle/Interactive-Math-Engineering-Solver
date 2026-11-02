@@ -1,0 +1,47 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the shoelace formula calculator does</h2>
+          <p>The <strong>shoelace formula</strong> (also called the surveyor’s or Gauss’s area formula) gives the area of any polygon directly from the coordinates of its vertices, listed in order around the boundary.</p>
+          <p>Writing the coordinates in two columns and cross-multiplying diagonally looks like lacing a shoe — hence the name. The sign of the sum tells you whether the vertices go counter-clockwise (positive) or clockwise (negative).</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, drag one corner across the opposite side. The polygon crosses itself and the formula no longer gives the enclosed area.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ A = \frac{1}{2}\left\lvert \sum_{i=1}^{n} \left(x_i y_{i+1} - x_{i+1} y_i\right) \right\rvert,\quad (x_{n+1}, y_{n+1}) = (x_1, y_1) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((x_i, y_i)\)</td><td>Vertices in order around the polygon</td></tr>
+              <tr><td>\(n\)</td><td>Number of vertices</td></tr>
+              <tr><td>\(A\)</td><td>Area</td></tr>
+            </tbody>
+          </table>
+          <p>The centroid is \(\left(\frac{1}{6A_s}\sum (x_i + x_{i+1})c_i,\ \frac{1}{6A_s}\sum (y_i + y_{i+1})c_i\right)\) with \(c_i = x_i y_{i+1} - x_{i+1} y_i\) and \(A_s\) the signed area.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Quadrilateral (0, 0), (4, 0), (4, 3), (0, 5)</h3>
+            <h4>Step 1 — Cross products</h4>
+            \[ 0 \cdot 0 - 4 \cdot 0 = 0,\quad 4 \cdot 3 - 4 \cdot 0 = 12,\quad 4 \cdot 5 - 0 \cdot 3 = 20,\quad 0 \cdot 0 - 0 \cdot 5 = 0 \]
+            <h4>Step 2 — Add</h4>
+            \[ 0 + 12 + 20 + 0 = 32 \]
+            <h4>Step 3 — Halve</h4>
+            \[ A = \tfrac{1}{2}|32| = 16 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>At least 3 and at most 30 vertices, listed in order around the boundary (either direction).</li>
+            <li>The polygon must not cross itself; crossing sides are detected and flagged.</li>
+            <li>Collinear points (zero area) are rejected.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Listing the vertices out of order, which makes the sides cross.</li>
+            <li>Forgetting the final term that wraps from the last vertex back to the first.</li>
+          </ul>
+        </section>

@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the optimization calculator does</h2>
+          <p><strong>Optimization</strong> means finding the best value — the largest volume, the smallest cost. With calculus, write the quantity to optimise as a function of one variable (using any constraint), then find where its derivative is zero.</p>
+          <p>A critical point is not automatically the answer: check it is in the allowed range and that it is a maximum or minimum, for example with the second-derivative test.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Drag the cut size in the explorer and watch the point on V(x): the peak is where the slope V′(x) is zero.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ f'(x^*) = 0,\quad f''(x^*) &lt; 0 \Rightarrow \text{maximum},\quad f''(x^*) &gt; 0 \Rightarrow \text{minimum} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(x\)</td><td>The variable you choose (cut size, side length, radius)</td></tr>
+              <tr><td>\(x^*\)</td><td>The optimal value</td></tr>
+            </tbody>
+          </table>
+          <p>Supported problems: the open box cut from a sheet, the fenced rectangle (with or without a wall), and the closed cylindrical can.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A rectangle with 100 m of fencing along a wall (three sides fenced)</h3>
+            <h4>Step 1 — Constraint and objective</h4>
+            \[ 2x + y = 100 \Rightarrow A(x) = x(100 - 2x) \]
+            <h4>Step 2 — Differentiate</h4>
+            \[ A'(x) = 100 - 4x = 0 \Rightarrow x = 25 \]
+            <h4>Step 3 — Check and answer</h4>
+            \[ A''(x) = -4 &lt; 0:\ \text{maximum};\quad y = 50,\ A = 1250\ \text{m}^2 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>All given sizes must be positive. The box cut must be less than half of the shorter side.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Forgetting the domain (a cut larger than half the sheet is impossible).</li>
+            <li>Stopping at f′(x) = 0 without checking whether it is a maximum or a minimum.</li>
+          </ul>
+        </section>

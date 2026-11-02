@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the eigenvalue calculator does</h2>
+          <p>An <strong>eigenvector</strong> of a matrix A is a non-zero vector that A only stretches or shrinks, without turning: \(Av = \lambda v\). The stretch factor \(\lambda\) is its <strong>eigenvalue</strong>.</p>
+          <p>Eigenvalues are the roots of the characteristic polynomial det(A − λI) = 0; each eigenvector is then found by solving (A − λI)v = 0. They describe vibration modes, stability of systems and long-term behaviour of repeated processes.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>For a 2 × 2 matrix the diagram shows the unit circle turning into an ellipse — along the eigenvector lines there is no rotation.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ A\,v = \lambda v \iff \det(A - \lambda I) = 0 \]\[ 2 \times 2:\ \lambda^2 - (\operatorname{tr}A)\lambda + \det A = 0 \qquad \sum \lambda = \operatorname{tr}A,\ \prod \lambda = \det A \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(\lambda\)</td><td>Eigenvalue</td></tr>
+              <tr><td>\(v\)</td><td>Eigenvector</td></tr>
+              <tr><td>\(\operatorname{tr}A\)</td><td>Trace: sum of the diagonal entries</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Eigenvalues of A = [[4, 1], [2, 3]]</h3>
+            <h4>Step 1 — Characteristic equation</h4>
+            \[ \lambda^2 - 7\lambda + 10 = 0 \Rightarrow \lambda = 2,\ 5 \]
+            <h4>Step 2 — Eigenvector for λ = 2</h4>
+            \[ (A - 2I)v = \begin{bmatrix} 2 & 1 \\ 2 & 1 \end{bmatrix}v = 0 \Rightarrow v = (1,\ -2) \]
+            <h4>Step 3 — Eigenvector for λ = 5</h4>
+            \[ \begin{bmatrix} -1 & 1 \\ 2 & -2 \end{bmatrix}v = 0 \Rightarrow v = (1,\ 1) \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Real 2 × 2 and 3 × 3 matrices with entries of at most 9 digits.</li>
+            <li>Eigenvectors are exact for rational eigenvalues and unit-length decimals otherwise; complex eigenvalues are shown without eigenvectors.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Accepting the zero vector as an eigenvector.</li>
+            <li>Forgetting that any non-zero multiple of an eigenvector is also an eigenvector.</li>
+          </ul>
+        </section>

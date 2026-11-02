@@ -292,6 +292,7 @@ function mountExplorer(root, spec) {
   const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
 
   const controlHtml = (c) => {
+    if (c.hidden) return ''; // changed only by dragging on the figure
     const cid = `${id}-${c.name}`;
     if (c.type === 'select') {
       return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
@@ -341,6 +342,7 @@ function mountExplorer(root, spec) {
       const lo = minOf(c), hi = maxOf(c);
       if (values[c.name] > hi) values[c.name] = hi;
       if (values[c.name] < lo) values[c.name] = lo;
+      if (c.hidden) continue;
       const range = root.querySelector(`[data-ctrl="${c.name}"]`);
       range.min = lo; range.max = hi; range.value = values[c.name];
       const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));
@@ -1751,7 +1753,11 @@ function exactTrig(deg) {
   const ref = t <= 90 ? t : t <= 180 ? 180 - t : t <= 270 ? t - 180 : 360 - t;
   const sSign = t > 180 && t < 360 ? -1 : 1;
   const cSign = t > 90 && t < 270 ? -1 : 1;
-  const sign = (pair, s) => (pair[0] === '0' || s > 0 ? pair : [`-${pair[0]}`, `−${pair[1]}`]);
+  // A two-term value such as 2 + √3 must be negated as a whole: −(2 + √3), not −2 + √3.
+  const sign = (pair, s) => {
+    if (pair[0] === '0' || s > 0) return pair;
+    return /^\d/.test(pair[0]) && / [+-] /.test(pair[0]) ? [`-\\left(${pair[0]}\\right)`, `−(${pair[1]})`] : [`-${pair[0]}`, `−${pair[1]}`];
+  };
   const sin = sign(SIN[ref], sSign);
   const cos = sign(SIN[90 - ref], cSign);
   const tanPair = TAN[ref];

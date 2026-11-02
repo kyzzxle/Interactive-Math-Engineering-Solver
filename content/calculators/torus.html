@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the torus calculator does</h2>
+          <p>A <strong>torus</strong> is the doughnut shape made by sweeping a circle of radius \(r\) (the tube) around a circle of radius \(R\) (from the centre of the hole to the centre of the tube).</p>
+          <p><strong>Pappus’s centroid theorems</strong> give its size neatly: the volume is the tube’s cross-section area times the distance travelled by its centre, \(2\pi R\), and the surface area is the tube’s circumference times that same distance.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Double R in the explorer: the volume doubles. Double r: the volume becomes four times larger.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V = (\pi r^2)(2\pi R) = 2\pi^2 R r^2 \]\[ A = (2\pi r)(2\pi R) = 4\pi^2 R r \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(R\)</td><td>Major radius: centre of the hole to the centre of the tube</td></tr>
+              <tr><td>\(r\)</td><td>Minor radius: radius of the tube</td></tr>
+              <tr><td>\(R - r,\ R + r\)</td><td>Inner and outer radii of the ring</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A doughnut with R = 6 cm and r = 2 cm</h3>
+            <h4>Step 1 — Volume</h4>
+            \[ V = 2\pi^2 (6)(2)^2 = 48\pi^2 \approx 473.74\ \text{cm}^3 \]
+            <h4>Step 2 — Surface area</h4>
+            \[ A = 4\pi^2 (6)(2) = 48\pi^2 \approx 473.74\ \text{cm}^2 \]
+            <h4>Note</h4>
+            <p>The numbers match only because r = 2 here; volume and area are different kinds of quantity.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Requires R ≥ r &gt; 0 (a ring torus; R = r is a horn torus with no hole).</li>
+            <li>For r &gt; R the tube crosses the axis (spindle torus) and the formulas count the overlap twice, so this case is rejected.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using the outer radius R + r as R.</li>
+            <li>Writing π instead of π²: the torus formulas contain π twice.</li>
+          </ul>
+        </section>

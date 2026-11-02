@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the limit calculator does</h2>
+          <p>The <strong>limit</strong> of \(f(x)\) as \(x\) approaches \(a\) is the value \(f(x)\) gets closer and closer to — whatever happens exactly at \(a\). Limits describe holes, jumps, asymptotes and long-run behaviour, and they underpin derivatives and integrals.</p>
+          <p>This calculator first tries direct substitution, then cancels a 0/0 form exactly for ratios of polynomials, and otherwise estimates the limit from a table of values on each side. Numerical estimates are always labelled as such.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, shrink h for sin x / x: both sides close in on 1, even though the function is not defined at 0.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \lim_{x \to a} f(x) = L \iff \lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L \]\[ \lim_{x \to \infty} \frac{a_n x^n + \cdots}{b_m x^m + \cdots} = \begin{cases} 0, & n &lt; m \\ a_n / b_m, & n = m \\ \pm\infty, & n &gt; m \end{cases} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a\)</td><td>The point x approaches (a number, or ±∞)</td></tr>
+              <tr><td>\(a^-,\ a^+\)</td><td>Approaching from the left or from the right</td></tr>
+              <tr><td>\(L\)</td><td>The limit</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Find the limit of (x² − 9)/(x − 3) as x → 3</h3>
+            <h4>Step 1 — Substitute</h4>
+            \[ \frac{9 - 9}{3 - 3} = \frac{0}{0}\ \text{(indeterminate)} \]
+            <h4>Step 2 — Factor and cancel</h4>
+            \[ \frac{(x - 3)(x + 3)}{x - 3} = x + 3 \quad (x \ne 3) \]
+            <h4>Step 3 — Substitute again</h4>
+            \[ \lim_{x \to 3} (x + 3) = 6 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Functions of x using +, −, ×, ÷, powers, roots, exponentials, logarithms and trig functions.</li>
+            <li>Numerical estimates sample down to 10⁻⁶ from the point; functions that change faster than that (or oscillate) are reported as having no limit.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Concluding a limit does not exist just because f(a) is undefined.</li>
+            <li>Ignoring that the left and right limits must agree for a two-sided limit.</li>
+          </ul>
+        </section>

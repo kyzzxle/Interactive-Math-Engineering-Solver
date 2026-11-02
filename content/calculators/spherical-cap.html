@@ -1,0 +1,47 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the spherical cap and segment calculator does</h2>
+          <p>A <strong>spherical cap</strong> is the piece of a ball cut off by one plane — a dome. A <strong>spherical segment</strong> (or zone, for its curved surface) is the slice between two parallel planes. Both depend only on the sphere’s radius \(R\) and where the cuts are.</p>
+          <p>A remarkable fact due to Archimedes: the curved area of a cap or zone is \(2\pi R h\), which depends only on its height \(h\), not on where on the sphere the slice is taken.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, set h = R: the cap becomes a hemisphere holding exactly half of the sphere’s volume.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ a^2 = h(2R - h) \qquad V_{\text{cap}} = \frac{\pi h^2 (3R - h)}{3} \]\[ V_{\text{segment}} = \frac{\pi h}{6}\left(3a_1^2 + 3a_2^2 + h^2\right) \qquad A_{\text{curved}} = 2\pi R h \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(R\)</td><td>Radius of the sphere</td></tr>
+              <tr><td>\(h\)</td><td>Height of the cap or segment</td></tr>
+              <tr><td>\(a,\ a_1,\ a_2\)</td><td>Radii of the flat circular faces</td></tr>
+              <tr><td>\(y_1,\ y_2\)</td><td>Signed distances of the cutting planes from the centre</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A cap of height 2 cm cut from a sphere of radius 5 cm</h3>
+            <h4>Step 1 — Base radius</h4>
+            \[ a^2 = 2(10 - 2) = 16,\quad a = 4\ \text{cm} \]
+            <h4>Step 2 — Volume</h4>
+            \[ V = \frac{\pi (2)^2 (15 - 2)}{3} = \frac{52\pi}{3} \approx 54.45\ \text{cm}^3 \]
+            <h4>Step 3 — Surface</h4>
+            \[ 2\pi(5)(2) + \pi(4)^2 = 20\pi + 16\pi = 36\pi \approx 113.10\ \text{cm}^2 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>0 &lt; h ≤ 2R for a cap; −R ≤ y₁ &lt; y₂ ≤ R for a segment.</li>
+            <li>h = R gives a hemisphere; h = 2R gives the whole sphere.</li>
+            <li>Exact π multiples are shown when R, h and the plane positions are exact numbers.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Measuring h from the centre instead of from the cutting plane to the top of the cap.</li>
+            <li>Forgetting the flat base(s) when the total surface area is asked for.</li>
+          </ul>
+        </section>

@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the first-order differential equation solver does</h2>
+          <p>A <strong>first-order differential equation</strong> relates a function y(x) to its derivative. With a starting value y(x₀) = y₀ it usually has exactly one solution.</p>
+          <p>Four common forms are solved here: direct integration, exponential growth and decay, linear equations with constant coefficients (like Newton’s law of cooling), and separable equations dy/dx = f(x)·y. A slope field shows the direction the solution must follow at every point.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Solutions never cross in a slope field: each starting point gives its own curve.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \frac{dy}{dx} = ky \Rightarrow y = y_0 e^{k(x - x_0)} \]\[ \frac{dy}{dx} = ay + b \Rightarrow y = \left(y_0 + \frac{b}{a}\right)e^{a(x - x_0)} - \frac{b}{a} \]\[ \frac{dy}{dx} = f(x)\,y \Rightarrow y = y_0\,e^{F(x) - F(x_0)},\ F' = f \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(y(x_0) = y_0\)</td><td>Initial condition</td></tr>
+              <tr><td>\(k,\ a,\ b\)</td><td>Constants</td></tr>
+              <tr><td>\(F\)</td><td>An antiderivative of f</td></tr>
+            </tbody>
+          </table>
+          <p>Each answer is checked against a Runge–Kutta (RK4) numerical solution.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Cooling: dy/dt = −0.2y + 4 with y(0) = 90</h3>
+            <h4>Step 1 — Equilibrium</h4>
+            \[ y^* = -\frac{b}{a} = -\frac{4}{-0.2} = 20 \]
+            <h4>Step 2 — Solution</h4>
+            \[ y = 20 + (90 - 20)e^{-0.2t} = 20 + 70e^{-0.2t} \]
+            <h4>Step 3 — At t = 10</h4>
+            \[ y(10) = 20 + 70e^{-2} \approx 29.47 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Four forms only. f(x) must have an antiderivative in the supported table.</li>
+            <li>The separable form assumes y stays non-zero.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Forgetting the constant of integration before applying the initial condition.</li>
+            <li>Treating dy/dx = ay + b as pure exponential growth (the equilibrium shift matters).</li>
+          </ul>
+        </section>

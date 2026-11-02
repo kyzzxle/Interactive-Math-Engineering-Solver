@@ -1,0 +1,47 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the ellipse calculator does</h2>
+          <p>An <strong>ellipse</strong> is the set of points whose distances to two fixed points, the <strong>foci</strong>, add up to a constant — the length of the major axis. Pin a loop of string at the foci and trace around with a pencil, and you draw an ellipse.</p>
+          <p>In standard form the centre is \((h, k)\), the horizontal semi-axis is \(a\) and the vertical one \(b\). The longer of the two is the major semi-axis; the foci lie on that axis at distance \(c\) from the centre.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, make a = b: the foci merge at the centre and the ellipse becomes a circle (e = 0).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \frac{(x - h)^2}{a^2} + \frac{(y - k)^2}{b^2} = 1 \]\[ c^2 = |a^2 - b^2| \qquad e = \frac{c}{\max(a, b)} \qquad \text{latus rectum} = \frac{2\min(a,b)^2}{\max(a,b)} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((h, k)\)</td><td>Centre</td></tr>
+              <tr><td>\(a,\ b\)</td><td>Horizontal and vertical semi-axes</td></tr>
+              <tr><td>\(c\)</td><td>Centre-to-focus distance</td></tr>
+              <tr><td>\(e\)</td><td>Eccentricity, 0 ≤ e &lt; 1</td></tr>
+            </tbody>
+          </table>
+          <p>The area is πab. The perimeter has no elementary formula; Ramanujan’s approximation is very accurate.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Centre (2, −1), a = 5, b = 3</h3>
+            <h4>Step 1 — Equation</h4>
+            \[ \frac{(x - 2)^2}{25} + \frac{(y + 1)^2}{9} = 1 \]
+            <h4>Step 2 — Focal distance</h4>
+            \[ c^2 = 25 - 9 = 16,\quad c = 4 \]
+            <h4>Step 3 — Foci and eccentricity</h4>
+            \[ (2 \pm 4,\ -1) = (-2, -1),\ (6, -1),\qquad e = \tfrac{4}{5} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>a and b must be positive. If a = b the ellipse is a circle.</li>
+            <li>Only axis-aligned ellipses (no rotation, no xy term) are supported.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using c² = a² + b² (that is the hyperbola).</li>
+            <li>Assuming a is always the major semi-axis: here a is horizontal, so check which is larger.</li>
+          </ul>
+        </section>

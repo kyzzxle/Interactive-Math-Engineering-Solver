@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the generating function explorer does</h2>
+          <p>A <strong>generating function</strong> packs a whole counting sequence into one polynomial or power series: the coefficient of xⁿ is the number of ways to get the total n. Multiplying generating functions combines independent choices.</p>
+          <p>For example, choosing 0 to 3 apples is encoded as 1 + x + x² + x³; choosing any number of oranges as 1 + x + x² + … = 1/(1 − x). Multiply them, read off a coefficient, and you have counted.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Make change for a dollar from pennies, nickels, dimes and quarters: the coefficient of x¹⁰⁰ is 242.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ G(x) = \prod_i \left(x^{\min_i} + \cdots + x^{\max_i}\right) = \sum_n (\text{ways})\,x^n \]\[ \frac{1}{1 - x^c} = 1 + x^c + x^{2c} + \cdots \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\([x^n]\,G(x)\)</td><td>Coefficient of xⁿ: the number of ways to reach total n</td></tr>
+              <tr><td>\(\min_i,\ \max_i\)</td><td>Limits on how many of type i are chosen</td></tr>
+            </tbody>
+          </table>
+          <p>With no limits on k types, the answer is the stars-and-bars number C(n + k − 1, k − 1).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>6 fruits: at most 3 apples, 1 or 2 bananas, any number of oranges</h3>
+            <h4>Step 1 — Generating function</h4>
+            \[ G(x) = (1 + x + x^2 + x^3)(x + x^2)\frac{1}{1 - x} \]
+            <h4>Step 2 — Count</h4>
+            <p>Each choice of apples (4 ways) and bananas (2 ways) leaves exactly one number of oranges, as long as it is not negative.</p>
+            <h4>Step 3 — Coefficient</h4>
+            \[ [x^6]\,G(x) = 8 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Totals up to 500; up to 8 item types or 10 coin values. Coefficients are exact integers.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Treating items of the same type as different (only the counts matter).</li>
+            <li>Counting 5 + 1 and 1 + 5 as different ways of making change.</li>
+          </ul>
+        </section>

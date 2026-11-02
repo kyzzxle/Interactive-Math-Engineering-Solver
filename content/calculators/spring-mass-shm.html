@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the spring-mass SHM calculator does</h2>
+          <p>A mass on a spring, pulled and released, oscillates in <strong>simple harmonic motion</strong>: the spring’s force is proportional to the displacement (Hooke’s law), so the motion is a perfect sine or cosine wave.</p>
+          <p>The period depends only on the mass and the spring constant — not on how far you pull it. Energy swaps continuously between kinetic energy (fastest at the middle) and elastic potential energy (largest at the ends).</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Change the amplitude in the explorer: the period stays the same.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ F = -kx \qquad \omega = \sqrt{\frac{k}{m}} \qquad T = 2\pi\sqrt{\frac{m}{k}} \]\[ x(t) = A\cos(\omega t) \qquad v_{\max} = A\omega \qquad E = \tfrac{1}{2}kA^2 \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(m\)</td><td>Mass</td></tr>
+              <tr><td>\(k\)</td><td>Spring constant</td></tr>
+              <tr><td>\(A\)</td><td>Amplitude</td></tr>
+              <tr><td>\(\omega,\ T\)</td><td>Angular frequency and period</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A 0.5 kg mass on a 20 N/m spring, amplitude 0.1 m</h3>
+            <h4>Step 1 — Angular frequency</h4>
+            \[ \omega = \sqrt{\frac{20}{0.5}} \approx 6.32\ \text{rad/s} \]
+            <h4>Step 2 — Period</h4>
+            \[ T = \frac{2\pi}{6.32} \approx 0.994\ \text{s} \]
+            <h4>Step 3 — Maximum speed and energy</h4>
+            \[ v_{\max} = 0.1 \times 6.32 \approx 0.632\ \text{m/s},\quad E = \tfrac{1}{2}(20)(0.1)^2 = 0.1\ \text{J} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Ideal massless spring, no friction, small enough amplitude to obey Hooke’s law.</li>
+            <li>The mass starts at rest at x = A (cosine motion).</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using T = 2π√(k/m) (the ratio is upside down).</li>
+            <li>Thinking a bigger amplitude means a longer period.</li>
+          </ul>
+        </section>

@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the rational expression simplifier does</h2>
+          <p>A <strong>rational expression</strong> is a fraction of two polynomials, \(P(x)/Q(x)\). It is simplified by cancelling their common factors, just as \(\tfrac{6}{8} = \tfrac{3}{4}\) cancels a common factor 2.</p>
+          <p>The calculator finds the greatest common divisor of the polynomials exactly (Euclid’s algorithm), shows both in factored form, and keeps track of the values of x where the original expression is not defined — cancelling a factor does not make those values allowed.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Look at the graph: a cancelled factor leaves a hole, while a factor that stays in the denominator gives a vertical asymptote.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \frac{P(x)}{Q(x)} = \frac{P(x)/G(x)}{Q(x)/G(x)},\quad G = \gcd(P, Q),\quad Q(x) \ne 0 \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(P,\ Q\)</td><td>Numerator and denominator polynomials</td></tr>
+              <tr><td>\(G\)</td><td>Greatest common divisor (the common factor)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Simplify (x² − 9)/(x² + x − 6)</h3>
+            <h4>Step 1 — Factor</h4>
+            \[ \frac{(x - 3)(x + 3)}{(x + 3)(x - 2)} \]
+            <h4>Step 2 — Cancel (x + 3)</h4>
+            \[ = \frac{x - 3}{x - 2} \]
+            <h4>Step 3 — Excluded values</h4>
+            <p>The original denominator is zero at \(x = -3\) and \(x = 2\), so \(x \ne -3, 2\). At \(x = -3\) the graph has a hole; at \(x = 2\) a vertical asymptote.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Polynomials in x up to degree 6 with rational coefficients.</li>
+            <li>Factors are over the rationals: quadratics with irrational roots are left as they are.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Cancelling terms instead of factors: (x + 3)/(x + 5) cannot be “simplified” to 3/5.</li>
+            <li>Dropping the excluded values after cancelling.</li>
+          </ul>
+        </section>

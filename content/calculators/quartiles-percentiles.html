@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the quartile calculator does</h2>
+          <p><strong>Quartiles</strong> split sorted data into four parts with equal numbers of values. Q₁ has a quarter of the data below it, the median Q₂ half, and Q₃ three quarters. The <strong>interquartile range</strong> Q₃ − Q₁ measures the spread of the middle half and is not affected by extreme values.</p>
+          <p>A <strong>percentile</strong> generalises the idea: the 90th percentile has 90% of the data below it.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Add a very large value to the data: the mean jumps, but the median and IQR hardly move.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \text{IQR} = Q_3 - Q_1 \]\[ \text{outlier if } x &lt; Q_1 - 1.5\,\text{IQR} \ \text{ or } \ x &gt; Q_3 + 1.5\,\text{IQR} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(Q_1,\ Q_2,\ Q_3\)</td><td>First quartile, median, third quartile</td></tr>
+              <tr><td>\(P_k\)</td><td>kth percentile (linear interpolation at position (n − 1)k/100)</td></tr>
+            </tbody>
+          </table>
+          <p>Textbooks usually take Q₁ and Q₃ as the medians of the lower and upper halves; Excel, R and NumPy interpolate. For small data sets the two can differ slightly.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Quartiles of 3, 5, 7, 8, 12, 13, 14, 18, 21, 64</h3>
+            <h4>Step 1 — Median</h4>
+            \[ Q_2 = \frac{12 + 13}{2} = 12.5 \]
+            <h4>Step 2 — Halves</h4>
+            <p>Lower half 3, 5, 7, 8, 12 gives \(Q_1 = 7\); upper half 13, 14, 18, 21, 64 gives \(Q_3 = 18\).</p>
+            <h4>Step 3 — IQR and outliers</h4>
+            \[ \text{IQR} = 11,\quad \text{fences } [7 - 16.5,\ 18 + 16.5] = [-9.5,\ 34.5] \Rightarrow 64 \text{ is an outlier} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>At least 4 values and at most 10,000.</li>
+            <li>Percentiles from 0 to 100, always by linear interpolation.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Forgetting to sort the data first.</li>
+            <li>Comparing quartiles from software that uses a different method from your textbook.</li>
+          </ul>
+        </section>

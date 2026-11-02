@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the inverse trig calculator does</h2>
+          <p>An <strong>inverse trigonometric function</strong> answers the question “which angle has this sine (or cosine, or tangent)?”. Because sine, cosine and tangent repeat, infinitely many angles share each value, so each inverse is defined to return one <strong>principal value</strong> from a restricted range.</p>
+          <p>\(\sin^{-1}\) and \(\cos^{-1}\) accept only values from −1 to 1 — no angle has a sine of 2. \(\tan^{-1}\) accepts any real number.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>The explorer shows the restricted piece of the trig graph and its reflection in the line y = x: that reflection is the inverse function.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ y = \sin^{-1} x \iff \sin y = x,\ y \in \left[-\tfrac{\pi}{2}, \tfrac{\pi}{2}\right] \]\[ y = \cos^{-1} x \iff \cos y = x,\ y \in [0, \pi] \qquad y = \tan^{-1} x \iff \tan y = x,\ y \in \left(-\tfrac{\pi}{2}, \tfrac{\pi}{2}\right) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(x\)</td><td>The ratio (input)</td></tr>
+              <tr><td>\(y\)</td><td>The principal angle (output)</td></tr>
+              <tr><td>\(n\)</td><td>Any integer, for the full set of solutions</td></tr>
+            </tbody>
+          </table>
+          <p>All solutions of \(\sin\theta = x\): \(\theta = \sin^{-1}x + 2\pi n\) or \(\pi - \sin^{-1}x + 2\pi n\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Find arccos(−1/2)</h3>
+            <h4>Step 1 — Domain</h4>
+            <p>\(-\tfrac{1}{2}\) lies in \([-1, 1]\), so the value exists.</p>
+            <h4>Step 2 — Reference angle</h4>
+            \[ \cos\tfrac{\pi}{3} = \tfrac{1}{2} \]
+            <h4>Step 3 — Correct quadrant</h4>
+            <p>Cosine is negative in quadrant II, and the range of arccos is \([0, \pi]\):</p>\[ \cos^{-1}\left(-\tfrac{1}{2}\right) = \pi - \tfrac{\pi}{3} = \tfrac{2\pi}{3} = 120^\circ \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>arcsin and arccos need −1 ≤ x ≤ 1; arctan accepts any real x.</li>
+            <li>Exact answers are shown for the standard values (multiples of 15°).</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Reading \(\sin^{-1}x\) as \(1/\sin x\) — that is \(\csc x\).</li>
+            <li>Giving an angle outside the principal range, e.g. arcsin(−½) = 330° instead of −30°.</li>
+          </ul>
+        </section>

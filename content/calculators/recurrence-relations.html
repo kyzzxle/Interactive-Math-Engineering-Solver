@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the recurrence relation solver does</h2>
+          <p>A <strong>recurrence relation</strong> defines each term of a sequence from earlier terms, like Fibonacci’s aₙ = aₙ₋₁ + aₙ₋₂. A <strong>closed form</strong> gives aₙ directly from n, without computing all the earlier terms.</p>
+          <p>For linear recurrences with constant coefficients, trying aₙ = xⁿ turns the recurrence into the <strong>characteristic equation</strong>; its roots determine the shape of the solution, and the starting values fix the constants.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Fibonacci’s closed form involves the golden ratio (1 + √5)/2 — yet every term is a whole number.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ a_n = c_1 a_{n-1} + c_2 a_{n-2} \;\Rightarrow\; x^2 - c_1 x - c_2 = 0 \]\[ a_n = A r_1^n + B r_2^n \ \ (r_1 \ne r_2) \qquad a_n = (A + Bn)\rho^n \ \ (\text{repeated root}) \]\[ a_n = r\,a_{n-1} + d \;\Rightarrow\; a_n = (a_0 - L)r^n + L,\quad L = \frac{d}{1 - r} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(c_1,\ c_2,\ r,\ d\)</td><td>Constant coefficients</td></tr>
+              <tr><td>\(a_0,\ a_1\)</td><td>Starting values</td></tr>
+              <tr><td>\(r_1,\ r_2,\ \rho\)</td><td>Roots of the characteristic equation</td></tr>
+            </tbody>
+          </table>
+          <p>Complex roots ρe^{±iθ} give oscillating solutions ρⁿ(A cos nθ + B sin nθ).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>aₙ = 5aₙ₋₁ − 6aₙ₋₂ with a₀ = 1, a₁ = 4</h3>
+            <h4>Step 1 — Characteristic equation</h4>
+            \[ x^2 - 5x + 6 = 0 \Rightarrow x = 2,\ 3 \]
+            <h4>Step 2 — Constants</h4>
+            \[ A + B = 1,\quad 3A + 2B = 4 \Rightarrow A = 2,\ B = -1 \]
+            <h4>Step 3 — Closed form</h4>
+            \[ a_n = 2 \cdot 3^n - 2^n \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>First-order aₙ = r·aₙ₋₁ + d, or second-order homogeneous aₙ = c₁aₙ₋₁ + c₂aₙ₋₂ (c₂ ≠ 0).</li>
+            <li>Coefficients may be fractions; up to 40 terms are listed exactly.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Writing the characteristic equation as x² + c₁x + c₂ = 0 (the signs flip when moving terms).</li>
+            <li>Forgetting the extra factor n for a repeated root.</li>
+          </ul>
+        </section>

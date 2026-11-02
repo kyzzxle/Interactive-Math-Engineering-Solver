@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the counting probability calculator does</h2>
+          <p>When every selection is equally likely, probability is counting: <em>favourable selections ÷ all selections</em>. Choosing n items from N without replacement, where K of the N are “successes”, the number of successes follows the <strong>hypergeometric distribution</strong>.</p>
+          <p>Combinations are used because the order of the chosen items does not matter. Card hands, lotteries, quality control and committee problems all fit this pattern.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>“At least one” is usually easiest as 1 − P(none).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ P(X = k) = \frac{\binom{K}{k}\binom{N - K}{n - k}}{\binom{N}{n}} \]\[ E[X] = n\,\frac{K}{N} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(N\)</td><td>Total number of items</td></tr>
+              <tr><td>\(K\)</td><td>Number of successes among them</td></tr>
+              <tr><td>\(n\)</td><td>Number chosen</td></tr>
+              <tr><td>\(k\)</td><td>Number of successes wanted</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Probability of exactly 2 hearts in a 5-card hand</h3>
+            <h4>Step 1 — All hands</h4>
+            \[ \binom{52}{5} = 2\,598\,960 \]
+            <h4>Step 2 — Hands with exactly 2 hearts</h4>
+            \[ \binom{13}{2}\binom{39}{3} = 78 \times 9139 = 712\,842 \]
+            <h4>Step 3 — Divide</h4>
+            \[ P = \frac{712\,842}{2\,598\,960} = \frac{9139}{33\,320} \approx 0.2743 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Whole numbers with K ≤ N, n ≤ N and k ≤ n. Exact fractions while the numbers stay manageable.</li>
+            <li>Sampling is without replacement; with replacement use the binomial distribution.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using permutations when order does not matter.</li>
+            <li>Multiplying probabilities as if the draws were independent (they are not without replacement).</li>
+          </ul>
+        </section>

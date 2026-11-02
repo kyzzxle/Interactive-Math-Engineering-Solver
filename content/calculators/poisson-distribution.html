@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the Poisson distribution calculator does</h2>
+          <p>The <strong>Poisson distribution</strong> models the number of events in a fixed interval — calls per hour, typos per page, accidents per month — when events happen independently at a steady average rate λ.</p>
+          <p>Its mean and variance are both λ. For small λ it is lopsided; for large λ it looks like a normal curve.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, push λ up past 15 and the bars take on a bell shape.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ P(X = k) = \frac{e^{-\lambda}\lambda^k}{k!},\quad k = 0, 1, 2, \ldots \]\[ E[X] = \operatorname{Var}(X) = \lambda \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(\lambda\)</td><td>Average number of events in the interval</td></tr>
+              <tr><td>\(k\)</td><td>Number of events</td></tr>
+            </tbody>
+          </table>
+          <p>“At least k” is computed as 1 − P(X ≤ k − 1), since the list of possible values never ends.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A help desk averages 3 calls per hour: probability of exactly 2 calls</h3>
+            <h4>Step 1 — Substitute</h4>
+            \[ P(X = 2) = \frac{e^{-3}\,3^2}{2!} \]
+            <h4>Step 2 — Evaluate</h4>
+            \[ = \frac{9}{2}e^{-3} \approx 0.2240 \]
+            <h4>Step 3 — Interpret</h4>
+            <p>About 22% of hours have exactly two calls.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>λ &gt; 0 (up to 100,000); k a whole number.</li>
+            <li>Events must be independent, one at a time, at a constant average rate.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using a λ for the wrong interval (2 per minute is 120 per hour).</li>
+            <li>Summing to “infinity” instead of using the complement for “at least”.</li>
+          </ul>
+        </section>

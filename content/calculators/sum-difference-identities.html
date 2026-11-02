@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the sum and difference identity calculator does</h2>
+          <p>The <strong>sum and difference identities</strong> express the sine, cosine or tangent of A ± B using the sines and cosines of A and B. They turn awkward angles into combinations of familiar ones — for example 75° = 45° + 30°.</p>
+          <p>They are also the foundation of the double-angle and half-angle identities, and of formulas used for waves and rotations.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Try sin(30° + 60°): the identity gives exactly 1, whereas sin 30° + sin 60° ≈ 1.366.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \sin(A \pm B) = \sin A\cos B \pm \cos A\sin B \]\[ \cos(A \pm B) = \cos A\cos B \mp \sin A\sin B \]\[ \tan(A \pm B) = \frac{\tan A \pm \tan B}{1 \mp \tan A\tan B} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A,\ B\)</td><td>Two angles</td></tr>
+              <tr><td>\(\pm,\ \mp\)</td><td>Use the top sign for a sum and the bottom sign for a difference</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Find sin 75° exactly</h3>
+            <h4>Step 1 — Split the angle</h4>
+            \[ \sin 75^\circ = \sin(45^\circ + 30^\circ) \]
+            <h4>Step 2 — Identity</h4>
+            \[ = \sin 45^\circ\cos 30^\circ + \cos 45^\circ\sin 30^\circ = \frac{\sqrt{2}}{2}\cdot\frac{\sqrt{3}}{2} + \frac{\sqrt{2}}{2}\cdot\frac{1}{2} \]
+            <h4>Step 3 — Simplify</h4>
+            \[ = \frac{\sqrt{6} + \sqrt{2}}{4} \approx 0.9659 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Angles in degrees. Exact values appear when A and B are multiples of 15°.</li>
+            <li>tan is undefined at 90° + 180°n, so the tangent identity cannot use those angles.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Writing sin(A + B) = sin A + sin B.</li>
+            <li>Using the same sign in the cosine identity: cos(A + B) has a minus.</li>
+          </ul>
+        </section>

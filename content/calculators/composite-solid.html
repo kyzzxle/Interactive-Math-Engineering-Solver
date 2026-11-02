@@ -1,0 +1,47 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the composite solid calculator does</h2>
+          <p>Many real objects are built from simple solids: a grain silo is a cylinder with a dome, a pill is a cylinder with two half-spheres, a pencil tip is a cone on a cylinder. Their volume is the sum of the parts.</p>
+          <p>Surface area needs more care: where two parts are joined, the joining circle is inside the object and is not part of the surface. This calculator counts only the faces you could paint.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Compare the silo with a plain cylinder of the same total height: the dome holds less than the cylinder slice it replaces.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V_{\text{cyl}} = \pi r^2 h \qquad V_{\text{cone}} = \tfrac{1}{3}\pi r^2 H \qquad V_{\text{hemi}} = \tfrac{2}{3}\pi r^3 \]\[ A_{\text{side}} = 2\pi r h \qquad A_{\text{cone}} = \pi r s,\ s = \sqrt{r^2 + H^2} \qquad A_{\text{dome}} = 2\pi r^2 \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Common radius of the parts</td></tr>
+              <tr><td>\(h\)</td><td>Height (length) of the cylinder</td></tr>
+              <tr><td>\(H\)</td><td>Height of the cone</td></tr>
+              <tr><td>\(r_i\)</td><td>Inner radius of a tube</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A silo: cylinder 10 m tall with a hemispherical roof, r = 3 m</h3>
+            <h4>Step 1 — Volume</h4>
+            \[ V = \pi(3)^2(10) + \tfrac{2}{3}\pi(3)^3 = 90\pi + 18\pi = 108\pi \approx 339.29\ \text{m}^3 \]
+            <h4>Step 2 — Exposed surfaces</h4>
+            \[ A = 2\pi(3)(10) + 2\pi(3)^2 + \pi(3)^2 = 60\pi + 18\pi + 9\pi = 87\pi \approx 273.32\ \text{m}^2 \]
+            <h4>Note</h4>
+            <p>The circle where the roof meets the cylinder is not counted, but the floor is.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>All parts share the same radius and are joined along complete circles.</li>
+            <li>For a tube, the inner radius must be smaller than the outer radius.</li>
+            <li>Five shapes are supported: silo, capsule, rocket, ice-cream cone and tube.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Adding the surface areas of the separate parts, which wrongly includes the hidden joining faces.</li>
+            <li>Using the cone’s height instead of its slant height for the curved area.</li>
+          </ul>
+        </section>

@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the collision calculator does</h2>
+          <p>In any collision with no outside forces, the total <strong>momentum</strong> p = mv is conserved. Kinetic energy may or may not survive: an <strong>elastic</strong> collision keeps it all, a <strong>perfectly inelastic</strong> one (the bodies stick together) loses the most.</p>
+          <p>The <strong>coefficient of restitution</strong> e measures bounciness: the speed at which the bodies separate is e times the speed at which they approached.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Equal masses, elastic collision, one cart at rest: the moving cart stops dead and the other leaves with its velocity (Newton’s cradle).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ m_1 v_1 + m_2 v_2 = m_1 v_1' + m_2 v_2' \]\[ v_2' - v_1' = e\,(v_1 - v_2) \]\[ v_1' = \frac{p + m_2 e (v_2 - v_1)}{m_1 + m_2},\quad v_2' = \frac{p + m_1 e (v_1 - v_2)}{m_1 + m_2} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(m_1,\ m_2\)</td><td>Masses</td></tr>
+              <tr><td>\(v,\ v'\)</td><td>Velocities before and after (signed: right is positive)</td></tr>
+              <tr><td>\(e\)</td><td>Coefficient of restitution, 0 ≤ e ≤ 1</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A 1200 kg car at 15 m/s hits an 800 kg parked car and they lock together</h3>
+            <h4>Step 1 — Momentum before</h4>
+            \[ p = 1200(15) + 800(0) = 18\,000\ \text{kg m/s} \]
+            <h4>Step 2 — Common velocity</h4>
+            \[ v' = \frac{18\,000}{2000} = 9\ \text{m/s} \]
+            <h4>Step 3 — Energy</h4>
+            \[ KE: 135\,000 \to 81\,000\ \text{J},\ \text{so } 54\,000\ \text{J (40\%) is lost} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Head-on collisions along one line; body 1 must be catching up with body 2 (v₁ &gt; v₂).</li>
+            <li>External forces such as friction are ignored during the brief impact.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Ignoring the sign of velocities in opposite directions.</li>
+            <li>Assuming kinetic energy is conserved in every collision.</li>
+          </ul>
+        </section>

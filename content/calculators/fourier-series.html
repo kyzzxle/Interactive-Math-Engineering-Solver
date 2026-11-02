@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the Fourier series calculator does</h2>
+          <p>A <strong>Fourier series</strong> writes a periodic function as a sum of sines and cosines whose frequencies are whole multiples of the basic frequency. Even a square wave, with its sudden jumps, can be built from smooth waves.</p>
+          <p>The coefficients measure how much of each harmonic the signal contains — the basis of audio processing, vibration analysis and the theory of heat flow.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Raise N in the explorer for the square wave: the fit improves, but an overshoot of about 9% near each jump never goes away (the Gibbs phenomenon).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ f(t) = \frac{a_0}{2} + \sum_{n=1}^{\infty}\left(a_n\cos n\omega_0 t + b_n\sin n\omega_0 t\right),\quad \omega_0 = \frac{2\pi}{T} \]\[ a_n = \frac{2}{T}\int_{-T/2}^{T/2} f(t)\cos(n\omega_0 t)\,dt \qquad b_n = \frac{2}{T}\int_{-T/2}^{T/2} f(t)\sin(n\omega_0 t)\,dt \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(T,\ \omega_0\)</td><td>Period and fundamental angular frequency</td></tr>
+              <tr><td>\(a_n,\ b_n\)</td><td>Cosine and sine coefficients</td></tr>
+              <tr><td>\(N\)</td><td>Number of harmonics in a partial sum</td></tr>
+            </tbody>
+          </table>
+          <p>Odd functions (square, sawtooth) have only sine terms; even functions (triangle) only cosine terms.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Square wave of amplitude A</h3>
+            <h4>Step 1 — Symmetry</h4>
+            <p>The square wave is odd, so every aₙ is 0.</p>
+            <h4>Step 2 — Sine coefficients</h4>
+            \[ b_n = \frac{2}{T}\int_{-T/2}^{T/2} f(t)\sin(n\omega_0 t)\,dt = \begin{cases} \frac{4A}{n\pi}, & n \text{ odd} \\ 0, & n \text{ even} \end{cases} \]
+            <h4>Step 3 — Series</h4>
+            \[ f(t) = \frac{4A}{\pi}\left(\sin\omega_0 t + \frac{\sin 3\omega_0 t}{3} + \frac{\sin 5\omega_0 t}{5} + \cdots\right) \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Three standard waves: square, sawtooth and triangle, each with a chosen amplitude and period.</li>
+            <li>Up to 100 harmonics in the partial sum.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Forgetting the even harmonics vanish for the square and triangle waves.</li>
+            <li>Expecting the partial sums to converge uniformly at a jump (they overshoot).</li>
+          </ul>
+        </section>

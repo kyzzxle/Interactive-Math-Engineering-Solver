@@ -1,0 +1,48 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the polynomial long division calculator does</h2>
+          <p><strong>Polynomial long division</strong> works like long division of numbers: divide the leading terms, multiply back, subtract, and repeat until the remainder’s degree is less than the divisor’s.</p>
+          <p>It is used to simplify improper rational functions, find slant asymptotes, factor polynomials once a root is known, and prepare for partial fractions.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Compare the graph of P(x)/D(x) with its quotient: far from the origin they almost coincide.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ P(x) = D(x)\,Q(x) + R(x),\quad \deg R &lt; \deg D \]\[ \text{Remainder theorem: } P(x) \div (x - c) \text{ leaves } R = P(c) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(P\)</td><td>Dividend</td></tr>
+              <tr><td>\(D\)</td><td>Divisor</td></tr>
+              <tr><td>\(Q\)</td><td>Quotient</td></tr>
+              <tr><td>\(R\)</td><td>Remainder</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Divide 2x³ − 3x² + 4x − 5 by x − 2</h3>
+            <h4>Step 1</h4>
+            \[ 2x^3 \div x = 2x^2;\quad 2x^2(x - 2) = 2x^3 - 4x^2;\quad \text{remainder } x^2 + 4x - 5 \]
+            <h4>Step 2</h4>
+            \[ x^2 \div x = x;\quad x(x - 2) = x^2 - 2x;\quad \text{remainder } 6x - 5 \]
+            <h4>Step 3</h4>
+            \[ 6x \div x = 6;\quad 6(x - 2) = 6x - 12;\quad \text{remainder } 7 \]
+            <h4>Result</h4>
+            \[ 2x^3 - 3x^2 + 4x - 5 = (x - 2)(2x^2 + x + 6) + 7,\qquad P(2) = 7\ \checkmark \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Polynomials up to degree 8; coefficients may be fractions.</li>
+            <li>The divisor cannot be the zero polynomial.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Leaving out zero terms (write x⁴ − 1 as x⁴ + 0x³ + 0x² + 0x − 1 when working by hand).</li>
+            <li>Subtracting only the first term of the product instead of the whole product.</li>
+          </ul>
+        </section>

@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the sequence calculator does</h2>
+          <p>An <strong>arithmetic sequence</strong> adds the same difference d each time (3, 7, 11, …). A <strong>geometric sequence</strong> multiplies by the same ratio r each time (5, 10, 20, …).</p>
+          <p>Their sums have neat formulas. A geometric series with |r| &lt; 1 even has a finite sum when infinitely many terms are added, because the terms shrink fast enough.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, try r = 0.5: the running total levels off at 2a₁. Try r = −0.8: it zig-zags towards its limit.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ a_n = a_1 + (n - 1)d \qquad S_n = \frac{n(a_1 + a_n)}{2} \]\[ a_n = a_1 r^{\,n-1} \qquad S_n = \frac{a_1(1 - r^n)}{1 - r} \qquad S_\infty = \frac{a_1}{1 - r}\ (|r| &lt; 1) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a_1\)</td><td>First term</td></tr>
+              <tr><td>\(d\)</td><td>Common difference</td></tr>
+              <tr><td>\(r\)</td><td>Common ratio</td></tr>
+              <tr><td>\(n\)</td><td>Number of terms</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Sum of the first 20 terms of 3, 7, 11, …</h3>
+            <h4>Step 1 — Difference</h4>
+            \[ d = 7 - 3 = 4 \]
+            <h4>Step 2 — 20th term</h4>
+            \[ a_{20} = 3 + 19(4) = 79 \]
+            <h4>Step 3 — Sum</h4>
+            \[ S_{20} = \frac{20(3 + 79)}{2} = 820 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>n is a whole number from 1 to 100,000. Fractions are kept exact while the numbers stay manageable.</li>
+            <li>For r = 1 the sum is n·a₁; the infinite sum exists only when |r| &lt; 1.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using n instead of n − 1 in the nth-term formula.</li>
+            <li>Applying S∞ when |r| ≥ 1, where the series diverges.</li>
+          </ul>
+        </section>

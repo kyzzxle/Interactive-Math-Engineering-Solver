@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the double-angle and half-angle calculator does</h2>
+          <p>The <strong>double-angle identities</strong> come from the sum identities with A = B. Cosine has three equivalent forms, each useful in a different situation (for example to rewrite cos²θ when integrating).</p>
+          <p>The <strong>half-angle identities</strong> come from solving the cosine double-angle formula backwards. They contain a square root whose sign depends on the quadrant of θ/2.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Try θ = 300° with cos(θ/2): θ/2 = 150° is in quadrant II, so the root must be negative.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \sin 2\theta = 2\sin\theta\cos\theta \qquad \cos 2\theta = \cos^2\theta - \sin^2\theta = 2\cos^2\theta - 1 = 1 - 2\sin^2\theta \]\[ \sin\frac{\theta}{2} = \pm\sqrt{\frac{1 - \cos\theta}{2}} \qquad \cos\frac{\theta}{2} = \pm\sqrt{\frac{1 + \cos\theta}{2}} \qquad \tan\frac{\theta}{2} = \frac{1 - \cos\theta}{\sin\theta} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(\theta\)</td><td>The given angle</td></tr>
+              <tr><td>\(\pm\)</td><td>Sign chosen from the quadrant of θ/2</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Find sin 22.5° from θ = 45°</h3>
+            <h4>Step 1 — Identity</h4>
+            \[ \sin\frac{45^\circ}{2} = \pm\sqrt{\frac{1 - \cos 45^\circ}{2}} \]
+            <h4>Step 2 — Sign</h4>
+            <p>22.5° is in quadrant I, where sine is positive.</p>
+            <h4>Step 3 — Evaluate</h4>
+            \[ \sin 22.5^\circ = \sqrt{\frac{1 - \tfrac{\sqrt{2}}{2}}{2}} = \frac{\sqrt{2 - \sqrt{2}}}{2} \approx 0.3827 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Angles in degrees. Exact values for results at multiples of 15°; otherwise the exact substitution and a decimal.</li>
+            <li>tan(θ/2) needs sin θ ≠ 0; tan 2θ is undefined where cos 2θ = 0.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Writing sin 2θ = 2 sin θ.</li>
+            <li>Dropping the ± in the half-angle formulas.</li>
+          </ul>
+        </section>

@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the trig graph explorer does</h2>
+          <p>Every sine or cosine wave can be written as \(y = A\sin(B(x - C)) + D\). Each letter does one job: \(A\) stretches the wave vertically, \(B\) squeezes it horizontally, \(C\) slides it left or right, and \(D\) moves it up or down.</p>
+          <p>Reading these off the equation tells you the amplitude, period, phase shift and midline without plotting a single point.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Set C = −π/2 on a sine graph: it lands exactly on the cosine graph, because cos x = sin(x + π/2).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ y = A\sin\big(B(x - C)\big) + D \]\[ \text{amplitude } |A| \qquad \text{period } \frac{2\pi}{|B|}\ \left(\frac{\pi}{|B|}\text{ for tan}\right) \qquad \text{range } [D - |A|,\ D + |A|] \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A\)</td><td>Amplitude (a negative A also reflects the graph)</td></tr>
+              <tr><td>\(B\)</td><td>Frequency factor</td></tr>
+              <tr><td>\(C\)</td><td>Phase (horizontal) shift</td></tr>
+              <tr><td>\(D\)</td><td>Vertical shift; y = D is the midline</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>y = 3 sin(2(x − π/4)) + 1</h3>
+            <h4>Step 1 — Amplitude and midline</h4>
+            \[ |A| = 3,\quad y = 1 \]
+            <h4>Step 2 — Period</h4>
+            \[ T = \frac{2\pi}{2} = \pi \]
+            <h4>Step 3 — Shift and range</h4>
+            <p>Shifted \(\tfrac{\pi}{4}\) to the right; the range is \([1 - 3,\ 1 + 3] = [-2,\ 4]\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>x is measured in radians. B cannot be 0.</li>
+            <li>tan has no amplitude; its vertical asymptotes are shown instead.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Reading the phase shift of sin(2x − π/2) as π/2: factor B out first, giving 2(x − π/4).</li>
+            <li>Computing the period as 2πB instead of 2π/B.</li>
+          </ul>
+        </section>

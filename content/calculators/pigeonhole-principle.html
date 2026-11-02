@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the pigeonhole principle calculator does</h2>
+          <p>The <strong>pigeonhole principle</strong> says that if you put more items into boxes than there are boxes, some box must hold at least two. More generally, n items in k boxes force some box to contain at least ⌈n/k⌉.</p>
+          <p>It sounds obvious, but it proves surprising facts: two people in London have exactly the same number of hairs; among any 13 people, two share a birth month.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>The worst case is always the most even spread — the diagram shows it.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \text{some box holds at least } \left\lceil \frac{n}{k} \right\rceil \]\[ N = k(m - 1) + 1 \ \text{items guarantee } m \text{ in one box} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(n\)</td><td>Number of items (pigeons)</td></tr>
+              <tr><td>\(k\)</td><td>Number of boxes (holes)</td></tr>
+              <tr><td>\(\lceil \cdot \rceil\)</td><td>Round up to the next whole number</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Socks in 4 colours: how many to guarantee 3 of one colour?</h3>
+            <h4>Step 1 — Worst case</h4>
+            <p>You could take 2 of each colour — 8 socks — without 3 matching.</p>
+            <h4>Step 2 — One more</h4>
+            \[ N = 4(3 - 1) + 1 = 9 \]
+            <h4>Step 3 — Conclusion</h4>
+            <p>9 socks always contain 3 of the same colour, and 8 might not.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Whole numbers: at least one box. Up to 12 boxes are drawn.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Dividing and rounding down instead of up.</li>
+            <li>Forgetting that the principle only proves existence — it does not say which box.</li>
+          </ul>
+        </section>

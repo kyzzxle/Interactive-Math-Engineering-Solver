@@ -292,6 +292,7 @@ function mountExplorer(root, spec) {
   const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
 
   const controlHtml = (c) => {
+    if (c.hidden) return ''; // changed only by dragging on the figure
     const cid = `${id}-${c.name}`;
     if (c.type === 'select') {
       return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
@@ -341,6 +342,7 @@ function mountExplorer(root, spec) {
       const lo = minOf(c), hi = maxOf(c);
       if (values[c.name] > hi) values[c.name] = hi;
       if (values[c.name] < lo) values[c.name] = lo;
+      if (c.hidden) continue;
       const range = root.querySelector(`[data-ctrl="${c.name}"]`);
       range.min = lo; range.max = hi; range.value = values[c.name];
       const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));

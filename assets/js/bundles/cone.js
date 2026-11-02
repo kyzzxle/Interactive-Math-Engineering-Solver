@@ -292,6 +292,7 @@ function mountExplorer(root, spec) {
   const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
 
   const controlHtml = (c) => {
+    if (c.hidden) return ''; // changed only by dragging on the figure
     const cid = `${id}-${c.name}`;
     if (c.type === 'select') {
       return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
@@ -341,6 +342,7 @@ function mountExplorer(root, spec) {
       const lo = minOf(c), hi = maxOf(c);
       if (values[c.name] > hi) values[c.name] = hi;
       if (values[c.name] < lo) values[c.name] = lo;
+      if (c.hidden) continue;
       const range = root.querySelector(`[data-ctrl="${c.name}"]`);
       range.min = lo; range.max = hi; range.value = values[c.name];
       const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));
@@ -1718,6 +1720,43 @@ function sphereMesh(R, lat = 14, lon = 28) {
   return { faces, smooth: true };
 }
 
+/** Ellipsoid with semi-axes a (x), b (y, vertical) and c (z). */
+function ellipsoidMesh(a, b, c, lat = 14, lon = 28) {
+  const m = sphereMesh(1, lat, lon);
+  return { ...m, faces: m.faces.map((f) => ({ ...f, pts: f.pts.map(([x, y, z]) => [a * x, b * y, c * z]) })) };
+}
+
+/** Spherical cap of a sphere with radius R, height h, flat base facing down. */
+function capMesh(R, h, lat = 10, lon = 32) {
+  const th0 = Math.acos(Math.max(-1, Math.min(1, (R - h) / R))); // polar angle of the base rim
+  const faces = [];
+  const P = (i, j) => {
+    const th = (th0 * i) / lat, ph = (2 * Math.PI * j) / lon;
+    return [R * Math.sin(th) * Math.cos(ph), R * Math.cos(th) - (R - h / 2), R * Math.sin(th) * Math.sin(ph)];
+  };
+  for (let i = 0; i < lat; i++) for (let j = 0; j < lon; j++) {
+    const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)];
+    faces.push({ pts: i === 0 ? [pts[0], pts[1], pts[2]] : pts, side: true });
+  }
+  faces.push({ pts: Array.from({ length: lon }, (_, j) => P(lat, lon - j)), cap: true });
+  return { faces, smooth: true };
+}
+
+/** Ring torus: distance R from the centre to the tube centre, tube radius r (R > r). */
+function torusMesh(R, r, nu = 36, nv = 16) {
+  const P = (i, j) => {
+    const u = (2 * Math.PI * i) / nu, v = (2 * Math.PI * j) / nv;
+    return [(R + r * Math.cos(v)) * Math.cos(u), r * Math.sin(v), (R + r * Math.cos(v)) * Math.sin(u)];
+  };
+  const faces = [];
+  for (let i = 0; i < nu; i++) for (let j = 0; j < nv; j++) {
+    const u = (2 * Math.PI * (i + 0.5)) / nu, v = (2 * Math.PI * (j + 0.5)) / nv;
+    // outward normal of the tube at the face centre
+    faces.push({ pts: [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)], side: true, normal: [Math.cos(v) * Math.cos(u), Math.sin(v), Math.cos(v) * Math.sin(u)] });
+  }
+  return { faces, smooth: true, convex: false };
+}
+
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
@@ -1746,8 +1785,8 @@ function renderSolid(mesh, opts = {}) {
     const pts = f.pts.map(rot);
     let n = norm(cross(sub(pts[1], pts[0]), sub(pts[2], pts[0])));
     const fc = pts.reduce((a, p) => [a[0] + p[0] / pts.length, a[1] + p[1] / pts.length, a[2] + p[2] / pts.length], [0, 0, 0]);
-    if (dot(n, sub(fc, C)) < 0) n = n.map((v) => -v);
-    if (n[2] <= 1e-6) continue; // faces away from the viewer
+    if (f.normal) { const fn = rot(f.normal); if (dot(n, fn) < 0) n = n.map((v) => -v); } else if (dot(n, sub(fc, C)) < 0) n = n.map((v) => -v);
+    if (n[2] <= 1e-6) continue; // faces away from the viewer (drawn back to front, so non-convex solids work too)
     const b = Math.max(0, dot(n, light));
     const mix = Math.round(62 - 40 * b);
     const fill = `color-mix(in srgb, var(--primary) ${mix}%, var(--surface))`;
@@ -1766,7 +1805,7 @@ function renderSolid(mesh, opts = {}) {
   return /NaN|Infinity/.test(svg) ? '' : svg;
 }
 
-return { frustumMesh, sphereMesh, renderSolid };
+return { frustumMesh, sphereMesh, ellipsoidMesh, capMesh, torusMesh, renderSolid };
 })();
 __m["explore/solids.js"] = (function () {
 /**

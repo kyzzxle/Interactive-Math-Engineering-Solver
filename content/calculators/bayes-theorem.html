@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the Bayes’ theorem calculator does</h2>
+          <p><strong>Conditional probability</strong> \(P(A \mid B)\) is the probability of A once we know B happened. <strong>Bayes’ theorem</strong> turns it around: from how likely the evidence B is when A is true, it gives how likely A is when we see B.</p>
+          <p>It is essential for medical tests, spam filters and any situation where a rare condition must be inferred from imperfect evidence — and it often gives surprising answers.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>With a 1% prevalence, a 95%-accurate test is right only about 16% of the times it says “positive”.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ P(A \mid B) = \frac{P(A \cap B)}{P(B)} \]\[ P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B \mid A)\,P(A) + P(B \mid A^\prime)\,P(A^\prime)} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(P(A)\)</td><td>Prior: how likely A is before the evidence</td></tr>
+              <tr><td>\(P(B \mid A),\ P(B \mid A^\prime)\)</td><td>Likelihoods: how likely the evidence is if A is true, or false</td></tr>
+              <tr><td>\(P(A \mid B)\)</td><td>Posterior: how likely A is after seeing B</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A disease affects 1% of people; the test detects 95% of cases and gives 5% false positives</h3>
+            <h4>Step 1 — Total probability of a positive test</h4>
+            \[ P(+) = 0.95(0.01) + 0.05(0.99) = 0.059 \]
+            <h4>Step 2 — Bayes’ theorem</h4>
+            \[ P(D \mid +) = \frac{0.95(0.01)}{0.059} \approx 0.161 \]
+            <h4>Step 3 — Interpret</h4>
+            <p>Only about 16% of people who test positive have the disease, because healthy people vastly outnumber sick ones.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Probabilities between 0 and 1 (or 0% to 100%). P(B) must not be 0.</li>
+            <li>P(A and B) cannot exceed P(B).</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Confusing P(B | A) with P(A | B) (the prosecutor’s fallacy).</li>
+            <li>Ignoring the prior when the condition is rare.</li>
+          </ul>
+        </section>

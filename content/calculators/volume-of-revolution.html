@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the volume of revolution calculator does</h2>
+          <p>Spinning a flat region around an axis sweeps out a <strong>solid of revolution</strong> — a vase, a bowl, a cone. Its volume is found by slicing it into thin pieces and adding them up with an integral.</p>
+          <p>Spinning around the x-axis, each slice is a <strong>disk</strong> (or a <strong>washer</strong> if there is a hole). Spinning around the y-axis, it is easier to use thin cylindrical <strong>shells</strong>.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, add more disks and watch the approximation approach the exact integral.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V_{\text{disk}} = \pi\int_a^b f(x)^2\,dx \qquad V_{\text{washer}} = \pi\int_a^b \left[f(x)^2 - g(x)^2\right]dx \]\[ V_{\text{shell}} = 2\pi\int_a^b x\left[f(x) - g(x)\right]dx \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(f(x)\)</td><td>Outer curve</td></tr>
+              <tr><td>\(g(x)\)</td><td>Inner curve (0 if there is no hole)</td></tr>
+              <tr><td>\([a, b]\)</td><td>Interval of x</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Rotate y = x² for 0 ≤ x ≤ 2 about the y-axis</h3>
+            <h4>Step 1 — Shell method</h4>
+            \[ V = 2\pi\int_0^2 x \cdot x^2\,dx \]
+            <h4>Step 2 — Integrate</h4>
+            \[ = 2\pi\left[\frac{x^4}{4}\right]_0^2 = 2\pi(4) \]
+            <h4>Step 3 — Result</h4>
+            \[ V = 8\pi \approx 25.13 \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>The region must satisfy f(x) ≥ g(x) ≥ 0 on [a, b] (it may not cross the axis of rotation).</li>
+            <li>For rotation about the y-axis, a ≥ 0.</li>
+            <li>Exact multiples of π for polynomials with rational limits; numerical otherwise.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using π∫(f − g)² instead of π∫(f² − g²) for washers.</li>
+            <li>Forgetting the factor x in the shell method.</li>
+          </ul>
+        </section>

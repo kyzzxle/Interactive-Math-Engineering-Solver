@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the vector resultant calculator does</h2>
+          <p>A <strong>vector</strong> has a size (magnitude) and a direction — forces, velocities and displacements are vectors. To add vectors, split each into horizontal and vertical <strong>components</strong>, add the components, then rebuild the <strong>resultant</strong>.</p>
+          <p>Drawn tip to tail, the resultant is the arrow from the start of the first vector to the end of the last.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Make the vectors perpendicular with sizes 3 and 4 in the explorer: the resultant has size 5.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V_x = |V|\cos\theta \qquad V_y = |V|\sin\theta \]\[ R_x = \sum V_x,\quad R_y = \sum V_y \qquad |R| = \sqrt{R_x^2 + R_y^2},\quad \theta_R = \operatorname{atan2}(R_y, R_x) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(|V|,\ \theta\)</td><td>Magnitude and direction (counter-clockwise from the positive x-axis)</td></tr>
+              <tr><td>\(R_x,\ R_y\)</td><td>Components of the resultant</td></tr>
+              <tr><td>\(\operatorname{atan2}\)</td><td>Inverse tangent that keeps track of the quadrant</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>10 units at 30° plus 6 units at 120°</h3>
+            <h4>Step 1 — Components</h4>
+            \[ (10\cos 30^\circ,\ 10\sin 30^\circ) \approx (8.660,\ 5),\quad (6\cos 120^\circ,\ 6\sin 120^\circ) \approx (-3,\ 5.196) \]
+            <h4>Step 2 — Add</h4>
+            \[ R \approx (5.660,\ 10.196) \]
+            <h4>Step 3 — Magnitude and direction</h4>
+            \[ |R| \approx \sqrt{5.660^2 + 10.196^2} \approx 11.66,\quad \theta \approx 60.96^\circ \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Up to 6 vectors. Magnitudes must be non-negative; directions in degrees.</li>
+            <li>If the components cancel, the resultant is the zero vector and has no direction.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using tan⁻¹(Ry/Rx) without checking the quadrant (it is wrong whenever Rx &lt; 0).</li>
+            <li>Adding magnitudes directly instead of components.</li>
+          </ul>
+        </section>

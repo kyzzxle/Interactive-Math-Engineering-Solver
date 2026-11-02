@@ -578,6 +578,456 @@
       "description": "Solve v = fλ for wave speed, frequency or wavelength, with the period, angular frequency, worked steps and an animated travelling wave.",
       "lead": "Choose what to find, enter the other two quantities, and get the period and wave number too — then set a wave moving in the explorer below.",
       "updated": "2026-11-02"
+    },
+    {
+      "id": "ellipsoid", "name": "Ellipsoid Surface Area and Volume Calculator", "shortName": "Ellipsoid", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume of an ellipsoid exactly in terms of π and its surface area from elliptic integrals, with a rotatable 3D model.",
+      "keywords": ["ellipsoid", "spheroid", "oblate", "prolate", "surface area", "volume", "4/3 pi abc"],
+      "related": ["sphere", "spherical-cap", "torus"],
+      "title": "Ellipsoid Calculator – Volume and Surface Area with Steps | Solver Hub",
+      "description": "Find the volume and surface area of an ellipsoid or spheroid from its three semi-axes, with exact π answers, worked steps and a 3D model.",
+      "lead": "Enter the three semi-axes to get the exact volume, an accurate surface area and Thomsen’s approximation — then stretch and turn the ellipsoid in 3D.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "spherical-cap", "name": "Spherical Cap and Segment Calculator", "shortName": "Spherical Cap & Segment", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume, curved area and base radius of a spherical cap or of a slice between two parallel planes, with exact π answers.",
+      "keywords": ["spherical cap", "spherical segment", "zone", "dome", "slice of a sphere", "cap volume"],
+      "related": ["sphere", "ellipsoid", "composite-solid"],
+      "title": "Spherical Cap and Segment Calculator – Volume and Area | Solver Hub",
+      "description": "Volume, curved surface and total area of a spherical cap or a segment between two cuts, with exact multiples of π and a cross-section diagram.",
+      "lead": "Choose a cap (one cut) or a segment (two cuts), enter the sphere radius and the cut positions, and see every step with exact answers in terms of π.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "torus", "name": "Torus Surface Area and Volume Calculator", "shortName": "Torus", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume 2π²Rr² and surface area 4π²Rr of a ring torus from Pappus’s theorems, with a 3D doughnut you can turn.",
+      "keywords": ["torus", "doughnut", "donut", "ring", "Pappus theorem", "tube"],
+      "related": ["cylinder", "ellipsoid", "composite-solid"],
+      "title": "Torus Calculator – Volume and Surface Area of a Doughnut | Solver Hub",
+      "description": "Calculate the volume and surface area of a torus from its major and tube radii using Pappus’s theorems, with exact π² answers and a 3D model.",
+      "lead": "Enter the distance to the tube centre and the tube radius to get the exact volume and surface area — and see why Pappus’s theorem works.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "composite-solid", "name": "Composite Solid Calculator", "shortName": "Composite Solids", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume and exposed surface area of silos, capsules, rockets, ice-cream cones and tubes built from cylinders, cones and hemispheres.",
+      "keywords": ["composite solid", "compound shape", "silo", "capsule", "hemisphere", "hollow cylinder", "pipe"],
+      "related": ["cylinder", "cone", "sphere"],
+      "title": "Composite Solid Calculator – Volume and Surface Area | Solver Hub",
+      "description": "Volume and surface area of combined solids — silo, capsule, rocket, ice-cream cone and pipe — counting only exposed faces, with a scale drawing.",
+      "lead": "Pick a composite shape, enter its dimensions, and see each part’s volume, which surfaces are hidden, and the total exposed surface area.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "similar-solids", "name": "Similar Solids Scale-Factor Calculator", "shortName": "Similar Solids", "category": "solid-mensuration", "generated": true,
+      "summary": "Turn a length, area or volume ratio of similar solids into the other two (k, k², k³) and scale known areas and volumes.",
+      "keywords": ["similar solids", "scale factor", "area ratio", "volume ratio", "k cubed", "enlargement"],
+      "related": ["prism", "sphere", "composite-solid"],
+      "title": "Similar Solids Calculator – Scale Factor, Area and Volume Ratios | Solver Hub",
+      "description": "Find the scale factor of similar solids from lengths, areas or volumes, then scale surface areas by k² and volumes by k³, with exact answers.",
+      "lead": "Enter two matching lengths or any ratio, and get the length, area and volume ratios exactly — plus the scaled area and volume of the second solid.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "point-to-plane-distance", "name": "Distance from a Point to a Plane Calculator", "shortName": "Point to Plane", "category": "analytic-geometry", "generated": true,
+      "summary": "Shortest distance from a point to the plane Ax + By + Cz + D = 0 in simplest radical form, with the foot of the perpendicular.",
+      "keywords": ["distance point to plane", "3D geometry", "normal vector", "foot of perpendicular", "plane equation"],
+      "related": ["distance-from-point-to-line", "angle-between-lines", "midpoint-and-distance"],
+      "title": "Distance from a Point to a Plane Calculator with Steps | Solver Hub",
+      "description": "Find the distance from a point to a plane in 3D exactly, plus the foot of the perpendicular, with each substitution shown and a 3D sketch.",
+      "lead": "Enter the plane Ax + By + Cz + D = 0 and the point, and get the exact distance, the nearest point on the plane and which side the point is on.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "angle-between-lines", "name": "Angle Between Two Lines Calculator", "shortName": "Angle Between Lines", "category": "analytic-geometry", "generated": true,
+      "summary": "Acute and obtuse angles between two lines from slopes, general-form equations or 3D direction vectors.",
+      "keywords": ["angle between lines", "slopes", "tan theta formula", "direction vectors", "perpendicular", "parallel"],
+      "related": ["intersection-of-two-lines", "slope-and-equation-of-a-line", "point-to-plane-distance"],
+      "title": "Angle Between Two Lines Calculator – Slopes or Vectors | Solver Hub",
+      "description": "Calculate the angle between two lines from their slopes, Ax + By + C = 0 equations or 3D direction vectors, with the tan and cos formulas step by step.",
+      "lead": "Enter the lines as slopes, as general equations or as 3D direction vectors, and get the acute and obtuse angles with every step.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "polygon-area-coordinates", "name": "Polygon Area from Coordinates (Shoelace Formula)", "shortName": "Shoelace Formula", "category": "analytic-geometry", "generated": true,
+      "summary": "Exact area, perimeter, centroid and orientation of any polygon from its vertices, with a check for self-crossing sides.",
+      "keywords": ["shoelace formula", "polygon area", "coordinates", "surveyor formula", "centroid", "Gauss area formula"],
+      "related": ["midpoint-and-distance", "circle-equation", "angle-between-lines"],
+      "title": "Polygon Area from Coordinates – Shoelace Formula Calculator | Solver Hub",
+      "description": "Find the area of a polygon from its vertex coordinates with the shoelace formula: exact fractions, a table of cross products, perimeter and centroid.",
+      "lead": "List the vertices in order and get the exact area with every shoelace term, plus the perimeter, centroid and a warning if the sides cross.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "ellipse", "name": "Ellipse Calculator: Centre, Axes, Foci and Equation", "shortName": "Ellipse", "category": "analytic-geometry", "generated": true,
+      "summary": "Standard and general equations, vertices, foci, eccentricity and latus rectum of an ellipse, exactly, with an interactive drawing.",
+      "keywords": ["ellipse", "foci", "eccentricity", "major axis", "minor axis", "conic section"],
+      "related": ["hyperbola", "parabola", "circle-equation"],
+      "title": "Ellipse Calculator – Foci, Vertices, Eccentricity and Equation | Solver Hub",
+      "description": "Enter the centre and semi-axes of an ellipse to get its equation, vertices, foci, eccentricity, latus rectum and directrices in exact form.",
+      "lead": "Give the centre and the horizontal and vertical semi-axes to get the standard and general equations, foci and eccentricity — and see why PF₁ + PF₂ stays constant.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "hyperbola", "name": "Hyperbola Calculator: Centre, Axes, Foci and Asymptotes", "shortName": "Hyperbola", "category": "analytic-geometry", "generated": true,
+      "summary": "Equation, vertices, foci, asymptotes and eccentricity of a hyperbola opening left–right or up–down, exactly.",
+      "keywords": ["hyperbola", "asymptotes", "foci", "eccentricity", "transverse axis", "conic section"],
+      "related": ["ellipse", "parabola", "circle-equation"],
+      "title": "Hyperbola Calculator – Foci, Asymptotes and Equation | Solver Hub",
+      "description": "Find the equation, vertices, foci, asymptotes, eccentricity and latus rectum of a hyperbola from its centre and semi-axes, in exact form.",
+      "lead": "Choose the direction it opens, enter the centre and semi-axes, and get the equation, foci and asymptotes — then follow a point to see |PF₁ − PF₂| = 2a.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "rational-expression-simplifier", "name": "Rational Expression Simplifier", "shortName": "Rational Expressions", "category": "algebra", "generated": true,
+      "summary": "Simplify P(x)/Q(x) by cancelling the greatest common factor, with excluded values, holes and vertical asymptotes.",
+      "keywords": ["rational expression", "simplify fraction", "cancel factors", "excluded values", "holes", "asymptotes"],
+      "related": ["polynomial-factoring", "polynomial-long-division", "partial-fractions"],
+      "title": "Rational Expression Simplifier – Cancel Factors with Steps | Solver Hub",
+      "description": "Simplify a rational expression by factoring and cancelling common factors, with the excluded values, holes and asymptotes and a graph.",
+      "lead": "Enter the numerator and denominator polynomials to factor both, cancel the common factor exactly and list every excluded value.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "polynomial-long-division", "name": "Polynomial Long Division Calculator", "shortName": "Polynomial Long Division", "category": "algebra", "generated": true,
+      "summary": "Divide polynomials step by step to get the quotient and remainder, with a check and the remainder theorem for x − c.",
+      "keywords": ["polynomial long division", "quotient", "remainder", "remainder theorem", "synthetic division", "divide polynomials"],
+      "related": ["polynomial-factoring", "rational-expression-simplifier", "partial-fractions"],
+      "title": "Polynomial Long Division Calculator with Every Step | Solver Hub",
+      "description": "Divide one polynomial by another with every long-division step shown, the quotient and remainder, a check, and the remainder theorem.",
+      "lead": "Enter the dividend and divisor to see each divide–multiply–subtract step, the exact quotient and remainder, and the check D·Q + R = P.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "partial-fractions", "name": "Partial Fraction Decomposition Calculator", "shortName": "Partial Fractions", "category": "algebra", "generated": true,
+      "summary": "Decompose a rational function into partial fractions exactly, including repeated linear factors and one quadratic factor.",
+      "keywords": ["partial fractions", "decomposition", "rational function", "repeated factor", "integration", "Laplace"],
+      "related": ["polynomial-long-division", "rational-expression-simplifier", "inverse-laplace-transform"],
+      "title": "Partial Fraction Decomposition Calculator with Steps | Solver Hub",
+      "description": "Split a rational function into partial fractions with exact coefficients, handling repeated linear factors, a quadratic factor and improper fractions.",
+      "lead": "Enter the numerator and denominator to see the factored denominator, the form of the decomposition and the exact value of every coefficient.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "inequality-solver", "name": "Linear and Quadratic Inequality Solver", "shortName": "Inequality Solver", "category": "algebra", "generated": true,
+      "summary": "Solve linear and quadratic inequalities with exact boundary points, interval notation and a number line.",
+      "keywords": ["inequality", "quadratic inequality", "linear inequality", "interval notation", "number line", "sign chart"],
+      "related": ["linear-equation-solver", "quadratic-equation-solver", "polynomial-factoring"],
+      "title": "Inequality Solver – Linear and Quadratic, with Number Line | Solver Hub",
+      "description": "Solve linear and quadratic inequalities step by step, with exact boundaries, interval notation, set notation and a number-line diagram.",
+      "lead": "Type both sides and the sign to get the exact solution set, interval notation and a number line — including when to reverse the inequality sign.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "arithmetic-geometric-sequences", "name": "Arithmetic and Geometric Sequence Calculator", "shortName": "Sequences and Series", "category": "algebra", "generated": true,
+      "summary": "nth term, sum of n terms and infinite sum of arithmetic and geometric sequences, exactly, with a chart of the partial sums.",
+      "keywords": ["arithmetic sequence", "geometric sequence", "nth term", "series sum", "infinite geometric series", "common ratio"],
+      "related": ["logarithm-calculator", "recurrence-relations", "binomial-theorem-expansion"],
+      "title": "Arithmetic and Geometric Sequence Calculator – nth Term and Sum | Solver Hub",
+      "description": "Find the nth term, the sum of n terms and the infinite sum of arithmetic or geometric sequences with exact fractions and step-by-step working.",
+      "lead": "Enter the first term, the difference or ratio and n to get the nth term, the sum and (when it exists) the infinite sum, with each formula substituted.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "inverse-trig-functions", "name": "Inverse Trigonometric Function Calculator", "shortName": "Inverse Trig Functions", "category": "trigonometry", "generated": true,
+      "summary": "arcsin, arccos and arctan with exact special values, domain and range, and every angle with the same sine, cosine or tangent.",
+      "keywords": ["arcsin", "arccos", "arctan", "inverse trig", "principal value", "sin inverse"],
+      "related": ["degrees-radians-unit-circle", "trig-equation-solver", "right-triangle-solver"],
+      "title": "Inverse Trig Calculator – arcsin, arccos, arctan with Steps | Solver Hub",
+      "description": "Evaluate arcsin, arccos and arctan exactly for standard values, with domain checks, the principal range and all solutions in degrees and radians.",
+      "lead": "Choose arcsin, arccos or arctan, enter a value such as √3/2, and get the principal angle exactly plus every other angle with that ratio.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "sum-difference-identities", "name": "Sum and Difference Identity Calculator", "shortName": "Sum & Difference Identities", "category": "trigonometry", "generated": true,
+      "summary": "Apply the sin, cos and tan sum and difference identities with exact values for multiples of 15°.",
+      "keywords": ["sum identity", "difference identity", "sin(A+B)", "cos(A-B)", "tan(A+B)", "compound angle"],
+      "related": ["double-half-angle-identities", "trig-identity-checker", "degrees-radians-unit-circle"],
+      "title": "Sum and Difference Identity Calculator – sin, cos, tan | Solver Hub",
+      "description": "Use the sum and difference identities for sine, cosine and tangent step by step, with exact radical values such as sin 75° = (√6 + √2)/4.",
+      "lead": "Pick the function, the sign and two angles to see the identity, the exact values substituted and the simplified result.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "double-half-angle-identities", "name": "Double-Angle and Half-Angle Identity Calculator", "shortName": "Double & Half Angle", "category": "trigonometry", "generated": true,
+      "summary": "sin 2θ, cos 2θ, tan 2θ and the half-angle formulas, with the ± sign chosen from the quadrant.",
+      "keywords": ["double angle", "half angle", "sin 2x", "cos 2x", "half-angle formula", "trig identities"],
+      "related": ["sum-difference-identities", "trig-identity-checker", "trig-equation-solver"],
+      "title": "Double-Angle and Half-Angle Calculator with Steps | Solver Hub",
+      "description": "Apply the double-angle and half-angle identities for sine, cosine and tangent, with exact values and the correct sign for the quadrant of θ/2.",
+      "lead": "Choose double or half angle, the function and θ, and see the identity, the substitution, the sign decision and the exact or decimal answer.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "trig-graph-explorer", "name": "Trigonometric Graph Explorer", "shortName": "Trig Graph Explorer", "category": "trigonometry", "generated": true,
+      "summary": "Amplitude, period, phase shift, vertical shift and key points of y = A sin(B(x − C)) + D, with a live graph.",
+      "keywords": ["trig graph", "amplitude", "period", "phase shift", "sinusoid", "transformations"],
+      "related": ["degrees-radians-unit-circle", "inverse-trig-functions", "trig-equation-solver"],
+      "title": "Trig Graph Explorer – Amplitude, Period and Phase Shift | Solver Hub",
+      "description": "Graph y = A sin(B(x − C)) + D, A cos or A tan with amplitude, period, phase shift, midline, range and key points explained step by step.",
+      "lead": "Enter A, B, C and D to get the period, amplitude, shifts and key points — then drag the sliders to watch each transformation change the graph.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "vector-resultant", "name": "Vector Components and Resultant Calculator", "shortName": "Vector Resultant", "category": "trigonometry", "generated": true,
+      "summary": "Resolve vectors into components and add them: resultant magnitude and direction in the correct quadrant, with a tip-to-tail diagram.",
+      "keywords": ["vector addition", "resultant", "components", "magnitude and direction", "atan2", "forces"],
+      "related": ["law-of-cosines", "right-triangle-solver", "newtons-second-law"],
+      "title": "Vector Resultant Calculator – Components, Magnitude, Direction | Solver Hub",
+      "description": "Add up to six vectors given by magnitude and direction: components, resultant magnitude and direction with the correct quadrant, and a diagram.",
+      "lead": "Enter each vector’s size and direction to see its components, the summed components and the resultant’s magnitude and direction.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "limit-explorer", "name": "Limit Calculator and Explorer", "shortName": "Limits", "category": "calculus", "generated": true,
+      "summary": "One- and two-sided limits and limits at infinity: exact by substitution or cancellation, otherwise a clearly labelled numerical estimate.",
+      "keywords": ["limit", "one-sided limit", "limit at infinity", "0/0", "indeterminate form", "table of values"],
+      "related": ["continuity-explorer", "derivative-calculator", "tangent-line-calculator"],
+      "title": "Limit Calculator – One-Sided Limits and Limits at Infinity | Solver Hub",
+      "description": "Evaluate limits by substitution, cancellation or a table of values, including one-sided limits, limits at infinity and limits that do not exist.",
+      "lead": "Enter f(x) and the point to see whether substitution works, cancel 0/0 exactly, and read the table of values from both sides.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "continuity-explorer", "name": "Continuity and Discontinuity Explorer", "shortName": "Continuity", "category": "calculus", "generated": true,
+      "summary": "Test continuity at a point with the three-part definition and classify removable, jump and infinite discontinuities.",
+      "keywords": ["continuity", "discontinuity", "removable", "jump discontinuity", "piecewise function", "infinite discontinuity"],
+      "related": ["limit-explorer", "derivative-calculator", "critical-points"],
+      "title": "Continuity Calculator – Removable, Jump and Infinite Discontinuities | Solver Hub",
+      "description": "Check whether a function or a piecewise function is continuous at a point and classify any discontinuity, with one-sided limits and a graph.",
+      "lead": "Enter a formula or a piecewise function and the point to run the three-part continuity test and see which kind of discontinuity occurs.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "related-rates", "name": "Related Rates Calculator", "shortName": "Related Rates", "category": "calculus", "generated": true,
+      "summary": "Classic related-rates problems — sliding ladder, ripples, balloons, filling cone and shadows — differentiated step by step.",
+      "keywords": ["related rates", "implicit differentiation", "ladder problem", "cone tank", "balloon", "shadow problem"],
+      "related": ["derivative-calculator", "optimization", "tangent-line-calculator"],
+      "title": "Related Rates Calculator – Ladder, Cone Tank, Balloon, Shadow | Solver Hub",
+      "description": "Solve related-rates problems step by step: relate the quantities, differentiate with respect to time, then substitute the values at that moment.",
+      "lead": "Choose a scenario, enter the values at the moment you care about, and see the relation, its time derivative and the rate you want.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "optimization", "name": "Optimization Calculator", "shortName": "Optimization", "category": "calculus", "generated": true,
+      "summary": "Maximise a box’s volume or a fenced area, or minimise a can’s surface area, with derivatives and the second-derivative test.",
+      "keywords": ["optimization", "maximum", "minimum", "open box problem", "fence problem", "minimise surface area"],
+      "related": ["critical-points", "derivative-calculator", "related-rates"],
+      "title": "Optimization Calculator – Box, Fence and Can Problems | Solver Hub",
+      "description": "Solve classic optimization problems with calculus: set up the objective, differentiate, find the critical point and confirm it is a maximum or minimum.",
+      "lead": "Choose the open box, the fenced rectangle or the cylindrical can, enter the given size, and follow every step to the best dimensions.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "volume-of-revolution", "name": "Volume of Revolution Calculator", "shortName": "Volume of Revolution", "category": "calculus", "generated": true,
+      "summary": "Volumes of solids of revolution about the x- or y-axis by the disk, washer or shell method, exact for polynomials.",
+      "keywords": ["volume of revolution", "disk method", "washer method", "shell method", "solid of revolution", "integral volume"],
+      "related": ["definite-integral", "area-between-curves", "cylinder"],
+      "title": "Volume of Revolution Calculator – Disk, Washer and Shell Methods | Solver Hub",
+      "description": "Find the volume of a solid of revolution with the disk, washer or shell method, exact multiples of π for polynomials, and a side-view diagram.",
+      "lead": "Enter the outer and optional inner curve, the limits and the axis to get the method, the integral and the volume of the solid.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "quartiles-percentiles", "name": "Quartiles, Percentiles and IQR Calculator", "shortName": "Quartiles & IQR", "category": "statistics-probability", "generated": true,
+      "summary": "Q₁, median, Q₃, interquartile range, outliers and any percentile, by two common methods, with a box plot.",
+      "keywords": ["quartiles", "percentile", "interquartile range", "box plot", "outliers", "five-number summary"],
+      "related": ["mean-median-mode-range", "variance-and-standard-deviation", "z-score-calculator"],
+      "title": "Quartile and Percentile Calculator – IQR and Box Plot | Solver Hub",
+      "description": "Calculate quartiles, the interquartile range, outlier fences and any percentile of a data set, using the textbook or Excel method, with a box plot.",
+      "lead": "Paste your data to get the five-number summary, IQR, outliers and a box plot — choose the quartile method your course uses.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "counting-probability", "name": "Permutation and Combination Probability Calculator", "shortName": "Counting Probability", "category": "statistics-probability", "generated": true,
+      "summary": "Probability of drawing k successes in n picks without replacement (hypergeometric), exact fractions and the full distribution.",
+      "keywords": ["probability", "combinations", "hypergeometric", "cards", "lottery", "without replacement"],
+      "related": ["permutations-and-combinations", "binomial-probability", "bayes-theorem"],
+      "title": "Combination Probability Calculator – Cards, Lotteries, Committees | Solver Hub",
+      "description": "Find the probability of exactly, at least or at most k successes when choosing n items without replacement, as exact fractions with every count.",
+      "lead": "Enter the group size, the number of successes in it, how many you choose and how many successes you want, and see the counting steps.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "bayes-theorem", "name": "Conditional Probability and Bayes’ Theorem Calculator", "shortName": "Bayes’ Theorem", "category": "statistics-probability", "generated": true,
+      "summary": "Posterior probability P(A|B) from a prior and likelihoods, with a probability tree and natural-frequency table.",
+      "keywords": ["Bayes theorem", "conditional probability", "posterior", "false positive", "medical test", "probability tree"],
+      "related": ["counting-probability", "binomial-probability", "normal-distribution"],
+      "title": "Bayes’ Theorem Calculator – Conditional Probability with Steps | Solver Hub",
+      "description": "Calculate P(A|B) from P(A), P(B|A) and P(B|not A) with Bayes’ theorem, a probability tree and a frequency table — or from P(A and B) and P(B).",
+      "lead": "Enter a prior and the two likelihoods to see the total probability, the posterior, a probability tree and the same result as counts out of 10,000.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "poisson-distribution", "name": "Poisson Distribution Calculator", "shortName": "Poisson Distribution", "category": "statistics-probability", "generated": true,
+      "summary": "P(X = k), P(X ≤ k), P(X ≥ k) and ranges for a Poisson distribution with rate λ, with a highlighted bar chart.",
+      "keywords": ["Poisson distribution", "rate", "events per interval", "lambda", "probability", "counts"],
+      "related": ["binomial-probability", "normal-distribution", "counting-probability"],
+      "title": "Poisson Distribution Calculator – Exact, Cumulative, Range | Solver Hub",
+      "description": "Calculate Poisson probabilities for exactly k, at most k, at least k or a range of events from the average rate λ, with steps and a chart.",
+      "lead": "Enter the average rate λ and k to get the probability, the terms that are added, and a chart of the distribution.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "linear-regression", "name": "Linear Regression and Correlation Calculator", "shortName": "Linear Regression", "category": "statistics-probability", "generated": true,
+      "summary": "Least-squares line, Pearson’s r and r², residuals and predictions from paired data, with a draggable scatter plot.",
+      "keywords": ["linear regression", "line of best fit", "correlation coefficient", "least squares", "r squared", "scatter plot"],
+      "related": ["mean-median-mode-range", "variance-and-standard-deviation", "slope-and-equation-of-a-line"],
+      "title": "Linear Regression Calculator – Line of Best Fit and r | Solver Hub",
+      "description": "Fit a least-squares regression line to paired data, with Pearson’s correlation r, r², residuals, predictions and a scatter plot, step by step.",
+      "lead": "Paste x, y pairs to get the regression line, the correlation and every sum used — then drag points to see how outliers move the line.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "derangements", "name": "Derangement (Subfactorial) Calculator", "shortName": "Derangements", "category": "combinatorics", "generated": true,
+      "summary": "Count arrangements with no item in its original place, !n, exactly — and the probability, which tends to 1/e.",
+      "keywords": ["derangement", "subfactorial", "hat check problem", "secret santa", "fixed points", "inclusion exclusion"],
+      "related": ["factorial-calculator", "inclusion-exclusion", "permutations-and-combinations"],
+      "title": "Derangement Calculator – Subfactorial !n with Steps | Solver Hub",
+      "description": "Count derangements (subfactorials) exactly with the recurrence and inclusion–exclusion, find the probability of no fixed point and list small cases.",
+      "lead": "Enter n to get !n exactly, the probability that nothing stays in place, and every derangement listed for small n.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "integer-partitions", "name": "Integer Partition Calculator", "shortName": "Integer Partitions", "category": "combinatorics", "generated": true,
+      "summary": "Count and list the ways to write n as a sum of positive integers, including distinct parts, bounded parts and exactly k parts.",
+      "keywords": ["integer partition", "partition function", "p(n)", "Ferrers diagram", "distinct parts", "number theory"],
+      "related": ["generating-functions", "permutations-with-repetition", "pigeonhole-principle"],
+      "title": "Integer Partition Calculator – p(n) and Ferrers Diagrams | Solver Hub",
+      "description": "Count integer partitions p(n) exactly, with distinct parts, parts at most m or exactly k parts, and list them with Ferrers diagrams for small n.",
+      "lead": "Enter n and the kind of partition to get the exact count, the method behind it and, for small n, every partition drawn as a Ferrers diagram.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "pigeonhole-principle", "name": "Pigeonhole Principle Calculator", "shortName": "Pigeonhole Principle", "category": "combinatorics", "generated": true,
+      "summary": "How full some box must be when n items go into k boxes, and how many items guarantee m in one box.",
+      "keywords": ["pigeonhole principle", "Dirichlet box principle", "ceiling function", "guarantee", "worst case"],
+      "related": ["integer-partitions", "inclusion-exclusion", "derangements"],
+      "title": "Pigeonhole Principle Calculator with Worst-Case Diagram | Solver Hub",
+      "description": "Apply the pigeonhole principle: the guaranteed fullest box ⌈n/k⌉, or the number of items needed to force m into one box, with a diagram.",
+      "lead": "Enter the number of items and boxes — or how many you want in one box — to get the guarantee and see the worst-case spread.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "recurrence-relations", "name": "Recurrence Relation Solver", "shortName": "Recurrence Relations", "category": "combinatorics", "generated": true,
+      "summary": "Closed forms for first-order and second-order linear recurrences with constant coefficients, checked against the exact terms.",
+      "keywords": ["recurrence relation", "characteristic equation", "Fibonacci", "closed form", "linear recurrence", "difference equation"],
+      "related": ["arithmetic-geometric-sequences", "generating-functions", "integer-partitions"],
+      "title": "Recurrence Relation Solver – Closed Form with Characteristic Roots | Solver Hub",
+      "description": "Solve linear recurrences such as Fibonacci with the characteristic equation: distinct, repeated or complex roots, constants and a check.",
+      "lead": "Enter the coefficients and starting terms to get the characteristic roots, the closed form and a table of exact terms.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "generating-functions", "name": "Generating Function Explorer", "shortName": "Generating Functions", "category": "combinatorics", "generated": true,
+      "summary": "Count selections with limits per type, or ways to make an amount from coins, by multiplying generating functions.",
+      "keywords": ["generating function", "coefficient extraction", "coin change", "stars and bars", "counting", "power series"],
+      "related": ["integer-partitions", "recurrence-relations", "permutations-and-combinations"],
+      "title": "Generating Function Calculator – Counting with Polynomials | Solver Hub",
+      "description": "Use generating functions to count selections with limits per type or ways to make change from coins, with the product and the coefficient read off.",
+      "lead": "Describe the limits for each type, or list coin values, choose the total, and see the generating function, its expansion and the answer.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "laplace-transform", "name": "Laplace Transform Calculator", "shortName": "Laplace Transform", "category": "engineering-mathematics", "generated": true,
+      "summary": "Laplace transforms of sums of tⁿe^(at), e^(at)sin(bt), e^(at)cos(bt) and related terms, using the table and shifting theorem.",
+      "keywords": ["Laplace transform", "s-domain", "shifting theorem", "transform table", "differential equations", "engineering"],
+      "related": ["inverse-laplace-transform", "first-order-ode", "partial-fractions"],
+      "title": "Laplace Transform Calculator with Table Rules and Steps | Solver Hub",
+      "description": "Find the Laplace transform of sums of exponentials, powers of t, sines and cosines step by step, with the rule used for each term.",
+      "lead": "Enter f(t) as a sum of supported terms to get F(s), the table rule for every term and the region of convergence.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "inverse-laplace-transform", "name": "Inverse Laplace Transform Calculator", "shortName": "Inverse Laplace Transform", "category": "engineering-mathematics", "generated": true,
+      "summary": "Inverse Laplace transforms of rational functions by partial fractions, with a numerical check and a graph of f(t).",
+      "keywords": ["inverse Laplace transform", "partial fractions", "poles", "damped oscillation", "rational function", "circuits"],
+      "related": ["laplace-transform", "partial-fractions", "first-order-ode"],
+      "title": "Inverse Laplace Transform Calculator – Partial Fractions | Solver Hub",
+      "description": "Find the inverse Laplace transform of a proper rational function by partial fractions and table lookups, with completed squares and a graph.",
+      "lead": "Enter the numerator and denominator in s to get the partial fractions, the inverse of every term and f(t), checked numerically.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "fourier-series", "name": "Fourier Series Explorer", "shortName": "Fourier Series", "category": "engineering-mathematics", "generated": true,
+      "summary": "Fourier coefficients and partial sums of square, sawtooth and triangle waves, with Gibbs overshoot and an interactive harmonic slider.",
+      "keywords": ["Fourier series", "harmonics", "square wave", "sawtooth wave", "Gibbs phenomenon", "signals"],
+      "related": ["numerical-integration", "laplace-transform", "complex-number-calculator"],
+      "title": "Fourier Series Calculator – Square, Sawtooth and Triangle Waves | Solver Hub",
+      "description": "Compute the Fourier series of square, sawtooth and triangle waves: coefficients, partial sums, convergence and the Gibbs phenomenon.",
+      "lead": "Choose a wave, its amplitude and period, and the number of harmonics to see the coefficients, the series and how the partial sum converges.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "first-order-ode", "name": "First-Order Differential Equation Solver", "shortName": "First-Order ODEs", "category": "engineering-mathematics", "generated": true,
+      "summary": "Solve dy/dx = f(x), k·y, a·y + b or f(x)·y with an initial condition, checked by RK4 and drawn on a slope field.",
+      "keywords": ["differential equation", "first order ODE", "separable", "exponential growth", "Newton cooling", "slope field"],
+      "related": ["laplace-transform", "indefinite-integral", "numerical-root-finder"],
+      "title": "First-Order Differential Equation Solver with Slope Field | Solver Hub",
+      "description": "Solve first-order ODEs — direct integration, growth and decay, linear with constant coefficients, separable — with steps, an RK4 check and a slope field.",
+      "lead": "Choose the equation type, enter the parameters and initial condition, and get the solution, its value at a point and a slope-field graph.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "eigenvalues-eigenvectors", "name": "Eigenvalue and Eigenvector Calculator", "shortName": "Eigenvalues", "category": "engineering-mathematics", "generated": true,
+      "summary": "Eigenvalues and eigenvectors of 2 × 2 and 3 × 3 matrices: characteristic polynomial, exact roots and exact eigenvectors where possible.",
+      "keywords": ["eigenvalues", "eigenvectors", "characteristic polynomial", "matrix", "diagonalisation", "linear algebra"],
+      "related": ["matrix-calculator", "matrix-method-linear-systems", "complex-number-calculator"],
+      "title": "Eigenvalue and Eigenvector Calculator – 2 × 2 and 3 × 3 | Solver Hub",
+      "description": "Find eigenvalues and eigenvectors of 2 × 2 and 3 × 3 matrices with the characteristic polynomial, exact roots, row reduction and a diagram.",
+      "lead": "Enter a square matrix to get the characteristic polynomial, its roots, the eigenvectors from A − λI and checks with the trace and determinant.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "momentum-collisions", "name": "Conservation of Momentum Collision Simulator", "shortName": "Momentum & Collisions", "category": "physics", "generated": true,
+      "summary": "Velocities after elastic, perfectly inelastic and partly elastic 1D collisions, with kinetic energy lost and an animation.",
+      "keywords": ["momentum", "collision", "elastic collision", "inelastic collision", "coefficient of restitution", "conservation"],
+      "related": ["newtons-second-law", "work-energy-power", "motion-calculator"],
+      "title": "Momentum and Collision Calculator with Simulation | Solver Hub",
+      "description": "Find the velocities after a one-dimensional collision — elastic, sticky or with restitution e — with momentum and energy checks and an animation.",
+      "lead": "Enter both masses and velocities and the type of collision to get the final velocities, the kinetic energy lost and a collision you can play.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "circular-motion", "name": "Circular Motion Calculator and Simulator", "shortName": "Circular Motion", "category": "physics", "generated": true,
+      "summary": "Period, angular speed, centripetal acceleration and force for uniform circular motion, from speed, period or rpm.",
+      "keywords": ["circular motion", "centripetal acceleration", "centripetal force", "angular velocity", "period", "rpm"],
+      "related": ["newtons-second-law", "spring-mass-shm", "projectile-motion"],
+      "title": "Circular Motion Calculator – Centripetal Force and Acceleration | Solver Hub",
+      "description": "Calculate speed, period, angular velocity, centripetal acceleration and force for uniform circular motion, with an animated diagram.",
+      "lead": "Enter the radius and the speed, period or rpm (and optionally the mass) to get ω, a_c and F_c — then watch the velocity and acceleration vectors move.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "spring-mass-shm", "name": "Spring-Mass Simple Harmonic Motion Simulator", "shortName": "Spring-Mass SHM", "category": "physics", "generated": true,
+      "summary": "Period, frequency, maximum speed and energy of a mass on a spring, with an animated oscillator and position graph.",
+      "keywords": ["simple harmonic motion", "spring", "Hooke law", "period", "oscillation", "spring constant"],
+      "related": ["circular-motion", "wave-calculator", "work-energy-power"],
+      "title": "Spring-Mass SHM Calculator – Period, Frequency and Energy | Solver Hub",
+      "description": "Find the period, frequency, maximum speed and acceleration and total energy of a spring-mass oscillator, with a simulation and graph.",
+      "lead": "Enter the mass, spring constant and amplitude to get ω, T, v_max and the energy, plus the position at any time — then watch it oscillate.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "lens-mirror-equation", "name": "Lens and Mirror Equation Calculator with Ray Diagram", "shortName": "Lenses & Mirrors", "category": "physics", "generated": true,
+      "summary": "Image distance, magnification and nature of the image for thin lenses and spherical mirrors, with a ray diagram drawn to scale.",
+      "keywords": ["lens equation", "mirror equation", "magnification", "ray diagram", "focal length", "optics"],
+      "related": ["wave-calculator", "projectile-motion", "ohms-law"],
+      "title": "Lens and Mirror Equation Calculator with Ray Diagram | Solver Hub",
+      "description": "Use 1/f = 1/dₒ + 1/dᵢ for converging and diverging lenses and concave and convex mirrors: image distance, magnification and a ray diagram.",
+      "lead": "Choose the lens or mirror, enter the focal length and object distance, and get where the image forms, its size and whether it is real or virtual.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "thermal-expansion-calorimetry", "name": "Thermal Expansion and Calorimetry Calculator", "shortName": "Thermal Physics", "category": "physics", "generated": true,
+      "summary": "Linear and volume expansion, heat Q = mcΔT and the final temperature when two substances mix, with typical material values.",
+      "keywords": ["thermal expansion", "calorimetry", "specific heat", "Q = mcΔT", "coefficient of expansion", "mixing temperature"],
+      "related": ["work-energy-power", "wave-calculator", "newtons-second-law"],
+      "title": "Thermal Expansion and Calorimetry Calculator with Steps | Solver Hub",
+      "description": "Calculate thermal expansion of rods and liquids, the heat needed to change temperature, and the final temperature of a mixture, step by step.",
+      "lead": "Choose expansion, heating or mixing, pick a material for typical constants, and see each formula with your values substituted.",
+      "updated": "2026-11-03"
     }
   ]
 }

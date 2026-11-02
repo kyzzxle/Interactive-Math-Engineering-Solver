@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the angle between two lines calculator does</h2>
+          <p>Two intersecting lines make two pairs of equal angles that add up to 180°. By convention the <strong>angle between the lines</strong> is the acute one, θ; the other is 180° − θ.</p>
+          <p>With slopes, the tangent formula gives θ directly. With direction vectors (in 2D or 3D) the dot product gives \(\cos\theta\). For lines given as \(Ax + By + C = 0\), the normals \((A, B)\) make the same angle as the lines.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Make m₁·m₂ = −1 in the explorer: the lines become perpendicular and the tan formula’s denominator is 0.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \tan\theta = \left\lvert \frac{m_2 - m_1}{1 + m_1 m_2} \right\rvert \]\[ \cos\theta = \frac{\lvert u \cdot v \rvert}{\lVert u \rVert\,\lVert v \rVert} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(m_1,\ m_2\)</td><td>Slopes of the two lines</td></tr>
+              <tr><td>\(u,\ v\)</td><td>Direction vectors (2D or 3D)</td></tr>
+              <tr><td>\(\theta\)</td><td>Acute angle between the lines</td></tr>
+            </tbody>
+          </table>
+          <p>Equal slopes mean parallel lines (θ = 0°); m₁m₂ = −1 means perpendicular lines (θ = 90°).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Lines with slopes 2 and −1/3</h3>
+            <h4>Step 1 — Substitute</h4>
+            \[ \tan\theta = \left| \frac{-\tfrac{1}{3} - 2}{1 + 2(-\tfrac{1}{3})} \right| = \left| \frac{-7/3}{1/3} \right| = 7 \]
+            <h4>Step 2 — Inverse tangent</h4>
+            \[ \theta = \tan^{-1} 7 \approx 81.87^\circ \]
+            <h4>Step 3 — The other angle</h4>
+            \[ 180^\circ - 81.87^\circ = 98.13^\circ \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Vertical lines have no slope: use the general-form or vector mode instead.</li>
+            <li>In 3D, skew lines (which never meet) still have an angle: that of their directions.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Forgetting the absolute value and getting a negative angle.</li>
+            <li>Using the coefficients (A, B) as a direction in 2D: they are the normal; the direction is (B, −A). Both give the same angle.</li>
+          </ul>
+        </section>

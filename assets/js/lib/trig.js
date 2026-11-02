@@ -55,7 +55,11 @@ export function exactTrig(deg) {
   const ref = t <= 90 ? t : t <= 180 ? 180 - t : t <= 270 ? t - 180 : 360 - t;
   const sSign = t > 180 && t < 360 ? -1 : 1;
   const cSign = t > 90 && t < 270 ? -1 : 1;
-  const sign = (pair, s) => (pair[0] === '0' || s > 0 ? pair : [`-${pair[0]}`, `−${pair[1]}`]);
+  // A two-term value such as 2 + √3 must be negated as a whole: −(2 + √3), not −2 + √3.
+  const sign = (pair, s) => {
+    if (pair[0] === '0' || s > 0) return pair;
+    return /^\d/.test(pair[0]) && / [+-] /.test(pair[0]) ? [`-\\left(${pair[0]}\\right)`, `−(${pair[1]})`] : [`-${pair[0]}`, `−${pair[1]}`];
+  };
   const sin = sign(SIN[ref], sSign);
   const cos = sign(SIN[90 - ref], cSign);
   const tanPair = TAN[ref];

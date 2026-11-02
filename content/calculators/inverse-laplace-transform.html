@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the inverse Laplace transform calculator does</h2>
+          <p>The <strong>inverse Laplace transform</strong> recovers f(t) from F(s). For rational functions the method is: split F(s) into partial fractions, then recognise each piece in the transform table.</p>
+          <p>Real poles give exponentials; repeated poles add powers of t; complex poles give exponentially growing or decaying oscillations. The location of the poles therefore tells you how a system behaves.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Poles with negative real part give terms that die away — the hallmark of a stable system.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \mathcal{L}^{-1}\left\{\frac{1}{(s - r)^k}\right\} = \frac{t^{k-1}e^{rt}}{(k-1)!} \]\[ \mathcal{L}^{-1}\left\{\frac{B(s + \alpha) + C\omega}{(s + \alpha)^2 + \omega^2}\right\} = e^{-\alpha t}\left(B\cos\omega t + C\sin\omega t\right) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Real pole</td></tr>
+              <tr><td>\(-\alpha \pm i\omega\)</td><td>Complex poles</td></tr>
+              <tr><td>\(k\)</td><td>Multiplicity of a pole</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Invert (s + 3)/(s² + 2s + 5)</h3>
+            <h4>Step 1 — Complete the square</h4>
+            \[ s^2 + 2s + 5 = (s + 1)^2 + 4 \]
+            <h4>Step 2 — Split the numerator</h4>
+            \[ \frac{s + 3}{(s + 1)^2 + 4} = \frac{s + 1}{(s + 1)^2 + 2^2} + \frac{2}{(s + 1)^2 + 2^2} \]
+            <h4>Step 3 — Table</h4>
+            \[ f(t) = e^{-t}(\cos 2t + \sin 2t) \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Proper rational functions (numerator degree lower than the denominator).</li>
+            <li>Denominators with rational roots and at most one quadratic factor, degree up to 6.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Forgetting to complete the square before using the sine and cosine pairs.</li>
+            <li>Dropping the 1/(k − 1)! for repeated poles.</li>
+          </ul>
+        </section>

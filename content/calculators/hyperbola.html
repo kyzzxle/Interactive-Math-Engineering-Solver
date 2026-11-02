@@ -1,0 +1,47 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the hyperbola calculator does</h2>
+          <p>A <strong>hyperbola</strong> is the set of points whose distances to two foci differ by a constant, 2a. It has two separate branches, each curving around one focus, and far from the centre each branch approaches a straight line, an <strong>asymptote</strong>.</p>
+          <p>Here \(a\) is the semi-axis in the direction the hyperbola opens (centre to vertex) and \(b\) the conjugate semi-axis, which sets the slopes of the asymptotes.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Make a = b in the explorer: the asymptotes are perpendicular (a rectangular hyperbola, like y = 1/x turned 45°).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \frac{(x - h)^2}{a^2} - \frac{(y - k)^2}{b^2} = 1 \quad \text{or} \quad \frac{(y - k)^2}{a^2} - \frac{(x - h)^2}{b^2} = 1 \]\[ c^2 = a^2 + b^2 \qquad e = \frac{c}{a} &gt; 1 \qquad y - k = \pm\frac{b}{a}(x - h) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((h, k)\)</td><td>Centre</td></tr>
+              <tr><td>\(a\)</td><td>Transverse semi-axis: centre to vertex</td></tr>
+              <tr><td>\(b\)</td><td>Conjugate semi-axis</td></tr>
+              <tr><td>\(c\)</td><td>Centre-to-focus distance</td></tr>
+            </tbody>
+          </table>
+          <p>For a hyperbola that opens up and down, the asymptotes have slopes ±a/b instead.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Opens left–right, centre (1, −2), a = 3, b = 4</h3>
+            <h4>Step 1 — Equation</h4>
+            \[ \frac{(x - 1)^2}{9} - \frac{(y + 2)^2}{16} = 1 \]
+            <h4>Step 2 — Foci</h4>
+            \[ c^2 = 9 + 16 = 25,\ c = 5:\quad (1 \pm 5,\ -2) \]
+            <h4>Step 3 — Asymptotes and eccentricity</h4>
+            \[ y + 2 = \pm \tfrac{4}{3}(x - 1),\qquad e = \tfrac{5}{3} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>a and b must be positive; b may be larger than a.</li>
+            <li>Only axis-aligned hyperbolas (no rotation) are supported.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using c² = a² − b² as for an ellipse.</li>
+            <li>Swapping a and b when the hyperbola opens vertically.</li>
+          </ul>
+        </section>

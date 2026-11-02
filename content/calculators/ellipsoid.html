@@ -1,0 +1,48 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the ellipsoid calculator does</h2>
+          <p>An <strong>ellipsoid</strong> is a sphere stretched by different amounts along three perpendicular directions. Its half-widths along those directions are the <strong>semi-axes</strong> \(a\), \(b\) and \(c\). When two semi-axes are equal it is a <strong>spheroid</strong>: oblate (flattened, like the Earth) or prolate (elongated, like a rugby ball).</p>
+          <p>The volume has a simple exact formula. The surface area does not: for a general ellipsoid it needs elliptic integrals, which this calculator evaluates numerically and compares with Thomsen’s well-known approximation.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Set all three semi-axes equal in the explorer: the formulas reduce to the sphere’s \(V = \tfrac{4}{3}\pi r^3\) and \(A = 4\pi r^2\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1 \]\[ V = \frac{4}{3}\pi abc \]\[ S = 2\pi C^2 + \frac{2\pi AB}{\sin\varphi}\left(E(\varphi,k)\sin^2\varphi + F(\varphi,k)\cos^2\varphi\right) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a,\ b,\ c\)</td><td>Semi-axes (half-widths) along three perpendicular directions</td></tr>
+              <tr><td>\(A \ge B \ge C\)</td><td>The same semi-axes sorted from largest to smallest</td></tr>
+              <tr><td>\(\cos\varphi = C/A,\ k^2 = \frac{A^2(B^2 - C^2)}{B^2(A^2 - C^2)}\)</td><td>Angle and modulus of the elliptic integrals</td></tr>
+              <tr><td>\(F,\ E\)</td><td>Incomplete elliptic integrals of the first and second kind</td></tr>
+            </tbody>
+          </table>
+          <p>Thomsen’s approximation \(S \approx 4\pi\left(\tfrac{(ab)^p + (ac)^p + (bc)^p}{3}\right)^{1/p}\) with \(p = 1.6075\) is within about 1.06% for every ellipsoid.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>An ellipsoid with semi-axes 5, 3 and 2 cm</h3>
+            <h4>Step 1 — Volume</h4>
+            \[ V = \frac{4}{3}\pi (5)(3)(2) = 40\pi \approx 125.66\ \text{cm}^3 \]
+            <h4>Step 2 — Elliptic-integral parameters</h4>
+            \[ \cos\varphi = \frac{2}{5},\quad k^2 = \frac{25(9 - 4)}{9(25 - 4)} \approx 0.6614 \]
+            <h4>Step 3 — Surface area</h4>
+            <p>Evaluating \(F\) and \(E\) numerically gives \(S \approx 134.78\ \text{cm}^2\). Thomsen’s formula gives about 134.6 cm², within 0.2%.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>All three semi-axes must be positive. Units must match; the volume is in cubic units and the area in square units.</li>
+            <li>The volume is exact (a multiple of π when the inputs are exact). The surface area is numerical, accurate to about 10 significant digits.</li>
+            <li>Semi-axes that differ by more than a factor of a million are rejected because the integral becomes unreliable.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Using full widths (diameters) instead of semi-axes: halve them first.</li>
+            <li>Assuming the surface area is “4π × the average radius squared” — that is only true for a sphere.</li>
+          </ul>
+        </section>

@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the Laplace transform calculator does</h2>
+          <p>The <strong>Laplace transform</strong> turns a function of time \(f(t)\) into a function of a new variable \(s\). It changes differential equations into algebra, which is why engineers use it for circuits, control systems and vibrations.</p>
+          <p>Most transforms are built from a short table plus two rules: <strong>linearity</strong> (transform term by term) and the <strong>first shifting theorem</strong> (an extra factor e^{at} replaces s by s − a).</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Compare L{cos 2t} with L{e^{−t} cos 2t}: the second is the first with s replaced by s + 1.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ F(s) = \int_0^\infty e^{-st} f(t)\,dt \]\[ \mathcal{L}\{t^n\} = \frac{n!}{s^{n+1}} \quad \mathcal{L}\{\sin bt\} = \frac{b}{s^2 + b^2} \quad \mathcal{L}\{\cos bt\} = \frac{s}{s^2 + b^2} \quad \mathcal{L}\{e^{at}g(t)\} = G(s - a) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(t\)</td><td>Time (t ≥ 0)</td></tr>
+              <tr><td>\(s\)</td><td>Transform variable</td></tr>
+              <tr><td>\(a,\ b\)</td><td>Exponential rate and angular frequency</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Transform f(t) = 3e^{−2t} + t² − 4 sin 5t</h3>
+            <h4>Step 1 — Term by term</h4>
+            \[ \mathcal{L}\{3e^{-2t}\} = \frac{3}{s + 2},\quad \mathcal{L}\{t^2\} = \frac{2}{s^3},\quad \mathcal{L}\{4\sin 5t\} = \frac{20}{s^2 + 25} \]
+            <h4>Step 2 — Combine</h4>
+            \[ F(s) = \frac{3}{s + 2} + \frac{2}{s^3} - \frac{20}{s^2 + 25} \]
+            <h4>Step 3 — Convergence</h4>
+            <p>Valid for s &gt; 0 (the largest exponential rate is 0 here, from t² and sin 5t).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Sums of c·tⁿ·e^(at), e^(at)·sin(bt), e^(at)·cos(bt), t·e^(at)·sin/cos(bt) and e^(at)·sinh/cosh(bt).</li>
+            <li>Step functions, delays and products of different trig functions are not supported.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Transforming a product as the product of transforms (it is not).</li>
+            <li>Forgetting to shift every s, including in s² + b², when e^{at} is present.</li>
+          </ul>
+        </section>

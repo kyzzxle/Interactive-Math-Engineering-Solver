@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the related rates calculator does</h2>
+          <p>In a <strong>related-rates</strong> problem, two quantities are linked by an equation and both change with time. Differentiating the equation with respect to time links their rates of change, so knowing one rate gives the other.</p>
+          <p>The method is always the same: write the relation, differentiate implicitly with respect to t (using the chain rule), and only then substitute the values at the moment of interest.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Watch the ladder in the explorer: the base moves at a steady speed, but the top falls faster and faster.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ x^2 + y^2 = L^2 \Rightarrow 2x\frac{dx}{dt} + 2y\frac{dy}{dt} = 0 \]\[ V = \tfrac{4}{3}\pi r^3 \Rightarrow \frac{dV}{dt} = 4\pi r^2 \frac{dr}{dt} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(\frac{dx}{dt},\ \frac{dy}{dt}\)</td><td>Rates of change with respect to time</td></tr>
+              <tr><td>\(L,\ R,\ H\)</td><td>Constant quantities (they do not change, so their derivatives are 0)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A 5 m ladder slides; its base is 3 m from the wall and moving out at 0.5 m/s</h3>
+            <h4>Step 1 — Height now</h4>
+            \[ y = \sqrt{25 - 9} = 4\ \text{m} \]
+            <h4>Step 2 — Differentiate</h4>
+            \[ \frac{dy}{dt} = -\frac{x}{y}\frac{dx}{dt} \]
+            <h4>Step 3 — Substitute</h4>
+            \[ \frac{dy}{dt} = -\frac{3}{4}(0.5) = -0.375\ \text{m/s} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+          <ul>
+            <li>Five built-in scenarios: ladder, expanding circle, balloon, cone-shaped tank (point down) and shadow from a lamp.</li>
+            <li>Rates are instantaneous: they hold at that moment only.</li>
+          </ul>
+          <h3>Common mistakes</h3>
+          <ul>
+            <li>Substituting numbers before differentiating, which turns changing quantities into constants.</li>
+            <li>Losing the sign: a negative rate means the quantity is decreasing.</li>
+          </ul>
+        </section>
