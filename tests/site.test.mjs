@@ -144,3 +144,18 @@ test('generated files are up to date with the sources (npm run build has been ru
     assert.fail(`Build output is stale. Run "npm run build".\n${e.stdout}`);
   }
 });
+
+test('styles are self-hosted and every page has a link-preview image', () => {
+  assert.ok(existsSync(new URL('../assets/css/tailwind.css', import.meta.url)), 'assets/css/tailwind.css (run npm run css)');
+  assert.ok(existsSync(new URL('../assets/og/default.jpg', import.meta.url)), 'assets/og/default.jpg (run npm run og)');
+  for (const p of [...PAGES, '404.html']) {
+    const html = read(p);
+    assert.ok(!html.includes('cdn.tailwindcss.com'), `${p} still loads the Tailwind CDN`);
+    assert.ok(html.includes('assets/css/tailwind.css'), `${p} does not load tailwind.css`);
+    if (p === '404.html') continue;
+    const img = html.match(/<meta property="og:image" content="[^"]*\/assets\/og\/([^"]+)">/)?.[1];
+    assert.ok(img, `${p} has no og:image`);
+    assert.ok(existsSync(new URL(`../assets/og/${img}`, import.meta.url)), `${p}: assets/og/${img} is missing`);
+    assert.match(html, /<meta name="twitter:card" content="summary_large_image">/, `${p} twitter card`);
+  }
+});

@@ -148,9 +148,19 @@ function card(calc, root, headingLevel) {
 }
 
 const generators = {
-  head(root, opts) {
+  head(root, opts, source, file) {
     const math = opts.includes('math');
     let html = partials.head;
+    // Link-preview image: the page's own card from tools/og-images.mjs, or the site-wide default.
+    const slug = (file.match(/^calculators\/([^/]+)\/index\.html$/) || [])[1];
+    const img = slug && existsSync(join(ROOT, 'assets/og', `${slug}.jpg`)) ? `${slug}.jpg` : 'default.jpg';
+    const title = escapeHtml(((source.match(/<meta property="og:title" content="([^"]*)">/) || [])[1] || config.siteName).replace(/&amp;/g, '&'));
+    html = `  <meta property="og:image" content="${siteUrl}/assets/og/${img}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${/Solver Hub/.test(title) ? title : `${title} — Solver Hub`}">
+  <meta name="twitter:image" content="${siteUrl}/assets/og/${img}">
+${html}`;
     const meta = publisherValid ? `<meta name="google-adsense-account" content="${ads.publisherId}">` : '';
     html = meta ? html.replace('{{adsenseMeta}}', meta) : html.replace(/^[ \t]*\{\{adsenseMeta\}\}\r?\n/m, '');
     // KaTeX is self-hosted and only loaded where results are typeset in the browser.

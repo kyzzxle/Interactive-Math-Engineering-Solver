@@ -45,6 +45,9 @@ export function mountExplorer(root, spec) {
   if (!root || !spec) return null;
   const id = `ex${++seq}`;
   const ctrls = spec.controls;
+  if (root.__explorer) root.__explorer.destroy();
+  const ac = new AbortController(); // removes window/document listeners when the explorer is replaced
+  const opt = { signal: ac.signal };
   const values = Object.fromEntries(ctrls.map((c) => [c.name, c.value]));
   const maxOf = (c) => (typeof c.max === 'function' ? c.max(values) : c.max);
   const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
@@ -174,7 +177,7 @@ export function mountExplorer(root, spec) {
       });
     }
     root.querySelector('[data-anim-reset]').addEventListener('click', () => { stop(); values[c.name] = minOf(c); update(); });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); }, opt);
   }
 
   // ------------------------------------------------ dragging points / rotating
@@ -229,14 +232,16 @@ export function mountExplorer(root, spec) {
       values[name] = roundTo(Math.min(maxOf(c), Math.max(minOf(c), raw)), c.step, minOf(c));
     }
     update();
-  });
+  }, opt);
   const endDrag = () => { if (dragging) { dragging = null; fig.classList.remove('is-dragging'); } };
-  window.addEventListener('pointerup', endDrag);
-  window.addEventListener('pointercancel', endDrag);
+  window.addEventListener('pointerup', endDrag, opt);
+  window.addEventListener('pointercancel', endDrag, opt);
 
   sync();
   draw();
-  return { values, update, reset };
+  const api = { values, update, reset, destroy: () => { stop(); ac.abort(); } };
+  root.__explorer = api;
+  return api;
 }
 
 // ------------------------------------------------------------------------------------ practice

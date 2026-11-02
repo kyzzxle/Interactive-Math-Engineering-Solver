@@ -123,7 +123,7 @@ export function renderCalculatorPage({ entry, calc, content, category, related, 
   <meta property="og:title" content="${esc(entry.name)}">
   <meta property="og:description" content="${esc(entry.summary)}">
   <meta property="og:url" content="${url}">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <!-- build:schema calculator -->
   <!-- /build:schema -->
   <!-- build:head math -->

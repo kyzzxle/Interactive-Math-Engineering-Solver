@@ -7,7 +7,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { texToMathML } from '../tools/katex-node.mjs';
 import { parseAnswer, judge } from '../assets/js/lib/learn.js';
 
@@ -101,6 +101,15 @@ for (const [id, calc] of withLearning) {
     });
   }
 }
+
+test('homepage demos render for defaults, presets and slider extremes', async () => {
+  const { HOME_DEMOS } = await import('../assets/js/explore/home.js');
+  assert.ok(Object.keys(HOME_DEMOS).length >= 3);
+  for (const [key, demo] of Object.entries(HOME_DEMOS)) {
+    assert.ok(existsSync(new URL(`../${demo.href}index.html`, import.meta.url)), `${key}: links to a real page`);
+    renderAll(demo.spec, `home:${key}`);
+  }
+});
 
 test('answer parsing and judging', () => {
   assert.equal(parseAnswer('3/4'), 0.75);

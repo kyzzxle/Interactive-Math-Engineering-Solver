@@ -4,9 +4,8 @@
   {{adsenseMeta}}
   <script>(function(){var t=null;try{t=localStorage.getItem("theme")}catch(e){}var d=t?t==="dark":window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")})();</script>
   <link rel="icon" href="{{root}}assets/icons/favicon.svg" type="image/svg+xml">
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script src="{{root}}assets/js/tailwind-config.js"></script>
   <link rel="stylesheet" href="{{root}}assets/css/styles.css">
+  <link rel="stylesheet" href="{{root}}assets/css/tailwind.css">
   <script src="{{root}}assets/js/site-config.js"></script>
   {{mathJs}}
   <script defer src="{{root}}assets/js/math-render.js"></script>

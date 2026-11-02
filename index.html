@@ -14,7 +14,7 @@
   <meta property="og:title" content="Interactive Math &amp; Engineering Solver Hub">
   <meta property="og:description" content="Free calculators with exact answers and step-by-step solutions for students of mathematics and engineering.">
   <meta property="og:url" content="https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <!-- build:schema website -->
   <script type="application/ld+json">
 {
@@ -46,14 +46,18 @@
   </script>
   <!-- /build:schema -->
   <!-- build:head -->
+  <meta property="og:image" content="https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/assets/og/default.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Interactive Math &amp; Engineering Solver Hub">
+  <meta name="twitter:image" content="https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/assets/og/default.jpg">
   <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
   <script>(function(){var t=null;try{t=localStorage.getItem("theme")}catch(e){}var d=t?t==="dark":window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")})();</script>
   <link rel="icon" href="./assets/icons/favicon.svg" type="image/svg+xml">
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script src="./assets/js/tailwind-config.js"></script>
   <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="stylesheet" href="./assets/css/tailwind.css">
   <script src="./assets/js/site-config.js"></script>
   <script defer src="./assets/js/math-render.js"></script>
   <script defer src="./assets/js/site.js"></script>
@@ -102,7 +106,8 @@
 
   <main id="main">
     <section class="hero-bg" aria-labelledby="hero-title">
-      <div class="container-page pb-12 pt-12 sm:pt-16">
+      <div class="container-page hero-grid pb-12 pt-12 sm:pt-16">
+        <div class="min-w-0">
         <p class="eyebrow">Free · Step-by-step · Runs in your browser</p>
         <h1 id="hero-title" class="page-title mt-3 max-w-3xl">Math and engineering calculators that show their work</h1>
         <p class="lead mt-4">Solve problems in geometry, algebra, calculus, statistics, physics and more. Every answer comes with the formula, your numbers substituted in, each intermediate step, and a lesson that explains the idea behind it.</p>
@@ -115,6 +120,23 @@
             <kbd class="search-kbd hidden sm:block" aria-hidden="true">/</kbd>
           </div>
         </div>
+        </div>
+
+        <aside class="panel hero-demo" aria-labelledby="demo-title">
+          <div class="panel-head">
+            <div><p class="learn-kicker">Try it now</p><h2 id="demo-title" class="panel-title">Change a value and watch the math respond</h2></div>
+          </div>
+          <div class="panel-body">
+            <div class="chip-row" role="group" aria-label="Choose a demo">
+              <button type="button" class="chip" data-demo="projectile" aria-pressed="true">Projectile</button>
+              <button type="button" class="chip" data-demo="parabola" aria-pressed="false">Parabola</button>
+              <button type="button" class="chip" data-demo="circle" aria-pressed="false">Unit circle</button>
+              <button type="button" class="chip" data-demo="cone" aria-pressed="false">3D cone</button>
+            </div>
+            <div class="mt-4" data-demo-root><p class="text-sm text-slate-500">The interactive demo needs JavaScript. Every calculator below still works without it.</p></div>
+            <a class="btn btn-secondary btn-sm mt-4" href="./calculators/projectile-motion/" data-demo-link>Open the projectile simulator <span aria-hidden="true">→</span></a>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -836,5 +858,6 @@
     </div>
   </footer>
   <!-- /build:footer -->
+  <script defer src="./assets/js/bundles/home-page.js"></script>
 </body>
 </html>
