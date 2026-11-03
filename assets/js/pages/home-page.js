@@ -19,3 +19,19 @@ function show(key) {
 
 tabs.forEach((t) => t.addEventListener('click', () => show(t.getAttribute('data-demo'))));
 show('projectile');
+
+// On phones and tablets the hero is a single column, so the demo would push the search
+// results far below the search box. There it moves below the calculator list instead.
+const card = document.querySelector('.hero-demo');
+const heroGrid = document.querySelector('.hero-grid');
+const slot = document.querySelector('[data-demo-slot]');
+if (card && heroGrid && slot && window.matchMedia) {
+  const wide = window.matchMedia('(min-width: 1024px)');
+  const place = () => {
+    const target = wide.matches ? heroGrid : slot;
+    if (card.parentElement !== target) target.appendChild(card);
+    slot.hidden = wide.matches;
+  };
+  place();
+  if (wide.addEventListener) wide.addEventListener('change', place);
+}

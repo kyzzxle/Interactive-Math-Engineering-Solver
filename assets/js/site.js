@@ -110,6 +110,33 @@
     // On the homepage only "featured" cards show until the visitor searches or picks a subject.
     var featuredOnly = list.hasAttribute('data-featured-only');
 
+    // Small typos still match: a word of 4+ letters may differ from a word on the card by one
+    // edit (two for 8+ letters), so "volumne" finds "volume" and "pythagorus" finds "pythagoras".
+    var within = function (a, b, max) {
+      if (Math.abs(a.length - b.length) > max) return false;
+      var prev = [];
+      for (var j = 0; j <= b.length; j++) prev[j] = j;
+      for (var i = 1; i <= a.length; i++) {
+        var cur = [i], best = i;
+        for (var k = 1; k <= b.length; k++) {
+          cur[k] = Math.min(prev[k] + 1, cur[k - 1] + 1, prev[k - 1] + (a.charAt(i - 1) === b.charAt(k - 1) ? 0 : 1));
+          if (cur[k] < best) best = cur[k];
+        }
+        if (best > max) return false;
+        prev = cur;
+      }
+      return prev[b.length] <= max;
+    };
+    var wordsOf = {};
+    var tokenMatches = function (item, hay, t) {
+      if (hay.indexOf(t) !== -1) return true;
+      if (t.length < 4) return false;
+      var key = item.getAttribute('data-category') + (item.querySelector('a') || {}).href;
+      var words = wordsOf[key] || (wordsOf[key] = hay.split(/[^a-z0-9]+/).filter(function (w) { return w.length >= 3; }));
+      var max = t.length >= 8 ? 2 : 1;
+      return words.some(function (w) { return within(t, w, max) || (w.length > t.length && within(t, w.slice(0, t.length), max)); });
+    };
+
     var apply = function () {
       var tokens = searchInput.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
       var visible = 0;
@@ -117,7 +144,7 @@
       items.forEach(function (item) {
         var hay = item.getAttribute('data-search') || '';
         var catOk = activeCategory === 'all' || item.getAttribute('data-category') === activeCategory;
-        var ok = catOk && tokens.every(function (t) { return hay.indexOf(t) !== -1; });
+        var ok = catOk && tokens.every(function (t) { return tokenMatches(item, hay, t); });
         if (featuredOnly && browsing && item.getAttribute('data-featured') !== 'true') ok = false;
         item.hidden = !ok;
         if (ok) visible++;
@@ -146,6 +173,18 @@
     };
 
     searchInput.addEventListener('input', apply);
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && searchInput.value) {
+        e.preventDefault();
+        searchInput.value = '';
+        apply();
+      } else if (e.key === 'Enter') {
+        // Enter opens the first matching calculator
+        var first = items.filter(function (it) { return !it.hidden; })[0];
+        var link = first && first.querySelector('a');
+        if (link && searchInput.value.trim()) { e.preventDefault(); location.href = link.href; }
+      }
+    });
     chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
         activeCategory = chip.getAttribute('data-category-filter');
