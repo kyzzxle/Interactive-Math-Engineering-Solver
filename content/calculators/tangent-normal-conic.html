@@ -1,0 +1,145 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What are tangent and normal lines to a conic?</h2>
+          <p>A <strong>tangent</strong> to a curve at a point is the line that just touches it there, meeting it at that point without crossing (for conics, it meets the curve at exactly one point). The <strong>normal</strong> is the line through the same point perpendicular to the tangent. For a circle the normal always passes through the centre, because a tangent is perpendicular to the radius.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose a circle, parabola, ellipse or hyperbola in standard position, then one of three problem types:</p>
+          <ul>
+            <li><strong>At a point on the curve:</strong> the tangent and normal, their slopes and equations.</li>
+            <li><strong>With a given slope:</strong> every tangent with that slope and its point of contact.</li>
+            <li><strong>From an outside point:</strong> the tangent lines through the point, their points of contact and the angle between them.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Substitute a line \(y = mx + c\) into the equation of a conic and you get a quadratic in \(x\). Two solutions mean the line cuts the conic twice; none means it misses. A <strong>tangent</strong> is the case in between: the quadratic has a <strong>double root</strong>, so its discriminant is zero. That one condition solves all three problem types.</p>
+          <div class="callout">
+            <p class="callout-title">The substitution rule</p>
+            <p>For a tangent at a point \((x_1, y_1)\) on the conic, replace \(x^2\) by \(x_1x\), \(y^2\) by \(y_1y\), \(x\) by \(\tfrac{x + x_1}{2}\) and \(y\) by \(\tfrac{y + y_1}{2}\). For example, the tangent to \(x^2 + y^2 = r^2\) at \((x_1, y_1)\) is \(x_1x + y_1y = r^2\).</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Conic</th><th scope="col">Tangent at \((x_1, y_1)\)</th><th scope="col">Tangent with slope \(m\)</th></tr></thead>
+            <tbody>
+              <tr><td>\(x^2 + y^2 = r^2\)</td><td>\(x_1x + y_1y = r^2\)</td><td>\(y = mx \pm r\sqrt{1 + m^2}\)</td></tr>
+              <tr><td>\(y^2 = 4px\)</td><td>\(y_1y = 2p(x + x_1)\)</td><td>\(y = mx + \dfrac{p}{m}\)</td></tr>
+              <tr><td>\(\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1\)</td><td>\(\dfrac{x_1x}{a^2} + \dfrac{y_1y}{b^2} = 1\)</td><td>\(y = mx \pm\sqrt{a^2m^2 + b^2}\)</td></tr>
+              <tr><td>\(\dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1\)</td><td>\(\dfrac{x_1x}{a^2} - \dfrac{y_1y}{b^2} = 1\)</td><td>\(y = mx \pm\sqrt{a^2m^2 - b^2}\)</td></tr>
+            </tbody>
+          </table>
+          <p>The normal at \((x_1, y_1)\) has slope \(-\tfrac{1}{m_T}\), where \(m_T\) is the slope of the tangent.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(h, k\)</td><td>Centre (circle, ellipse, hyperbola) or vertex (parabola)</td></tr>
+              <tr><td>\(r, a, b\)</td><td>Radius or semi-axes</td></tr>
+              <tr><td>\(p\)</td><td>Distance from the vertex to the focus of a parabola</td></tr>
+              <tr><td>\((x_1, y_1)\)</td><td>Point of tangency, or the outside point</td></tr>
+              <tr><td>\(m_T,\ m_N\)</td><td>Slopes of the tangent and the normal</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Tangent with a given slope to an ellipse</h3>
+          <p>Substitute \(y = mx + c\) into \(\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1\) and multiply by \(a^2b^2\):</p>
+          \[ (b^2 + a^2m^2)x^2 + 2a^2mc\,x + a^2(c^2 - b^2) = 0. \]
+          <p>For a double root, the discriminant is zero: \(4a^4m^2c^2 - 4(b^2 + a^2m^2)a^2(c^2 - b^2) = 0\), which simplifies to \(c^2 = a^2m^2 + b^2\).</p>
+          <h3>Tangent at a point, by implicit differentiation</h3>
+          <p>Differentiating \(\tfrac{x^2}{a^2} + \tfrac{y^2}{b^2} = 1\) gives \(\tfrac{2x}{a^2} + \tfrac{2y}{b^2}y' = 0\), so \(y' = -\tfrac{b^2x_1}{a^2y_1}\). The line through \((x_1, y_1)\) with this slope rearranges to \(\tfrac{x_1x}{a^2} + \tfrac{y_1y}{b^2} = 1\), the substitution rule.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the tangent and normal to \(x^2 + y^2 = 25\) at \((3, 4)\).</p>
+            <h4>Step 1: Tangent by the substitution rule</h4>
+            \[ 3x + 4y = 25 \;\Rightarrow\; y = -\tfrac{3}{4}x + \tfrac{25}{4} \]
+            <h4>Step 2: Normal</h4>
+            <p>The normal has slope \(\tfrac{4}{3}\) and passes through \((3, 4)\): \(y - 4 = \tfrac{4}{3}(x - 3)\), so \(y = \tfrac{4}{3}x\). It passes through the centre, as expected.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: tangents from an outside point</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the tangents to the parabola \(y^2 = 8x\) from the point \((-2, 3)\).</p>
+            <h4>Step 1: Tangent condition</h4>
+            <p>With \(4p = 8\), \(p = 2\), a line \(y = mx + c\) is tangent when \(c = \tfrac{2}{m}\).</p>
+            <h4>Step 2: Through the point</h4>
+            \[ 3 = -2m + \frac{2}{m} \;\Rightarrow\; 2m^2 + 3m - 2 = 0 \;\Rightarrow\; m = \tfrac{1}{2}\ \text{or}\ m = -2 \]
+            <h4>Step 3: The tangents</h4>
+            \[ y = \tfrac{1}{2}x + 4 \quad\text{and}\quad y = -2x - 1 \]
+            <p>Their slopes multiply to −1, so they are perpendicular: \((-2, 3)\) lies on the directrix \(x = -2\), and tangents from any point of the directrix are always perpendicular.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Optics:</strong> the reflection property of a parabola is proved with its tangent and normal.</li>
+            <li><strong>Road and rail design:</strong> where a straight track joins a curve tangentially.</li>
+            <li><strong>Mechanics:</strong> the velocity of a body moving along a conic orbit is along the tangent.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using a point not on the curve</strong> with the substitution rule. That gives the polar line, not a tangent.</li>
+            <li><strong>Forgetting the second tangent.</strong> A given slope usually gives two tangents to an ellipse or hyperbola.</li>
+            <li><strong>Missing vertical tangents.</strong> They have no slope, so check \(x = x_1\) separately.</li>
+            <li><strong>Normal slope.</strong> It is \(-1/m_T\), not \(1/m_T\).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The conic is in standard position (axes parallel to the coordinate axes). For tilted conics, rotate first with the <a href="../general-conic/">general conic calculator</a>.</li>
+            <li>A point inside an ellipse or circle has no tangents through it.</li>
+            <li>A hyperbola has no tangent with a slope less steep than its asymptotes.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the equation of the tangent to a circle at a point?</summary>
+            <div class="faq-answer"><p>For x² + y² = r² at (x₁, y₁) it is x₁x + y₁y = r². It is perpendicular to the radius to that point.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the normal line?</summary>
+            <div class="faq-answer"><p>Find the slope of the tangent, take the negative reciprocal, and draw the line through the same point.</p></div>
+          </details>
+          <details>
+            <summary>How many tangents can be drawn from an outside point?</summary>
+            <div class="faq-answer"><p>Two for a circle, ellipse or parabola. For a hyperbola it can be two, one or none depending on the region.</p></div>
+          </details>
+          <details>
+            <summary>What is the tangency condition?</summary>
+            <div class="faq-answer"><p>Substitute the line into the conic: the resulting quadratic must have a zero discriminant (a double root).</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../tangent-line-calculator/">Tangent line to a function</a>: the calculus approach.</li>
+            <li><a href="../line-circle-intersection/">Line–circle intersection</a>.</li>
+            <li><a href="../general-conic/">General conic and rotation of axes</a>.</li>
+          </ul>
+        </section>

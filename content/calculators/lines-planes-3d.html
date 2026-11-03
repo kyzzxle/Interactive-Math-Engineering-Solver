@@ -1,0 +1,150 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What is analytic geometry in space?</h2>
+          <p>In three dimensions a point has three coordinates \((x, y, z)\). A <strong>line</strong> is fixed by a point and a direction; a <strong>plane</strong> is fixed by a point and a <strong>normal vector</strong> perpendicular to it, giving the equation \(Ax + By + Cz + D = 0\). Distances, angles and intersections all come from vectors.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Two points:</strong> distance, midpoint, direction numbers, direction cosines and angles, and the equations of the line.</li>
+            <li><strong>Three points:</strong> the plane through them, its normal, intercepts, distance from the origin, and the area of the triangle.</li>
+            <li><strong>Line and plane:</strong> where the line meets the plane (or that it is parallel or lies in it) and the angle between them.</li>
+            <li><strong>Two planes:</strong> the angle between them and their line of intersection, or the distance between parallel planes.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Two vector operations do almost all the work:</p>
+          <ul>
+            <li>the <strong>dot product</strong> \(\vec{u}\cdot\vec{v} = |\vec{u}||\vec{v}|\cos\theta\) measures angles and tests for perpendicularity;</li>
+            <li>the <strong>cross product</strong> \(\vec{u}\times\vec{v}\) is perpendicular to both vectors, which gives the normal of a plane and the direction of the line where two planes meet.</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Direction cosines</p>
+            <p>The cosines of the angles a line makes with the three axes always satisfy \(\cos^2\alpha + \cos^2\beta + \cos^2\gamma = 1\), because they are the components of a unit vector.</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Distance</td><td>\(d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}\)</td></tr>
+              <tr><td>Direction cosines</td><td>\(\cos\alpha = \dfrac{x_2 - x_1}{d},\ \cos\beta = \dfrac{y_2 - y_1}{d},\ \cos\gamma = \dfrac{z_2 - z_1}{d}\)</td></tr>
+              <tr><td>Line (symmetric form)</td><td>\(\dfrac{x - x_1}{a} = \dfrac{y - y_1}{b} = \dfrac{z - z_1}{c}\)</td></tr>
+              <tr><td>Plane through three points</td><td>\(\vec{n} = \vec{AB}\times\vec{AC},\ \ n_1(x - x_1) + n_2(y - y_1) + n_3(z - z_1) = 0\)</td></tr>
+              <tr><td>Angle between planes</td><td>\(\cos\theta = \dfrac{|\vec{n}_1\cdot\vec{n}_2|}{|\vec{n}_1||\vec{n}_2|}\)</td></tr>
+              <tr><td>Angle between line and plane</td><td>\(\sin\varphi = \dfrac{|\vec{n}\cdot\vec{d}|}{|\vec{n}||\vec{d}|}\)</td></tr>
+              <tr><td>Parallel planes</td><td>\(\text{distance} = \dfrac{|D_2 - D_1|}{\sqrt{A^2 + B^2 + C^2}}\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((a, b, c)\)</td><td>Direction numbers of a line</td></tr>
+              <tr><td>\(\alpha, \beta, \gamma\)</td><td>Direction angles with the x-, y- and z-axes</td></tr>
+              <tr><td>\(\vec{n} = (A, B, C)\)</td><td>Normal vector of the plane \(Ax + By + Cz + D = 0\)</td></tr>
+              <tr><td>\(\vec{d}\)</td><td>Direction vector of a line</td></tr>
+              <tr><td>\(\theta,\ \varphi\)</td><td>Angle between planes; angle between a line and a plane</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Line meets plane</h3>
+          <p>Write the line as \((x, y, z) = P + t\vec{d}\) and substitute into \(\vec{n}\cdot(x, y, z) + D = 0\):</p>
+          \[ \vec{n}\cdot P + t\,(\vec{n}\cdot\vec{d}) + D = 0 \;\Rightarrow\; t = -\frac{\vec{n}\cdot P + D}{\vec{n}\cdot\vec{d}}. \]
+          <p>If \(\vec{n}\cdot\vec{d} = 0\) the line is parallel to the plane: it misses it, or lies in it if \(P\) satisfies the plane.</p>
+          <h3>Angle between a line and a plane</h3>
+          <p>The angle between the line and the normal is \(\psi\) with \(\cos\psi = \tfrac{|\vec{n}\cdot\vec{d}|}{|\vec{n}||\vec{d}|}\). The angle with the plane itself is \(90^\circ - \psi\), whose sine is that same expression.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the distance and direction cosines from \(A(1, 2, 3)\) to \(B(4, 6, 15)\).</p>
+            <h4>Step 1: Components</h4>
+            \[ \vec{AB} = (3, 4, 12) \]
+            <h4>Step 2: Distance</h4>
+            \[ d = \sqrt{9 + 16 + 144} = \sqrt{169} = 13 \]
+            <h4>Step 3: Direction cosines</h4>
+            \[ \left(\tfrac{3}{13},\ \tfrac{4}{13},\ \tfrac{12}{13}\right),\qquad \tfrac{9 + 16 + 144}{169} = 1\ \checkmark \]
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a plane and a line</h2>
+          <div class="worked-example">
+            <h3>Plane through three points</h3>
+            <p>Through \((1, 0, 0)\), \((0, 2, 0)\), \((0, 0, 3)\):</p>
+            \[ \vec{AB} = (-1, 2, 0),\ \vec{AC} = (-1, 0, 3),\ \vec{n} = (6, 3, 2) \;\Rightarrow\; 6x + 3y + 2z - 6 = 0 \]
+            <h3>Line meets plane</h3>
+            <p>The line through \((1, 2, 3)\) with direction \((2, -1, 1)\) meets \(x + y + z = 12\) where \((1 + 2t) + (2 - t) + (3 + t) = 12\), so \(t = 3\) and the point is \((7, -1, 6)\). The angle with the plane is \(\sin^{-1}\tfrac{2}{\sqrt{3}\sqrt{6}} \approx 28.13^\circ\).</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Structural engineering:</strong> member lengths and directions in space frames and trusses.</li>
+            <li><strong>Surveying and mining:</strong> the dip and strike of rock layers are planes.</li>
+            <li><strong>Computer graphics:</strong> where a ray of light hits a surface.</li>
+            <li><strong>Robotics:</strong> positions and orientations in 3D.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using cosine for the line–plane angle.</strong> The formula with the normal gives the sine.</li>
+            <li><strong>Cross product order and signs.</strong> Swapping the vectors reverses the normal; the plane is the same, but sign errors in the components are common.</li>
+            <li><strong>Distance between parallel planes</strong> without first scaling both equations to the same normal.</li>
+            <li><strong>Collinear points.</strong> Three points on one line do not fix a plane.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Planes are entered as A, B, C, D for \(Ax + By + Cz + D = 0\).</li>
+            <li>Angles between planes are given as the acute angle.</li>
+            <li>For the distance from a point to a plane, see the <a href="../point-to-plane-distance/">point-to-plane distance calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the equation of a plane through three points?</summary>
+            <div class="faq-answer"><p>Form two vectors from the points, take their cross product to get the normal (A, B, C), and use one point to find D in Ax + By + Cz + D = 0.</p></div>
+          </details>
+          <details>
+            <summary>What are direction cosines?</summary>
+            <div class="faq-answer"><p>The cosines of the angles a line makes with the x-, y- and z-axes. Their squares add up to 1.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the angle between two planes?</summary>
+            <div class="faq-answer"><p>Find the angle between their normal vectors with the dot product.</p></div>
+          </details>
+          <details>
+            <summary>How do I find where a line meets a plane?</summary>
+            <div class="faq-answer"><p>Write the line in parametric form, substitute it into the plane, solve for the parameter t, and substitute t back.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../point-to-plane-distance/">Distance from a point to a plane</a>.</li>
+            <li><a href="../angle-between-lines/">Angle between lines</a>, including 3D directions.</li>
+            <li><a href="../matrix-calculator/">Matrices and determinants</a>: the cross product as a determinant.</li>
+          </ul>
+        </section>

@@ -1,0 +1,157 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What is the general equation of a conic?</h2>
+          <p>Every circle, ellipse, parabola and hyperbola can be written as one <strong>second-degree equation</strong></p>
+          \[ Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0. \]
+          <p>When \(B \ne 0\) the conic is tilted: its axes are not parallel to the coordinate axes. A <strong>rotation of axes</strong> turns it straight, and a <strong>translation</strong> (completing the square) moves its centre or vertex to the origin, leaving the familiar standard form.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Classifies the conic with the discriminant \(B^2 - 4AC\), including degenerate cases (a point, two lines, or no graph).</li>
+            <li>Finds the rotation angle \(\theta\) and the rotated coefficients \(A', C', D', E'\).</li>
+            <li>Completes the square to reach standard form.</li>
+            <li>Reports the centre or vertex, \(a\), \(b\), \(c\), the eccentricity, foci, vertices, asymptotes or directrix, converted back to \(xy\)-coordinates.</li>
+            <li>Draws the curve with its rotated axes.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Rotating the axes does not change the curve, only the way we describe it. Some quantities stay the same in every rotated system: the <strong>invariants</strong> \(A + C\) and \(B^2 - 4AC\). That is why the discriminant can identify the conic before any rotation:</p>
+          <ul>
+            <li>\(B^2 - 4AC \lt 0\): ellipse (a circle when \(B = 0\) and \(A = C\));</li>
+            <li>\(B^2 - 4AC = 0\): parabola;</li>
+            <li>\(B^2 - 4AC \gt 0\): hyperbola.</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Degenerate conics</p>
+            <p>A plane can also cut a cone in a single point, one line or two lines. These degenerate cases have the same discriminant as the curve they resemble; the calculator detects them when completing the square leaves 0 on the right-hand side.</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Step</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Discriminant</td><td>\(\Delta = B^2 - 4AC\)</td></tr>
+              <tr><td>Rotation angle</td><td>\(\tan 2\theta = \dfrac{B}{A - C}\ \ (\theta = 45^\circ \text{ if } A = C)\)</td></tr>
+              <tr><td>Rotation</td><td>\(x = x'\cos\theta - y'\sin\theta,\ \ y = x'\sin\theta + y'\cos\theta\)</td></tr>
+              <tr><td>New coefficients</td><td>\(A' = A\cos^2\theta + B\sin\theta\cos\theta + C\sin^2\theta\), \(C' = A\sin^2\theta - B\sin\theta\cos\theta + C\cos^2\theta\)</td></tr>
+              <tr><td></td><td>\(D' = D\cos\theta + E\sin\theta,\ \ E' = -D\sin\theta + E\cos\theta,\ \ F' = F\)</td></tr>
+              <tr><td>Eccentricity</td><td>Ellipse \(e = \dfrac{\sqrt{a^2 - b^2}}{a}\), hyperbola \(e = \dfrac{\sqrt{a^2 + b^2}}{a}\), parabola \(e = 1\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A, B, C\)</td><td>Coefficients of \(x^2\), \(xy\) and \(y^2\): they decide the type and the tilt</td></tr>
+              <tr><td>\(D, E, F\)</td><td>Coefficients of \(x\), \(y\) and the constant: they decide the position and size</td></tr>
+              <tr><td>\(\theta\)</td><td>Angle of rotation of the axes (0° to 90°)</td></tr>
+              <tr><td>\(x', y'\)</td><td>Coordinates in the rotated axes</td></tr>
+              <tr><td>\(a, b, c, e\)</td><td>Semi-axes, focal distance and eccentricity of the standard form</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Substitute the rotation into the equation. The coefficient of \(x'y'\) is</p>
+          \[ B' = B(\cos^2\theta - \sin^2\theta) - 2(A - C)\sin\theta\cos\theta = B\cos 2\theta - (A - C)\sin 2\theta. \]
+          <p>Setting \(B' = 0\) gives \(\tan 2\theta = \tfrac{B}{A - C}\). Collecting the other terms gives \(A'\), \(C'\), \(D'\) and \(E'\). One can check that \(A' + C' = A + C\) and \(B'^2 - 4A'C' = B^2 - 4AC\), which is why the discriminant is unchanged.</p>
+          <p>With no \(x'y'\) term, completing the square in \(x'\) and \(y'\) gives the standard form of an ellipse, hyperbola or parabola.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Identify and reduce \(5x^2 - 6xy + 5y^2 - 8 = 0\).</p>
+            <h4>Step 1: Discriminant</h4>
+            \[ (-6)^2 - 4(5)(5) = 36 - 100 = -64 \lt 0 \;\Rightarrow\; \text{ellipse} \]
+            <h4>Step 2: Rotation angle</h4>
+            <p>\(A = C\), so \(2\theta = 90^\circ\) and \(\theta = 45^\circ\).</p>
+            <h4>Step 3: New coefficients</h4>
+            \[ A' = 5\cdot\tfrac{1}{2} - 6\cdot\tfrac{1}{2} + 5\cdot\tfrac{1}{2} = 2, \qquad C' = 5\cdot\tfrac{1}{2} + 6\cdot\tfrac{1}{2} + 5\cdot\tfrac{1}{2} = 8 \]
+            \[ 2x'^2 + 8y'^2 = 8 \;\Rightarrow\; \frac{x'^2}{4} + \frac{y'^2}{1} = 1 \]
+            <h4>Step 4: Features</h4>
+            <p>\(a = 2\), \(b = 1\), \(c = \sqrt{3}\), \(e = \tfrac{\sqrt{3}}{2} \approx 0.866\). The major axis lies along the line \(y = x\), so the vertices are \((\pm\sqrt{2}, \pm\sqrt{2})\).</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: the rectangular hyperbola xy = 4</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Show that \(xy = 4\) is a hyperbola and find its vertices and foci.</p>
+            <h4>Step 1: Discriminant</h4>
+            \[ A = C = 0,\ B = 1:\ \ 1 - 0 = 1 \gt 0 \;\Rightarrow\; \text{hyperbola} \]
+            <h4>Step 2: Rotate by 45°</h4>
+            \[ A' = \tfrac{1}{2},\ C' = -\tfrac{1}{2} \;\Rightarrow\; \frac{x'^2}{8} - \frac{y'^2}{8} = 1 \]
+            <h4>Step 3: Features</h4>
+            <p>\(a = b = 2\sqrt{2}\), \(c = 4\), \(e = \sqrt{2}\). Vertices \((2, 2)\) and \((-2, -2)\); foci \((2\sqrt{2}, 2\sqrt{2})\) and \((-2\sqrt{2}, -2\sqrt{2})\); asymptotes are the coordinate axes.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Orbits:</strong> planetary and satellite orbits are conics, often written in tilted coordinates.</li>
+            <li><strong>Optics and antennas:</strong> parabolic and elliptical reflectors.</li>
+            <li><strong>Engineering:</strong> stress and strain ellipses, where rotating to principal axes is the same mathematics.</li>
+            <li><strong>Statistics:</strong> confidence ellipses of correlated data.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Dividing by A − C when A = C.</strong> Then \(2\theta = 90^\circ\) directly.</li>
+            <li><strong>Forgetting to convert back.</strong> Centres and foci found in \(x'y'\)-coordinates must be rotated back to \(xy\).</li>
+            <li><strong>Using the sign of B alone.</strong> The type depends on \(B^2 - 4AC\), not on \(B\).</li>
+            <li><strong>Missing degenerate cases.</strong> \(x^2 - y^2 = 0\) has a positive discriminant but is two lines.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Coefficients are real numbers; results are given to about 6 significant figures.</li>
+            <li>The rotation angle is chosen between 0° and 90°.</li>
+            <li>For conics already in standard position, see the <a href="../ellipse/">ellipse</a>, <a href="../hyperbola/">hyperbola</a>, <a href="../parabola/">parabola</a> and <a href="../circle-equation/">circle</a> calculators.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I identify a conic from its general equation?</summary>
+            <div class="faq-answer"><p>Compute B² − 4AC: negative means an ellipse (or circle), zero a parabola, positive a hyperbola, unless the conic is degenerate.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the angle of rotation?</summary>
+            <div class="faq-answer"><p>Use tan 2θ = B/(A − C), or θ = 45° when A = C. Rotating by θ removes the xy term.</p></div>
+          </details>
+          <details>
+            <summary>What is a degenerate conic?</summary>
+            <div class="faq-answer"><p>A single point, a single line or a pair of lines, produced when the cutting plane passes through the cone's vertex.</p></div>
+          </details>
+          <details>
+            <summary>Why does B² − 4AC not change when the axes rotate?</summary>
+            <div class="faq-answer"><p>It is an invariant of the quadratic part of the equation, like the determinant of a matrix, so rotation cannot change it.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../ellipse/">Ellipse</a>, <a href="../hyperbola/">hyperbola</a> and <a href="../parabola/">parabola</a>.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal to a conic</a>.</li>
+            <li><a href="../eigenvalues-eigenvectors/">Eigenvalues and eigenvectors</a>: the matrix view of rotating to principal axes.</li>
+          </ul>
+        </section>

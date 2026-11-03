@@ -1,0 +1,149 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What are polar coordinates?</h2>
+          <p>Rectangular coordinates locate a point by how far it is across and up, \((x, y)\). <strong>Polar coordinates</strong> locate it by how far it is from a fixed point, the <strong>pole</strong> (the origin), and in which direction: \((r, \theta)\), where \(r\) is the distance and \(\theta\) is the angle measured anticlockwise from the positive \(x\)-axis (the <strong>polar axis</strong>).</p>
+          <p>Curves with rotational patterns, such as flowers, spirals and heart shapes, have very simple polar equations.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Converts a rectangular point to polar form, explaining the quadrant, with exact values for special angles.</li>
+            <li>Converts a polar point to rectangular form.</li>
+            <li>Graphs roses, cardioids, limaçons, lemniscates, circles and spirals, and gives their shape, symmetry, largest \(r\) and enclosed area.</li>
+            <li>Finds the area swept between two angles with \(\tfrac{1}{2}\int r^2\,d\theta\).</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Draw a right triangle from the pole to the point: the hypotenuse is \(r\), the horizontal leg is \(x\) and the vertical leg is \(y\). Trigonometry links the two systems: \(x = r\cos\theta\), \(y = r\sin\theta\), and \(r^2 = x^2 + y^2\).</p>
+          <div class="callout">
+            <p class="callout-title">One point, many names</p>
+            <p>\((r, \theta)\), \((r, \theta + 360^\circ)\) and \((-r, \theta + 180^\circ)\) all describe the same point. A negative \(r\) means "go the opposite way from the direction \(\theta\)".</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Curve</th><th scope="col">Equation</th><th scope="col">Area enclosed</th></tr></thead>
+            <tbody>
+              <tr><td>Rose</td><td>\(r = a\cos n\theta\) or \(a\sin n\theta\)</td><td>\(\tfrac{\pi a^2}{4}\) (n odd, n petals), \(\tfrac{\pi a^2}{2}\) (n even, 2n petals)</td></tr>
+              <tr><td>Cardioid</td><td>\(r = a(1 + \cos\theta)\)</td><td>\(\tfrac{3}{2}\pi a^2\)</td></tr>
+              <tr><td>Limaçon</td><td>\(r = a + b\cos\theta\)</td><td>\(\pi\left(a^2 + \tfrac{b^2}{2}\right)\) when \(a \ge b\)</td></tr>
+              <tr><td>Lemniscate</td><td>\(r^2 = a^2\cos 2\theta\)</td><td>\(a^2\)</td></tr>
+              <tr><td>Circle through the pole</td><td>\(r = 2a\cos\theta\)</td><td>\(\pi a^2\)</td></tr>
+              <tr><td>Spiral of Archimedes</td><td>\(r = a\theta\)</td><td>\(\tfrac{4}{3}\pi^3 a^2\) (first turn)</td></tr>
+            </tbody>
+          </table>
+          <div class="formula-box">\[ x = r\cos\theta,\quad y = r\sin\theta,\quad r = \sqrt{x^2 + y^2},\quad \tan\theta = \frac{y}{x},\quad A = \frac{1}{2}\int_\alpha^\beta r^2\,d\theta \]</div>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Distance from the pole (may be negative in a polar equation)</td></tr>
+              <tr><td>\(\theta\)</td><td>Angle from the positive x-axis, anticlockwise</td></tr>
+              <tr><td>\(a, b, n\)</td><td>Constants that set the size, the loop and the number of petals</td></tr>
+              <tr><td>\(A\)</td><td>Area swept by the radius between two angles</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Area in polar coordinates</h3>
+          <p>A thin wedge between \(\theta\) and \(\theta + d\theta\) is almost a sector of a circle of radius \(r\), whose area is \(\tfrac{1}{2}r^2\,d\theta\). Adding the wedges:</p>
+          \[ A = \frac{1}{2}\int_\alpha^\beta r^2\,d\theta. \]
+          <h3>A rose petal</h3>
+          <p>For \(r = 4\cos 3\theta\), one petal runs from \(\theta = -30^\circ\) to \(30^\circ\) (where \(r = 0\)):</p>
+          \[ A = \frac{1}{2}\int_{-\pi/6}^{\pi/6} 16\cos^2 3\theta\,d\theta = 8\int_{-\pi/6}^{\pi/6}\frac{1 + \cos 6\theta}{2}\,d\theta = \frac{4\pi}{3}. \]
+          <p>Three petals give \(4\pi\), which is \(\tfrac{\pi a^2}{4}\) with \(a = 4\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Convert \((-3, 3)\) to polar coordinates.</p>
+            <h4>Step 1: Distance</h4>
+            \[ r = \sqrt{(-3)^2 + 3^2} = \sqrt{18} = 3\sqrt{2} \approx 4.243 \]
+            <h4>Step 2: Reference angle</h4>
+            \[ \tan\alpha = \left|\frac{3}{-3}\right| = 1 \;\Rightarrow\; \alpha = 45^\circ \]
+            <h4>Step 3: Quadrant</h4>
+            <p>The point is in quadrant II, so \(\theta = 180^\circ - 45^\circ = 135^\circ = \tfrac{3\pi}{4}\).</p>
+            <h4>Answer</h4>
+            <p>\(\left(3\sqrt{2},\ 135^\circ\right)\). A calculator's \(\tan^{-1}(-1)\) would give −45°, which points into quadrant IV: always check the quadrant.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: polar to rectangular and a cardioid</h2>
+          <div class="worked-example">
+            <h3>Polar to rectangular</h3>
+            \[ (6, 150^\circ):\quad x = 6\cos 150^\circ = 6\left(-\tfrac{\sqrt{3}}{2}\right) = -3\sqrt{3},\quad y = 6\sin 150^\circ = 3 \]
+            <h3>Area of a cardioid</h3>
+            <p>For \(r = 2(1 + \cos\theta)\):</p>
+            \[ A = \frac{1}{2}\int_0^{2\pi} 4(1 + \cos\theta)^2\,d\theta = 2\int_0^{2\pi}\left(1 + 2\cos\theta + \cos^2\theta\right)d\theta = 2(2\pi + 0 + \pi) = 6\pi \]
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Radar and navigation:</strong> targets are located by distance and bearing.</li>
+            <li><strong>Engineering:</strong> microphone and antenna pickup patterns are cardioids and roses.</li>
+            <li><strong>Physics:</strong> orbits and fields with circular symmetry.</li>
+            <li><strong>Complex numbers:</strong> the polar form \(r(\cos\theta + i\sin\theta)\).</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Trusting tan⁻¹ blindly.</strong> It only returns −90° to 90°; points in quadrants II and III need 180° added.</li>
+            <li><strong>Degrees in integrals.</strong> \(\tfrac{1}{2}\int r^2\,d\theta\) needs \(\theta\) in radians.</li>
+            <li><strong>Counting rose petals.</strong> Odd \(n\) gives \(n\) petals, even \(n\) gives \(2n\).</li>
+            <li><strong>Double-counting loops.</strong> Integrating a limaçon with an inner loop over 0 to 2π counts the inner loop twice.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Angles are entered in degrees; integrals use radians internally.</li>
+            <li>The area between two angles is the area swept by the radius from the pole.</li>
+            <li>The origin has no defined polar angle.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I convert rectangular to polar coordinates?</summary>
+            <div class="faq-answer"><p>r = √(x² + y²) and θ = tan⁻¹(y/x), adjusted for the quadrant of the point.</p></div>
+          </details>
+          <details>
+            <summary>How do I convert polar to rectangular coordinates?</summary>
+            <div class="faq-answer"><p>x = r cos θ and y = r sin θ.</p></div>
+          </details>
+          <details>
+            <summary>How many petals does r = a cos nθ have?</summary>
+            <div class="faq-answer"><p>n petals when n is odd and 2n petals when n is even.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the area of a polar curve?</summary>
+            <div class="faq-answer"><p>Use A = ½∫ r² dθ between the angles that bound the region, with θ in radians.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../degrees-radians-unit-circle/">Degrees, radians and the unit circle</a>.</li>
+            <li><a href="../complex-number-calculator/">Complex numbers</a>: polar form.</li>
+            <li><a href="../definite-integral/">Definite integrals</a>: the area formula.</li>
+          </ul>
+        </section>

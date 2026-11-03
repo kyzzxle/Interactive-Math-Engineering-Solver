@@ -1,0 +1,143 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What is the division of a line segment?</h2>
+          <p>Given two points \(A\) and \(B\), a point \(P\) on the line through them <strong>divides</strong> the segment \(AB\) in the ratio \(r_1 : r_2\) when \(AP : PB = r_1 : r_2\). If \(P\) lies between \(A\) and \(B\) the division is <strong>internal</strong>; if \(P\) lies on the line beyond \(A\) or \(B\), it is <strong>external</strong>. The midpoint is the special case of internal division in the ratio 1 : 1.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Point from a ratio:</strong> finds the point dividing \(AB\) internally or externally in \(r_1 : r_2\).</li>
+            <li><strong>Ratio from a point:</strong> checks that \(P\) is on line \(AB\) and finds \(AP : PB\), saying whether the division is internal or external.</li>
+            <li><strong>Centroid:</strong> finds the centroid of a triangle and confirms it divides each median 2 : 1.</li>
+          </ul>
+          <p>All coordinates can be whole numbers, decimals or fractions, and the answers are exact fractions.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Moving from \(A\) to \(B\), the \(x\)- and \(y\)-coordinates change steadily. A point that is a fraction \(t\) of the way along has coordinates \(A + t(B - A)\). If \(AP : PB = r_1 : r_2\), then \(t = \tfrac{r_1}{r_1 + r_2}\), which gives the section formula.</p>
+          <div class="callout">
+            <p class="callout-title">Cross the weights</p>
+            <p>In the section formula, \(A\) is multiplied by \(r_2\) and \(B\) by \(r_1\). The point is pulled towards the endpoint with the <em>larger</em> weight, so the smaller part of the ratio is next to it.</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Situation</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Internal division \(r_1 : r_2\)</td><td>\(P = \left(\dfrac{r_2 x_1 + r_1 x_2}{r_1 + r_2},\ \dfrac{r_2 y_1 + r_1 y_2}{r_1 + r_2}\right)\)</td></tr>
+              <tr><td>External division \(r_1 : r_2\)</td><td>\(P = \left(\dfrac{r_1 x_2 - r_2 x_1}{r_1 - r_2},\ \dfrac{r_1 y_2 - r_2 y_1}{r_1 - r_2}\right)\)</td></tr>
+              <tr><td>Ratio from a point</td><td>\(r = \dfrac{x - x_1}{x_2 - x} = \dfrac{y - y_1}{y_2 - y}\)</td></tr>
+              <tr><td>Midpoint</td><td>\(M = \left(\dfrac{x_1 + x_2}{2},\ \dfrac{y_1 + y_2}{2}\right)\)</td></tr>
+              <tr><td>Centroid</td><td>\(G = \left(\dfrac{x_1 + x_2 + x_3}{3},\ \dfrac{y_1 + y_2 + y_3}{3}\right)\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A(x_1, y_1),\ B(x_2, y_2)\)</td><td>The endpoints of the segment</td></tr>
+              <tr><td>\(r_1 : r_2\)</td><td>The ratio \(AP : PB\); \(r_1\) is next to \(A\)</td></tr>
+              <tr><td>\(P(x, y)\)</td><td>The point of division</td></tr>
+              <tr><td>\(t\)</td><td>Fraction of the way from \(A\) to \(B\): \(t = \tfrac{r_1}{r_1 + r_2}\) internally</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Drop perpendiculars from \(A\), \(P\) and \(B\) to the \(x\)-axis. By similar triangles, the horizontal distances are in the same ratio as \(AP : PB\):</p>
+          \[ \frac{x - x_1}{x_2 - x} = \frac{r_1}{r_2} \;\Longrightarrow\; r_2(x - x_1) = r_1(x_2 - x) \;\Longrightarrow\; x = \frac{r_2 x_1 + r_1 x_2}{r_1 + r_2}. \]
+          <p>The \(y\)-coordinate follows the same way. For external division, \(P\) is outside the segment, so one of the distances changes sign; replacing \(r_2\) by \(-r_2\) gives the external formula.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the point dividing \(A(-2, 3)\) and \(B(8, -2)\) internally in the ratio <strong>2 : 3</strong>.</p>
+            <h4>Step 1: x-coordinate</h4>
+            \[ x = \frac{3(-2) + 2(8)}{2 + 3} = \frac{-6 + 16}{5} = 2 \]
+            <h4>Step 2: y-coordinate</h4>
+            \[ y = \frac{3(3) + 2(-2)}{5} = \frac{9 - 4}{5} = 1 \]
+            <h4>Step 3: Check</h4>
+            <p>\(t = \tfrac{2}{5}\): \(x = -2 + \tfrac{2}{5}(10) = 2\) and \(y = 3 + \tfrac{2}{5}(-5) = 1\) ✓. So \(P = (2, 1)\).</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: external division and the ratio</h2>
+          <div class="worked-example">
+            <h3>External division</h3>
+            <p>Divide \(A(1, 2)\), \(B(4, 5)\) externally in the ratio <strong>3 : 1</strong>.</p>
+            \[ x = \frac{3(4) - 1(1)}{3 - 1} = \frac{11}{2}, \qquad y = \frac{3(5) - 1(2)}{2} = \frac{13}{2} \]
+            <p>\(P = \left(\tfrac{11}{2}, \tfrac{13}{2}\right)\), beyond \(B\), with \(AP\) three times \(PB\).</p>
+            <h3>Finding the ratio</h3>
+            <p>In what ratio does \(P(2, 1)\) divide \(A(-2, 3)\), \(B(8, -2)\)?</p>
+            \[ r = \frac{x - x_1}{x_2 - x} = \frac{2 - (-2)}{8 - 2} = \frac{4}{6} = \frac{2}{3} \]
+            <p>So \(AP : PB = 2 : 3\), internal (the ratio is positive).</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Surveying and mapping:</strong> locating points a given fraction along a boundary line.</li>
+            <li><strong>Computer graphics:</strong> linear interpolation between two points.</li>
+            <li><strong>Mechanics:</strong> the centre of mass of two masses divides the line between them in the inverse ratio of the masses.</li>
+            <li><strong>Geometry proofs:</strong> centroids, medians and the points that trisect a segment.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Pairing the weights wrongly.</strong> \(r_2\) multiplies \(A\) and \(r_1\) multiplies \(B\).</li>
+            <li><strong>Using the internal formula for an external division.</strong></li>
+            <li><strong>Assuming any point divides AB.</strong> Check that \(P\) is on the line first.</li>
+            <li><strong>Mixing up the order of the ratio.</strong> \(AP : PB\) starts at \(A\).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Ratios are entered as two positive numbers; choose internal or external separately.</li>
+            <li>An external division in the ratio 1 : 1 does not exist (the point would be at infinity).</li>
+            <li>For the distance and midpoint only, use the <a href="../midpoint-and-distance/">midpoint and distance calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the section formula?</summary>
+            <div class="faq-answer"><p>The point dividing A(x₁, y₁) and B(x₂, y₂) internally in the ratio r₁ : r₂ is ((r₂x₁ + r₁x₂)/(r₁ + r₂), (r₂y₁ + r₁y₂)/(r₁ + r₂)).</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between internal and external division?</summary>
+            <div class="faq-answer"><p>Internal division puts the point between A and B. External division puts it on the line AB extended beyond one end.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the points that trisect a segment?</summary>
+            <div class="faq-answer"><p>Divide internally in the ratios 1 : 2 and 2 : 1.</p></div>
+          </details>
+          <details>
+            <summary>How is the centroid related to the section formula?</summary>
+            <div class="faq-answer"><p>The centroid divides each median in the ratio 2 : 1 from the vertex. Applying the section formula to a vertex and the midpoint of the opposite side gives the average of the three vertices.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../midpoint-and-distance/">Midpoint and distance</a>.</li>
+            <li><a href="../polygon-area-coordinates/">Area of a polygon from coordinates</a>.</li>
+            <li><a href="../lines-planes-3d/">Lines and planes in space</a>: the same idea in 3D.</li>
+          </ul>
+        </section>

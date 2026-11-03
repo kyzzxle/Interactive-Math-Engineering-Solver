@@ -731,6 +731,56 @@
       "updated": "2026-11-03"
     },
     {
+      "id": "division-of-line-segment", "name": "Division of a Line Segment Calculator", "shortName": "Division of a Line Segment", "category": "analytic-geometry", "generated": true,
+      "summary": "The point dividing a segment internally or externally in a given ratio, the ratio from a point, and the centroid of a triangle, with exact fractions.",
+      "keywords": ["division of a line segment", "section formula", "internal division", "external division", "ratio", "point of division", "centroid of a triangle", "analytic geometry"],
+      "related": ["midpoint-and-distance", "slope-and-equation-of-a-line", "polygon-area-coordinates"],
+      "title": "Division of a Line Segment Calculator – Section Formula | Solver Hub",
+      "description": "Find the point dividing a line segment in a given ratio, internally or externally, the ratio in which a point divides a segment, or a triangle's centroid, step by step.",
+      "lead": "Enter the endpoints and a ratio, or a point on the line, or three vertices. The calculator applies the section formula with exact fractions and draws the result.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "general-conic", "name": "General Conic and Rotation of Axes Calculator", "shortName": "General Conic & Rotation of Axes", "category": "analytic-geometry", "generated": true,
+      "summary": "Identify Ax² + Bxy + Cy² + Dx + Ey + F = 0, rotate the axes to remove the xy term, and find the centre, foci, vertices and eccentricity.",
+      "keywords": ["general equation of a conic", "rotation of axes", "discriminant B^2-4AC", "identify conic", "translation of axes", "eliminate xy term", "conic sections", "analytic geometry"],
+      "related": ["ellipse", "hyperbola", "parabola"],
+      "title": "General Conic Calculator – Rotation of Axes & Standard Form | Solver Hub",
+      "description": "Classify any second-degree equation Ax² + Bxy + Cy² + Dx + Ey + F = 0, rotate and translate the axes, and find its centre, foci, vertices and eccentricity, step by step.",
+      "lead": "Enter the six coefficients. The calculator identifies the conic from B² − 4AC, finds the rotation angle, reduces the equation to standard form and draws it.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "polar-coordinates", "name": "Polar Coordinates and Polar Curves Calculator", "shortName": "Polar Coordinates & Curves", "category": "analytic-geometry", "generated": true,
+      "summary": "Convert between rectangular and polar coordinates, and graph roses, cardioids, limaçons, lemniscates and spirals with the area they enclose.",
+      "keywords": ["polar coordinates", "rectangular to polar", "polar to rectangular", "polar curves", "rose curve", "cardioid", "limacon", "lemniscate", "area in polar coordinates"],
+      "related": ["degrees-radians-unit-circle", "complex-number-calculator", "definite-integral"],
+      "title": "Polar Coordinates Calculator – Convert & Graph Polar Curves | Solver Hub",
+      "description": "Convert points between rectangular and polar coordinates and graph polar curves such as roses, cardioids and limaçons, with their petals, symmetry and area.",
+      "lead": "Convert a point either way, or choose a polar curve and its constants. The calculator explains the quadrant, draws the curve and finds the area it encloses.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "tangent-normal-conic", "name": "Tangent and Normal to a Conic Calculator", "shortName": "Tangent & Normal to Conics", "category": "analytic-geometry", "generated": true,
+      "summary": "Tangent and normal lines to a circle, parabola, ellipse or hyperbola at a point, with a given slope, or from an outside point.",
+      "keywords": ["tangent to a circle", "tangent to a parabola", "tangent to an ellipse", "tangent to a hyperbola", "normal line", "tangent with given slope", "tangent from external point", "analytic geometry"],
+      "related": ["circle-equation", "parabola", "tangent-line-calculator"],
+      "title": "Tangent and Normal to a Conic Calculator | Solver Hub",
+      "description": "Find the tangent and normal lines to a circle, parabola, ellipse or hyperbola at a point, with a given slope, or from a point outside the curve, step by step.",
+      "lead": "Choose the conic and the kind of tangent problem. The calculator finds each tangent line, the point of contact and the normal, and draws them on the curve.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "lines-planes-3d", "name": "Lines and Planes in Space Calculator", "shortName": "Lines & Planes in Space", "category": "analytic-geometry", "generated": true,
+      "summary": "Distance and direction cosines between points in space, the plane through three points, line–plane intersection and the angle between planes.",
+      "keywords": ["lines and planes in space", "3D distance formula", "direction cosines", "equation of a plane through three points", "line plane intersection", "angle between two planes", "solid analytic geometry"],
+      "related": ["point-to-plane-distance", "angle-between-lines", "matrix-calculator"],
+      "title": "Lines and Planes in Space Calculator – 3D Analytic Geometry | Solver Hub",
+      "description": "Find distances and direction cosines in space, the plane through three points, where a line meets a plane, and the angle and intersection of two planes, step by step.",
+      "lead": "Choose a problem and enter the points, directions or plane coefficients. The calculator works through the vectors and draws the result in 3D.",
+      "updated": "2026-11-03"
+    },
+    {
       "id": "rational-expression-simplifier", "name": "Rational Expression Simplifier", "shortName": "Rational Expressions", "category": "algebra", "generated": true,
       "summary": "Simplify P(x)/Q(x) by cancelling the greatest common factor, with excluded values, holes and vertical asymptotes.",
       "keywords": ["rational expression", "simplify fraction", "cancel factors", "excluded values", "holes", "asymptotes"],
