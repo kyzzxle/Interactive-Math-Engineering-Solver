@@ -7,6 +7,7 @@ import { validator, answer, tx, fmt } from '../lib/calc-kit.js';
 import { parseFrac, Frac } from '../lib/fraction.js';
 import { plot } from '../lib/plot.js';
 import { randInt, pick } from '../lib/learn.js';
+import { similarExplore } from '../explore/solids-practice.js';
 
 /** Exact n-th root of a positive fraction when both parts are perfect powers, else null. */
 function exactRoot(f, n) {
@@ -22,6 +23,7 @@ function exactRoot(f, n) {
 
 export const calculator = {
   id: 'similar-solids',
+  explore: similarExplore,
   practice: {
     title: 'Scale a similar solid',
     generate(rand) {

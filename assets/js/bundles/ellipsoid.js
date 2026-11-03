@@ -2412,6 +2412,7 @@ function renderSolid(mesh, opts = {}) {
   const C = rot(centre);
   const polys = [];
   for (const f of mesh.faces) {
+    if (f.pts.length < 3) continue; // degenerate (e.g. a band on the axis)
     const pts = f.pts.map(rot);
     let n = norm(cross(sub(pts[1], pts[0]), sub(pts[2], pts[0])));
     const fc = pts.reduce((a, p) => [a[0] + p[0] / pts.length, a[1] + p[1] / pts.length, a[2] + p[2] / pts.length], [0, 0, 0]);
@@ -2435,7 +2436,399 @@ function renderSolid(mesh, opts = {}) {
   return /NaN|Infinity/.test(svg) ? '' : svg;
 }
 
-return { frustumMesh, sphereMesh, ellipsoidMesh, capMesh, torusMesh, renderSolid };
+// ---------------------------------------------------------------- more meshes
+
+/**
+ * Convex hull of a small set of 3D points (up to a few dozen), as polygon faces.
+ * Used for polyhedra, wedges, obelisks and truncated prisms. Coplanar points are merged
+ * into one face and ordered around the face centre.
+ */
+function hullMesh(points, { tol = 1e-9 } = {}) {
+  const n = points.length, faces = [], seen = new Set();
+  const scale = Math.max(1e-12, ...points.flat().map(Math.abs));
+  const eps = tol * scale;
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) for (let k = j + 1; k < n; k++) {
+    const nrm = cross(sub(points[j], points[i]), sub(points[k], points[i]));
+    const len = Math.hypot(...nrm);
+    if (len < eps * scale) continue;
+    const u = nrm.map((v) => v / len), d = dot(u, points[i]);
+    let pos = 0, neg = 0;
+    const on = [];
+    points.forEach((p, idx) => { const s = dot(u, p) - d; if (s > eps) pos++; else if (s < -eps) neg++; else on.push(idx); });
+    if (pos && neg) continue;
+    const key = on.slice().sort((a, b) => a - b).join(',');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const outward = pos ? u.map((v) => -v) : u;
+    const c = on.reduce((a, idx) => [a[0] + points[idx][0] / on.length, a[1] + points[idx][1] / on.length, a[2] + points[idx][2] / on.length], [0, 0, 0]);
+    const e1 = norm(sub(points[on[0]], c)), e2 = cross(outward, e1);
+    const pts = on.map((idx) => points[idx]).sort((p, q) => Math.atan2(dot(sub(p, c), e2), dot(sub(p, c), e1)) - Math.atan2(dot(sub(q, c), e2), dot(sub(q, c), e1)));
+    faces.push({ pts, normal: outward });
+  }
+  return { faces, smooth: false };
+}
+
+/**
+ * Solid of revolution about the vertical axis. profile: [[radius, y], ...] from bottom to top.
+ * Each band gets its outward normal, so non-convex profiles (a pipe, a sector) draw correctly.
+ */
+function latheMesh(profile, n = 40, { smooth = true, closeEnds = true } = {}) {
+  const faces = [];
+  const ring = (rad, y, t) => [rad * Math.cos(t), y, rad * Math.sin(t)];
+  for (let k = 0; k + 1 < profile.length; k++) {
+    const [r1, y1] = profile[k], [r2, y2] = profile[k + 1];
+    const dr = r2 - r1, dy = y2 - y1;
+    if (Math.hypot(dr, dy) < 1e-12) continue;
+    for (let i = 0; i < n; i++) {
+      const a = (2 * Math.PI * i) / n, b = (2 * Math.PI * (i + 1)) / n, m = (a + b) / 2;
+      const pts = [ring(r1, y1, a), ring(r1, y1, b), ring(r2, y2, b), ring(r2, y2, a)].filter((p, idx, arr) => idx === 0 || Math.hypot(...sub(p, arr[idx - 1])) > 1e-12);
+      // outward normal: rotate the profile tangent (dr, dy) by −90° in the (radius, y) plane
+      const nr = dy, ny = -dr;
+      if (pts.length >= 3) faces.push({ pts, side: true, normal: [nr * Math.cos(m), ny, nr * Math.sin(m)] });
+    }
+  }
+  if (closeEnds) {
+    const [rb, yb] = profile[0], [rt, yt] = profile[profile.length - 1];
+    if (rb > 1e-9) faces.push({ pts: Array.from({ length: n }, (_, i) => ring(rb, yb, -(2 * Math.PI * i) / n)), cap: true, normal: [0, -1, 0] });
+    if (rt > 1e-9) faces.push({ pts: Array.from({ length: n }, (_, i) => ring(rt, yt, (2 * Math.PI * i) / n)), cap: true, normal: [0, 1, 0] });
+  }
+  return { faces, smooth };
+}
+
+/** Oblique circular cylinder (or cone when rTop = 0): the top is shifted sideways by `shift`. */
+function obliqueMesh(r, rTop, h, shift, n = 40) {
+  const faces = [];
+  const P = (rad, y, t, dx) => [dx + rad * Math.cos(t), y, rad * Math.sin(t)];
+  const bottom = Array.from({ length: n }, (_, i) => P(r, -h / 2, (2 * Math.PI * i) / n, -shift / 2));
+  const top = Array.from({ length: n }, (_, i) => P(rTop, h / 2, (2 * Math.PI * i) / n, shift / 2));
+  faces.push({ pts: bottom.slice().reverse(), cap: true, normal: [0, -1, 0] });
+  if (rTop > 1e-9) faces.push({ pts: top, cap: true, normal: [0, 1, 0] });
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    const pts = rTop > 1e-9 ? [bottom[i], bottom[j], top[j], top[i]] : [bottom[i], bottom[j], top[0]];
+    faces.push({ pts, side: true }); // convex, so the renderer orients the face itself
+  }
+  return { faces, smooth: true };
+}
+
+/** Spherical wedge: the part of a sphere of radius R between two half-planes θ apart (degrees). */
+function sphereWedgeMesh(R, thetaDeg, lat = 14, lonPerTurn = 36) {
+  const th = (Math.min(360, Math.max(1, thetaDeg)) * Math.PI) / 180;
+  const lon = Math.max(2, Math.round((lonPerTurn * th) / (2 * Math.PI)));
+  const P = (i, j) => { const a = (Math.PI * i) / lat, b = (th * j) / lon; return [R * Math.sin(a) * Math.cos(b), R * Math.cos(a), R * Math.sin(a) * Math.sin(b)]; };
+  const faces = [];
+  for (let i = 0; i < lat; i++) for (let j = 0; j < lon; j++) {
+    const a = (Math.PI * (i + 0.5)) / lat, b = (th * (j + 0.5)) / lon;
+    faces.push({ pts: [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)], side: true, normal: [Math.sin(a) * Math.cos(b), Math.cos(a), Math.sin(a) * Math.sin(b)] });
+  }
+  if (thetaDeg < 360) {
+    const half = (angle, flip) => {
+      const pts = [[0, R, 0], ...Array.from({ length: lat - 1 }, (_, i) => { const a = (Math.PI * (i + 1)) / lat; return [R * Math.sin(a) * Math.cos(angle), R * Math.cos(a), R * Math.sin(a) * Math.sin(angle)]; }), [0, -R, 0]];
+      return { pts, cap: true, normal: [flip * Math.sin(angle), 0, -flip * Math.cos(angle)] };
+    };
+    faces.push(half(0, 1), half(th, -1));
+  }
+  return { faces, smooth: true, convex: false };
+}
+
+/** Cylindrical wedge (ungula): cut from a cylinder of radius r by a plane through a diameter of the base, rising to height h. */
+function ungulaMesh(r, h, n = 32) {
+  const faces = [];
+  const base = (t) => [r * Math.cos(t), -h / 2, r * Math.sin(t)];
+  const top = (t) => [r * Math.cos(t), -h / 2 + (h * Math.sin(t)), r * Math.sin(t)];
+  const ts = Array.from({ length: n + 1 }, (_, i) => (Math.PI * i) / n);
+  faces.push({ pts: ts.map(base).reverse(), cap: true, normal: [0, -1, 0] });
+  faces.push({ pts: ts.map(top), cap: true, normal: [0, r, -h] });
+  for (let i = 0; i < n; i++) {
+    const m = (ts[i] + ts[i + 1]) / 2;
+    faces.push({ pts: [base(ts[i]), base(ts[i + 1]), top(ts[i + 1]), top(ts[i])].filter((p, idx, arr) => idx === 0 || Math.hypot(...sub(p, arr[idx - 1])) > 1e-12), side: true, normal: [Math.cos(m), 0, Math.sin(m)] });
+  }
+  return { faces, smooth: true };
+}
+
+return { frustumMesh, sphereMesh, ellipsoidMesh, capMesh, torusMesh, renderSolid, hullMesh, latheMesh, obliqueMesh, sphereWedgeMesh, ungulaMesh };
+})();
+__m["explore/solids-practice.js"] = (function () {
+/**
+ * Practice problems for every solid mensuration calculator, plus explorers for composite
+ * solids, similar solids and the frustum of a cone. Problems use whole numbers (and
+ * Pythagorean triples where a slant height appears) so the working stays clean.
+ */
+const { frustumMesh, latheMesh, renderSolid } = __m["lib/solid3d.js"];
+const { tx } = __m["lib/calc-kit.js"];
+const { randInt, pick } = __m["lib/learn.js"];
+
+const PI = Math.PI;
+const f2 = (x) => tx(x, 2);
+const f4 = (x) => tx(x, 4);
+const TRIPLES = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [7, 24, 25], [9, 12, 15], [12, 16, 20]];
+const VIEW = [
+  { name: 'yaw', label: 'Turn', min: 0, max: 360, step: 1, value: 35, unit: '°' },
+  { name: 'pitch', label: 'Tilt', min: -10, max: 60, step: 1, value: 22, unit: '°' },
+];
+
+// ---------------------------------------------------------------- practice for existing calculators
+const conePractice = {
+  title: 'Slant height, area and volume of a cone',
+  generate(rand) {
+    const [r, h, s] = pick(rand, TRIPLES);
+    const L = PI * r * s, V = (PI * r * r * h) / 3;
+    return {
+      prompt: `<p>A conical tent has base radius <strong>${r} m</strong> and height <strong>${h} m</strong>. Find its slant height, the area of canvas for the sloping side, and the volume of air inside.</p>`,
+      answers: [{ label: 'Slant height s', value: s, unit: 'm' }, { label: 'Lateral area', value: L, unit: 'm²' }, { label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'The radius, height and slant height form a right triangle with the slant height as the hypotenuse.',
+      hintTex: 's = \\sqrt{r^2 + h^2} \\qquad L = \\pi r s \\qquad V = \\tfrac{1}{3}\\pi r^2 h',
+      steps: [
+        { title: 'Slant height', tex: `s = \\sqrt{${r}^2 + ${h}^2} = \\sqrt{${r * r + h * h}} = ${s}\\ \\text{m}` },
+        { title: 'Lateral area', tex: `L = \\pi (${r})(${s}) = ${r * s}\\pi \\approx ${f2(L)}\\ \\text{m}^2` },
+        { title: 'Volume', tex: `V = \\tfrac{1}{3}\\pi (${r})^2 (${h}) = ${f4((r * r * h) / 3)}\\pi \\approx ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const prismPractice = {
+  title: 'Volume and surface area of a box',
+  generate(rand) {
+    const l = randInt(rand, 3, 15), w = randInt(rand, 2, 12), h = randInt(rand, 2, 10);
+    const V = l * w * h, T = 2 * (l * w + l * h + w * h);
+    return {
+      prompt: `<p>A closed rectangular box measures <strong>${l} cm × ${w} cm × ${h} cm</strong>. Find its volume and its total surface area.</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'cm³' }, { label: 'Total surface area', value: T, unit: 'cm²' }],
+      hint: 'A box has three pairs of identical rectangular faces.',
+      hintTex: 'V = l\\,w\\,h \\qquad T = 2(lw + lh + wh)',
+      steps: [
+        { title: 'Volume', tex: `V = ${l} \\times ${w} \\times ${h} = ${V}\\ \\text{cm}^3` },
+        { title: 'Total surface area', tex: `T = 2(${l * w} + ${l * h} + ${w * h}) = ${T}\\ \\text{cm}^2` },
+      ],
+    };
+  },
+};
+
+const pyramidPractice = {
+  title: 'Square pyramid',
+  generate(rand) {
+    const [half, h, l] = pick(rand, TRIPLES), a = 2 * half;
+    const B = a * a, L = 2 * a * l, V = (B * h) / 3;
+    return {
+      prompt: `<p>A right pyramid has a square base of side <strong>${a} cm</strong> and height <strong>${h} cm</strong>. Find the slant height of a face, the lateral area and the volume.</p>`,
+      answers: [{ label: 'Slant height', value: l, unit: 'cm' }, { label: 'Lateral area', value: L, unit: 'cm²' }, { label: 'Volume', value: V, unit: 'cm³' }],
+      hint: 'The slant height runs from the apex to the middle of a base edge, so it is the hypotenuse of a triangle with legs h and a/2.',
+      hintTex: 'l = \\sqrt{h^2 + (a/2)^2} \\qquad L = 4 \\cdot \\tfrac{1}{2} a\\,l \\qquad V = \\tfrac{1}{3} a^2 h',
+      steps: [
+        { title: 'Slant height', tex: `l = \\sqrt{${h}^2 + ${half}^2} = \\sqrt{${h * h + half * half}} = ${l}\\ \\text{cm}` },
+        { title: 'Lateral area: four triangles', tex: `L = 4 \\times \\tfrac{1}{2}(${a})(${l}) = ${L}\\ \\text{cm}^2` },
+        { title: 'Volume', tex: `V = \\tfrac{1}{3}(${a})^2(${h}) = ${f2(V)}\\ \\text{cm}^3` },
+      ],
+    };
+  },
+};
+
+const frustumPyramidPractice = {
+  title: 'Volume of a square frustum',
+  generate(rand) {
+    const a = randInt(rand, 6, 16), b = randInt(rand, 2, a - 2), h = randInt(rand, 3, 12);
+    const A1 = a * a, A2 = b * b, V = (h / 3) * (A1 + A2 + a * b);
+    return {
+      prompt: `<p>A concrete footing is a frustum of a square pyramid. The bottom is <strong>${a} m</strong> square, the top is <strong>${b} m</strong> square, and it is <strong>${h} m</strong> high. Find its volume.</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'Use the frustum formula with the two base areas and the square root of their product.',
+      hintTex: 'V = \\frac{h}{3}\\left(A_1 + A_2 + \\sqrt{A_1 A_2}\\right)',
+      steps: [
+        { title: 'Base areas', tex: `A_1 = ${a}^2 = ${A1},\\quad A_2 = ${b}^2 = ${A2},\\quad \\sqrt{A_1 A_2} = ${a * b}` },
+        { title: 'Volume', tex: `V = \\frac{${h}}{3}(${A1} + ${A2} + ${a * b}) = ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const ellipsoidPractice = {
+  title: 'Volume of an ellipsoidal tank',
+  generate(rand) {
+    const a = randInt(rand, 3, 12), b = randInt(rand, 2, 10), c = randInt(rand, 2, 8);
+    const V = (4 / 3) * PI * a * b * c;
+    return {
+      prompt: `<p>A storage tank is an ellipsoid with semi-axes <strong>${a} m</strong>, <strong>${b} m</strong> and <strong>${c} m</strong>. How much does it hold?</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'An ellipsoid is a stretched sphere: replace r³ by the product of the three semi-axes.',
+      hintTex: 'V = \\tfrac{4}{3}\\pi a b c',
+      steps: [
+        { title: 'Formula', tex: 'V = \\tfrac{4}{3}\\pi a b c' },
+        { title: 'Substitute', tex: `V = \\tfrac{4}{3}\\pi (${a})(${b})(${c}) = ${f4((4 * a * b * c) / 3)}\\pi \\approx ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const capPractice = {
+  title: 'Spherical cap',
+  generate(rand) {
+    const R = randInt(rand, 4, 15), h = randInt(rand, 1, R);
+    const V = (PI * h * h * (3 * R - h)) / 3, C = 2 * PI * R * h;
+    return {
+      prompt: `<p>A dome is a spherical cap cut from a sphere of radius <strong>${R} m</strong>. The dome is <strong>${h} m</strong> high. Find its curved surface area and the volume it encloses.</p>`,
+      answers: [{ label: 'Curved surface area', value: C, unit: 'm²' }, { label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'The curved area of a cap depends only on R and h. The volume uses h squared.',
+      hintTex: 'A = 2\\pi R h \\qquad V = \\tfrac{1}{3}\\pi h^2 (3R - h)',
+      steps: [
+        { title: 'Curved area', tex: `A = 2\\pi(${R})(${h}) = ${2 * R * h}\\pi \\approx ${f2(C)}\\ \\text{m}^2` },
+        { title: 'Volume', tex: `V = \\tfrac{1}{3}\\pi(${h})^2(3 \\cdot ${R} - ${h}) = ${f4((h * h * (3 * R - h)) / 3)}\\pi \\approx ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const torusPractice = {
+  title: 'Doughnut (torus)',
+  generate(rand) {
+    const r = randInt(rand, 1, 5), R = r + randInt(rand, 2, 8);
+    const V = 2 * PI * PI * R * r * r, A = 4 * PI * PI * R * r;
+    return {
+      prompt: `<p>An inflatable ring is a torus. The tube has radius <strong>${r} cm</strong>, and its centre circle has radius <strong>${R} cm</strong>. Find the volume and the surface area.</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'cm³' }, { label: 'Surface area', value: A, unit: 'cm²' }],
+      hint: 'Theorem of Pappus: the circle of radius r sweeps a path of length 2πR.',
+      hintTex: 'V = (\\pi r^2)(2\\pi R) \\qquad A = (2\\pi r)(2\\pi R)',
+      steps: [
+        { title: 'Volume', tex: `V = 2\\pi^2 R r^2 = 2\\pi^2(${R})(${r})^2 = ${2 * R * r * r}\\pi^2 \\approx ${f2(V)}\\ \\text{cm}^3` },
+        { title: 'Surface area', tex: `A = 4\\pi^2 R r = 4\\pi^2(${R})(${r}) = ${4 * R * r}\\pi^2 \\approx ${f2(A)}\\ \\text{cm}^2` },
+      ],
+    };
+  },
+};
+
+const compositePractice = {
+  title: 'Grain silo',
+  generate(rand) {
+    const r = randInt(rand, 2, 8), h = randInt(rand, 5, 25);
+    const Vc = PI * r * r * h, Vh = (2 / 3) * PI * r ** 3, V = Vc + Vh;
+    return {
+      prompt: `<p>A silo is a cylinder of radius <strong>${r} m</strong> and height <strong>${h} m</strong> with a hemispherical roof. Find the total volume.</p>`,
+      answers: [{ label: 'Total volume', value: V, unit: 'm³' }],
+      hint: 'Add the cylinder and the hemisphere (half a sphere) of the same radius.',
+      hintTex: 'V = \\pi r^2 h + \\tfrac{2}{3}\\pi r^3',
+      steps: [
+        { title: 'Cylinder', tex: `\\pi(${r})^2(${h}) = ${r * r * h}\\pi \\approx ${f2(Vc)}` },
+        { title: 'Hemisphere', tex: `\\tfrac{2}{3}\\pi(${r})^3 = ${f4((2 * r ** 3) / 3)}\\pi \\approx ${f2(Vh)}` },
+        { title: 'Total', tex: `V \\approx ${f2(Vc)} + ${f2(Vh)} = ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const frustumConePractice = {
+  title: 'Frustum of a cone',
+  generate(rand) {
+    const [d, h, s] = pick(rand, TRIPLES), r = randInt(rand, 1, 6), R = r + d;
+    const V = ((PI * h) / 3) * (R * R + R * r + r * r), L = PI * (R + r) * s;
+    return {
+      prompt: `<p>A bucket is a frustum of a cone with top radius <strong>${R} cm</strong>, bottom radius <strong>${r} cm</strong> and depth <strong>${h} cm</strong>. Find its slant height, its curved surface area and how much it holds.</p>`,
+      answers: [{ label: 'Slant height s', value: s, unit: 'cm' }, { label: 'Lateral area', value: L, unit: 'cm²' }, { label: 'Volume', value: V, unit: 'cm³' }],
+      hint: 'The slant height is the hypotenuse of a right triangle with legs h and R − r.',
+      hintTex: 's = \\sqrt{h^2 + (R - r)^2} \\qquad L = \\pi (R + r) s \\qquad V = \\frac{\\pi h}{3}(R^2 + Rr + r^2)',
+      steps: [
+        { title: 'Slant height', tex: `s = \\sqrt{${h}^2 + ${d}^2} = \\sqrt{${h * h + d * d}} = ${s}\\ \\text{cm}` },
+        { title: 'Lateral area', tex: `L = \\pi(${R} + ${r})(${s}) = ${(R + r) * s}\\pi \\approx ${f2(L)}\\ \\text{cm}^2` },
+        { title: 'Volume', tex: `V = \\frac{\\pi (${h})}{3}(${R * R} + ${R * r} + ${r * r}) = ${f4((h * (R * R + R * r + r * r)) / 3)}\\pi \\approx ${f2(V)}\\ \\text{cm}^3` },
+      ],
+    };
+  },
+};
+
+// ---------------------------------------------------------------- explorers
+/** Profile (radius, height) of each composite solid, centred vertically. */
+function compositeProfile(type, r, h, H, ri) {
+  const arc = (cy, from, to, n = 10) => Array.from({ length: n + 1 }, (_, k) => { const t = from + ((to - from) * k) / n; return [r * Math.cos(t), cy + r * Math.sin(t)]; });
+  let p;
+  if (type === 'silo') p = [[r, 0], [r, h], ...arc(h, 0, PI / 2).slice(1)];
+  else if (type === 'capsule') p = [...arc(0, -PI / 2, 0), [r, h], ...arc(h, 0, PI / 2).slice(1)];
+  else if (type === 'rocket') p = [[r, 0], [r, h], [0, h + H]];
+  else if (type === 'icecream') p = [[0, 0], [r, H], ...arc(H, 0, PI / 2).slice(1)];
+  else p = [[r, 0], [r, h], [ri, h], [ri, 0], [r, 0]];
+  const ys = p.map((q) => q[1]), mid = (Math.min(...ys) + Math.max(...ys)) / 2;
+  return p.map(([x, y]) => [Math.max(0, x), y - mid]);
+}
+const compositeExplore = {
+  title: 'Build a composite solid',
+  intro: 'Every composite solid is just simpler solids added (or a hole subtracted). Change the dimensions and watch each part of the volume change.',
+  controls: [
+    { name: 'type', label: 'Solid', type: 'select', options: [['silo', 'Silo (cylinder + hemisphere)'], ['capsule', 'Capsule (cylinder + 2 hemispheres)'], ['rocket', 'Rocket (cylinder + cone)'], ['icecream', 'Ice-cream cone (cone + hemisphere)'], ['tube', 'Pipe (cylinder with a hole)']], value: 'silo' },
+    { name: 'r', label: 'Radius r', min: 0.5, max: 5, step: 0.1, value: 3 },
+    { name: 'h', label: 'Cylinder height h', min: 0.5, max: 12, step: 0.1, value: 6 },
+    { name: 'H', label: 'Cone height H', min: 0.5, max: 10, step: 0.1, value: 4 },
+    { name: 'ri', label: 'Inner radius (pipe)', min: 0.1, max: (v) => Math.max(0.1, v.r - 0.1), step: 0.1, value: 2 },
+    ...VIEW,
+  ],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  render({ type, r, h, H, ri, yaw, pitch }) {
+    const inner = Math.min(ri, r - 0.05);
+    const cyl = PI * r * r * h, hemi = (2 / 3) * PI * r ** 3, cone = (PI * r * r * H) / 3, hole = PI * inner * inner * h;
+    const parts = { silo: [['Cylinder', cyl], ['Hemisphere', hemi]], capsule: [['Cylinder', cyl], ['Two hemispheres', 2 * hemi]], rocket: [['Cylinder', cyl], ['Cone', cone]], icecream: [['Cone', cone], ['Hemisphere', hemi]], tube: [['Outer cylinder', cyl], ['Hole', -hole]] }[type];
+    const V = parts.reduce((s, [, x]) => s + x, 0);
+    const mesh = latheMesh(compositeProfile(type, r, h, H, inner), 40, { closeEnds: type !== 'tube' });
+    return {
+      svg: renderSolid(mesh, { yaw, pitch, scale: 14, title: `Composite solid: ${type}` }),
+      readouts: [
+        ...parts.map(([name, x]) => ({ label: name, tex: `${x < 0 ? '-' : ''}${f2(Math.abs(x))}` })),
+        { label: 'Total volume', tex: `V \\approx ${f2(V)}`, tone: 'good' },
+      ],
+      note: type === 'tube' ? 'The hole is subtracted: V = π(r² − rᵢ²)h.' : '',
+    };
+  },
+};
+
+const similarExplore = {
+  title: 'Scale a solid',
+  intro: 'Make the second cone k times as tall and as wide. Its surface area grows by k² and its volume by k³ — so doubling the size gives 4 times the paint and 8 times the contents.',
+  controls: [
+    { name: 'k', label: 'Scale factor k', min: 0.5, max: 3, step: 0.05, value: 2 },
+    ...VIEW,
+  ],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: 'Double (k = 2)', values: { k: 2 } }, { label: 'Half (k = 0.5)', values: { k: 0.5 } }, { label: 'Triple (k = 3)', values: { k: 3 } }],
+  render({ k, yaw, pitch }) {
+    const r = 1.4, h = 2.6;
+    const one = latheMesh([[r, -h / 2], [0, h / 2]], 32);
+    const two = latheMesh([[r * k, (-h * k) / 2], [0, (h * k) / 2]], 32);
+    const shift = (m, dx, dy) => m.faces.map((f) => ({ ...f, pts: f.pts.map(([x, y, z]) => [x + dx, y + dy, z]) }));
+    const base = -2.4;
+    const mesh = { smooth: true, faces: [...shift(one, -3.2, base + h / 2), ...shift(two, 1.2 + r * k, base + (h * k) / 2)] };
+    return {
+      svg: renderSolid(mesh, { yaw, pitch, scale: 22, title: `Two similar cones with scale factor ${k}` }),
+      readouts: [
+        { label: 'Length ratio', tex: `k = ${f2(k)}` },
+        { label: 'Area ratio', tex: `k^2 \\approx ${f2(k * k)}` },
+        { label: 'Volume ratio', tex: `k^3 \\approx ${f2(k ** 3)}`, tone: 'good' },
+      ],
+    };
+  },
+};
+
+const frustumConeExplore = {
+  title: 'Cut the top off a cone',
+  intro: 'Shrink the top radius to 0 and the frustum becomes a cone; make it equal to the bottom radius and it becomes a cylinder.',
+  controls: [
+    { name: 'R', label: 'Bottom radius R', min: 1, max: 6, step: 0.1, value: 5 },
+    { name: 'r', label: 'Top radius r', min: 0, max: 6, step: 0.1, value: 2 },
+    { name: 'h', label: 'Height h', min: 0.5, max: 10, step: 0.1, value: 4 },
+    ...VIEW,
+  ],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: 'Cone (r = 0)', values: { r: 0 } }, { label: 'Cylinder (r = R)', values: { R: 4, r: 4 } }],
+  render({ R, r, h, yaw, pitch }) {
+    const s = Math.hypot(h, R - r), V = ((PI * h) / 3) * (R * R + R * r + r * r), L = PI * (R + r) * s;
+    return {
+      svg: renderSolid(frustumMesh(R, r, h, 48, { smooth: true }), { yaw, pitch, scale: 16, title: `Frustum R = ${R}, r = ${r}, h = ${h}`, lines: [{ a: [0, -h / 2, 0], b: [0, h / 2, 0], label: 'h' }, { a: [0, -h / 2, 0], b: [R, -h / 2, 0], label: 'R' }] }),
+      readouts: [
+        { label: 'Slant height', tex: `s = \\sqrt{h^2 + (R - r)^2} \\approx ${f2(s)}` },
+        { label: 'Volume', tex: `V = \\tfrac{\\pi h}{3}(R^2 + Rr + r^2) \\approx ${f2(V)}` },
+        { label: 'Lateral area', tex: `\\pi (R + r) s \\approx ${f2(L)}` },
+      ],
+      note: r === 0 ? 'With r = 0 this is a cone: V = πR²h/3.' : Math.abs(R - r) < 1e-9 ? 'With r = R the sides are vertical: this is a cylinder, V = πR²h.' : r > R ? 'The top is now wider than the bottom: an upside-down frustum. The formulas are the same.' : '',
+    };
+  },
+};
+
+return { conePractice, prismPractice, pyramidPractice, frustumPyramidPractice, ellipsoidPractice, capPractice, torusPractice, compositePractice, frustumConePractice, compositeExplore, similarExplore, frustumConeExplore };
 })();
 __m["calculators/ellipsoid.js"] = (function () {
 /**
@@ -2448,6 +2841,7 @@ const { validator, answer, piAnswer, piTex, fmt, tx, units, UNIT_FIELD } = __m["
 const { parseFrac } = __m["lib/fraction.js"];
 const { adaptiveSimpson } = __m["lib/numeric.js"];
 const { ellipsoidMesh, renderSolid } = __m["lib/solid3d.js"];
+const { ellipsoidPractice } = __m["explore/solids-practice.js"];
 
 /** Surface area and the intermediate quantities of the elliptic-integral formula. */
 function ellipsoidArea(a, b, c) {
@@ -2473,6 +2867,7 @@ const kind = (a, b, c) => {
 
 const calculator = {
   id: 'ellipsoid',
+  practice: ellipsoidPractice,
   explore: {
     title: 'Stretch an ellipsoid',
     intro: 'Make all three semi-axes equal to get a sphere. Stretch one axis to see how the volume grows in proportion, while the surface area grows more slowly.',

@@ -9,6 +9,7 @@ import { validator, answer, piAnswer, piTex, tx, units, UNIT_FIELD } from '../li
 import { parseFrac } from '../lib/fraction.js';
 import { plot } from '../lib/plot.js';
 import { capMesh, renderSolid } from '../lib/solid3d.js';
+import { capPractice } from '../explore/solids-practice.js';
 
 function section(R, lo, hi, title) {
   const top = (x) => Math.min(hi, Math.sqrt(Math.max(0, R * R - x * x)));
@@ -25,6 +26,7 @@ function section(R, lo, hi, title) {
 
 export const calculator = {
   id: 'spherical-cap',
+  practice: capPractice,
   explore: {
     title: 'Slice a sphere',
     intro: 'Raise the cutting plane to make the cap smaller. At h = R it is a hemisphere; at h = 2R it is the whole sphere.',

@@ -20,7 +20,7 @@ const PAGES = [
 ];
 
 test('every registry entry has a page on disk', () => {
-  assert.equal(registry.calculators.length, 110);
+  assert.equal(registry.calculators.length, 115);
   for (const c of registry.calculators) {
     const url = c.url || `calculators/${c.id}/`;
     assert.ok(existsSync(new URL(`../${url}index.html`, import.meta.url)), `missing page for ${c.id}`);

@@ -5,6 +5,7 @@
  */
 import { validator, answer, tx, fmt, units, UNIT_FIELD } from '../lib/calc-kit.js';
 import { plot } from '../lib/plot.js';
+import { compositePractice, compositeExplore } from '../explore/solids-practice.js';
 
 const TYPES = [
   ['silo', 'Silo: cylinder with a hemisphere on top'],
@@ -17,6 +18,8 @@ const PI = Math.PI;
 
 export const calculator = {
   id: 'composite-solid',
+  practice: compositePractice,
+  explore: compositeExplore,
   fields: [
     { name: 'type', label: 'Composite solid', type: 'select', options: TYPES },
     { name: 'r', label: 'Radius r (shared by all parts)', type: 'number', signed: false, placeholder: 'e.g. 3', affix: 'len', hint: 'For a tube this is the outer radius.' },

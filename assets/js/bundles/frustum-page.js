@@ -764,11 +764,1167 @@ function wireCalculator(o) {
 
 return { escapeHtml, tex, resultCard, finalAnswerBlock, stepsBlock, tableBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, readForm, fillForm, writeUrlState, clearUrlState, readUrlState, enableCopyButtons, wireCalculator };
 })();
+__m["lib/learn.js"] = (function () {
+/**
+ * Guided-learning widgets shared by calculator pages (browser only).
+ *
+ *   mountExplorer(root, spec)  "Explore": sliders (each paired with a number box), optional
+ *                              draggable points, optional Play / Pause / Reset animation.
+ *   mountPractice(root, spec)  "Try it": a generated problem with Hint, Check, Show solution
+ *                              and New problem.
+ *
+ * Specs are plain objects defined in assets/js/explore/*.js. They contain no DOM code, so the
+ * Node tests can call spec.render() and spec.generate() directly.
+ *
+ * Explorer spec:
+ *   { title, intro?, controls: [Control], presets?: [{ label, values }],
+ *     drag?: { A: { x: 'x1', y: 'y1' } },        // data-drag="A" points move these controls
+ *     rotate?: { yaw: 'yaw' },                   // dragging the figure changes this control
+ *     animate?: { control: 't', seconds: 4 },    // Play moves this control from min to max
+ *     render(values) => { svg?, html?, readouts?: [{ label, tex?, text?, tone? }], caption?, note? } }
+ * Control: { name, label, min, max (number or values => number), step, value, unit?, type?: 'select', options? }
+ *
+ * Practice spec:
+ *   { title?, generate(rand) => { prompt (HTML), promptTex?, answers: [{ label, value, decimals?, unit?, int? }],
+ *       unordered?: boolean, hint, hintTex?, steps: [step], final? } }
+ */
+const { tex, escapeHtml, stepsBlock } = __m["lib/ui.js"];
+
+const reduceMotion = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+let seq = 0;
+
+function decimalsOf(step) {
+  const s = String(step);
+  return s.includes('e-') ? Number(s.split('e-')[1]) : (s.split('.')[1] || '').length;
+}
+const roundTo = (v, step, min) => {
+  const k = Math.round((v - min) / step);
+  return Number((min + k * step).toFixed(decimalsOf(step)));
+};
+
+function readoutHtml(r) {
+  const val = r.tex !== undefined ? tex(r.tex) : escapeHtml(r.text ?? '');
+  return `<div class="readout${r.tone ? ` is-${r.tone}` : ''}"><span class="readout-label">${escapeHtml(r.label)}</span><span class="readout-value">${val}</span></div>`;
+}
+
+/** Explore panel: controls on one side, live figure and readouts on the other. */
+function mountExplorer(root, spec) {
+  if (!root || !spec) return null;
+  const id = `ex${++seq}`;
+  const ctrls = spec.controls;
+  if (root.__explorer) root.__explorer.destroy();
+  const ac = new AbortController(); // removes window/document listeners when the explorer is replaced
+  const opt = { signal: ac.signal };
+  const values = Object.fromEntries(ctrls.map((c) => [c.name, c.value]));
+  const maxOf = (c) => (typeof c.max === 'function' ? c.max(values) : c.max);
+  const minOf = (c) => (typeof c.min === 'function' ? c.min(values) : c.min);
+
+  const controlHtml = (c) => {
+    if (c.hidden) return ''; // changed only by dragging on the figure
+    const cid = `${id}-${c.name}`;
+    if (c.type === 'select') {
+      return `<div class="ex-control"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+        <select id="${cid}" class="select" data-ctrl="${c.name}">${c.options.map(([v, l]) => `<option value="${escapeHtml(v)}"${String(v) === String(c.value) ? ' selected' : ''}>${escapeHtml(l)}</option>`).join('')}</select></div>`;
+    }
+    const unit = c.unit ? `<span class="ex-unit">${escapeHtml(c.unit)}</span>` : '';
+    return `<div class="ex-control">
+        <div class="ex-control-head"><label class="field-label" for="${cid}">${escapeHtml(c.label)}</label>
+          <span class="ex-num"><input class="input" type="number" inputmode="decimal" data-num="${c.name}" step="${c.step}" aria-label="${escapeHtml(c.label)} value">${unit}</span></div>
+        <input id="${cid}" class="range" type="range" data-ctrl="${c.name}" step="${c.step}">
+      </div>`;
+  };
+
+  const anim = spec.animate;
+  const motionOk = !reduceMotion();
+  const animHtml = anim ? `<div class="ex-player">
+      <button type="button" class="btn btn-primary btn-sm" data-play aria-pressed="false">▶ Play</button>
+      <button type="button" class="btn btn-secondary btn-sm" data-anim-reset>Reset</button>
+      <p class="field-hint w-full">${motionOk ? 'Or drag the time slider to step through it yourself.' : 'Your device asks for reduced motion, so nothing moves until you press Play. You can also drag the time slider instead.'}</p>
+    </div>` : '';
+  const presets = spec.presets && spec.presets.length
+    ? `<div class="example-row"><span>Try:</span>${spec.presets.map((p, i) => `<button type="button" class="chip" data-preset="${i}">${escapeHtml(p.label)}</button>`).join('')}</div>` : '';
+  const dragHint = spec.drag || spec.rotate ? `<p class="field-hint mt-3">${spec.rotate ? 'Drag the figure to turn it.' : 'Drag the points on the graph, or type exact values.'}</p>` : '';
+
+  root.innerHTML = `<div class="explore">
+      <div class="explore-controls">
+        ${spec.intro ? `<p class="explore-intro">${escapeHtml(spec.intro)}</p>` : ''}
+        ${ctrls.map(controlHtml).join('')}
+        ${animHtml}${presets}
+        <div class="form-actions mt-4"><button type="button" class="btn btn-ghost btn-sm" data-ex-reset>Reset values</button></div>
+        ${dragHint}
+      </div>
+      <div class="explore-stage">
+        <figure class="explore-figure" data-figure></figure>
+        <div class="readouts" data-readouts aria-live="polite"></div>
+        <p class="explore-note" data-note hidden></p>
+      </div>
+    </div>`;
+
+  const fig = root.querySelector('[data-figure]');
+  const out = root.querySelector('[data-readouts]');
+  const note = root.querySelector('[data-note]');
+
+  const sync = () => {
+    for (const c of ctrls) {
+      if (c.type === 'select') { root.querySelector(`[data-ctrl="${c.name}"]`).value = values[c.name]; continue; }
+      const lo = minOf(c), hi = maxOf(c);
+      if (values[c.name] > hi) values[c.name] = hi;
+      if (values[c.name] < lo) values[c.name] = lo;
+      if (c.hidden) continue;
+      const range = root.querySelector(`[data-ctrl="${c.name}"]`);
+      range.min = lo; range.max = hi; range.value = values[c.name];
+      const shown = Number(values[c.name].toFixed(decimalsOf(c.step)));
+      range.setAttribute('aria-valuetext', `${shown}${c.unit ? ` ${c.unit}` : ''}`);
+      const num = root.querySelector(`[data-num="${c.name}"]`);
+      if (document.activeElement !== num) num.value = shown;
+      num.min = lo; num.max = hi;
+    }
+  };
+
+  let frame = 0;
+  const draw = () => {
+    frame = 0;
+    let res;
+    try { res = spec.render({ ...values }); } catch (e) { res = { html: `<p class="alert alert-error">This combination cannot be drawn: ${escapeHtml(e.message)}</p>` }; }
+    fig.innerHTML = (res.svg || '') + (res.html || '') + (res.caption ? `<figcaption class="diagram-caption">${escapeHtml(res.caption)}</figcaption>` : '');
+    out.innerHTML = (res.readouts || []).map(readoutHtml).join('');
+    note.hidden = !res.note;
+    note.textContent = res.note || '';
+  };
+  const update = () => { sync(); if (!frame) frame = requestAnimationFrame(draw); };
+
+  root.addEventListener('input', (e) => {
+    const name = e.target.getAttribute('data-ctrl') || e.target.getAttribute('data-num');
+    if (!name) return;
+    const c = ctrls.find((x) => x.name === name);
+    if (c.type === 'select') { values[name] = e.target.value; update(); return; }
+    const v = Number(e.target.value);
+    if (e.target.value === '' || !Number.isFinite(v)) return;
+    values[name] = Math.min(maxOf(c), Math.max(minOf(c), v));
+    if (anim && name !== anim.control) stop();
+    update();
+  });
+  root.addEventListener('change', (e) => { if (e.target.hasAttribute('data-num')) sync(); });
+
+  const reset = (vals) => {
+    stop();
+    for (const c of ctrls) values[c.name] = c.value;
+    Object.assign(values, vals || {});
+    update();
+  };
+  root.querySelector('[data-ex-reset]').addEventListener('click', () => reset());
+  root.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => reset(spec.presets[Number(b.getAttribute('data-preset'))].values)));
+
+  // ------------------------------------------------ animation (always user-started)
+  let raf = 0, last = 0;
+  const playBtn = root.querySelector('[data-play]');
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    if (playBtn) { playBtn.textContent = '▶ Play'; playBtn.setAttribute('aria-pressed', 'false'); }
+  }
+  if (anim) {
+    const c = ctrls.find((x) => x.name === anim.control);
+    const tick = (now) => {
+      const hi = maxOf(c), lo = minOf(c);
+      const dt = last ? (now - last) / 1000 : 0;
+      last = now;
+      let v = values[c.name] + ((hi - lo) / (anim.seconds || 4)) * dt;
+      if (v >= hi) { if (anim.loop) v = lo + (v - hi); else { values[c.name] = hi; update(); stop(); return; } }
+      values[c.name] = v;
+      update();
+      raf = requestAnimationFrame(tick);
+    };
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (raf) { stop(); return; }
+        if (!anim.loop && values[c.name] >= maxOf(c)) values[c.name] = minOf(c);
+        last = 0;
+        playBtn.textContent = '❚❚ Pause';
+        playBtn.setAttribute('aria-pressed', 'true');
+        raf = requestAnimationFrame(tick);
+      });
+    }
+    root.querySelector('[data-anim-reset]').addEventListener('click', () => { stop(); values[c.name] = minOf(c); update(); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); }, opt);
+  }
+
+  // ------------------------------------------------ dragging points / rotating
+  const toGraph = (svg, clientX, clientY) => {
+    const view = (svg.getAttribute('data-view') || '').split(' ').map(Number);
+    const pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = clientY;
+    const m = svg.getScreenCTM();
+    if (!m || view.length < 8) return null;
+    const p = pt.matrixTransform(m.inverse());
+    const [xmin, xmax, ymin, ymax, l, t, pw, ph] = view;
+    return { x: xmin + ((p.x - l) / pw) * (xmax - xmin), y: ymax - ((p.y - t) / ph) * (ymax - ymin) };
+  };
+  let dragging = null;
+  fig.addEventListener('pointerdown', (e) => {
+    const svg = fig.querySelector('svg');
+    if (!svg) return;
+    const handle = e.target.closest('[data-drag]');
+    if (handle && spec.drag && spec.drag[handle.getAttribute('data-drag')]) {
+      dragging = { kind: 'point', key: handle.getAttribute('data-drag') };
+    } else if (spec.rotate) {
+      dragging = { kind: 'rotate', x: e.clientX, y: e.clientY, start: { ...values } };
+    } else return;
+    e.preventDefault();
+    stop();
+    fig.classList.add('is-dragging');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    if (dragging.kind === 'rotate') {
+      const yaw = spec.rotate.yaw, pitch = spec.rotate.pitch;
+      const cy = ctrls.find((c) => c.name === yaw);
+      let v = dragging.start[yaw] + (e.clientX - dragging.x) * 0.6;
+      while (v > cy.max) v -= cy.max - cy.min;
+      while (v < cy.min) v += cy.max - cy.min;
+      values[yaw] = Math.round(v);
+      if (pitch) {
+        const cp = ctrls.find((c) => c.name === pitch);
+        values[pitch] = Math.round(Math.max(cp.min, Math.min(cp.max, dragging.start[pitch] - (e.clientY - dragging.y) * 0.4)));
+      }
+      update();
+      return;
+    }
+    const svg = fig.querySelector('svg');
+    const g = svg && toGraph(svg, e.clientX, e.clientY);
+    if (!g) return;
+    const map = spec.drag[dragging.key];
+    const target = typeof map === 'function' ? map(g, { ...values }) : Object.fromEntries(Object.entries(map).map(([axis, name]) => [name, g[axis]]));
+    for (const [name, raw] of Object.entries(target)) {
+      const c = ctrls.find((x) => x.name === name);
+      if (!c || !Number.isFinite(raw)) continue;
+      values[name] = roundTo(Math.min(maxOf(c), Math.max(minOf(c), raw)), c.step, minOf(c));
+    }
+    update();
+  }, opt);
+  const endDrag = () => { if (dragging) { dragging = null; fig.classList.remove('is-dragging'); } };
+  window.addEventListener('pointerup', endDrag, opt);
+  window.addEventListener('pointercancel', endDrag, opt);
+
+  sync();
+  draw();
+  const api = { values, update, reset, destroy: () => { stop(); ac.abort(); } };
+  root.__explorer = api;
+  return api;
+}
+
+// ------------------------------------------------------------------------------------ practice
+
+/** Parse a typed answer: decimals, fractions like 3/4, a leading minus, commas as decimal point. */
+function parseAnswer(raw) {
+  const s = String(raw ?? '').trim().replace(/\s+/g, '').replace(/−/g, '-').replace(/,(?=\d{1,2}$)/, '.');
+  if (!s) return null;
+  const frac = s.match(/^(-?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+  if (frac) { const d = Number(frac[2]); return d === 0 ? null : Number(frac[1]) / d; }
+  if (!/^-?(\d+\.?\d*|\.\d+)(e-?\d+)?$/i.test(s)) return null;
+  return Number(s);
+}
+
+/** 'correct' | 'close' | 'wrong' for a typed value against the expected answer. */
+function judge(user, expected, decimals = 2) {
+  if (user === null || !Number.isFinite(user)) return 'invalid';
+  const err = Math.abs(user - expected);
+  const tol = 0.5 * 10 ** -decimals * 1.05 + 1e-9;
+  if (err <= tol || err <= Math.abs(expected) * 5e-4) return 'correct';
+  if (err <= Math.max(Math.abs(expected) * 0.05, tol * 4)) return 'close';
+  return 'wrong';
+}
+
+function mountPractice(root, spec) {
+  if (!root || !spec) return null;
+  const id = `pr${++seq}`;
+  let problem, attempts = 0;
+
+  const build = () => {
+    problem = spec.generate(Math.random);
+    attempts = 0;
+    const inputs = problem.answers.map((a, i) => `<div class="field">
+        <label class="field-label" for="${id}-a${i}">${escapeHtml(a.label)}</label>
+        <div class="input-affix"><input id="${id}-a${i}" class="input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-answer="${i}" aria-describedby="${id}-h${i}">${a.unit ? `<span class="affix">${escapeHtml(a.unit)}</span>` : ''}</div>
+        <p class="field-hint" id="${id}-h${i}">${a.int ? 'A whole number' : `Round to ${a.decimals ?? 2} decimal places`}</p>
+      </div>`).join('');
+    root.innerHTML = `<form class="practice" novalidate>
+        <div class="practice-prompt">${problem.prompt}${problem.promptTex ? `<div class="step-math">${tex(problem.promptTex, true)}</div>` : ''}</div>
+        <div class="field-row mt-4">${inputs}</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Check answer</button>
+          <button type="button" class="btn btn-secondary" data-hint>Hint</button>
+          <button type="button" class="btn btn-ghost" data-solution>Show solution</button>
+          <button type="button" class="btn btn-ghost" data-new>New problem</button>
+        </div>
+        <div class="practice-feedback" data-feedback role="status" aria-live="polite"></div>
+        <div data-hint-box hidden></div>
+        <div data-solution-box hidden></div>
+      </form>`;
+    const form = root.querySelector('form');
+    const fb = root.querySelector('[data-feedback]');
+    const hintBox = root.querySelector('[data-hint-box]');
+    const solBox = root.querySelector('[data-solution-box]');
+    const showHint = () => {
+      hintBox.hidden = false;
+      hintBox.innerHTML = `<div class="alert alert-info"><p class="alert-title">Hint</p><p>${escapeHtml(problem.hint)}</p>${problem.hintTex ? `<div class="step-math">${tex(problem.hintTex, true)}</div>` : ''}</div>`;
+    };
+    const showSolution = () => {
+      solBox.hidden = false;
+      const final = problem.answers.map((a) => `${a.label}: ${a.int ? a.value : Number(a.value.toFixed(a.decimals ?? 2))}${a.unit ? ` ${a.unit}` : ''}`).join(' · ');
+      solBox.innerHTML = stepsBlock(problem.steps, { title: 'Worked solution' }) + `<p class="practice-final">Answer — ${escapeHtml(final)}</p>`;
+    };
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const typed = problem.answers.map((_, i) => parseAnswer(form.querySelector(`[data-answer="${i}"]`).value));
+      if (typed.some((v) => v === null)) {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = 'Enter a number in every box (decimals or fractions such as 3/4).';
+        return;
+      }
+      let verdicts;
+      if (problem.unordered) {
+        const exp = problem.answers.map((a) => a.value).sort((x, y) => x - y);
+        const got = typed.slice().sort((x, y) => x - y);
+        verdicts = got.map((g, i) => judge(g, exp[i], problem.answers[i].decimals ?? 2));
+      } else {
+        verdicts = typed.map((g, i) => judge(g, problem.answers[i].value, problem.answers[i].int ? 0 : problem.answers[i].decimals ?? 2));
+      }
+      problem.answers.forEach((_, i) => {
+        const el = form.querySelector(`[data-answer="${i}"]`);
+        el.setAttribute('aria-invalid', verdicts[i] === 'correct' || problem.unordered ? 'false' : 'true');
+      });
+      attempts++;
+      if (verdicts.every((v) => v === 'correct')) {
+        fb.className = 'practice-feedback is-correct';
+        fb.textContent = attempts === 1 ? 'Correct — well done!' : `Correct after ${attempts} tries. Open the worked solution to compare your method.`;
+        form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      } else if (verdicts.some((v) => v === 'close')) {
+        fb.className = 'practice-feedback is-close';
+        fb.textContent = 'Very close. Check your rounding, or a sign or unit in the last step.';
+      } else {
+        fb.className = 'practice-feedback is-wrong';
+        fb.textContent = attempts >= 2 ? 'Not yet. Take the hint, or open the worked solution and compare it step by step.' : 'Not quite. Check your working and try again.';
+        if (attempts >= 2 && hintBox.hidden) showHint();
+      }
+    });
+    root.querySelector('[data-hint]').addEventListener('click', showHint);
+    root.querySelector('[data-solution]').addEventListener('click', showSolution);
+    root.querySelector('[data-new]').addEventListener('click', () => { build(); root.querySelector('input').focus(); });
+  };
+  build();
+  return { next: build };
+}
+
+/** Random helpers for problem generators (pass the generator's rand). */
+const pick = (rand, list) => list[Math.floor(rand() * list.length)];
+const randInt = (rand, lo, hi) => lo + Math.floor(rand() * (hi - lo + 1));
+
+return { mountExplorer, parseAnswer, judge, mountPractice, pick, randInt };
+})();
+__m["lib/solid3d.js"] = (function () {
+/**
+ * Tiny 3D renderer for convex solids, returning an SVG string (no DOM, no WebGL).
+ * Solids are lists of polygon faces in 3D (y is up). Only faces that point towards the
+ * viewer are drawn (correct for convex solids), shaded by a fixed light.
+ */
+const r2 = (v) => Math.round(v * 100) / 100;
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** Frustum of a cone/pyramid with n sides: bottom radius R, top radius r (0 = apex), height h. */
+function frustumMesh(R, r, h, n, { smooth = false, phase = 0 } = {}) {
+  const ring = (rad, y) => Array.from({ length: n }, (_, i) => {
+    const t = phase + (2 * Math.PI * i) / n;
+    return [rad * Math.cos(t), y, rad * Math.sin(t)];
+  });
+  const bottom = ring(R, -h / 2);
+  const faces = [{ pts: bottom.slice().reverse(), cap: true }];
+  if (r > 1e-9) {
+    const top = ring(r, h / 2);
+    faces.push({ pts: top, cap: true });
+    for (let i = 0; i < n; i++) faces.push({ pts: [bottom[i], bottom[(i + 1) % n], top[(i + 1) % n], top[i]], side: true });
+  } else {
+    const apex = [0, h / 2, 0];
+    for (let i = 0; i < n; i++) faces.push({ pts: [bottom[i], bottom[(i + 1) % n], apex], side: true });
+  }
+  return { faces, smooth };
+}
+
+function sphereMesh(R, lat = 14, lon = 28) {
+  const faces = [];
+  const P = (i, j) => {
+    const th = (Math.PI * i) / lat, ph = (2 * Math.PI * j) / lon;
+    return [R * Math.sin(th) * Math.cos(ph), R * Math.cos(th), R * Math.sin(th) * Math.sin(ph)];
+  };
+  for (let i = 0; i < lat; i++) {
+    for (let j = 0; j < lon; j++) {
+      const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)];
+      faces.push({ pts: i === 0 ? [pts[0], pts[1], pts[2]] : i === lat - 1 ? [pts[0], pts[1], pts[3]] : pts, side: true });
+    }
+  }
+  return { faces, smooth: true };
+}
+
+/** Ellipsoid with semi-axes a (x), b (y, vertical) and c (z). */
+function ellipsoidMesh(a, b, c, lat = 14, lon = 28) {
+  const m = sphereMesh(1, lat, lon);
+  return { ...m, faces: m.faces.map((f) => ({ ...f, pts: f.pts.map(([x, y, z]) => [a * x, b * y, c * z]) })) };
+}
+
+/** Spherical cap of a sphere with radius R, height h, flat base facing down. */
+function capMesh(R, h, lat = 10, lon = 32) {
+  const th0 = Math.acos(Math.max(-1, Math.min(1, (R - h) / R))); // polar angle of the base rim
+  const faces = [];
+  const P = (i, j) => {
+    const th = (th0 * i) / lat, ph = (2 * Math.PI * j) / lon;
+    return [R * Math.sin(th) * Math.cos(ph), R * Math.cos(th) - (R - h / 2), R * Math.sin(th) * Math.sin(ph)];
+  };
+  for (let i = 0; i < lat; i++) for (let j = 0; j < lon; j++) {
+    const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)];
+    faces.push({ pts: i === 0 ? [pts[0], pts[1], pts[2]] : pts, side: true });
+  }
+  faces.push({ pts: Array.from({ length: lon }, (_, j) => P(lat, lon - j)), cap: true });
+  return { faces, smooth: true };
+}
+
+/** Ring torus: distance R from the centre to the tube centre, tube radius r (R > r). */
+function torusMesh(R, r, nu = 36, nv = 16) {
+  const P = (i, j) => {
+    const u = (2 * Math.PI * i) / nu, v = (2 * Math.PI * j) / nv;
+    return [(R + r * Math.cos(v)) * Math.cos(u), r * Math.sin(v), (R + r * Math.cos(v)) * Math.sin(u)];
+  };
+  const faces = [];
+  for (let i = 0; i < nu; i++) for (let j = 0; j < nv; j++) {
+    const u = (2 * Math.PI * (i + 0.5)) / nu, v = (2 * Math.PI * (j + 0.5)) / nv;
+    // outward normal of the tube at the face centre
+    faces.push({ pts: [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)], side: true, normal: [Math.cos(v) * Math.cos(u), Math.sin(v), Math.cos(v) * Math.sin(u)] });
+  }
+  return { faces, smooth: true, convex: false };
+}
+
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const norm = (a) => { const l = Math.hypot(...a) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+
+/**
+ * opts: { yaw, pitch (degrees), scale (px per unit), width, height, title, lines: [{ a, b, cls, label }] }
+ * lines are 3D segments drawn on top (dimension lines), dashed when cls = 'd-dim'.
+ */
+function renderSolid(mesh, opts = {}) {
+  const W = opts.width || 360, H = opts.height || 300;
+  const yaw = ((opts.yaw ?? 30) * Math.PI) / 180, pitch = ((opts.pitch ?? 20) * Math.PI) / 180;
+  const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  const rot = ([x, y, z]) => {
+    const x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
+    return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
+  };
+  const s = opts.scale || 10;
+  const proj = (p) => [W / 2 + s * p[0], H / 2 - s * p[1]];
+  const light = norm([-0.45, 0.75, 0.6]);
+  const all = mesh.faces.flatMap((f) => f.pts);
+  const centre = all.reduce((acc, p) => [acc[0] + p[0] / all.length, acc[1] + p[1] / all.length, acc[2] + p[2] / all.length], [0, 0, 0]);
+  const C = rot(centre);
+  const polys = [];
+  for (const f of mesh.faces) {
+    if (f.pts.length < 3) continue; // degenerate (e.g. a band on the axis)
+    const pts = f.pts.map(rot);
+    let n = norm(cross(sub(pts[1], pts[0]), sub(pts[2], pts[0])));
+    const fc = pts.reduce((a, p) => [a[0] + p[0] / pts.length, a[1] + p[1] / pts.length, a[2] + p[2] / pts.length], [0, 0, 0]);
+    if (f.normal) { const fn = rot(f.normal); if (dot(n, fn) < 0) n = n.map((v) => -v); } else if (dot(n, sub(fc, C)) < 0) n = n.map((v) => -v);
+    if (n[2] <= 1e-6) continue; // faces away from the viewer (drawn back to front, so non-convex solids work too)
+    const b = Math.max(0, dot(n, light));
+    const mix = Math.round(62 - 40 * b);
+    const fill = `color-mix(in srgb, var(--primary) ${mix}%, var(--surface))`;
+    const stroke = mesh.smooth && f.side ? fill : 'var(--primary)';
+    const sw = mesh.smooth && f.side ? 0.8 : 1.6;
+    const d = pts.map((p) => proj(p).map(r2).join(',')).join(' ');
+    polys.push({ z: fc[2], svg: `<polygon class="d-face" points="${d}" style="fill:${fill};stroke:${stroke};stroke-width:${sw}"/>` });
+  }
+  polys.sort((a, b) => a.z - b.z);
+  const lines = (opts.lines || []).map((l) => {
+    const [x1, y1] = proj(rot(l.a)), [x2, y2] = proj(rot(l.b));
+    const label = l.label ? `<text class="d-label" x="${r2((x1 + x2) / 2 + 6)}" y="${r2((y1 + y2) / 2 - 4)}">${esc(l.label)}</text>` : '';
+    return `<line class="${l.cls || 'd-dim'}" x1="${r2(x1)}" y1="${r2(y1)}" x2="${r2(x2)}" y2="${r2(y2)}" stroke-dasharray="5 4"/>${label}`;
+  });
+  const svg = `<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || '3D solid')}"><title>${esc(opts.title || '3D solid')}</title>${polys.map((p) => p.svg).join('')}${lines.join('')}</svg>`;
+  return /NaN|Infinity/.test(svg) ? '' : svg;
+}
+
+// ---------------------------------------------------------------- more meshes
+
+/**
+ * Convex hull of a small set of 3D points (up to a few dozen), as polygon faces.
+ * Used for polyhedra, wedges, obelisks and truncated prisms. Coplanar points are merged
+ * into one face and ordered around the face centre.
+ */
+function hullMesh(points, { tol = 1e-9 } = {}) {
+  const n = points.length, faces = [], seen = new Set();
+  const scale = Math.max(1e-12, ...points.flat().map(Math.abs));
+  const eps = tol * scale;
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) for (let k = j + 1; k < n; k++) {
+    const nrm = cross(sub(points[j], points[i]), sub(points[k], points[i]));
+    const len = Math.hypot(...nrm);
+    if (len < eps * scale) continue;
+    const u = nrm.map((v) => v / len), d = dot(u, points[i]);
+    let pos = 0, neg = 0;
+    const on = [];
+    points.forEach((p, idx) => { const s = dot(u, p) - d; if (s > eps) pos++; else if (s < -eps) neg++; else on.push(idx); });
+    if (pos && neg) continue;
+    const key = on.slice().sort((a, b) => a - b).join(',');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const outward = pos ? u.map((v) => -v) : u;
+    const c = on.reduce((a, idx) => [a[0] + points[idx][0] / on.length, a[1] + points[idx][1] / on.length, a[2] + points[idx][2] / on.length], [0, 0, 0]);
+    const e1 = norm(sub(points[on[0]], c)), e2 = cross(outward, e1);
+    const pts = on.map((idx) => points[idx]).sort((p, q) => Math.atan2(dot(sub(p, c), e2), dot(sub(p, c), e1)) - Math.atan2(dot(sub(q, c), e2), dot(sub(q, c), e1)));
+    faces.push({ pts, normal: outward });
+  }
+  return { faces, smooth: false };
+}
+
+/**
+ * Solid of revolution about the vertical axis. profile: [[radius, y], ...] from bottom to top.
+ * Each band gets its outward normal, so non-convex profiles (a pipe, a sector) draw correctly.
+ */
+function latheMesh(profile, n = 40, { smooth = true, closeEnds = true } = {}) {
+  const faces = [];
+  const ring = (rad, y, t) => [rad * Math.cos(t), y, rad * Math.sin(t)];
+  for (let k = 0; k + 1 < profile.length; k++) {
+    const [r1, y1] = profile[k], [r2, y2] = profile[k + 1];
+    const dr = r2 - r1, dy = y2 - y1;
+    if (Math.hypot(dr, dy) < 1e-12) continue;
+    for (let i = 0; i < n; i++) {
+      const a = (2 * Math.PI * i) / n, b = (2 * Math.PI * (i + 1)) / n, m = (a + b) / 2;
+      const pts = [ring(r1, y1, a), ring(r1, y1, b), ring(r2, y2, b), ring(r2, y2, a)].filter((p, idx, arr) => idx === 0 || Math.hypot(...sub(p, arr[idx - 1])) > 1e-12);
+      // outward normal: rotate the profile tangent (dr, dy) by −90° in the (radius, y) plane
+      const nr = dy, ny = -dr;
+      if (pts.length >= 3) faces.push({ pts, side: true, normal: [nr * Math.cos(m), ny, nr * Math.sin(m)] });
+    }
+  }
+  if (closeEnds) {
+    const [rb, yb] = profile[0], [rt, yt] = profile[profile.length - 1];
+    if (rb > 1e-9) faces.push({ pts: Array.from({ length: n }, (_, i) => ring(rb, yb, -(2 * Math.PI * i) / n)), cap: true, normal: [0, -1, 0] });
+    if (rt > 1e-9) faces.push({ pts: Array.from({ length: n }, (_, i) => ring(rt, yt, (2 * Math.PI * i) / n)), cap: true, normal: [0, 1, 0] });
+  }
+  return { faces, smooth };
+}
+
+/** Oblique circular cylinder (or cone when rTop = 0): the top is shifted sideways by `shift`. */
+function obliqueMesh(r, rTop, h, shift, n = 40) {
+  const faces = [];
+  const P = (rad, y, t, dx) => [dx + rad * Math.cos(t), y, rad * Math.sin(t)];
+  const bottom = Array.from({ length: n }, (_, i) => P(r, -h / 2, (2 * Math.PI * i) / n, -shift / 2));
+  const top = Array.from({ length: n }, (_, i) => P(rTop, h / 2, (2 * Math.PI * i) / n, shift / 2));
+  faces.push({ pts: bottom.slice().reverse(), cap: true, normal: [0, -1, 0] });
+  if (rTop > 1e-9) faces.push({ pts: top, cap: true, normal: [0, 1, 0] });
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    const pts = rTop > 1e-9 ? [bottom[i], bottom[j], top[j], top[i]] : [bottom[i], bottom[j], top[0]];
+    faces.push({ pts, side: true }); // convex, so the renderer orients the face itself
+  }
+  return { faces, smooth: true };
+}
+
+/** Spherical wedge: the part of a sphere of radius R between two half-planes θ apart (degrees). */
+function sphereWedgeMesh(R, thetaDeg, lat = 14, lonPerTurn = 36) {
+  const th = (Math.min(360, Math.max(1, thetaDeg)) * Math.PI) / 180;
+  const lon = Math.max(2, Math.round((lonPerTurn * th) / (2 * Math.PI)));
+  const P = (i, j) => { const a = (Math.PI * i) / lat, b = (th * j) / lon; return [R * Math.sin(a) * Math.cos(b), R * Math.cos(a), R * Math.sin(a) * Math.sin(b)]; };
+  const faces = [];
+  for (let i = 0; i < lat; i++) for (let j = 0; j < lon; j++) {
+    const a = (Math.PI * (i + 0.5)) / lat, b = (th * (j + 0.5)) / lon;
+    faces.push({ pts: [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)], side: true, normal: [Math.sin(a) * Math.cos(b), Math.cos(a), Math.sin(a) * Math.sin(b)] });
+  }
+  if (thetaDeg < 360) {
+    const half = (angle, flip) => {
+      const pts = [[0, R, 0], ...Array.from({ length: lat - 1 }, (_, i) => { const a = (Math.PI * (i + 1)) / lat; return [R * Math.sin(a) * Math.cos(angle), R * Math.cos(a), R * Math.sin(a) * Math.sin(angle)]; }), [0, -R, 0]];
+      return { pts, cap: true, normal: [flip * Math.sin(angle), 0, -flip * Math.cos(angle)] };
+    };
+    faces.push(half(0, 1), half(th, -1));
+  }
+  return { faces, smooth: true, convex: false };
+}
+
+/** Cylindrical wedge (ungula): cut from a cylinder of radius r by a plane through a diameter of the base, rising to height h. */
+function ungulaMesh(r, h, n = 32) {
+  const faces = [];
+  const base = (t) => [r * Math.cos(t), -h / 2, r * Math.sin(t)];
+  const top = (t) => [r * Math.cos(t), -h / 2 + (h * Math.sin(t)), r * Math.sin(t)];
+  const ts = Array.from({ length: n + 1 }, (_, i) => (Math.PI * i) / n);
+  faces.push({ pts: ts.map(base).reverse(), cap: true, normal: [0, -1, 0] });
+  faces.push({ pts: ts.map(top), cap: true, normal: [0, r, -h] });
+  for (let i = 0; i < n; i++) {
+    const m = (ts[i] + ts[i + 1]) / 2;
+    faces.push({ pts: [base(ts[i]), base(ts[i + 1]), top(ts[i + 1]), top(ts[i])].filter((p, idx, arr) => idx === 0 || Math.hypot(...sub(p, arr[idx - 1])) > 1e-12), side: true, normal: [Math.cos(m), 0, Math.sin(m)] });
+  }
+  return { faces, smooth: true };
+}
+
+return { frustumMesh, sphereMesh, ellipsoidMesh, capMesh, torusMesh, renderSolid, hullMesh, latheMesh, obliqueMesh, sphereWedgeMesh, ungulaMesh };
+})();
+__m["lib/fraction.js"] = (function () {
+/**
+ * Exact rational numbers backed by BigInt. Used wherever an answer should be exact:
+ * equation solving, matrices, polynomial factoring, symbolic calculus coefficients.
+ */
+const babs = (a) => (a < 0n ? -a : a);
+function bgcd(a, b) {
+  a = babs(a); b = babs(b);
+  while (b) [a, b] = [b, a % b];
+  return a;
+}
+
+class Frac {
+  constructor(n, d = 1n) {
+    n = BigInt(n); d = BigInt(d);
+    if (d === 0n) throw new RangeError('Division by zero');
+    if (d < 0n) { n = -n; d = -d; }
+    const g = bgcd(n, d) || 1n;
+    this.n = n / g;
+    this.d = d / g;
+  }
+  static of(x) {
+    if (x instanceof Frac) return x;
+    if (typeof x === 'bigint') return new Frac(x);
+    if (typeof x === 'number') {
+      if (Number.isInteger(x)) return new Frac(BigInt(x));
+      const f = parseFrac(String(x));
+      if (f) return f;
+      throw new RangeError(`Cannot represent ${x} exactly`);
+    }
+    const f = parseFrac(String(x));
+    if (!f) throw new RangeError(`Not a number: ${x}`);
+    return f;
+  }
+  add(o) { o = Frac.of(o); return new Frac(this.n * o.d + o.n * this.d, this.d * o.d); }
+  sub(o) { o = Frac.of(o); return new Frac(this.n * o.d - o.n * this.d, this.d * o.d); }
+  mul(o) { o = Frac.of(o); return new Frac(this.n * o.n, this.d * o.d); }
+  div(o) { o = Frac.of(o); if (o.n === 0n) throw new RangeError('Division by zero'); return new Frac(this.n * o.d, this.d * o.n); }
+  neg() { return new Frac(-this.n, this.d); }
+  abs() { return new Frac(babs(this.n), this.d); }
+  inv() { return new Frac(this.d, this.n); }
+  pow(k) {
+    k = Number(k);
+    if (!Number.isInteger(k)) throw new RangeError('Integer exponents only');
+    if (k < 0) return this.inv().pow(-k);
+    return new Frac(this.n ** BigInt(k), this.d ** BigInt(k));
+  }
+  cmp(o) { o = Frac.of(o); const x = this.n * o.d - o.n * this.d; return x > 0n ? 1 : x < 0n ? -1 : 0; }
+  eq(o) { return this.cmp(o) === 0; }
+  sign() { return this.n > 0n ? 1 : this.n < 0n ? -1 : 0; }
+  isZero() { return this.n === 0n; }
+  isInt() { return this.d === 1n; }
+  isOne() { return this.n === 1n && this.d === 1n; }
+  toNumber() {
+    const n = Number(this.n), d = Number(this.d);
+    if (Number.isFinite(n) && Number.isFinite(d) && Math.abs(n) < 2 ** 53 && d < 2 ** 53) return n / d;
+    // very large values: scale before converting
+    const shift = BigInt(Math.max(0, this.d.toString().length - 15));
+    return Number(this.n / 10n ** shift) / Number(this.d / 10n ** shift);
+  }
+  toString() { return this.d === 1n ? this.n.toString() : `${this.n}/${this.d}`; }
+  /** TeX: integers plain, fractions as \frac (sign in front). */
+  toTex() {
+    if (this.d === 1n) return this.n.toString();
+    return `${this.n < 0n ? '-' : ''}\\frac{${babs(this.n)}}{${this.d}}`;
+  }
+  /** Decimal string if the fraction terminates within `max` places, otherwise null. */
+  toDecimal(max = 12) {
+    let d = this.d, twos = 0, fives = 0;
+    while (d % 2n === 0n) { d /= 2n; twos++; }
+    while (d % 5n === 0n) { d /= 5n; fives++; }
+    if (d !== 1n) return null;
+    const places = Math.max(twos, fives);
+    if (places > max) return null;
+    const scaled = (babs(this.n) * 10n ** BigInt(places)) / this.d;
+    let s = scaled.toString().padStart(places + 1, '0');
+    if (places) s = `${s.slice(0, -places)}.${s.slice(-places)}`;
+    return (this.n < 0n ? '-' : '') + s;
+  }
+}
+
+const ZERO = new Frac(0n);
+const ONE = new Frac(1n);
+
+/** Parse "3", "-2.75", ".5", "1e-3", "3/4", "-1.5/2" exactly. Returns Frac or null. */
+function parseFrac(raw) {
+  const s = String(raw ?? '').trim().replace(/[−–]/g, '-').replace(/\s+/g, '');
+  if (!s) return null;
+  const parts = s.split('/');
+  if (parts.length > 2) return null;
+  const nums = parts.map(parseDecimalExact);
+  if (nums.some((x) => x === null)) return null;
+  if (parts.length === 2) return nums[1].isZero() ? null : nums[0].div(nums[1]);
+  return nums[0];
+}
+
+function parseDecimalExact(s) {
+  const m = /^([+-]?)(\d*)(?:\.(\d*))?(?:[eE]([+-]?\d+))?$/.exec(s);
+  if (!m || (m[2] === '' && (m[3] === undefined || m[3] === ''))) return null;
+  const sign = m[1] === '-' ? -1n : 1n;
+  const frac = m[3] || '';
+  let n = BigInt((m[2] || '0') + frac) * sign;
+  let d = 10n ** BigInt(frac.length);
+  const e = m[4] ? Number(m[4]) : 0;
+  if (Math.abs(e) > 400) return null;
+  if (e > 0) n *= 10n ** BigInt(e); else if (e < 0) d *= 10n ** BigInt(-e);
+  return new Frac(n, d);
+}
+
+/** Exact value as TeX: integer, terminating decimal is shown as a fraction only if requested. */
+function fracTex(f) { return Frac.of(f).toTex(); }
+
+/** "= 3/4 ≈ 0.75" style helpers */
+function fracText(f) { return Frac.of(f).toString(); }
+
+function lcmBig(a, b) { return (babs(a) / (bgcd(a, b) || 1n)) * babs(b); }
+
+return { bgcd, Frac, ZERO, ONE, parseFrac, fracTex, fracText, lcmBig };
+})();
+__m["lib/calc-kit.js"] = (function () {
+/**
+ * Shared helpers for calculator modules: input validation that collects every error at once,
+ * consistent number formatting, and answer-card builders.
+ */
+const { parseDecimal, parseWhole } = __m["lib/parse.js"];
+const { formatNumber, texNumber, isDisplayExact, unitLabels } = __m["lib/format.js"];
+const { parseFrac } = __m["lib/fraction.js"];
+
+/** Collects validation errors; read values with number()/whole()/frac(), then check ok(). */
+function validator(values) {
+  const errors = [];
+  const fail = (field, message) => { errors.push({ field, message }); return undefined; };
+  return {
+    errors,
+    fail,
+    ok: () => errors.length === 0,
+    result: () => ({ ok: false, errors }),
+    /**
+     * opts: { positive, nonneg, nonzero, min, max, integer, maxAbs }
+     */
+    number(name, label, opts = {}) {
+      const p = parseDecimal(values[name], label);
+      if (!p.ok) return fail(name, p.error);
+      const v = p.value;
+      const maxAbs = opts.maxAbs ?? 1e12;
+      if (Math.abs(v) > maxAbs) return fail(name, `Please keep ${label} between −${maxAbs.toExponential(0)} and ${maxAbs.toExponential(0)} so the result stays accurate.`);
+      if (opts.positive && !(v > 0)) return fail(name, `${cap(label)} must be greater than 0.`);
+      if (opts.nonneg && v < 0) return fail(name, `${cap(label)} cannot be negative.`);
+      if (opts.nonzero && v === 0) return fail(name, `${cap(label)} cannot be 0.`);
+      if (opts.min !== undefined && v < opts.min) return fail(name, `${cap(label)} must be at least ${opts.min}.`);
+      if (opts.max !== undefined && v > opts.max) return fail(name, `${cap(label)} must be at most ${opts.max}.`);
+      if (opts.integer && !Number.isInteger(v)) return fail(name, `${cap(label)} must be a whole number.`);
+      return v;
+    },
+    whole(name, label, max = 1e9, min = 0) {
+      const p = parseWhole(values[name], label, max);
+      if (!p.ok) return fail(name, p.error);
+      if (p.value < min) return fail(name, `${cap(label)} must be at least ${min}.`);
+      return p.value;
+    },
+    frac(name, label, opts = {}) {
+      const raw = String(values[name] ?? '').trim();
+      if (!raw) return fail(name, `Enter a value for ${label}.`);
+      const f = parseFrac(raw);
+      if (!f) return fail(name, `${cap(label)} must be a number or fraction, for example 3, -2.5 or 3/4.`);
+      if (opts.nonzero && f.isZero()) return fail(name, `${cap(label)} cannot be 0.`);
+      if (f.n.toString().length > 30 || f.d.toString().length > 30) return fail(name, `${cap(label)} has too many digits.`);
+      return f;
+    },
+    text(name, label) {
+      const raw = String(values[name] ?? '').trim();
+      if (!raw) return fail(name, `Please enter a value for ${label}.`);
+      return raw;
+    },
+  };
+}
+
+function cap(s) { return /^[a-z]{2,}/.test(s) ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+const fmt = (x, d = 6) => formatNumber(x, { decimals: d });
+const tx = (x, d = 6) => texNumber(x, { decimals: d });
+/** TeX number wrapped in parentheses when negative (for substitutions). */
+const txp = (x, d = 6) => (x < 0 ? `(${tx(x, d)})` : tx(x, d));
+const approxRel = (x) => (isDisplayExact(x) ? '=' : '\\approx');
+const isExact = isDisplayExact;
+
+/** Answer card for a decimal value. */
+function answer(label, x, { unit = '', primary = false, exactTex, irrational = false, decimals = 6 } = {}) {
+  const approx = irrational || !isDisplayExact(x, decimals);
+  const value = `${formatNumber(x, { decimals })}${unit ? ` ${unit}` : ''}`;
+  return { label, value, approx, primary, exactTex, copy: `${label}: ${approx ? '≈ ' : ''}${value}` };
+}
+
+/** Units for length/area/volume given a chosen length unit ('' = none). */
+function units(u) {
+  const l = unitLabels(u);
+  return { len: u ? l.length : '', area: u ? l.area : '', vol: u ? l.volume : '', texLen: l.tex.length, texArea: l.tex.area, texVol: l.tex.volume };
+}
+
+/** Standard length-unit field definition. */
+const UNIT_FIELD = {
+  name: 'unit', label: 'Unit of length (optional)', type: 'select',
+  options: [['', 'No unit'], ['mm', 'millimetres (mm)'], ['cm', 'centimetres (cm)'], ['m', 'metres (m)'], ['km', 'kilometres (km)'], ['in', 'inches (in)'], ['ft', 'feet (ft)'], ['yd', 'yards (yd)']],
+};
+
+const ANGLE_UNIT_FIELD = {
+  name: 'angleUnit', label: 'Angle unit', type: 'radio', options: [['deg', 'Degrees'], ['rad', 'Radians']],
+};
+
+const toRad = (x, unit) => (unit === 'rad' ? x : (x * Math.PI) / 180);
+const fromRad = (x, unit) => (unit === 'rad' ? x : (x * 180) / Math.PI);
+const angleSym = (unit) => (unit === 'rad' ? ' rad' : '°');
+const angleTex = (unit) => (unit === 'rad' ? '\\text{ rad}' : '^\\circ');
+
+
+
+/** TeX for a rational multiple of π, e.g. 228π or 196π/3. f is a Frac. */
+function piTex(f) {
+  if (f.isZero()) return '0';
+  const s = f.sign() < 0 ? '-' : '';
+  const a = f.abs();
+  const top = `${a.n === 1n ? '' : a.n}\\pi`;
+  return a.d === 1n ? `${s}${top}` : `${s}\\frac{${top}}{${a.d}}`;
+}
+function piText(f) {
+  if (f.isZero()) return '0';
+  const s = f.sign() < 0 ? '-' : '';
+  const a = f.abs();
+  return `${s}${a.n === 1n ? '' : a.n}π${a.d === 1n ? '' : `/${a.d}`}`;
+}
+/** Answer card for a value k·π with exact coefficient k (Frac or null). */
+function piAnswer(label, coef, x, unit = '', primary = false) {
+  const a = answer(label, x, { unit, primary, irrational: true, exactTex: coef ? piTex(coef) : undefined });
+  if (coef) a.copy = `${label}: ${piText(coef)} ≈ ${a.value}`;
+  return a;
+}
+/** TeX of an exact fraction, in parentheses when negative (for substitutions). */
+const fp = (f) => (f.sign() < 0 ? `\\left(${f.toTex()}\\right)` : f.toTex());
+/** Readable text of an exact fraction: "3/4 (0.75)" or "1/3 (≈ 0.333333)". */
+function fracText(f) {
+  if (f.isInt()) return f.toString();
+  const dec = f.toDecimal(8);
+  return dec ? `${f.toString()} = ${dec}` : `${f.toString()} ≈ ${formatNumber(f.toNumber())}`;
+}
+/** Answer card for an exact fraction. */
+function fracAnswer(label, f, { unit = '', primary = false } = {}) {
+  const dec = f.isInt() ? f.toString() : f.toDecimal(8);
+  const u = unit ? ` ${unit}` : '';
+  if (dec) return { label, value: `${dec}${u}`, approx: false, primary, exactTex: f.isInt() ? undefined : f.toTex(), copy: `${label}: ${dec}${u}` };
+  return { label, value: `${formatNumber(f.toNumber())}${u}`, approx: true, primary, exactTex: f.toTex(), copy: `${label}: ${f.toString()} ≈ ${formatNumber(f.toNumber())}${u}` };
+}
+/** TeX for a point with exact coordinates. */
+const pointTex = (x, y) => `\\left(${x.toTex()},\\ ${y.toTex()}\\right)`;
+/** √(f) for a nonnegative Frac in simplest radical form, as { tex, text, value }. */
+function sqrtFrac(f, simplifySqrt) {
+  // √(p/q) = √(p·q)/q
+  const value = Math.sqrt(f.toNumber());
+  const pq = f.n * f.d;
+  if (pq > 10n ** 12n) return { tex: `\\sqrt{${f.toTex()}}`, text: `√(${f})`, value, exact: false };
+  const [a, b] = simplifySqrt(Number(pq));
+  const g = gcdNum(a, Number(f.d));
+  const A = a / g, D = Number(f.d) / g;
+  const top = b === 1 ? `${A}` : `${A === 1 ? '' : A}\\sqrt{${b}}`;
+  const topText = b === 1 ? `${A}` : `${A === 1 ? '' : A}√${b}`;
+  return { tex: D === 1 ? top : `\\frac{${top}}{${D}}`, text: D === 1 ? topText : `${topText}/${D}`, value, exact: b === 1 };
+}
+function gcdNum(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) [a, b] = [b, a % b]; return a || 1; }
+
+/** "= 12" or "\\approx 3.141593" depending on whether the shown decimal is exact. */
+const eq = (x, d = 6) => `${isDisplayExact(x, d) ? '=' : '\\approx'} ${texNumber(x, { decimals: d })}`;
+
+return { validator, cap, fmt, tx, txp, approxRel, isExact, answer, units, UNIT_FIELD, ANGLE_UNIT_FIELD, toRad, fromRad, angleSym, angleTex, piTex, piText, piAnswer, fp, fracText, fracAnswer, pointTex, sqrtFrac, eq, formatNumber, texNumber, isDisplayExact };
+})();
+__m["explore/solids-practice.js"] = (function () {
+/**
+ * Practice problems for every solid mensuration calculator, plus explorers for composite
+ * solids, similar solids and the frustum of a cone. Problems use whole numbers (and
+ * Pythagorean triples where a slant height appears) so the working stays clean.
+ */
+const { frustumMesh, latheMesh, renderSolid } = __m["lib/solid3d.js"];
+const { tx } = __m["lib/calc-kit.js"];
+const { randInt, pick } = __m["lib/learn.js"];
+
+const PI = Math.PI;
+const f2 = (x) => tx(x, 2);
+const f4 = (x) => tx(x, 4);
+const TRIPLES = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [7, 24, 25], [9, 12, 15], [12, 16, 20]];
+const VIEW = [
+  { name: 'yaw', label: 'Turn', min: 0, max: 360, step: 1, value: 35, unit: '°' },
+  { name: 'pitch', label: 'Tilt', min: -10, max: 60, step: 1, value: 22, unit: '°' },
+];
+
+// ---------------------------------------------------------------- practice for existing calculators
+const conePractice = {
+  title: 'Slant height, area and volume of a cone',
+  generate(rand) {
+    const [r, h, s] = pick(rand, TRIPLES);
+    const L = PI * r * s, V = (PI * r * r * h) / 3;
+    return {
+      prompt: `<p>A conical tent has base radius <strong>${r} m</strong> and height <strong>${h} m</strong>. Find its slant height, the area of canvas for the sloping side, and the volume of air inside.</p>`,
+      answers: [{ label: 'Slant height s', value: s, unit: 'm' }, { label: 'Lateral area', value: L, unit: 'm²' }, { label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'The radius, height and slant height form a right triangle with the slant height as the hypotenuse.',
+      hintTex: 's = \\sqrt{r^2 + h^2} \\qquad L = \\pi r s \\qquad V = \\tfrac{1}{3}\\pi r^2 h',
+      steps: [
+        { title: 'Slant height', tex: `s = \\sqrt{${r}^2 + ${h}^2} = \\sqrt{${r * r + h * h}} = ${s}\\ \\text{m}` },
+        { title: 'Lateral area', tex: `L = \\pi (${r})(${s}) = ${r * s}\\pi \\approx ${f2(L)}\\ \\text{m}^2` },
+        { title: 'Volume', tex: `V = \\tfrac{1}{3}\\pi (${r})^2 (${h}) = ${f4((r * r * h) / 3)}\\pi \\approx ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const prismPractice = {
+  title: 'Volume and surface area of a box',
+  generate(rand) {
+    const l = randInt(rand, 3, 15), w = randInt(rand, 2, 12), h = randInt(rand, 2, 10);
+    const V = l * w * h, T = 2 * (l * w + l * h + w * h);
+    return {
+      prompt: `<p>A closed rectangular box measures <strong>${l} cm × ${w} cm × ${h} cm</strong>. Find its volume and its total surface area.</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'cm³' }, { label: 'Total surface area', value: T, unit: 'cm²' }],
+      hint: 'A box has three pairs of identical rectangular faces.',
+      hintTex: 'V = l\\,w\\,h \\qquad T = 2(lw + lh + wh)',
+      steps: [
+        { title: 'Volume', tex: `V = ${l} \\times ${w} \\times ${h} = ${V}\\ \\text{cm}^3` },
+        { title: 'Total surface area', tex: `T = 2(${l * w} + ${l * h} + ${w * h}) = ${T}\\ \\text{cm}^2` },
+      ],
+    };
+  },
+};
+
+const pyramidPractice = {
+  title: 'Square pyramid',
+  generate(rand) {
+    const [half, h, l] = pick(rand, TRIPLES), a = 2 * half;
+    const B = a * a, L = 2 * a * l, V = (B * h) / 3;
+    return {
+      prompt: `<p>A right pyramid has a square base of side <strong>${a} cm</strong> and height <strong>${h} cm</strong>. Find the slant height of a face, the lateral area and the volume.</p>`,
+      answers: [{ label: 'Slant height', value: l, unit: 'cm' }, { label: 'Lateral area', value: L, unit: 'cm²' }, { label: 'Volume', value: V, unit: 'cm³' }],
+      hint: 'The slant height runs from the apex to the middle of a base edge, so it is the hypotenuse of a triangle with legs h and a/2.',
+      hintTex: 'l = \\sqrt{h^2 + (a/2)^2} \\qquad L = 4 \\cdot \\tfrac{1}{2} a\\,l \\qquad V = \\tfrac{1}{3} a^2 h',
+      steps: [
+        { title: 'Slant height', tex: `l = \\sqrt{${h}^2 + ${half}^2} = \\sqrt{${h * h + half * half}} = ${l}\\ \\text{cm}` },
+        { title: 'Lateral area: four triangles', tex: `L = 4 \\times \\tfrac{1}{2}(${a})(${l}) = ${L}\\ \\text{cm}^2` },
+        { title: 'Volume', tex: `V = \\tfrac{1}{3}(${a})^2(${h}) = ${f2(V)}\\ \\text{cm}^3` },
+      ],
+    };
+  },
+};
+
+const frustumPyramidPractice = {
+  title: 'Volume of a square frustum',
+  generate(rand) {
+    const a = randInt(rand, 6, 16), b = randInt(rand, 2, a - 2), h = randInt(rand, 3, 12);
+    const A1 = a * a, A2 = b * b, V = (h / 3) * (A1 + A2 + a * b);
+    return {
+      prompt: `<p>A concrete footing is a frustum of a square pyramid. The bottom is <strong>${a} m</strong> square, the top is <strong>${b} m</strong> square, and it is <strong>${h} m</strong> high. Find its volume.</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'Use the frustum formula with the two base areas and the square root of their product.',
+      hintTex: 'V = \\frac{h}{3}\\left(A_1 + A_2 + \\sqrt{A_1 A_2}\\right)',
+      steps: [
+        { title: 'Base areas', tex: `A_1 = ${a}^2 = ${A1},\\quad A_2 = ${b}^2 = ${A2},\\quad \\sqrt{A_1 A_2} = ${a * b}` },
+        { title: 'Volume', tex: `V = \\frac{${h}}{3}(${A1} + ${A2} + ${a * b}) = ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const ellipsoidPractice = {
+  title: 'Volume of an ellipsoidal tank',
+  generate(rand) {
+    const a = randInt(rand, 3, 12), b = randInt(rand, 2, 10), c = randInt(rand, 2, 8);
+    const V = (4 / 3) * PI * a * b * c;
+    return {
+      prompt: `<p>A storage tank is an ellipsoid with semi-axes <strong>${a} m</strong>, <strong>${b} m</strong> and <strong>${c} m</strong>. How much does it hold?</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'An ellipsoid is a stretched sphere: replace r³ by the product of the three semi-axes.',
+      hintTex: 'V = \\tfrac{4}{3}\\pi a b c',
+      steps: [
+        { title: 'Formula', tex: 'V = \\tfrac{4}{3}\\pi a b c' },
+        { title: 'Substitute', tex: `V = \\tfrac{4}{3}\\pi (${a})(${b})(${c}) = ${f4((4 * a * b * c) / 3)}\\pi \\approx ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const capPractice = {
+  title: 'Spherical cap',
+  generate(rand) {
+    const R = randInt(rand, 4, 15), h = randInt(rand, 1, R);
+    const V = (PI * h * h * (3 * R - h)) / 3, C = 2 * PI * R * h;
+    return {
+      prompt: `<p>A dome is a spherical cap cut from a sphere of radius <strong>${R} m</strong>. The dome is <strong>${h} m</strong> high. Find its curved surface area and the volume it encloses.</p>`,
+      answers: [{ label: 'Curved surface area', value: C, unit: 'm²' }, { label: 'Volume', value: V, unit: 'm³' }],
+      hint: 'The curved area of a cap depends only on R and h. The volume uses h squared.',
+      hintTex: 'A = 2\\pi R h \\qquad V = \\tfrac{1}{3}\\pi h^2 (3R - h)',
+      steps: [
+        { title: 'Curved area', tex: `A = 2\\pi(${R})(${h}) = ${2 * R * h}\\pi \\approx ${f2(C)}\\ \\text{m}^2` },
+        { title: 'Volume', tex: `V = \\tfrac{1}{3}\\pi(${h})^2(3 \\cdot ${R} - ${h}) = ${f4((h * h * (3 * R - h)) / 3)}\\pi \\approx ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const torusPractice = {
+  title: 'Doughnut (torus)',
+  generate(rand) {
+    const r = randInt(rand, 1, 5), R = r + randInt(rand, 2, 8);
+    const V = 2 * PI * PI * R * r * r, A = 4 * PI * PI * R * r;
+    return {
+      prompt: `<p>An inflatable ring is a torus. The tube has radius <strong>${r} cm</strong>, and its centre circle has radius <strong>${R} cm</strong>. Find the volume and the surface area.</p>`,
+      answers: [{ label: 'Volume', value: V, unit: 'cm³' }, { label: 'Surface area', value: A, unit: 'cm²' }],
+      hint: 'Theorem of Pappus: the circle of radius r sweeps a path of length 2πR.',
+      hintTex: 'V = (\\pi r^2)(2\\pi R) \\qquad A = (2\\pi r)(2\\pi R)',
+      steps: [
+        { title: 'Volume', tex: `V = 2\\pi^2 R r^2 = 2\\pi^2(${R})(${r})^2 = ${2 * R * r * r}\\pi^2 \\approx ${f2(V)}\\ \\text{cm}^3` },
+        { title: 'Surface area', tex: `A = 4\\pi^2 R r = 4\\pi^2(${R})(${r}) = ${4 * R * r}\\pi^2 \\approx ${f2(A)}\\ \\text{cm}^2` },
+      ],
+    };
+  },
+};
+
+const compositePractice = {
+  title: 'Grain silo',
+  generate(rand) {
+    const r = randInt(rand, 2, 8), h = randInt(rand, 5, 25);
+    const Vc = PI * r * r * h, Vh = (2 / 3) * PI * r ** 3, V = Vc + Vh;
+    return {
+      prompt: `<p>A silo is a cylinder of radius <strong>${r} m</strong> and height <strong>${h} m</strong> with a hemispherical roof. Find the total volume.</p>`,
+      answers: [{ label: 'Total volume', value: V, unit: 'm³' }],
+      hint: 'Add the cylinder and the hemisphere (half a sphere) of the same radius.',
+      hintTex: 'V = \\pi r^2 h + \\tfrac{2}{3}\\pi r^3',
+      steps: [
+        { title: 'Cylinder', tex: `\\pi(${r})^2(${h}) = ${r * r * h}\\pi \\approx ${f2(Vc)}` },
+        { title: 'Hemisphere', tex: `\\tfrac{2}{3}\\pi(${r})^3 = ${f4((2 * r ** 3) / 3)}\\pi \\approx ${f2(Vh)}` },
+        { title: 'Total', tex: `V \\approx ${f2(Vc)} + ${f2(Vh)} = ${f2(V)}\\ \\text{m}^3` },
+      ],
+    };
+  },
+};
+
+const frustumConePractice = {
+  title: 'Frustum of a cone',
+  generate(rand) {
+    const [d, h, s] = pick(rand, TRIPLES), r = randInt(rand, 1, 6), R = r + d;
+    const V = ((PI * h) / 3) * (R * R + R * r + r * r), L = PI * (R + r) * s;
+    return {
+      prompt: `<p>A bucket is a frustum of a cone with top radius <strong>${R} cm</strong>, bottom radius <strong>${r} cm</strong> and depth <strong>${h} cm</strong>. Find its slant height, its curved surface area and how much it holds.</p>`,
+      answers: [{ label: 'Slant height s', value: s, unit: 'cm' }, { label: 'Lateral area', value: L, unit: 'cm²' }, { label: 'Volume', value: V, unit: 'cm³' }],
+      hint: 'The slant height is the hypotenuse of a right triangle with legs h and R − r.',
+      hintTex: 's = \\sqrt{h^2 + (R - r)^2} \\qquad L = \\pi (R + r) s \\qquad V = \\frac{\\pi h}{3}(R^2 + Rr + r^2)',
+      steps: [
+        { title: 'Slant height', tex: `s = \\sqrt{${h}^2 + ${d}^2} = \\sqrt{${h * h + d * d}} = ${s}\\ \\text{cm}` },
+        { title: 'Lateral area', tex: `L = \\pi(${R} + ${r})(${s}) = ${(R + r) * s}\\pi \\approx ${f2(L)}\\ \\text{cm}^2` },
+        { title: 'Volume', tex: `V = \\frac{\\pi (${h})}{3}(${R * R} + ${R * r} + ${r * r}) = ${f4((h * (R * R + R * r + r * r)) / 3)}\\pi \\approx ${f2(V)}\\ \\text{cm}^3` },
+      ],
+    };
+  },
+};
+
+// ---------------------------------------------------------------- explorers
+/** Profile (radius, height) of each composite solid, centred vertically. */
+function compositeProfile(type, r, h, H, ri) {
+  const arc = (cy, from, to, n = 10) => Array.from({ length: n + 1 }, (_, k) => { const t = from + ((to - from) * k) / n; return [r * Math.cos(t), cy + r * Math.sin(t)]; });
+  let p;
+  if (type === 'silo') p = [[r, 0], [r, h], ...arc(h, 0, PI / 2).slice(1)];
+  else if (type === 'capsule') p = [...arc(0, -PI / 2, 0), [r, h], ...arc(h, 0, PI / 2).slice(1)];
+  else if (type === 'rocket') p = [[r, 0], [r, h], [0, h + H]];
+  else if (type === 'icecream') p = [[0, 0], [r, H], ...arc(H, 0, PI / 2).slice(1)];
+  else p = [[r, 0], [r, h], [ri, h], [ri, 0], [r, 0]];
+  const ys = p.map((q) => q[1]), mid = (Math.min(...ys) + Math.max(...ys)) / 2;
+  return p.map(([x, y]) => [Math.max(0, x), y - mid]);
+}
+const compositeExplore = {
+  title: 'Build a composite solid',
+  intro: 'Every composite solid is just simpler solids added (or a hole subtracted). Change the dimensions and watch each part of the volume change.',
+  controls: [
+    { name: 'type', label: 'Solid', type: 'select', options: [['silo', 'Silo (cylinder + hemisphere)'], ['capsule', 'Capsule (cylinder + 2 hemispheres)'], ['rocket', 'Rocket (cylinder + cone)'], ['icecream', 'Ice-cream cone (cone + hemisphere)'], ['tube', 'Pipe (cylinder with a hole)']], value: 'silo' },
+    { name: 'r', label: 'Radius r', min: 0.5, max: 5, step: 0.1, value: 3 },
+    { name: 'h', label: 'Cylinder height h', min: 0.5, max: 12, step: 0.1, value: 6 },
+    { name: 'H', label: 'Cone height H', min: 0.5, max: 10, step: 0.1, value: 4 },
+    { name: 'ri', label: 'Inner radius (pipe)', min: 0.1, max: (v) => Math.max(0.1, v.r - 0.1), step: 0.1, value: 2 },
+    ...VIEW,
+  ],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  render({ type, r, h, H, ri, yaw, pitch }) {
+    const inner = Math.min(ri, r - 0.05);
+    const cyl = PI * r * r * h, hemi = (2 / 3) * PI * r ** 3, cone = (PI * r * r * H) / 3, hole = PI * inner * inner * h;
+    const parts = { silo: [['Cylinder', cyl], ['Hemisphere', hemi]], capsule: [['Cylinder', cyl], ['Two hemispheres', 2 * hemi]], rocket: [['Cylinder', cyl], ['Cone', cone]], icecream: [['Cone', cone], ['Hemisphere', hemi]], tube: [['Outer cylinder', cyl], ['Hole', -hole]] }[type];
+    const V = parts.reduce((s, [, x]) => s + x, 0);
+    const mesh = latheMesh(compositeProfile(type, r, h, H, inner), 40, { closeEnds: type !== 'tube' });
+    return {
+      svg: renderSolid(mesh, { yaw, pitch, scale: 14, title: `Composite solid: ${type}` }),
+      readouts: [
+        ...parts.map(([name, x]) => ({ label: name, tex: `${x < 0 ? '-' : ''}${f2(Math.abs(x))}` })),
+        { label: 'Total volume', tex: `V \\approx ${f2(V)}`, tone: 'good' },
+      ],
+      note: type === 'tube' ? 'The hole is subtracted: V = π(r² − rᵢ²)h.' : '',
+    };
+  },
+};
+
+const similarExplore = {
+  title: 'Scale a solid',
+  intro: 'Make the second cone k times as tall and as wide. Its surface area grows by k² and its volume by k³ — so doubling the size gives 4 times the paint and 8 times the contents.',
+  controls: [
+    { name: 'k', label: 'Scale factor k', min: 0.5, max: 3, step: 0.05, value: 2 },
+    ...VIEW,
+  ],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: 'Double (k = 2)', values: { k: 2 } }, { label: 'Half (k = 0.5)', values: { k: 0.5 } }, { label: 'Triple (k = 3)', values: { k: 3 } }],
+  render({ k, yaw, pitch }) {
+    const r = 1.4, h = 2.6;
+    const one = latheMesh([[r, -h / 2], [0, h / 2]], 32);
+    const two = latheMesh([[r * k, (-h * k) / 2], [0, (h * k) / 2]], 32);
+    const shift = (m, dx, dy) => m.faces.map((f) => ({ ...f, pts: f.pts.map(([x, y, z]) => [x + dx, y + dy, z]) }));
+    const base = -2.4;
+    const mesh = { smooth: true, faces: [...shift(one, -3.2, base + h / 2), ...shift(two, 1.2 + r * k, base + (h * k) / 2)] };
+    return {
+      svg: renderSolid(mesh, { yaw, pitch, scale: 22, title: `Two similar cones with scale factor ${k}` }),
+      readouts: [
+        { label: 'Length ratio', tex: `k = ${f2(k)}` },
+        { label: 'Area ratio', tex: `k^2 \\approx ${f2(k * k)}` },
+        { label: 'Volume ratio', tex: `k^3 \\approx ${f2(k ** 3)}`, tone: 'good' },
+      ],
+    };
+  },
+};
+
+const frustumConeExplore = {
+  title: 'Cut the top off a cone',
+  intro: 'Shrink the top radius to 0 and the frustum becomes a cone; make it equal to the bottom radius and it becomes a cylinder.',
+  controls: [
+    { name: 'R', label: 'Bottom radius R', min: 1, max: 6, step: 0.1, value: 5 },
+    { name: 'r', label: 'Top radius r', min: 0, max: 6, step: 0.1, value: 2 },
+    { name: 'h', label: 'Height h', min: 0.5, max: 10, step: 0.1, value: 4 },
+    ...VIEW,
+  ],
+  rotate: { yaw: 'yaw', pitch: 'pitch' },
+  presets: [{ label: 'Cone (r = 0)', values: { r: 0 } }, { label: 'Cylinder (r = R)', values: { R: 4, r: 4 } }],
+  render({ R, r, h, yaw, pitch }) {
+    const s = Math.hypot(h, R - r), V = ((PI * h) / 3) * (R * R + R * r + r * r), L = PI * (R + r) * s;
+    return {
+      svg: renderSolid(frustumMesh(R, r, h, 48, { smooth: true }), { yaw, pitch, scale: 16, title: `Frustum R = ${R}, r = ${r}, h = ${h}`, lines: [{ a: [0, -h / 2, 0], b: [0, h / 2, 0], label: 'h' }, { a: [0, -h / 2, 0], b: [R, -h / 2, 0], label: 'R' }] }),
+      readouts: [
+        { label: 'Slant height', tex: `s = \\sqrt{h^2 + (R - r)^2} \\approx ${f2(s)}` },
+        { label: 'Volume', tex: `V = \\tfrac{\\pi h}{3}(R^2 + Rr + r^2) \\approx ${f2(V)}` },
+        { label: 'Lateral area', tex: `\\pi (R + r) s \\approx ${f2(L)}` },
+      ],
+      note: r === 0 ? 'With r = 0 this is a cone: V = πR²h/3.' : Math.abs(R - r) < 1e-9 ? 'With r = R the sides are vertical: this is a cylinder, V = πR²h.' : r > R ? 'The top is now wider than the bottom: an upside-down frustum. The formulas are the same.' : '',
+    };
+  },
+};
+
+return { conePractice, prismPractice, pyramidPractice, frustumPyramidPractice, ellipsoidPractice, capPractice, torusPractice, compositePractice, frustumConePractice, compositeExplore, similarExplore, frustumConeExplore };
+})();
 __m["pages/frustum-page.js"] = (function () {
 /* Frustum of a cone — page controller (connects the form, the math module and the output). */
 const { solveFrustum, exactTex, exactText } = __m["calculators/frustum.js"];
 const { formatNumber, unitLabels, isDisplayExact } = __m["lib/format.js"];
 const { isRational } = __m["lib/exact.js"];
+const { mountExplorer, mountPractice } = __m["lib/learn.js"];
+const { frustumConeExplore, frustumConePractice } = __m["explore/solids-practice.js"];
 const { resultCard, stepsBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, wireCalculator, tex } = __m["lib/ui.js"];
 
 const form = document.getElementById('frustum-form');
@@ -936,6 +2092,10 @@ copyAllBtn.addEventListener('click', () => {
   const text = copyAllBtn.getAttribute('data-copy') || '';
   window.SolverHub.copyText(text).then(() => window.SolverHub.toast('All results copied'), () => window.SolverHub.toast('Copy failed'));
 });
+
+// ------------------------------------------------------------ explore and practise
+mountExplorer(document.querySelector('[data-explore-root]'), frustumConeExplore);
+mountPractice(document.querySelector('[data-practice-root]'), frustumConePractice);
 
 return {  };
 })();

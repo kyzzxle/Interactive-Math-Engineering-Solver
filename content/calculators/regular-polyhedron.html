@@ -1,0 +1,44 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the regular polyhedron calculator does</h2>
+          <p>A <strong>regular polyhedron</strong> is a solid whose faces are all the same regular polygon, with the same number of faces meeting at every vertex. Only five exist, the <strong>Platonic solids</strong>: the tetrahedron (4 triangles), the cube (6 squares), the octahedron (8 triangles), the dodecahedron (12 pentagons) and the icosahedron (20 triangles).</p>
+          <p>Give the edge, or any one of the surface area, volume, inradius or circumradius. The calculator finds all the others, the area of one face, the dihedral angle between faces, and draws the solid in 3D. For the tetrahedron, cube and octahedron with a rational edge it also gives exact radical forms.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Press Play in the explorer and count the faces, edges and vertices of each solid. For every one, vertices − edges + faces = 2 (Euler's formula).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Solid</th><th scope="col">Surface area</th><th scope="col">Volume</th><th scope="col">Inradius \(r\)</th><th scope="col">Circumradius \(R\)</th></tr></thead>
+            <tbody>
+              <tr><td>Tetrahedron</td><td>\(\sqrt{3}\,a^2\)</td><td>\(\frac{\sqrt{2}}{12}a^3\)</td><td>\(\frac{\sqrt{6}}{12}a\)</td><td>\(\frac{\sqrt{6}}{4}a\)</td></tr>
+              <tr><td>Cube</td><td>\(6a^2\)</td><td>\(a^3\)</td><td>\(\frac{1}{2}a\)</td><td>\(\frac{\sqrt{3}}{2}a\)</td></tr>
+              <tr><td>Octahedron</td><td>\(2\sqrt{3}\,a^2\)</td><td>\(\frac{\sqrt{2}}{3}a^3\)</td><td>\(\frac{\sqrt{6}}{6}a\)</td><td>\(\frac{\sqrt{2}}{2}a\)</td></tr>
+              <tr><td>Dodecahedron</td><td>\(3\sqrt{25 + 10\sqrt{5}}\,a^2\)</td><td>\(\frac{15 + 7\sqrt{5}}{4}a^3\)</td><td>\(\frac{1}{2}\sqrt{\frac{25 + 11\sqrt{5}}{10}}\,a\)</td><td>\(\frac{\sqrt{3}(1 + \sqrt{5})}{4}a\)</td></tr>
+              <tr><td>Icosahedron</td><td>\(5\sqrt{3}\,a^2\)</td><td>\(\frac{5(3 + \sqrt{5})}{12}a^3\)</td><td>\(\frac{\sqrt{3}(3 + \sqrt{5})}{12}a\)</td><td>\(\frac{1}{4}\sqrt{10 + 2\sqrt{5}}\,a\)</td></tr>
+            </tbody>
+          </table>
+          <p>Here \(a\) is the edge. The inradius reaches the centre of a face and the circumradius reaches a vertex. A useful check for every regular polyhedron: \(V = \tfrac{1}{3}\,r\,A\), because the solid splits into pyramids, one on each face, with their apex at the centre.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A regular tetrahedron with edges of 6 cm</h3>
+            <h4>Step 1: Surface area</h4>
+            <p>Four equilateral triangles, each \(\tfrac{\sqrt{3}}{4}a^2\):</p>
+            \[ A = \sqrt{3}\,(6)^2 = 36\sqrt{3} \approx 62.354\ \text{cm}^2 \]
+            <h4>Step 2: Volume</h4>
+            \[ V = \frac{\sqrt{2}}{12}(6)^3 = 18\sqrt{2} \approx 25.456\ \text{cm}^3 \]
+            <h4>Step 3: Radii</h4>
+            \[ r = \frac{\sqrt{6}}{12}(6) = \frac{\sqrt{6}}{2} \approx 1.2247, \qquad R = \frac{\sqrt{6}}{4}(6) = \frac{3\sqrt{6}}{2} \approx 3.6742 \]
+            <p>Check: \(\tfrac{1}{3}\,r\,A = \tfrac{1}{3}(1.2247)(62.354) \approx 25.456\), the same volume.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The solids are regular: all edges are equal and all faces are identical regular polygons. A box with unequal sides is a <a href="../prism/">prism</a>, and a pyramid on a square base is a <a href="../pyramid/">pyramid</a>.</li>
+            <li>Exact radical forms are shown for the tetrahedron, cube and octahedron when the edge is given as a whole number or fraction. The dodecahedron and icosahedron answers are decimals.</li>
+          </ul>
+        </section>

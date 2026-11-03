@@ -8,6 +8,7 @@ import { validator, answer, piAnswer, piTex, fmt, tx, units, UNIT_FIELD } from '
 import { parseFrac } from '../lib/fraction.js';
 import { adaptiveSimpson } from '../lib/numeric.js';
 import { ellipsoidMesh, renderSolid } from '../lib/solid3d.js';
+import { ellipsoidPractice } from '../explore/solids-practice.js';
 
 /** Surface area and the intermediate quantities of the elliptic-integral formula. */
 export function ellipsoidArea(a, b, c) {
@@ -33,6 +34,7 @@ const kind = (a, b, c) => {
 
 export const calculator = {
   id: 'ellipsoid',
+  practice: ellipsoidPractice,
   explore: {
     title: 'Stretch an ellipsoid',
     intro: 'Make all three semi-axes equal to get a sphere. Stretch one axis to see how the volume grows in proportion, while the surface area grows more slowly.',

@@ -7,8 +7,10 @@ import { heron, regularArea, apothem, polygonName, SIDES_OPTIONS } from '../lib/
 import { boxSketch, prismSketch } from '../lib/diagrams.js';
 
 import { prismExplore } from '../explore/solids.js';
+import { prismPractice } from '../explore/solids-practice.js';
 export const calculator = {
   id: 'prism',
+  practice: prismPractice,
   explore: prismExplore,
   fields: [
     { name: 'type', label: 'Prism type', type: 'select', options: [['rect', 'Rectangular prism (box)'], ['cube', 'Cube'], ['tri', 'Triangular prism (any triangle)'], ['regular', 'Regular polygon prism']] },

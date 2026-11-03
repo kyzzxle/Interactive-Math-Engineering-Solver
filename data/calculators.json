@@ -631,6 +631,56 @@
       "updated": "2026-11-03"
     },
     {
+      "id": "regular-polyhedron", "name": "Regular Polyhedron Calculator", "shortName": "Regular Polyhedrons", "category": "solid-mensuration", "generated": true,
+      "summary": "Surface area, volume, inradius and circumradius of the five Platonic solids from the edge or any one of these, with a rotating 3D model.",
+      "keywords": ["regular polyhedron", "Platonic solids", "tetrahedron", "octahedron", "dodecahedron", "icosahedron", "hexahedron", "cube", "inradius", "circumradius", "solid mensuration"],
+      "related": ["prism", "pyramid", "sphere"],
+      "title": "Regular Polyhedron Calculator – Platonic Solids Area & Volume | Solver Hub",
+      "description": "Find the surface area, volume, inradius and circumradius of a regular tetrahedron, cube, octahedron, dodecahedron or icosahedron, with exact forms and a 3D model.",
+      "lead": "Pick one of the five Platonic solids and enter its edge, surface area, volume, inradius or circumradius. The calculator finds the rest and draws the solid.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "prismatoid", "name": "Prismatoid Calculator", "shortName": "Prismatoid (Prismoidal Formula)", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume by the prismoidal formula V = (h/6)(A₁ + 4Aₘ + A₂) for obelisks, wedges, earthworks and any prismatoid, with the middle section worked out.",
+      "keywords": ["prismatoid", "prismoidal formula", "prismoid", "obelisk", "wedge", "earthwork volume", "middle section", "solid mensuration"],
+      "related": ["frustum-of-a-pyramid", "truncated-prism", "pyramid"],
+      "title": "Prismatoid Calculator – Prismoidal Formula, Wedge & Obelisk | Solver Hub",
+      "description": "Find the volume of a prismatoid, obelisk or wedge with the prismoidal formula V = (h/6)(A₁ + 4Aₘ + A₂), including the middle section and lateral area, step by step.",
+      "lead": "Enter the three section areas, or the dimensions of an obelisk or wedge. The calculator finds the middle section and applies the prismoidal formula.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "truncated-prism", "name": "Truncated Prism Calculator", "shortName": "Truncated Prism", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume, lateral area and total surface area of a prism cut by a slanted plane: base area times the average lateral edge.",
+      "keywords": ["truncated prism", "truncated triangular prism", "truncated rectangular prism", "right section", "lateral edges", "oblique plane", "solid mensuration"],
+      "related": ["prism", "prismatoid", "composite-solid"],
+      "title": "Truncated Prism Calculator – Volume & Surface Area | Solver Hub",
+      "description": "Find the volume and surface area of a truncated triangular or rectangular prism from its base and lateral edges, or of any truncated prism from its right section.",
+      "lead": "Enter the base and the lengths of the lateral edges. The calculator multiplies the base area by the average edge and works out each trapezoidal face.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "spherical-sector-wedge", "name": "Spherical Sector, Lune and Wedge Calculator", "shortName": "Spherical Sector & Wedge", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume and area of a spherical sector, a spherical wedge and its lune, and a spherical triangle and pyramid, with exact answers in π.",
+      "keywords": ["spherical sector", "spherical wedge", "lune", "spherical lune", "spherical triangle", "spherical excess", "spherical pyramid", "solid mensuration"],
+      "related": ["spherical-cap", "sphere", "cone"],
+      "title": "Spherical Sector, Lune & Wedge Calculator | Solver Hub",
+      "description": "Find the volume and surface of a spherical sector, the lune and volume of a spherical wedge, and the area of a spherical triangle from its angles, step by step.",
+      "lead": "Choose a sector, a wedge or a spherical triangle and enter the radius and its height or angles. The answers come as exact multiples of π where possible.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "cylindrical-wedge-oblique", "name": "Cylindrical Wedge and Oblique Solids Calculator", "shortName": "Cylindrical Wedge & Oblique Solids", "category": "solid-mensuration", "generated": true,
+      "summary": "Volume and surface of a cylindrical wedge (ungula), and of oblique cylinders and cones using Cavalieri's principle.",
+      "keywords": ["cylindrical wedge", "ungula", "hoof", "oblique cylinder", "oblique cone", "Cavalieri's principle", "right section", "solid mensuration"],
+      "related": ["cylinder", "cone", "prism"],
+      "title": "Cylindrical Wedge & Oblique Cylinder Calculator | Solver Hub",
+      "description": "Find the volume and surface area of a cylindrical wedge (ungula), an oblique cylinder or an oblique cone, with Cavalieri's principle and every step shown.",
+      "lead": "Choose a cylindrical wedge, an oblique cylinder or an oblique cone. The calculator uses the perpendicular height for volume and the true slant surfaces for area.",
+      "updated": "2026-11-03"
+    },
+    {
       "id": "point-to-plane-distance", "name": "Distance from a Point to a Plane Calculator", "shortName": "Point to Plane", "category": "analytic-geometry", "generated": true,
       "summary": "Shortest distance from a point to the plane Ax + By + Cz + D = 0 in simplest radical form, with the foot of the perpendicular.",
       "keywords": ["distance point to plane", "3D geometry", "normal vector", "foot of perpendicular", "plane equation"],

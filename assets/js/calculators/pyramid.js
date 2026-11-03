@@ -7,8 +7,10 @@ import { regularArea, apothem, circumradius, polygonName, SIDES_OPTIONS } from '
 import { pyramidSketch } from '../lib/diagrams.js';
 
 import { pyramidExplore } from '../explore/solids.js';
+import { pyramidPractice } from '../explore/solids-practice.js';
 export const calculator = {
   id: 'pyramid',
+  practice: pyramidPractice,
   explore: pyramidExplore,
   fields: [
     { name: 'type', label: 'Base shape', type: 'select', options: [['regular', 'Regular polygon (square, triangle, hexagon, …)'], ['rect', 'Rectangle']] },

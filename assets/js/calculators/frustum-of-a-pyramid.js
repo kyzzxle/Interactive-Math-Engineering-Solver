@@ -9,8 +9,10 @@ import { regularArea, apothem, polygonName, SIDES_OPTIONS } from '../lib/geometr
 import { frustumPyramidSketch } from '../lib/diagrams.js';
 
 import { frustumPyramidExplore } from '../explore/solids.js';
+import { frustumPyramidPractice } from '../explore/solids-practice.js';
 export const calculator = {
   id: 'frustum-of-a-pyramid',
+  practice: frustumPyramidPractice,
   explore: frustumPyramidExplore,
   fields: [
     { name: 'type', label: 'Base shape', type: 'select', options: [['regular', 'Regular polygon (square, hexagon, …)'], ['rect', 'Rectangle']] },

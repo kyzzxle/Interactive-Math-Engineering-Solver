@@ -1,0 +1,47 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the prismatoid calculator does</h2>
+          <p>A <strong>prismatoid</strong> is a solid whose vertices all lie in two parallel planes. Prisms, pyramids, frustums, wedges and <strong>obelisks</strong> (solids with two non-similar rectangular ends) are all prismatoids, and so is a section of an earth embankment between two survey stations.</p>
+          <p>One formula gives the volume of all of them: the <strong>prismoidal formula</strong>. It needs the areas of the two parallel ends and of the <strong>middle section</strong>, the cross-section halfway between them. The calculator accepts the three areas directly, or works them out for an obelisk or a wedge, and also gives the lateral and total surface area for those shapes.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, make the two ends very different, such as a long narrow top on a wide base. The "average end area" estimate drifts away from the true volume, while the prismoidal formula stays exact.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ V = \frac{h}{6}\left(A_1 + 4A_m + A_2\right) \]</div>
+          <div class="formula-box">\[ \text{Obelisk: } A_m = \frac{L_1 + L_2}{2}\cdot\frac{W_1 + W_2}{2} \qquad \text{Wedge: } V = \frac{w\,h}{6}\,(2l + e) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A_1,\ A_2\)</td><td>Areas of the two parallel ends</td></tr>
+              <tr><td>\(A_m\)</td><td>Area of the section halfway between the ends</td></tr>
+              <tr><td>\(h\)</td><td>Perpendicular distance between the ends</td></tr>
+              <tr><td>\(L, W\)</td><td>Lengths and widths of rectangular ends</td></tr>
+              <tr><td>\(l, w, e\)</td><td>Base length and width of a wedge, and its top edge (parallel to \(l\))</td></tr>
+            </tbody>
+          </table>
+          <p>For rectangular ends the middle section is a rectangle whose sides are the <strong>averages of the sides</strong>, not a rectangle with the average area. That difference is exactly what makes the prismoidal formula correct where the average-end-area method is not. The formula is Simpson's rule applied to the cross-section area, so it is exact whenever that area is a quadratic function of height.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>An obelisk with a 12 m × 8 m base, a 6 m × 5 m top and a height of 5 m</h3>
+            <h4>Step 1: End areas</h4>
+            \[ A_1 = 12 \times 8 = 96, \qquad A_2 = 6 \times 5 = 30 \]
+            <h4>Step 2: Middle section</h4>
+            \[ A_m = \frac{12 + 6}{2} \times \frac{8 + 5}{2} = 9 \times 6.5 = 58.5 \]
+            <h4>Step 3: Prismoidal formula</h4>
+            \[ V = \frac{5}{6}\left(96 + 4(58.5) + 30\right) = \frac{5}{6}(360) = 300\ \text{m}^3 \]
+            <p>The average-end-area method would give \(\tfrac{96 + 30}{2} \times 5 = 315\ \text{m}^3\), which is 5% too high.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The two ends are parallel and \(h\) is measured perpendicular to them.</li>
+            <li>The surface areas for the obelisk and wedge assume the top is centred over the base. The volume does not depend on that.</li>
+            <li>For a solid with similar ends, the <a href="../frustum-of-a-pyramid/">frustum of a pyramid calculator</a> gives the same volume with \(\tfrac{h}{3}(A_1 + A_2 + \sqrt{A_1 A_2})\).</li>
+            <li>When entering three areas, the middle section of a convex solid can never be smaller than \(\left(\tfrac{\sqrt{A_1} + \sqrt{A_2}}{2}\right)^2\); smaller values are rejected.</li>
+          </ul>
+        </section>

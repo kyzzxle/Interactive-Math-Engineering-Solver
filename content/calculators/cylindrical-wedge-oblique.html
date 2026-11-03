@@ -1,0 +1,49 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the cylindrical wedge and oblique solids calculator does</h2>
+          <p>A <strong>cylindrical wedge</strong>, or <strong>ungula</strong> ("hoof"), is cut from a right circular cylinder by a plane that passes through a diameter of the base and rises to a height \(h\) at the far side. It looks like a wedge of cheese cut from a round block.</p>
+          <p>An <strong>oblique</strong> cylinder or cone leans to one side: its axis is not perpendicular to its base. <strong>Cavalieri's principle</strong> says two solids with the same height and equal cross-sections at every level have the same volume, so leaning a cylinder or cone does not change its volume. Its slanted surface does get larger.</p>
+          <p>The calculator covers all three: the wedge's volume, curved face, base and slanted face; the oblique cylinder's volume and lateral area from its element length and angle; and the oblique cone's volume and lateral area.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, drag the lean slider. The volume readout stays fixed while the lateral edge grows, which is Cavalieri's principle in action.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \text{Wedge: } V = \tfrac{2}{3} r^2 h, \qquad A_{\text{curved}} = 2 r h, \qquad A_{\text{slanted}} = \tfrac{\pi}{2}\,r\sqrt{r^2 + h^2} \]</div>
+          <div class="formula-box">\[ \text{Oblique cylinder: } h = L\sin\alpha, \qquad V = \pi r^2 h, \qquad A_{\text{lateral}} = P_{\text{right section}} \times L \]</div>
+          <div class="formula-box">\[ \text{Oblique cone: } V = \tfrac{1}{3}\pi r^2 h \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Radius of the circular base</td></tr>
+              <tr><td>\(h\)</td><td>Perpendicular height (for the wedge, the height at the far edge)</td></tr>
+              <tr><td>\(L\)</td><td>Length of an element (lateral line) of an oblique cylinder</td></tr>
+              <tr><td>\(\alpha\)</td><td>Angle between the elements and the base</td></tr>
+              <tr><td>\(P_{\text{right section}}\)</td><td>Perimeter of the section perpendicular to the elements: an ellipse with semi-axes \(r\) and \(r\sin\alpha\)</td></tr>
+            </tbody>
+          </table>
+          <p>The wedge's volume comes from slicing: sections perpendicular to the cutting diameter are right triangles of area \(\tfrac{h}{2r}(r^2 - x^2)\), and integrating from \(-r\) to \(r\) gives \(\tfrac{2}{3}r^2 h\). Remarkably, neither the volume nor the curved area contains π.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A wedge cut from a cylinder of radius 6 cm, rising to 9 cm</h3>
+            <h4>Step 1: Volume</h4>
+            \[ V = \tfrac{2}{3}(6)^2(9) = 216\ \text{cm}^3 \]
+            <h4>Step 2: Curved surface</h4>
+            \[ A_{\text{curved}} = 2(6)(9) = 108\ \text{cm}^2 \]
+            <h4>Step 3: Flat faces</h4>
+            \[ \text{base} = \tfrac{1}{2}\pi(6)^2 \approx 56.55, \qquad \text{slanted face} = \tfrac{\pi}{2}(6)\sqrt{36 + 81} \approx 101.94 \]
+            <p>The total surface area is about \(108 + 56.55 + 101.94 = 266.49\ \text{cm}^2\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The wedge's cutting plane passes through a full diameter of the base. Other wedges (cut through a chord) need integration.</li>
+            <li>The oblique cylinder has parallel circular ends. Its lateral area uses the perimeter of an ellipse, which has no elementary formula, so it is computed numerically.</li>
+            <li>The oblique cone's lateral area is also computed numerically, by adding up thin triangles from the apex to the rim.</li>
+            <li>Upright versions: see the <a href="../cylinder/">cylinder</a> and <a href="../cone/">cone</a> calculators.</li>
+          </ul>
+        </section>

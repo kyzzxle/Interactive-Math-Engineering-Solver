@@ -5,6 +5,7 @@ import { radicalExpr, radicalTex, radicalText, simplifySqrt, isRational } from '
 import { coneSketch } from '../lib/diagrams.js';
 
 import { coneExplore } from '../explore/solids.js';
+import { conePractice } from '../explore/solids-practice.js';
 function exactForms(rText, kText, known) {
   const sc = toCommonScale([rText, kText]);
   if (!sc) return null;
@@ -27,6 +28,7 @@ const piCard = (label, expr, x, unit, primary) => {
 
 export const calculator = {
   id: 'cone',
+  practice: conePractice,
   explore: coneExplore,
   fields: [
     { name: 'known', label: 'Which height do you know?', type: 'radio', options: [['h', 'Height h'], ['s', 'Slant height s']] },

@@ -1,0 +1,52 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the spherical sector and wedge calculator does</h2>
+          <p>Besides caps and segments, solid mensuration studies three more parts of a sphere:</p>
+          <ul>
+            <li>A <strong>spherical sector</strong> is a cone with its apex at the centre, together with the cap above its rim, like an ice-cream cone filled to a rounded top. Its curved surface is a <strong>zone</strong>.</li>
+            <li>A <strong>spherical wedge</strong> is cut by two half-planes through a diameter, like a segment of an orange. Its curved surface is a <strong>lune</strong>.</li>
+            <li>A <strong>spherical triangle</strong> is bounded by three great-circle arcs. Joined to the centre it forms a <strong>spherical pyramid</strong>.</li>
+          </ul>
+          <p>Each one is a simple fraction of the whole sphere, which is why the answers come out as exact multiples of π.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, set the wedge angle to 90°: the wedge is a quarter of the sphere, so its volume is \(\tfrac{1}{4}\cdot\tfrac{4}{3}\pi R^3 = \tfrac{1}{3}\pi R^3\).</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \text{Sector: } V = \tfrac{2}{3}\pi R^2 h, \qquad A = 2\pi R h + \pi R a, \quad a = \sqrt{h(2R - h)} \]</div>
+          <div class="formula-box">\[ \text{Wedge: } A_{\text{lune}} = \frac{\pi R^2 \theta}{90^\circ}, \qquad V = \frac{\pi R^3 \theta}{270^\circ} \]</div>
+          <div class="formula-box">\[ \text{Triangle: } E = A + B + C - 180^\circ, \qquad A_{\triangle} = \frac{\pi R^2 E}{180^\circ}, \qquad V_{\text{pyramid}} = \tfrac{1}{3}A_{\triangle} R \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(R\)</td><td>Radius of the sphere</td></tr>
+              <tr><td>\(h\)</td><td>Height of the zone (cap) that forms the sector's curved surface</td></tr>
+              <tr><td>\(a\)</td><td>Radius of the sector's rim</td></tr>
+              <tr><td>\(\theta\)</td><td>Angle between the two planes of a wedge, in degrees</td></tr>
+              <tr><td>\(E\)</td><td>Spherical excess: how much the triangle's angles exceed 180°</td></tr>
+            </tbody>
+          </table>
+          <p>The sector's volume is \(\tfrac{1}{3}R\) times its zone area, just as a pyramid's volume is \(\tfrac{1}{3}\) height times base. The wedge is the fraction \(\theta/360^\circ\) of the sphere, and a spherical triangle is the fraction \(E/720^\circ\) of the sphere's surface (Girard's theorem).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A sphere of radius 9 cm is cut into a wedge of 40°. Find the lune and the volume.</h3>
+            <h4>Step 1: Fraction of the sphere</h4>
+            \[ \frac{40}{360} = \frac{1}{9} \]
+            <h4>Step 2: Lune area</h4>
+            \[ A = \frac{1}{9} \times 4\pi(9)^2 = 36\pi \approx 113.10\ \text{cm}^2 \]
+            <h4>Step 3: Wedge volume</h4>
+            \[ V = \frac{1}{9} \times \tfrac{4}{3}\pi(9)^3 = 108\pi \approx 339.29\ \text{cm}^3 \]
+            <p>A sector of the same sphere with a cap 2 cm high would have \(V = \tfrac{2}{3}\pi(9)^2(2) = 108\pi\): the same volume, by coincidence.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Angles are in degrees. The wedge angle is the dihedral angle between the two cutting planes.</li>
+            <li>A spherical triangle's angles must each be below 180° and add to more than 180° (and less than 540°).</li>
+            <li>For a cap or a slab between two parallel planes, and the area of its zone, use the <a href="../spherical-cap/">spherical cap and segment calculator</a>.</li>
+          </ul>
+        </section>

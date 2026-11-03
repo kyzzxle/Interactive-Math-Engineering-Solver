@@ -102,6 +102,7 @@ export function renderSolid(mesh, opts = {}) {
   const C = rot(centre);
   const polys = [];
   for (const f of mesh.faces) {
+    if (f.pts.length < 3) continue; // degenerate (e.g. a band on the axis)
     const pts = f.pts.map(rot);
     let n = norm(cross(sub(pts[1], pts[0]), sub(pts[2], pts[0])));
     const fc = pts.reduce((a, p) => [a[0] + p[0] / pts.length, a[1] + p[1] / pts.length, a[2] + p[2] / pts.length], [0, 0, 0]);
@@ -123,4 +124,114 @@ export function renderSolid(mesh, opts = {}) {
   });
   const svg = `<svg class="diagram" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.title || '3D solid')}"><title>${esc(opts.title || '3D solid')}</title>${polys.map((p) => p.svg).join('')}${lines.join('')}</svg>`;
   return /NaN|Infinity/.test(svg) ? '' : svg;
+}
+
+// ---------------------------------------------------------------- more meshes
+
+/**
+ * Convex hull of a small set of 3D points (up to a few dozen), as polygon faces.
+ * Used for polyhedra, wedges, obelisks and truncated prisms. Coplanar points are merged
+ * into one face and ordered around the face centre.
+ */
+export function hullMesh(points, { tol = 1e-9 } = {}) {
+  const n = points.length, faces = [], seen = new Set();
+  const scale = Math.max(1e-12, ...points.flat().map(Math.abs));
+  const eps = tol * scale;
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) for (let k = j + 1; k < n; k++) {
+    const nrm = cross(sub(points[j], points[i]), sub(points[k], points[i]));
+    const len = Math.hypot(...nrm);
+    if (len < eps * scale) continue;
+    const u = nrm.map((v) => v / len), d = dot(u, points[i]);
+    let pos = 0, neg = 0;
+    const on = [];
+    points.forEach((p, idx) => { const s = dot(u, p) - d; if (s > eps) pos++; else if (s < -eps) neg++; else on.push(idx); });
+    if (pos && neg) continue;
+    const key = on.slice().sort((a, b) => a - b).join(',');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const outward = pos ? u.map((v) => -v) : u;
+    const c = on.reduce((a, idx) => [a[0] + points[idx][0] / on.length, a[1] + points[idx][1] / on.length, a[2] + points[idx][2] / on.length], [0, 0, 0]);
+    const e1 = norm(sub(points[on[0]], c)), e2 = cross(outward, e1);
+    const pts = on.map((idx) => points[idx]).sort((p, q) => Math.atan2(dot(sub(p, c), e2), dot(sub(p, c), e1)) - Math.atan2(dot(sub(q, c), e2), dot(sub(q, c), e1)));
+    faces.push({ pts, normal: outward });
+  }
+  return { faces, smooth: false };
+}
+
+/**
+ * Solid of revolution about the vertical axis. profile: [[radius, y], ...] from bottom to top.
+ * Each band gets its outward normal, so non-convex profiles (a pipe, a sector) draw correctly.
+ */
+export function latheMesh(profile, n = 40, { smooth = true, closeEnds = true } = {}) {
+  const faces = [];
+  const ring = (rad, y, t) => [rad * Math.cos(t), y, rad * Math.sin(t)];
+  for (let k = 0; k + 1 < profile.length; k++) {
+    const [r1, y1] = profile[k], [r2, y2] = profile[k + 1];
+    const dr = r2 - r1, dy = y2 - y1;
+    if (Math.hypot(dr, dy) < 1e-12) continue;
+    for (let i = 0; i < n; i++) {
+      const a = (2 * Math.PI * i) / n, b = (2 * Math.PI * (i + 1)) / n, m = (a + b) / 2;
+      const pts = [ring(r1, y1, a), ring(r1, y1, b), ring(r2, y2, b), ring(r2, y2, a)].filter((p, idx, arr) => idx === 0 || Math.hypot(...sub(p, arr[idx - 1])) > 1e-12);
+      // outward normal: rotate the profile tangent (dr, dy) by −90° in the (radius, y) plane
+      const nr = dy, ny = -dr;
+      if (pts.length >= 3) faces.push({ pts, side: true, normal: [nr * Math.cos(m), ny, nr * Math.sin(m)] });
+    }
+  }
+  if (closeEnds) {
+    const [rb, yb] = profile[0], [rt, yt] = profile[profile.length - 1];
+    if (rb > 1e-9) faces.push({ pts: Array.from({ length: n }, (_, i) => ring(rb, yb, -(2 * Math.PI * i) / n)), cap: true, normal: [0, -1, 0] });
+    if (rt > 1e-9) faces.push({ pts: Array.from({ length: n }, (_, i) => ring(rt, yt, (2 * Math.PI * i) / n)), cap: true, normal: [0, 1, 0] });
+  }
+  return { faces, smooth };
+}
+
+/** Oblique circular cylinder (or cone when rTop = 0): the top is shifted sideways by `shift`. */
+export function obliqueMesh(r, rTop, h, shift, n = 40) {
+  const faces = [];
+  const P = (rad, y, t, dx) => [dx + rad * Math.cos(t), y, rad * Math.sin(t)];
+  const bottom = Array.from({ length: n }, (_, i) => P(r, -h / 2, (2 * Math.PI * i) / n, -shift / 2));
+  const top = Array.from({ length: n }, (_, i) => P(rTop, h / 2, (2 * Math.PI * i) / n, shift / 2));
+  faces.push({ pts: bottom.slice().reverse(), cap: true, normal: [0, -1, 0] });
+  if (rTop > 1e-9) faces.push({ pts: top, cap: true, normal: [0, 1, 0] });
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    const pts = rTop > 1e-9 ? [bottom[i], bottom[j], top[j], top[i]] : [bottom[i], bottom[j], top[0]];
+    faces.push({ pts, side: true }); // convex, so the renderer orients the face itself
+  }
+  return { faces, smooth: true };
+}
+
+/** Spherical wedge: the part of a sphere of radius R between two half-planes θ apart (degrees). */
+export function sphereWedgeMesh(R, thetaDeg, lat = 14, lonPerTurn = 36) {
+  const th = (Math.min(360, Math.max(1, thetaDeg)) * Math.PI) / 180;
+  const lon = Math.max(2, Math.round((lonPerTurn * th) / (2 * Math.PI)));
+  const P = (i, j) => { const a = (Math.PI * i) / lat, b = (th * j) / lon; return [R * Math.sin(a) * Math.cos(b), R * Math.cos(a), R * Math.sin(a) * Math.sin(b)]; };
+  const faces = [];
+  for (let i = 0; i < lat; i++) for (let j = 0; j < lon; j++) {
+    const a = (Math.PI * (i + 0.5)) / lat, b = (th * (j + 0.5)) / lon;
+    faces.push({ pts: [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)], side: true, normal: [Math.sin(a) * Math.cos(b), Math.cos(a), Math.sin(a) * Math.sin(b)] });
+  }
+  if (thetaDeg < 360) {
+    const half = (angle, flip) => {
+      const pts = [[0, R, 0], ...Array.from({ length: lat - 1 }, (_, i) => { const a = (Math.PI * (i + 1)) / lat; return [R * Math.sin(a) * Math.cos(angle), R * Math.cos(a), R * Math.sin(a) * Math.sin(angle)]; }), [0, -R, 0]];
+      return { pts, cap: true, normal: [flip * Math.sin(angle), 0, -flip * Math.cos(angle)] };
+    };
+    faces.push(half(0, 1), half(th, -1));
+  }
+  return { faces, smooth: true, convex: false };
+}
+
+/** Cylindrical wedge (ungula): cut from a cylinder of radius r by a plane through a diameter of the base, rising to height h. */
+export function ungulaMesh(r, h, n = 32) {
+  const faces = [];
+  const base = (t) => [r * Math.cos(t), -h / 2, r * Math.sin(t)];
+  const top = (t) => [r * Math.cos(t), -h / 2 + (h * Math.sin(t)), r * Math.sin(t)];
+  const ts = Array.from({ length: n + 1 }, (_, i) => (Math.PI * i) / n);
+  faces.push({ pts: ts.map(base).reverse(), cap: true, normal: [0, -1, 0] });
+  faces.push({ pts: ts.map(top), cap: true, normal: [0, r, -h] });
+  for (let i = 0; i < n; i++) {
+    const m = (ts[i] + ts[i + 1]) / 2;
+    faces.push({ pts: [base(ts[i]), base(ts[i + 1]), top(ts[i + 1]), top(ts[i])].filter((p, idx, arr) => idx === 0 || Math.hypot(...sub(p, arr[idx - 1])) > 1e-12), side: true, normal: [Math.cos(m), 0, Math.sin(m)] });
+  }
+  return { faces, smooth: true };
 }

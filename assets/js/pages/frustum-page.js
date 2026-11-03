@@ -2,6 +2,8 @@
 import { solveFrustum, exactTex, exactText } from '../calculators/frustum.js';
 import { formatNumber, unitLabels, isDisplayExact } from '../lib/format.js';
 import { isRational } from '../lib/exact.js';
+import { mountExplorer, mountPractice } from '../lib/learn.js';
+import { frustumConeExplore, frustumConePractice } from '../explore/solids-practice.js';
 import { resultCard, stepsBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, wireCalculator, tex } from '../lib/ui.js';
 
 const form = document.getElementById('frustum-form');
@@ -169,3 +171,7 @@ copyAllBtn.addEventListener('click', () => {
   const text = copyAllBtn.getAttribute('data-copy') || '';
   window.SolverHub.copyText(text).then(() => window.SolverHub.toast('All results copied'), () => window.SolverHub.toast('Copy failed'));
 });
+
+// ------------------------------------------------------------ explore and practise
+mountExplorer(document.querySelector('[data-explore-root]'), frustumConeExplore);
+mountPractice(document.querySelector('[data-practice-root]'), frustumConePractice);

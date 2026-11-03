@@ -5,12 +5,14 @@
 import { validator, answer, tx, fmt, units, UNIT_FIELD } from '../lib/calc-kit.js';
 import { parseFrac } from '../lib/fraction.js';
 import { torusMesh, renderSolid } from '../lib/solid3d.js';
+import { torusPractice } from '../explore/solids-practice.js';
 
 const pi2Tex = (f) => (f.isZero() ? '0' : f.d === 1n ? `${f.n === 1n ? '' : f.n}\\pi^2` : `\\frac{${f.n === 1n ? '' : f.n}\\pi^2}{${f.d}}`);
 const pi2Text = (f) => `${f.n === 1n ? '' : f.n}π²${f.d === 1n ? '' : `/${f.d}`}`;
 
 export const calculator = {
   id: 'torus',
+  practice: torusPractice,
   explore: {
     title: 'Shape a doughnut',
     intro: 'Pappus: the volume is the tube’s cross-section area times the distance its centre travels (2πR). Double R and the volume doubles; double r and it quadruples.',
