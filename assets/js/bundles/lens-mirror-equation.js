@@ -1384,7 +1384,7 @@ function rayDiagram(type, fmag, d_o, h_o) {
   const Y = (y) => cy - y * sy;
   const r = (v) => Math.round(v * 10) / 10;
   const lines = [];
-  const L = (x1, y1, x2, y2, cls = 'd-line', dash = false) => lines.push(`<line class="${cls}" x1="${r(x1)}" y1="${r(y1)}" x2="${r(x2)}" y2="${r(y2)}"${dash ? ' stroke-dasharray="5 4"' : ''}/>`);
+  const L = (x1, y1, x2, y2, cls = 'd-line', dash = false) => lines.push(`<line class="${cls}" x1="${r(x1)}" y1="${r(y1)}" x2="${r(x2)}" y2="${r(y2)}"${dash ? ' style="stroke-dasharray:5 4;opacity:.75"' : ' style="stroke-dasharray:none"'}/>`);
   L(0, cy, W, cy, 'd-axis');
   // optical element
   if (mirror) lines.push(`<path class="d-edge" d="M ${cx} ${cy - 95} Q ${type === 'concave-mirror' ? cx + 22 : cx - 22} ${cy} ${cx} ${cy + 95}"/>`);

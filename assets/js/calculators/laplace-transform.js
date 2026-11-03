@@ -6,7 +6,7 @@
  * Anything else (products of different trig functions, t·sin(bt + c), …) is reported as unsupported.
  */
 import { answer } from '../lib/calc-kit.js';
-import { parse, texOf, compile, ExprError } from '../lib/expr.js';
+import { parse, texOf, textOf, compile, ExprError } from '../lib/expr.js';
 import { Frac } from '../lib/fraction.js';
 import { factorial } from '../lib/bigint.js';
 import { plot } from '../lib/plot.js';
@@ -30,7 +30,7 @@ export function decompose(term) {
     else if (f.t === 'pow' && f.b.t === 'sym' && f.b.n === 'e' && linK(f.e)) out.a = out.a.add(linK(f.e));
     else if (f.t === 'fn' && f.n === 'exp' && linK(f.a)) out.a = out.a.add(linK(f.a));
     else if (f.t === 'fn' && ['sin', 'cos', 'sinh', 'cosh'].includes(f.n) && linK(f.a) && out.kind === 'none') { out.kind = f.n; out.b = linK(f.a); }
-    else return { error: `The term ${texOf(term)} is not one of the supported forms (c·tⁿ·e^(at), times at most one sin, cos, sinh or cosh of b·t).` };
+    else return { error: `The term ${textOf(term)} is not one of the supported forms (c·tⁿ·e^(at), times at most one sin, cos, sinh or cosh of b·t).` };
   }
   if (out.kind !== 'none' && out.n > 1) return { error: 'Terms like t²·sin(bt) are not supported here (only tⁿ·e^(at), and t·sin or t·cos).' };
   if (out.kind.endsWith('h') && out.n > 0) return { error: 'Terms like t·sinh(bt) are not supported here.' };

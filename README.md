@@ -2,7 +2,7 @@
 
 A static educational website of step-by-step math and engineering calculators.
 Plain HTML + Tailwind CSS (CDN) + vanilla JavaScript; formulas are rendered to MathML
-with a self-hosted copy of KaTeX. 58 calculators across 9 subjects, many with interactive explorers and practice problems.
+with a self-hosted copy of KaTeX. 103 calculators across 9 subjects, many with interactive explorers and practice problems.
 No backend, no database, no framework — it runs on GitHub Pages.
 
 ---
@@ -284,7 +284,7 @@ Do not publish empty "coming soon" pages: add a calculator to the registry only 
 - **Learning widgets** (`tests/learn.test.mjs`): every explorer and practice generator, plus answer checking (fractions, rounding tolerance, "close" answers).
 - **Physics** (`tests/physics.test.mjs`): textbook answers, and all ten "three known, two unknown" kinematics combinations checked against an independently simulated motion.
 - **Every generated calculator** (`tests/calculators-generic.test.mjs`): each worked example solves, has a step-by-step solution and renders without TeX errors; no output ever contains `NaN`, `Infinity`, `undefined` or `[object Object]`; every field is fuzzed with about 20 invalid or extreme inputs (empty, text, `1/0`, `1e400`, `1e-300`, …) and must give a helpful error or a clean result.
-- **Site checks** (`tests/site.test.mjs`): all 65 indexable pages have required files, unique titles and descriptions, one `<h1>`, no skipped heading levels, valid JSON-LD, the required lesson sections, and no raw TeX in visible text; sitemap matches canonicals, robots.txt, 404 is `noindex`, no ad code without a publisher ID, and generated files up to date.
+- **Site checks** (`tests/site.test.mjs`): all 110 indexable pages have required files, unique titles and descriptions, one `<h1>`, no skipped heading levels, valid JSON-LD, the required lesson sections, and no raw TeX in visible text; sitemap matches canonicals, robots.txt, 404 is `noindex`, no ad code without a publisher ID, and generated files up to date.
 - **Link check** (`tools/check-links.mjs`): every internal link, asset and `#anchor`.
 
 The GitHub Action runs the same tests before every deployment and stops if any fail.

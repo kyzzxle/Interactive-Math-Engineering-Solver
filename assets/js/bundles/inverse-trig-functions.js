@@ -2373,7 +2373,7 @@ const calculator = {
     else if (fn === 'acos') { general = `\\theta = \\pm ${exact ? `\\left(${yTex}\\right)` : yTex} + 2\\pi n`; sols = [y, 2 * Math.PI - y]; }
     else { general = `\\theta = ${yTex} + \\pi n`; sols = [y, y + Math.PI]; }
     const in360 = [...new Set(sols.map((s) => ((s % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)).map((s) => +s.toFixed(12)))].sort((a, b) => a - b);
-    steps.push({ title: `All angles with ${I.fn} θ = x (n any integer)`, tex: general });
+    steps.push({ title: `All angles with ${I.fn.slice(1)} θ = x (n any integer)`, tex: general });
     return {
       ok: true,
       final: { tex: `${I.name}(${shown}) = ${yTex} ${exact ? `= ${degText(y)}^\\circ` : `\\approx ${degText(y)}^\\circ`}` },
