@@ -132,17 +132,17 @@ for (const calc of registry.calculators) {
   if (!existsSync(join(ROOT, calc.url, 'index.html')) && !virtualFiles.has(`${calc.url}index.html`)) warnings.push(`Registry lists ${calc.url} but ${calc.url}index.html does not exist.`);
 }
 
-function card(calc, root, headingLevel) {
+// One index entry: the whole row is the link. The subject is shown only in mixed lists;
+// in the directory the section heading already names it.
+function card(calc, root, headingLevel, { showCategory = true } = {}) {
   const cat = categoriesById[calc.category];
   const search = [calc.name, calc.shortName, calc.summary, cat.name, ...calc.keywords].join(' ').toLowerCase();
   const h = `h${headingLevel}`;
   return `<li class="calc-card-item" data-category="${calc.category}" data-featured="${calc.featured ? 'true' : 'false'}" data-search="${escapeHtml(search)}">
           <a class="calc-card" href="${root}${calc.url}">
-            <span class="calc-card-glyph" aria-hidden="true">${escapeHtml(cat.glyph)}</span>
-            <span class="calc-card-category">${escapeHtml(cat.name)}</span>
-            <${h} class="calc-card-title">${escapeHtml(calc.name)}</${h}>
+            <${h} class="calc-card-title">${escapeHtml(calc.name)}</${h}>${showCategory ? `
+            <span class="calc-card-category">${escapeHtml(cat.name)}</span>` : ''}
             <span class="calc-card-summary">${escapeHtml(calc.summary)}</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>`;
 }
@@ -212,7 +212,7 @@ ${html}`;
       const calcs = registry.calculators.filter((c) => c.category === cat.id);
       const body = calcs.length
         ? `<ul class="card-grid">
-          ${calcs.map((c) => card(c, root, 3)).join('\n          ')}
+          ${calcs.map((c) => card(c, root, 3, { showCategory: false })).join('\n          ')}
           </ul>`
         : `<div class="planned-box">
             <p>No calculators are published in this category yet.</p>
@@ -266,7 +266,8 @@ generators.schema = (root, opts, html, file) => {
 
   const crumbNav = (html.match(/<nav class="breadcrumbs"[\s\S]*?<\/nav>/) || [])[0];
   if (crumbNav) {
-    const items = [...crumbNav.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/g)].map((m, i) => {
+    // A subject crumb links to a section of the directory (#fragment); it is not a page of its own.
+    const items = [...crumbNav.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/g)].filter((m) => !/href="[^"]*#/.test(m[1])).map((m, i) => {
       const href = (m[1].match(/href="([^"]+)"/) || [])[1];
       const abs = href ? new URL(href, `${siteUrl}/${file}`).href.replace(/index\.html$/, '') : url;
       return { '@type': 'ListItem', position: i + 1, name: textOf(m[1]), item: abs };

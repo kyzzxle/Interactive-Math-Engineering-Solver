@@ -87,11 +87,13 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Ellipse Calculator: Centre, Axes, Foci and Equation — Solver Hub">
   <meta name="twitter:image" content="https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/assets/og/ellipse.jpg">
-  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f4ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161f1b" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
   <script>(function(){var t=null;try{t=localStorage.getItem("theme")}catch(e){}var d=t?t==="dark":window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")})();</script>
   <link rel="icon" href="../../assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/stix-two-text-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/styles.css">
   <link rel="stylesheet" href="../../assets/css/tailwind.css">
   <script src="../../assets/js/site-config.js"></script>
@@ -107,10 +109,7 @@
   <header class="site-header">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
       <a href="../../" class="brand" aria-label="Solver Hub home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" width="32" height="32"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 22 L14 10 L20 22 M10.5 17h7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.6" fill="#34d399"/></svg>
-        </span>
-        <span class="brand-text">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></span>
+        <svg class="brand-mark" viewBox="0 0 20 30" aria-hidden="true"><path d="M1.5 18.5 5 16.5l5.2 11L17.6 1H20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/></svg><span class="brand-text">Solver Hub</span>
       </a>
       <nav class="hidden md:block" aria-label="Main">
         <ul class="nav-list">
@@ -149,13 +148,13 @@
         <ol>
           <li><a href="../../">Home</a></li>
           <li><a href="../">Calculators</a></li>
+          <li><a href="../#analytic-geometry">Analytic Geometry</a></li>
           <li><span aria-current="page">Ellipse</span></li>
         </ol>
       </nav>
 
-      <header class="mt-5 mb-7">
-        <a class="eyebrow" href="../#analytic-geometry">Analytic Geometry</a>
-        <h1 class="page-title mt-2">Ellipse Calculator: Centre, Axes, Foci and Equation</h1>
+      <header class="mt-6 mb-8">
+        <h1 class="page-title">Ellipse Calculator: Centre, Axes, Foci and Equation</h1>
         <p class="lead mt-3">Give the centre and the horizontal and vertical semi-axes to get the standard and general equations, foci and eccentricity — and see why PF₁ + PF₂ stays constant.</p>
       </header>
 
@@ -228,7 +227,7 @@
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
       <aside class="toc-aside hidden lg:block">
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
-          <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">On this page</p>
+          <p class="toc-label">On this page</p>
           <ol>
             <li><a href="#about-h">What the ellipse calculator does</a></li>
             <li><a href="#formula-h">Formulas and variables</a></li>
@@ -306,9 +305,9 @@
   <footer class="site-footer">
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
       <div class="md:col-span-2">
-        <p class="brand-text text-lg">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></p>
-        <p class="mt-3 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-400">Interactive Math &amp; Engineering Solver Hub offers free calculators with step-by-step solutions and plain-language lessons, so students can check their work and understand the method behind every answer.</p>
-        <p class="mt-3 text-xs text-slate-500 dark:text-slate-500">Results are provided for learning. Always confirm critical calculations independently — see the <a class="footer-link underline" href="../../disclaimer.html">disclaimer</a>.</p>
+        <p class="brand footer-brand"><svg class="brand-mark" viewBox="0 0 20 30" aria-hidden="true"><path d="M1.5 18.5 5 16.5l5.2 11L17.6 1H20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/></svg><span class="brand-text">Solver Hub</span></p>
+        <p class="mt-4 max-w-md text-sm leading-6">Interactive Math &amp; Engineering Solver Hub offers free calculators with step-by-step solutions and plain-language lessons, so students can check their work and understand the method behind every answer.</p>
+        <p class="mt-3 max-w-md text-sm text-slate-500">Results are provided for learning. Always confirm critical calculations independently — see the <a class="footer-link underline" href="../../disclaimer.html">disclaimer</a>.</p>
       </div>
       <div>
         <h2 class="footer-heading">Subjects</h2>
@@ -322,7 +321,7 @@
           <li><a class="footer-link" href="../../calculators/#combinatorics">Combinatorics</a></li>
           <li><a class="footer-link" href="../../calculators/#engineering-mathematics">Engineering Mathematics</a></li>
           <li><a class="footer-link" href="../../calculators/#physics">Physics</a></li>
-          <li><a class="footer-link font-medium" href="../../calculators/">Browse all calculators →</a></li>
+          <li><a class="footer-link font-bold" href="../../calculators/">All calculators</a></li>
         </ul>
       </div>
       <div>
@@ -338,7 +337,7 @@
       </div>
     </div>
     <div class="border-t border-slate-200 dark:border-slate-800">
-      <p class="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6 dark:text-slate-500">© 2026 Interactive Math &amp; Engineering Solver Hub. Free educational resource. Calculations run entirely in your browser.</p>
+      <p class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500 sm:px-6">© 2026 Interactive Math &amp; Engineering Solver Hub. Free educational resource. Calculations run entirely in your browser.</p>
     </div>
   </footer>
   <!-- /build:footer -->

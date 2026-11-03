@@ -17,11 +17,13 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Interactive Math &amp; Engineering Solver Hub">
   <meta name="twitter:image" content="https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/assets/og/default.jpg">
-  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f4ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161f1b" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
   <script>(function(){var t=null;try{t=localStorage.getItem("theme")}catch(e){}var d=t?t==="dark":window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")})();</script>
   <link rel="icon" href="./assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="./assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/stix-two-text-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./assets/css/styles.css">
   <link rel="stylesheet" href="./assets/css/tailwind.css">
   <script src="./assets/js/site-config.js"></script>
@@ -36,10 +38,7 @@
   <header class="site-header">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
       <a href="./" class="brand" aria-label="Solver Hub home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" width="32" height="32"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 22 L14 10 L20 22 M10.5 17h7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.6" fill="#34d399"/></svg>
-        </span>
-        <span class="brand-text">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></span>
+        <svg class="brand-mark" viewBox="0 0 20 30" aria-hidden="true"><path d="M1.5 18.5 5 16.5l5.2 11L17.6 1H20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/></svg><span class="brand-text">Solver Hub</span>
       </a>
       <nav class="hidden md:block" aria-label="Main">
         <ul class="nav-list">
@@ -71,951 +70,746 @@
   <!-- /build:header -->
 
   <main id="main">
-    <div class="container-page py-16 text-center">
-      <p class="eyebrow justify-center">Error 404</p>
-      <h1 class="page-title mt-3">This page could not be found</h1>
-      <p class="lead mx-auto mt-4">The link may be out of date, or the address may have a typo. Try one of the calculators below or search the directory.</p>
-      <form class="mx-auto mt-8 max-w-xl" action="calculators/" method="get" role="search">
+    <div class="container-page py-14 sm:py-20">
+      <p class="notfound-code" aria-hidden="true">404</p>
+      <h1 class="page-title mt-4">This page could not be found</h1>
+      <p class="lead mt-4">The link may be out of date, or the address may have a typo. Try one of the calculators below or search the directory.</p>
+      <form class="mt-8 max-w-xl" action="calculators/" method="get" role="search">
         <label for="nf-search" class="sr-only">Search calculators</label>
         <div class="search-box">
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <input id="nf-search" name="q" class="search-input" type="search" placeholder="Search calculators" autocomplete="off">
         </div>
       </form>
-      <div class="mx-auto mt-10 max-w-4xl text-left">
+      <h2 class="section-title mt-14">Popular calculators</h2>
+      <div class="mt-5">
         <!-- build:featured -->
         <ul class="card-grid" data-search-list data-featured-only>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="true" data-search="frustum of a cone calculator frustum of a cone find the slant height, perpendicular height, lateral area, total surface area and volume of a truncated cone, with every substitution shown. solid mensuration truncated cone frustum volume lateral surface area total surface area slant height bucket hopper">
           <a class="calc-card" href="./calculators/frustum-of-a-cone/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Frustum of a Cone Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Find the slant height, perpendicular height, lateral area, total surface area and volume of a truncated cone, with every substitution shown.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="true" data-search="sphere calculator sphere surface area and volume of a sphere from its radius, diameter, area or volume, with exact answers in terms of π. solid mensuration sphere ball surface area volume radius diameter 4πr²">
           <a class="calc-card" href="./calculators/sphere/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Sphere Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Surface area and volume of a sphere from its radius, diameter, area or volume, with exact answers in terms of π.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="cylinder calculator cylinder lateral area, total surface area and volume of a right circular cylinder from its radius or diameter and height. solid mensuration cylinder can tank pipe lateral area surface area volume πr²h">
           <a class="calc-card" href="./calculators/cylinder/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Cylinder Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Lateral area, total surface area and volume of a right circular cylinder from its radius or diameter and height.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="cone calculator cone slant height, lateral area, total surface area and volume of a right circular cone from the radius and either height. solid mensuration cone slant height lateral area surface area volume πrs 1/3 πr²h">
           <a class="calc-card" href="./calculators/cone/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Cone Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Slant height, lateral area, total surface area and volume of a right circular cone from the radius and either height.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="prism calculator prism surface area and volume of rectangular, cube, triangular and regular-polygon right prisms. solid mensuration prism rectangular prism box cube triangular prism hexagonal prism surface area volume heron">
           <a class="calc-card" href="./calculators/prism/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Prism Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Surface area and volume of rectangular, cube, triangular and regular-polygon right prisms.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="pyramid calculator pyramid slant height, lateral and total surface area and volume of right pyramids with regular or rectangular bases. solid mensuration pyramid square pyramid rectangular pyramid slant height lateral edge surface area volume 1/3 bh">
           <a class="calc-card" href="./calculators/pyramid/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Pyramid Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Slant height, lateral and total surface area and volume of right pyramids with regular or rectangular bases.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="frustum of a pyramid calculator frustum of a pyramid volume, slant height and surface area of a truncated pyramid with regular or rectangular similar bases. solid mensuration frustum of a pyramid truncated pyramid square frustum volume surface area slant height hopper">
           <a class="calc-card" href="./calculators/frustum-of-a-pyramid/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Frustum of a Pyramid Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Volume, slant height and surface area of a truncated pyramid with regular or rectangular similar bases.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="true" data-search="distance from a point to a line calculator point-to-line distance compute the shortest (perpendicular) distance from a point to the line ax + by + c = 0, plus the foot of the perpendicular and a plotted graph. analytic geometry perpendicular distance point to line ax+by+c=0 general form foot of perpendicular coordinate geometry">
           <a class="calc-card" href="./calculators/distance-from-point-to-line/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Distance from a Point to a Line Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Compute the shortest (perpendicular) distance from a point to the line Ax + By + C = 0, plus the foot of the perpendicular and a plotted graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="true" data-search="midpoint and distance calculator midpoint &amp; distance midpoint of a segment and the distance between two points, with exact radicals, fractions and a graph. analytic geometry midpoint formula distance formula distance between two points segment coordinates">
           <a class="calc-card" href="./calculators/midpoint-and-distance/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Midpoint and Distance Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Midpoint of a segment and the distance between two points, with exact radicals, fractions and a graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="slope and equation of a line calculator slope &amp; line equation slope, point–slope, slope–intercept and general form of a line from two points or a point and a slope. analytic geometry slope equation of a line slope-intercept form point-slope form general form y = mx + b intercepts">
           <a class="calc-card" href="./calculators/slope-and-equation-of-a-line/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Slope and Equation of a Line Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Slope, point–slope, slope–intercept and general form of a line from two points or a point and a slope.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="intersection of two lines calculator intersection of two lines point where two lines meet, or whether they are parallel or identical, using cramer's rule with exact fractions. analytic geometry intersection of lines point of intersection cramer's rule parallel lines angle between lines simultaneous equations">
           <a class="calc-card" href="./calculators/intersection-of-two-lines/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Intersection of Two Lines Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Point where two lines meet, or whether they are parallel or identical, using Cramer's rule with exact fractions.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="line and circle intersection calculator line–circle intersection points where a line meets a circle, including tangent and no-intersection cases, with a graph. analytic geometry line circle intersection secant tangent line chord circle intersection points">
           <a class="calc-card" href="./calculators/line-circle-intersection/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Line and Circle Intersection Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Points where a line meets a circle, including tangent and no-intersection cases, with a graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="circle equation calculator circle equation centre, radius, standard and general form of a circle — from centre and radius, a point, the general form or three points. analytic geometry equation of a circle standard form general form centre and radius complete the square circle through three points">
           <a class="calc-card" href="./calculators/circle-equation/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Circle Equation Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Centre, radius, standard and general form of a circle — from centre and radius, a point, the general form or three points.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="parabola calculator parabola vertex, focus, directrix, axis and intercepts of a parabola in standard or vertex form, with a graph. analytic geometry parabola vertex focus directrix axis of symmetry latus rectum conic section quadratic">
           <a class="calc-card" href="./calculators/parabola/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Parabola Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Vertex, focus, directrix, axis and intercepts of a parabola in standard or vertex form, with a graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="linear equation solver linear equations solve linear equations in x with brackets and fractions, showing every step, the check and special cases. algebra linear equation solve for x one variable equation solver no solution identity">
           <a class="calc-card" href="./calculators/linear-equation-solver/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Linear Equation Solver</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Solve linear equations in x with brackets and fractions, showing every step, the check and special cases.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="true" data-search="quadratic equation solver quadratic equations real and complex roots of ax² + bx + c = 0 with the discriminant, exact radicals, factored form and graph. algebra quadratic formula quadratic equation discriminant complex roots roots ax^2+bx+c factoring">
           <a class="calc-card" href="./calculators/quadratic-equation-solver/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Quadratic Equation Solver</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Real and complex roots of ax² + bx + c = 0 with the discriminant, exact radicals, factored form and graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="polynomial factoring calculator polynomial factoring factor polynomials of degree 2–6 completely over the rationals: gcf, rational roots, quadratic and cubic factors. algebra factor polynomial factoring rational root theorem difference of squares sum of cubes synthetic division gcf">
           <a class="calc-card" href="./calculators/polynomial-factoring/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Polynomial Factoring Calculator</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Factor polynomials of degree 2–6 completely over the rationals: GCF, rational roots, quadratic and cubic factors.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="systems of linear equations solver systems of equations solve 2×2 and 3×3 linear systems by elimination with exact fractions; detects no-solution and infinite cases. algebra system of equations simultaneous equations elimination method two variables three variables gaussian elimination">
           <a class="calc-card" href="./calculators/systems-of-linear-equations/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Systems of Linear Equations Solver</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Solve 2×2 and 3×3 linear systems by elimination with exact fractions; detects no-solution and infinite cases.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="exponent and radical simplifier exponents &amp; radicals simplify monomials with exponent laws, radicals of single terms and rational powers of numbers, step by step. algebra simplify exponents laws of exponents simplify radicals negative exponents fractional exponents nth root">
           <a class="calc-card" href="./calculators/exponent-and-radical-simplifier/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Exponent and Radical Simplifier</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Simplify monomials with exponent laws, radicals of single terms and rational powers of numbers, step by step.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="logarithm calculator logarithms evaluate log_b(x) exactly when possible and solve logarithmic and exponential equations with domain checks. algebra logarithm log base natural log ln change of base exponential equation logarithmic equation">
           <a class="calc-card" href="./calculators/logarithm-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Logarithm Calculator</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Evaluate log_b(x) exactly when possible and solve logarithmic and exponential equations with domain checks.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="true" data-search="right triangle solver right triangle solve a right triangle from any two values: sides, angles, area and perimeter with soh-cah-toa steps and a scaled diagram. trigonometry right triangle soh cah toa hypotenuse pythagorean theorem sine cosine tangent solve triangle">
           <a class="calc-card" href="./calculators/right-triangle-solver/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Right Triangle Solver</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Solve a right triangle from any two values: sides, angles, area and perimeter with SOH-CAH-TOA steps and a scaled diagram.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="law of sines calculator law of sines solve aas, asa and the ambiguous ssa case (0, 1 or 2 triangles) with the law of sines. trigonometry law of sines sine rule ambiguous case ssa aas asa oblique triangle">
           <a class="calc-card" href="./calculators/law-of-sines/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Law of Sines Calculator</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Solve AAS, ASA and the ambiguous SSA case (0, 1 or 2 triangles) with the law of sines.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="law of cosines calculator law of cosines solve sas and sss triangles with the law of cosines, including triangle-inequality checks and a scaled diagram. trigonometry law of cosines cosine rule sas sss oblique triangle triangle inequality find angle">
           <a class="calc-card" href="./calculators/law-of-cosines/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Law of Cosines Calculator</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Solve SAS and SSS triangles with the law of cosines, including triangle-inequality checks and a scaled diagram.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="trigonometric identity checker and simplifier trig identities rewrite expressions in sin and cos, verify identities numerically with counterexamples, and match common simplified forms. trigonometry trig identities verify identity simplify trig expression pythagorean identity sin cos tan counterexample">
           <a class="calc-card" href="./calculators/trig-identity-checker/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Trigonometric Identity Checker and Simplifier</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Rewrite expressions in sin and cos, verify identities numerically with counterexamples, and match common simplified forms.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="trigonometric equation solver trig equations solve a·sin, cos or tan(bx + c) + d = k on [0, 2π) or [0°, 360°) with exact angles and the general solution. trigonometry trig equation solve sin x general solution trigonometric equation solutions in 0 to 2pi inverse trig">
           <a class="calc-card" href="./calculators/trig-equation-solver/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Trigonometric Equation Solver</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Solve a·sin, cos or tan(bx + c) + d = k on [0, 2π) or [0°, 360°) with exact angles and the general solution.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="degrees and radians converter with unit circle degrees ↔ radians convert between degrees and radians and get the quadrant, reference angle and exact sin, cos and tan on the unit circle. trigonometry degrees to radians radians to degrees unit circle reference angle exact values quadrant coterminal angle">
           <a class="calc-card" href="./calculators/degrees-radians-unit-circle/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Degrees and Radians Converter with Unit Circle</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Convert between degrees and radians and get the quadrant, reference angle and exact sin, cos and tan on the unit circle.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="true" data-search="derivative calculator derivatives symbolic first and second derivatives with the rule used for each term, values at a point and a graph of f and f′. calculus derivative differentiate product rule quotient rule chain rule power rule second derivative f'(x)">
           <a class="calc-card" href="./calculators/derivative-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Derivative Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Symbolic first and second derivatives with the rule used for each term, values at a point and a graph of f and f′.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="tangent line calculator tangent line equation of the tangent and normal lines to y = f(x) at a point, with exact values for polynomials and a graph. calculus tangent line equation of tangent normal line slope of curve point of tangency linear approximation">
           <a class="calc-card" href="./calculators/tangent-line-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Tangent Line Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Equation of the tangent and normal lines to y = f(x) at a point, with exact values for polynomials and a graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="critical points and increasing/decreasing intervals critical points critical numbers, local maxima and minima, and intervals of increase and decrease for polynomials, with a sign chart. calculus critical points local maximum local minimum increasing decreasing intervals first derivative test sign chart extrema">
           <a class="calc-card" href="./calculators/critical-points/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Critical Points and Increasing/Decreasing Intervals</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Critical numbers, local maxima and minima, and intervals of increase and decrease for polynomials, with a sign chart.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="indefinite integral calculator indefinite integrals antiderivatives by standard rules — powers, exponentials, trig and linear substitutions — checked by differentiation. calculus indefinite integral antiderivative integration rules integral calculator power rule integration + c">
           <a class="calc-card" href="./calculators/indefinite-integral/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Indefinite Integral Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Antiderivatives by standard rules — powers, exponentials, trig and linear substitutions — checked by differentiation.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="definite integral calculator definite integrals exact values by the fundamental theorem of calculus, or adaptive simpson's rule when no antiderivative is found — clearly labelled. calculus definite integral fundamental theorem of calculus area under curve simpson's rule numerical integration integral from a to b">
           <a class="calc-card" href="./calculators/definite-integral/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Definite Integral Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Exact values by the Fundamental Theorem of Calculus, or adaptive Simpson's rule when no antiderivative is found — clearly labelled.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="area between curves calculator area between curves area between two curves on an interval or between their intersections, split at every crossing, with a shaded graph. calculus area between curves area between two functions enclosed area integral of difference intersection points">
           <a class="calc-card" href="./calculators/area-between-curves/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Area Between Curves Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Area between two curves on an interval or between their intersections, split at every crossing, with a shaded graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="true" data-search="mean, median, mode and range calculator mean, median, mode mean, median, mode(s) and range of a data set with sorted data, exact means and a frequency chart. statistics &amp; probability mean median mode range average central tendency data set statistics">
           <a class="calc-card" href="./calculators/mean-median-mode-range/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Mean, Median, Mode and Range Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Mean, median, mode(s) and range of a data set with sorted data, exact means and a frequency chart.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="variance and standard deviation calculator variance &amp; std dev sample and population variance and standard deviation with a table of deviations and exact sums. statistics &amp; probability standard deviation variance sample standard deviation population standard deviation n-1 spread deviation">
           <a class="calc-card" href="./calculators/variance-and-standard-deviation/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Variance and Standard Deviation Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Sample and population variance and standard deviation with a table of deviations and exact sums.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="z-score calculator z-score convert a value to a z-score (or back) and find its percentile under the normal curve. statistics &amp; probability z-score standard score standardize percentile normal curve how many standard deviations">
           <a class="calc-card" href="./calculators/z-score-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Z-Score Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Convert a value to a z-score (or back) and find its percentile under the normal curve.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="normal distribution calculator normal distribution probabilities below, above or between values and percentiles (inverse normal) for any normal distribution. statistics &amp; probability normal distribution bell curve normal probability inverse normal percentile z-table area under curve">
           <a class="calc-card" href="./calculators/normal-distribution/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Normal Distribution Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Probabilities below, above or between values and percentiles (inverse normal) for any normal distribution.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="binomial probability calculator binomial probability exact and cumulative binomial probabilities, mean and standard deviation, with a highlighted distribution chart. statistics &amp; probability binomial probability binomial distribution p(x = k) cumulative probability at least at most bernoulli trials">
           <a class="calc-card" href="./calculators/binomial-probability/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Binomial Probability Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Exact and cumulative binomial probabilities, mean and standard deviation, with a highlighted distribution chart.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="confidence interval calculator confidence intervals z- and t-intervals for a mean and the one-proportion interval, with critical values, margin of error and assumptions. statistics &amp; probability confidence interval margin of error t-interval z-interval proportion critical value 95% confidence">
           <a class="calc-card" href="./calculators/confidence-interval/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Confidence Interval Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">z- and t-intervals for a mean and the one-proportion interval, with critical values, margin of error and assumptions.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="factorial calculator factorial exact n! with every digit up to 40,000!, scientific notation beyond, plus digit count and trailing zeros. combinatorics factorial n! factorial calculator trailing zeros stirling's approximation big numbers">
           <a class="calc-card" href="./calculators/factorial-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Factorial Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Exact n! with every digit up to 40,000!, scientific notation beyond, plus digit count and trailing zeros.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="permutations with repeated items calculator repeated-item permutations distinguishable arrangements of a word or of groups of identical items: n!/(n₁! n₂! ⋯). combinatorics permutations with repetition repeated letters arrangements of a word multinomial mississippi distinguishable permutations">
           <a class="calc-card" href="./calculators/permutations-with-repetition/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Permutations with Repeated Items Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Distinguishable arrangements of a word or of groups of identical items: n!/(n₁! n₂! ⋯).</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="circular permutations calculator circular permutations arrangements around a circle — round tables and necklaces — including choosing r of n objects. combinatorics circular permutations round table necklace (n-1)! arrangements in a circle bracelet">
           <a class="calc-card" href="./calculators/circular-permutations/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Circular Permutations Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Arrangements around a circle — round tables and necklaces — including choosing r of n objects.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="binomial theorem expansion calculator binomial expansion expand (a + b)ⁿ with exact coefficients from pascal's triangle, or find any single term. combinatorics binomial theorem binomial expansion expand (a+b)^n pascal's triangle general term binomial coefficient">
           <a class="calc-card" href="./calculators/binomial-theorem-expansion/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Binomial Theorem Expansion Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Expand (a + b)ⁿ with exact coefficients from Pascal's triangle, or find any single term.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="inclusion–exclusion calculator inclusion–exclusion size of the union of two or three sets, every venn region and the count outside all sets, with consistency checks. combinatorics inclusion exclusion union of sets venn diagram set counting three sets neither">
           <a class="calc-card" href="./calculators/inclusion-exclusion/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Inclusion–Exclusion Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Size of the union of two or three sets, every Venn region and the count outside all sets, with consistency checks.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="true" data-search="complex number calculator complex numbers exact complex arithmetic, modulus, argument, polar and exponential forms, de moivre powers and an argand diagram. engineering mathematics complex numbers a+bi polar form modulus argument de moivre phasor argand diagram conjugate">
           <a class="calc-card" href="./calculators/complex-number-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Complex Number Calculator</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Exact complex arithmetic, modulus, argument, polar and exponential forms, de Moivre powers and an Argand diagram.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="matrix calculator matrix calculator exact matrix addition, multiplication, scalar multiples, transpose, determinant and inverse up to 6 × 6. engineering mathematics matrix calculator matrix multiplication determinant inverse matrix transpose linear algebra">
           <a class="calc-card" href="./calculators/matrix-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Matrix Calculator</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Exact matrix addition, multiplication, scalar multiples, transpose, determinant and inverse up to 6 × 6.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="linear systems by matrix methods matrix methods for systems solve ax = b by gauss–jordan elimination, cramer's rule or the inverse matrix, for 2 to 6 unknowns. engineering mathematics cramer's rule gauss-jordan augmented matrix inverse matrix method ax = b linear system">
           <a class="calc-card" href="./calculators/matrix-method-linear-systems/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Linear Systems by Matrix Methods</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Solve Ax = b by Gauss–Jordan elimination, Cramer's rule or the inverse matrix, for 2 to 6 unknowns.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="numerical root finder (bisection and newton–raphson) root finder solve f(x) = 0 by bisection or newton–raphson with an iteration table, stopping rule and failure detection. engineering mathematics bisection method newton-raphson newton's method root finding solve f(x)=0 numerical methods iteration">
           <a class="calc-card" href="./calculators/numerical-root-finder/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Numerical Root Finder (Bisection and Newton–Raphson)</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Solve f(x) = 0 by bisection or Newton–Raphson with an iteration table, stopping rule and failure detection.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="numerical differentiation calculator numerical differentiation forward, backward and central differences compared with the exact derivative, with an error table for shrinking h. engineering mathematics finite difference numerical derivative central difference forward difference backward difference truncation error">
           <a class="calc-card" href="./calculators/numerical-differentiation/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Numerical Differentiation Calculator</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Forward, backward and central differences compared with the exact derivative, with an error table for shrinking h.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="numerical integration: trapezoidal and simpson's rule numerical integration composite trapezoidal and simpson's rules with a table of sample points and the error against an accurate value. engineering mathematics trapezoidal rule simpson's rule numerical integration composite rule approximate integral quadrature">
           <a class="calc-card" href="./calculators/numerical-integration/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Numerical Integration: Trapezoidal and Simpson's Rule</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Composite trapezoidal and Simpson's rules with a table of sample points and the error against an accurate value.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="true" data-search="permutations and combinations calculator permutations &amp; combinations calculate npr and ncr exactly — even for very large numbers — with factorial expansions, cancellation steps and listed examples for small cases. combinatorics npr ncr permutation combination factorial binomial coefficient arrangements selections">
           <a class="calc-card" href="./calculators/permutations-and-combinations/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Permutations and Combinations Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Calculate nPr and nCr exactly — even for very large numbers — with factorial expansions, cancellation steps and listed examples for small cases.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="speed, distance and time calculator speed, distance &amp; time solve speed = distance ÷ time for any one quantity, for speed or signed velocity, with unit conversions and a position–time graph. physics speed velocity distance displacement time d = vt average speed km/h">
           <a class="calc-card" href="./calculators/motion-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Speed, Distance and Time Calculator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Solve speed = distance ÷ time for any one quantity, for speed or signed velocity, with unit conversions and a position–time graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="true" data-search="kinematics (suvat) calculator kinematics (suvat) enter any three of u, v, a, t and s for constant acceleration; the solver picks the right equations and shows both solutions when there are two. physics kinematics suvat constant acceleration v = u + at s = ut + 1/2at^2 v^2 = u^2 + 2as free fall braking distance">
           <a class="calc-card" href="./calculators/kinematics-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Kinematics (SUVAT) Calculator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Enter any three of u, v, a, t and s for constant acceleration; the solver picks the right equations and shows both solutions when there are two.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="true" data-search="projectile motion simulator projectile motion flight time, maximum height, range and impact velocity of a projectile, with an animated trajectory you can pause and scrub. physics projectile motion trajectory range maximum height time of flight launch angle 45 degrees parabola">
           <a class="calc-card" href="./calculators/projectile-motion/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Projectile Motion Simulator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Flight time, maximum height, range and impact velocity of a projectile, with an animated trajectory you can pause and scrub.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="newton's second law calculator (f = ma) newton's second law calculate net force, mass or acceleration from f = ma, with signed directions, a free-body diagram and the weight on earth. physics newton's second law f = ma force mass acceleration net force free-body diagram newton">
           <a class="calc-card" href="./calculators/newtons-second-law/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Newton's Second Law Calculator (F = ma)</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Calculate net force, mass or acceleration from F = ma, with signed directions, a free-body diagram and the weight on Earth.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="work, energy and power calculator work, energy &amp; power work done by a force at an angle, kinetic and potential energy, power, and the speed after a fall from energy conservation. physics work energy power kinetic energy potential energy joule watt conservation of energy fd cos theta">
           <a class="calc-card" href="./calculators/work-energy-power/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Work, Energy and Power Calculator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Work done by a force at an angle, kinetic and potential energy, power, and the speed after a fall from energy conservation.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="ohm's law calculator ohm's law find voltage, current or resistance from v = ir, plus the power dissipated, with a labelled circuit diagram. physics ohm's law v = ir voltage current resistance ohm amp volt electrical power">
           <a class="calc-card" href="./calculators/ohms-law/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Ohm's Law Calculator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Find voltage, current or resistance from V = IR, plus the power dissipated, with a labelled circuit diagram.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="series and parallel resistance calculator series &amp; parallel resistors equivalent resistance for resistors in series, in parallel, or as parallel branches, with each resistor's current and voltage. physics series resistance parallel resistance equivalent resistance resistor network product over sum circuit ohms">
           <a class="calc-card" href="./calculators/series-parallel-resistance/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Series and Parallel Resistance Calculator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Equivalent resistance for resistors in series, in parallel, or as parallel branches, with each resistor's current and voltage.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="wave speed, frequency and wavelength calculator wave calculator relate wave speed, frequency and wavelength with v = fλ, plus period, angular frequency and an animated travelling wave. physics wave equation v = f lambda frequency wavelength wave speed period hertz sound light">
           <a class="calc-card" href="./calculators/wave-calculator/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Wave Speed, Frequency and Wavelength Calculator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Relate wave speed, frequency and wavelength with v = fλ, plus period, angular frequency and an animated travelling wave.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="ellipsoid surface area and volume calculator ellipsoid volume of an ellipsoid exactly in terms of π and its surface area from elliptic integrals, with a rotatable 3d model. solid mensuration ellipsoid spheroid oblate prolate surface area volume 4/3 pi abc">
           <a class="calc-card" href="./calculators/ellipsoid/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Ellipsoid Surface Area and Volume Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Volume of an ellipsoid exactly in terms of π and its surface area from elliptic integrals, with a rotatable 3D model.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="spherical cap and segment calculator spherical cap &amp; segment volume, curved area and base radius of a spherical cap or of a slice between two parallel planes, with exact π answers. solid mensuration spherical cap spherical segment zone dome slice of a sphere cap volume">
           <a class="calc-card" href="./calculators/spherical-cap/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Spherical Cap and Segment Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Volume, curved area and base radius of a spherical cap or of a slice between two parallel planes, with exact π answers.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="torus surface area and volume calculator torus volume 2π²rr² and surface area 4π²rr of a ring torus from pappus’s theorems, with a 3d doughnut you can turn. solid mensuration torus doughnut donut ring pappus theorem tube">
           <a class="calc-card" href="./calculators/torus/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Torus Surface Area and Volume Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Volume 2π²Rr² and surface area 4π²Rr of a ring torus from Pappus’s theorems, with a 3D doughnut you can turn.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="composite solid calculator composite solids volume and exposed surface area of silos, capsules, rockets, ice-cream cones and tubes built from cylinders, cones and hemispheres. solid mensuration composite solid compound shape silo capsule hemisphere hollow cylinder pipe">
           <a class="calc-card" href="./calculators/composite-solid/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Composite Solid Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Volume and exposed surface area of silos, capsules, rockets, ice-cream cones and tubes built from cylinders, cones and hemispheres.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="solid-mensuration" data-featured="false" data-search="similar solids scale-factor calculator similar solids turn a length, area or volume ratio of similar solids into the other two (k, k², k³) and scale known areas and volumes. solid mensuration similar solids scale factor area ratio volume ratio k cubed enlargement">
           <a class="calc-card" href="./calculators/similar-solids/">
-            <span class="calc-card-glyph" aria-hidden="true">◭</span>
-            <span class="calc-card-category">Solid Mensuration</span>
             <h3 class="calc-card-title">Similar Solids Scale-Factor Calculator</h3>
+            <span class="calc-card-category">Solid Mensuration</span>
             <span class="calc-card-summary">Turn a length, area or volume ratio of similar solids into the other two (k, k², k³) and scale known areas and volumes.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="distance from a point to a plane calculator point to plane shortest distance from a point to the plane ax + by + cz + d = 0 in simplest radical form, with the foot of the perpendicular. analytic geometry distance point to plane 3d geometry normal vector foot of perpendicular plane equation">
           <a class="calc-card" href="./calculators/point-to-plane-distance/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Distance from a Point to a Plane Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Shortest distance from a point to the plane Ax + By + Cz + D = 0 in simplest radical form, with the foot of the perpendicular.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="angle between two lines calculator angle between lines acute and obtuse angles between two lines from slopes, general-form equations or 3d direction vectors. analytic geometry angle between lines slopes tan theta formula direction vectors perpendicular parallel">
           <a class="calc-card" href="./calculators/angle-between-lines/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Angle Between Two Lines Calculator</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Acute and obtuse angles between two lines from slopes, general-form equations or 3D direction vectors.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="polygon area from coordinates (shoelace formula) shoelace formula exact area, perimeter, centroid and orientation of any polygon from its vertices, with a check for self-crossing sides. analytic geometry shoelace formula polygon area coordinates surveyor formula centroid gauss area formula">
           <a class="calc-card" href="./calculators/polygon-area-coordinates/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Polygon Area from Coordinates (Shoelace Formula)</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Exact area, perimeter, centroid and orientation of any polygon from its vertices, with a check for self-crossing sides.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="ellipse calculator: centre, axes, foci and equation ellipse standard and general equations, vertices, foci, eccentricity and latus rectum of an ellipse, exactly, with an interactive drawing. analytic geometry ellipse foci eccentricity major axis minor axis conic section">
           <a class="calc-card" href="./calculators/ellipse/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Ellipse Calculator: Centre, Axes, Foci and Equation</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Standard and general equations, vertices, foci, eccentricity and latus rectum of an ellipse, exactly, with an interactive drawing.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="analytic-geometry" data-featured="false" data-search="hyperbola calculator: centre, axes, foci and asymptotes hyperbola equation, vertices, foci, asymptotes and eccentricity of a hyperbola opening left–right or up–down, exactly. analytic geometry hyperbola asymptotes foci eccentricity transverse axis conic section">
           <a class="calc-card" href="./calculators/hyperbola/">
-            <span class="calc-card-glyph" aria-hidden="true">⟂</span>
-            <span class="calc-card-category">Analytic Geometry</span>
             <h3 class="calc-card-title">Hyperbola Calculator: Centre, Axes, Foci and Asymptotes</h3>
+            <span class="calc-card-category">Analytic Geometry</span>
             <span class="calc-card-summary">Equation, vertices, foci, asymptotes and eccentricity of a hyperbola opening left–right or up–down, exactly.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="rational expression simplifier rational expressions simplify p(x)/q(x) by cancelling the greatest common factor, with excluded values, holes and vertical asymptotes. algebra rational expression simplify fraction cancel factors excluded values holes asymptotes">
           <a class="calc-card" href="./calculators/rational-expression-simplifier/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Rational Expression Simplifier</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Simplify P(x)/Q(x) by cancelling the greatest common factor, with excluded values, holes and vertical asymptotes.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="polynomial long division calculator polynomial long division divide polynomials step by step to get the quotient and remainder, with a check and the remainder theorem for x − c. algebra polynomial long division quotient remainder remainder theorem synthetic division divide polynomials">
           <a class="calc-card" href="./calculators/polynomial-long-division/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Polynomial Long Division Calculator</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Divide polynomials step by step to get the quotient and remainder, with a check and the remainder theorem for x − c.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="partial fraction decomposition calculator partial fractions decompose a rational function into partial fractions exactly, including repeated linear factors and one quadratic factor. algebra partial fractions decomposition rational function repeated factor integration laplace">
           <a class="calc-card" href="./calculators/partial-fractions/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Partial Fraction Decomposition Calculator</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Decompose a rational function into partial fractions exactly, including repeated linear factors and one quadratic factor.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="linear and quadratic inequality solver inequality solver solve linear and quadratic inequalities with exact boundary points, interval notation and a number line. algebra inequality quadratic inequality linear inequality interval notation number line sign chart">
           <a class="calc-card" href="./calculators/inequality-solver/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Linear and Quadratic Inequality Solver</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">Solve linear and quadratic inequalities with exact boundary points, interval notation and a number line.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="algebra" data-featured="false" data-search="arithmetic and geometric sequence calculator sequences and series nth term, sum of n terms and infinite sum of arithmetic and geometric sequences, exactly, with a chart of the partial sums. algebra arithmetic sequence geometric sequence nth term series sum infinite geometric series common ratio">
           <a class="calc-card" href="./calculators/arithmetic-geometric-sequences/">
-            <span class="calc-card-glyph" aria-hidden="true">x²</span>
-            <span class="calc-card-category">Algebra</span>
             <h3 class="calc-card-title">Arithmetic and Geometric Sequence Calculator</h3>
+            <span class="calc-card-category">Algebra</span>
             <span class="calc-card-summary">nth term, sum of n terms and infinite sum of arithmetic and geometric sequences, exactly, with a chart of the partial sums.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="inverse trigonometric function calculator inverse trig functions arcsin, arccos and arctan with exact special values, domain and range, and every angle with the same sine, cosine or tangent. trigonometry arcsin arccos arctan inverse trig principal value sin inverse">
           <a class="calc-card" href="./calculators/inverse-trig-functions/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Inverse Trigonometric Function Calculator</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">arcsin, arccos and arctan with exact special values, domain and range, and every angle with the same sine, cosine or tangent.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="sum and difference identity calculator sum &amp; difference identities apply the sin, cos and tan sum and difference identities with exact values for multiples of 15°. trigonometry sum identity difference identity sin(a+b) cos(a-b) tan(a+b) compound angle">
           <a class="calc-card" href="./calculators/sum-difference-identities/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Sum and Difference Identity Calculator</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Apply the sin, cos and tan sum and difference identities with exact values for multiples of 15°.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="double-angle and half-angle identity calculator double &amp; half angle sin 2θ, cos 2θ, tan 2θ and the half-angle formulas, with the ± sign chosen from the quadrant. trigonometry double angle half angle sin 2x cos 2x half-angle formula trig identities">
           <a class="calc-card" href="./calculators/double-half-angle-identities/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Double-Angle and Half-Angle Identity Calculator</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">sin 2θ, cos 2θ, tan 2θ and the half-angle formulas, with the ± sign chosen from the quadrant.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="trigonometric graph explorer trig graph explorer amplitude, period, phase shift, vertical shift and key points of y = a sin(b(x − c)) + d, with a live graph. trigonometry trig graph amplitude period phase shift sinusoid transformations">
           <a class="calc-card" href="./calculators/trig-graph-explorer/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Trigonometric Graph Explorer</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Amplitude, period, phase shift, vertical shift and key points of y = A sin(B(x − C)) + D, with a live graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="trigonometry" data-featured="false" data-search="vector components and resultant calculator vector resultant resolve vectors into components and add them: resultant magnitude and direction in the correct quadrant, with a tip-to-tail diagram. trigonometry vector addition resultant components magnitude and direction atan2 forces">
           <a class="calc-card" href="./calculators/vector-resultant/">
-            <span class="calc-card-glyph" aria-hidden="true">△</span>
-            <span class="calc-card-category">Trigonometry</span>
             <h3 class="calc-card-title">Vector Components and Resultant Calculator</h3>
+            <span class="calc-card-category">Trigonometry</span>
             <span class="calc-card-summary">Resolve vectors into components and add them: resultant magnitude and direction in the correct quadrant, with a tip-to-tail diagram.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="limit calculator and explorer limits one- and two-sided limits and limits at infinity: exact by substitution or cancellation, otherwise a clearly labelled numerical estimate. calculus limit one-sided limit limit at infinity 0/0 indeterminate form table of values">
           <a class="calc-card" href="./calculators/limit-explorer/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Limit Calculator and Explorer</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">One- and two-sided limits and limits at infinity: exact by substitution or cancellation, otherwise a clearly labelled numerical estimate.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="continuity and discontinuity explorer continuity test continuity at a point with the three-part definition and classify removable, jump and infinite discontinuities. calculus continuity discontinuity removable jump discontinuity piecewise function infinite discontinuity">
           <a class="calc-card" href="./calculators/continuity-explorer/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Continuity and Discontinuity Explorer</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Test continuity at a point with the three-part definition and classify removable, jump and infinite discontinuities.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="related rates calculator related rates classic related-rates problems — sliding ladder, ripples, balloons, filling cone and shadows — differentiated step by step. calculus related rates implicit differentiation ladder problem cone tank balloon shadow problem">
           <a class="calc-card" href="./calculators/related-rates/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Related Rates Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Classic related-rates problems — sliding ladder, ripples, balloons, filling cone and shadows — differentiated step by step.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="optimization calculator optimization maximise a box’s volume or a fenced area, or minimise a can’s surface area, with derivatives and the second-derivative test. calculus optimization maximum minimum open box problem fence problem minimise surface area">
           <a class="calc-card" href="./calculators/optimization/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Optimization Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Maximise a box’s volume or a fenced area, or minimise a can’s surface area, with derivatives and the second-derivative test.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="calculus" data-featured="false" data-search="volume of revolution calculator volume of revolution volumes of solids of revolution about the x- or y-axis by the disk, washer or shell method, exact for polynomials. calculus volume of revolution disk method washer method shell method solid of revolution integral volume">
           <a class="calc-card" href="./calculators/volume-of-revolution/">
-            <span class="calc-card-glyph" aria-hidden="true">∫</span>
-            <span class="calc-card-category">Calculus</span>
             <h3 class="calc-card-title">Volume of Revolution Calculator</h3>
+            <span class="calc-card-category">Calculus</span>
             <span class="calc-card-summary">Volumes of solids of revolution about the x- or y-axis by the disk, washer or shell method, exact for polynomials.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="quartiles, percentiles and iqr calculator quartiles &amp; iqr q₁, median, q₃, interquartile range, outliers and any percentile, by two common methods, with a box plot. statistics &amp; probability quartiles percentile interquartile range box plot outliers five-number summary">
           <a class="calc-card" href="./calculators/quartiles-percentiles/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Quartiles, Percentiles and IQR Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Q₁, median, Q₃, interquartile range, outliers and any percentile, by two common methods, with a box plot.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="permutation and combination probability calculator counting probability probability of drawing k successes in n picks without replacement (hypergeometric), exact fractions and the full distribution. statistics &amp; probability probability combinations hypergeometric cards lottery without replacement">
           <a class="calc-card" href="./calculators/counting-probability/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Permutation and Combination Probability Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Probability of drawing k successes in n picks without replacement (hypergeometric), exact fractions and the full distribution.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="conditional probability and bayes’ theorem calculator bayes’ theorem posterior probability p(a|b) from a prior and likelihoods, with a probability tree and natural-frequency table. statistics &amp; probability bayes theorem conditional probability posterior false positive medical test probability tree">
           <a class="calc-card" href="./calculators/bayes-theorem/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Conditional Probability and Bayes’ Theorem Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Posterior probability P(A|B) from a prior and likelihoods, with a probability tree and natural-frequency table.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="poisson distribution calculator poisson distribution p(x = k), p(x ≤ k), p(x ≥ k) and ranges for a poisson distribution with rate λ, with a highlighted bar chart. statistics &amp; probability poisson distribution rate events per interval lambda probability counts">
           <a class="calc-card" href="./calculators/poisson-distribution/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Poisson Distribution Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">P(X = k), P(X ≤ k), P(X ≥ k) and ranges for a Poisson distribution with rate λ, with a highlighted bar chart.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="statistics-probability" data-featured="false" data-search="linear regression and correlation calculator linear regression least-squares line, pearson’s r and r², residuals and predictions from paired data, with a draggable scatter plot. statistics &amp; probability linear regression line of best fit correlation coefficient least squares r squared scatter plot">
           <a class="calc-card" href="./calculators/linear-regression/">
-            <span class="calc-card-glyph" aria-hidden="true">σ</span>
-            <span class="calc-card-category">Statistics &amp; Probability</span>
             <h3 class="calc-card-title">Linear Regression and Correlation Calculator</h3>
+            <span class="calc-card-category">Statistics &amp; Probability</span>
             <span class="calc-card-summary">Least-squares line, Pearson’s r and r², residuals and predictions from paired data, with a draggable scatter plot.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="derangement (subfactorial) calculator derangements count arrangements with no item in its original place, !n, exactly — and the probability, which tends to 1/e. combinatorics derangement subfactorial hat check problem secret santa fixed points inclusion exclusion">
           <a class="calc-card" href="./calculators/derangements/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Derangement (Subfactorial) Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Count arrangements with no item in its original place, !n, exactly — and the probability, which tends to 1/e.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="integer partition calculator integer partitions count and list the ways to write n as a sum of positive integers, including distinct parts, bounded parts and exactly k parts. combinatorics integer partition partition function p(n) ferrers diagram distinct parts number theory">
           <a class="calc-card" href="./calculators/integer-partitions/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Integer Partition Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Count and list the ways to write n as a sum of positive integers, including distinct parts, bounded parts and exactly k parts.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="pigeonhole principle calculator pigeonhole principle how full some box must be when n items go into k boxes, and how many items guarantee m in one box. combinatorics pigeonhole principle dirichlet box principle ceiling function guarantee worst case">
           <a class="calc-card" href="./calculators/pigeonhole-principle/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Pigeonhole Principle Calculator</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">How full some box must be when n items go into k boxes, and how many items guarantee m in one box.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="recurrence relation solver recurrence relations closed forms for first-order and second-order linear recurrences with constant coefficients, checked against the exact terms. combinatorics recurrence relation characteristic equation fibonacci closed form linear recurrence difference equation">
           <a class="calc-card" href="./calculators/recurrence-relations/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Recurrence Relation Solver</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Closed forms for first-order and second-order linear recurrences with constant coefficients, checked against the exact terms.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="combinatorics" data-featured="false" data-search="generating function explorer generating functions count selections with limits per type, or ways to make an amount from coins, by multiplying generating functions. combinatorics generating function coefficient extraction coin change stars and bars counting power series">
           <a class="calc-card" href="./calculators/generating-functions/">
-            <span class="calc-card-glyph" aria-hidden="true">n!</span>
-            <span class="calc-card-category">Combinatorics</span>
             <h3 class="calc-card-title">Generating Function Explorer</h3>
+            <span class="calc-card-category">Combinatorics</span>
             <span class="calc-card-summary">Count selections with limits per type, or ways to make an amount from coins, by multiplying generating functions.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="laplace transform calculator laplace transform laplace transforms of sums of tⁿe^(at), e^(at)sin(bt), e^(at)cos(bt) and related terms, using the table and shifting theorem. engineering mathematics laplace transform s-domain shifting theorem transform table differential equations engineering">
           <a class="calc-card" href="./calculators/laplace-transform/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Laplace Transform Calculator</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Laplace transforms of sums of tⁿe^(at), e^(at)sin(bt), e^(at)cos(bt) and related terms, using the table and shifting theorem.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="inverse laplace transform calculator inverse laplace transform inverse laplace transforms of rational functions by partial fractions, with a numerical check and a graph of f(t). engineering mathematics inverse laplace transform partial fractions poles damped oscillation rational function circuits">
           <a class="calc-card" href="./calculators/inverse-laplace-transform/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Inverse Laplace Transform Calculator</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Inverse Laplace transforms of rational functions by partial fractions, with a numerical check and a graph of f(t).</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="fourier series explorer fourier series fourier coefficients and partial sums of square, sawtooth and triangle waves, with gibbs overshoot and an interactive harmonic slider. engineering mathematics fourier series harmonics square wave sawtooth wave gibbs phenomenon signals">
           <a class="calc-card" href="./calculators/fourier-series/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Fourier Series Explorer</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Fourier coefficients and partial sums of square, sawtooth and triangle waves, with Gibbs overshoot and an interactive harmonic slider.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="first-order differential equation solver first-order odes solve dy/dx = f(x), k·y, a·y + b or f(x)·y with an initial condition, checked by rk4 and drawn on a slope field. engineering mathematics differential equation first order ode separable exponential growth newton cooling slope field">
           <a class="calc-card" href="./calculators/first-order-ode/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">First-Order Differential Equation Solver</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Solve dy/dx = f(x), k·y, a·y + b or f(x)·y with an initial condition, checked by RK4 and drawn on a slope field.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="engineering-mathematics" data-featured="false" data-search="eigenvalue and eigenvector calculator eigenvalues eigenvalues and eigenvectors of 2 × 2 and 3 × 3 matrices: characteristic polynomial, exact roots and exact eigenvectors where possible. engineering mathematics eigenvalues eigenvectors characteristic polynomial matrix diagonalisation linear algebra">
           <a class="calc-card" href="./calculators/eigenvalues-eigenvectors/">
-            <span class="calc-card-glyph" aria-hidden="true">⚙</span>
-            <span class="calc-card-category">Engineering Mathematics</span>
             <h3 class="calc-card-title">Eigenvalue and Eigenvector Calculator</h3>
+            <span class="calc-card-category">Engineering Mathematics</span>
             <span class="calc-card-summary">Eigenvalues and eigenvectors of 2 × 2 and 3 × 3 matrices: characteristic polynomial, exact roots and exact eigenvectors where possible.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="conservation of momentum collision simulator momentum &amp; collisions velocities after elastic, perfectly inelastic and partly elastic 1d collisions, with kinetic energy lost and an animation. physics momentum collision elastic collision inelastic collision coefficient of restitution conservation">
           <a class="calc-card" href="./calculators/momentum-collisions/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Conservation of Momentum Collision Simulator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Velocities after elastic, perfectly inelastic and partly elastic 1D collisions, with kinetic energy lost and an animation.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="circular motion calculator and simulator circular motion period, angular speed, centripetal acceleration and force for uniform circular motion, from speed, period or rpm. physics circular motion centripetal acceleration centripetal force angular velocity period rpm">
           <a class="calc-card" href="./calculators/circular-motion/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Circular Motion Calculator and Simulator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Period, angular speed, centripetal acceleration and force for uniform circular motion, from speed, period or rpm.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="spring-mass simple harmonic motion simulator spring-mass shm period, frequency, maximum speed and energy of a mass on a spring, with an animated oscillator and position graph. physics simple harmonic motion spring hooke law period oscillation spring constant">
           <a class="calc-card" href="./calculators/spring-mass-shm/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Spring-Mass Simple Harmonic Motion Simulator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Period, frequency, maximum speed and energy of a mass on a spring, with an animated oscillator and position graph.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="lens and mirror equation calculator with ray diagram lenses &amp; mirrors image distance, magnification and nature of the image for thin lenses and spherical mirrors, with a ray diagram drawn to scale. physics lens equation mirror equation magnification ray diagram focal length optics">
           <a class="calc-card" href="./calculators/lens-mirror-equation/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Lens and Mirror Equation Calculator with Ray Diagram</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Image distance, magnification and nature of the image for thin lenses and spherical mirrors, with a ray diagram drawn to scale.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="calc-card-item" data-category="physics" data-featured="false" data-search="thermal expansion and calorimetry calculator thermal physics linear and volume expansion, heat q = mcδt and the final temperature when two substances mix, with typical material values. physics thermal expansion calorimetry specific heat q = mcδt coefficient of expansion mixing temperature">
           <a class="calc-card" href="./calculators/thermal-expansion-calorimetry/">
-            <span class="calc-card-glyph" aria-hidden="true">Δv</span>
-            <span class="calc-card-category">Physics</span>
             <h3 class="calc-card-title">Thermal Expansion and Calorimetry Calculator</h3>
+            <span class="calc-card-category">Physics</span>
             <span class="calc-card-summary">Linear and volume expansion, heat Q = mcΔT and the final temperature when two substances mix, with typical material values.</span>
-            <span class="calc-card-cta">Open calculator <span aria-hidden="true">→</span></span>
           </a>
         </li>
         </ul>
   <!-- /build:featured -->
       </div>
-      <p class="mt-10"><a class="btn btn-primary" href="./">Go to the homepage</a></p>
+      <p class="mt-10"><a class="btn btn-primary" href="./">Go to the homepage</a> <a class="btn btn-secondary ml-2" href="./calculators/">Browse all calculators</a></p>
     </div>
   </main>
 
@@ -1023,9 +817,9 @@
   <footer class="site-footer">
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
       <div class="md:col-span-2">
-        <p class="brand-text text-lg">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></p>
-        <p class="mt-3 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-400">Interactive Math &amp; Engineering Solver Hub offers free calculators with step-by-step solutions and plain-language lessons, so students can check their work and understand the method behind every answer.</p>
-        <p class="mt-3 text-xs text-slate-500 dark:text-slate-500">Results are provided for learning. Always confirm critical calculations independently — see the <a class="footer-link underline" href="./disclaimer.html">disclaimer</a>.</p>
+        <p class="brand footer-brand"><svg class="brand-mark" viewBox="0 0 20 30" aria-hidden="true"><path d="M1.5 18.5 5 16.5l5.2 11L17.6 1H20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/></svg><span class="brand-text">Solver Hub</span></p>
+        <p class="mt-4 max-w-md text-sm leading-6">Interactive Math &amp; Engineering Solver Hub offers free calculators with step-by-step solutions and plain-language lessons, so students can check their work and understand the method behind every answer.</p>
+        <p class="mt-3 max-w-md text-sm text-slate-500">Results are provided for learning. Always confirm critical calculations independently — see the <a class="footer-link underline" href="./disclaimer.html">disclaimer</a>.</p>
       </div>
       <div>
         <h2 class="footer-heading">Subjects</h2>
@@ -1039,7 +833,7 @@
           <li><a class="footer-link" href="./calculators/#combinatorics">Combinatorics</a></li>
           <li><a class="footer-link" href="./calculators/#engineering-mathematics">Engineering Mathematics</a></li>
           <li><a class="footer-link" href="./calculators/#physics">Physics</a></li>
-          <li><a class="footer-link font-medium" href="./calculators/">Browse all calculators →</a></li>
+          <li><a class="footer-link font-bold" href="./calculators/">All calculators</a></li>
         </ul>
       </div>
       <div>
@@ -1055,7 +849,7 @@
       </div>
     </div>
     <div class="border-t border-slate-200 dark:border-slate-800">
-      <p class="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6 dark:text-slate-500">© 2026 Interactive Math &amp; Engineering Solver Hub. Free educational resource. Calculations run entirely in your browser.</p>
+      <p class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500 sm:px-6">© 2026 Interactive Math &amp; Engineering Solver Hub. Free educational resource. Calculations run entirely in your browser.</p>
     </div>
   </footer>
   <!-- /build:footer -->

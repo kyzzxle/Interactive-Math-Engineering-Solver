@@ -16,7 +16,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['Atkinson Hyperlegible Next', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+        serif: ['STIX Two Text', 'STIX Two Math', 'Cambria', 'Georgia', 'serif'],
+      },
+      // Older markup uses slate and indigo utilities; they point at the design tokens in
+      // styles.css so every page follows the paper (light) and chalkboard (dark) palettes.
+      colors: {
+        slate: { 200: 'var(--border)', 300: 'var(--text-2)', 400: 'var(--muted)', 500: 'var(--muted)', 600: 'var(--text-2)', 700: 'var(--text-2)', 800: 'var(--border)' },
+        indigo: { 400: 'var(--primary)', 500: 'var(--primary)', 600: 'var(--primary)', 700: 'var(--primary-strong)' },
       },
       maxWidth: { prose: '72ch' },
     },

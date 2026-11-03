@@ -33,34 +33,38 @@ if (!browser) { console.error('No Chrome, Edge or Chromium found. Set CHROME_PAT
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+// Same look as the site's light theme: engineering paper, graphite text, ink-blue radical wordmark.
+const font = (file) => pathToFileURL(join(ROOT, 'assets/fonts', file)).href;
 function card({ eyebrow, title, summary, glyph }) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>
+  @font-face{font-family:"Atkinson Hyperlegible Next";font-weight:200 800;src:url(${font('atkinson-hyperlegible-next-latin-wght-normal.woff2')}) format("woff2-variations")}
+  @font-face{font-family:"STIX Two Text";font-weight:400 700;src:url(${font('stix-two-text-latin-wght-normal.woff2')}) format("woff2-variations")}
+  @font-face{font-family:"STIX Two Text";font-weight:400 700;src:url(${font('stix-two-text-greek-wght-normal.woff2')}) format("woff2-variations");unicode-range:U+0370-03FF}
   *{box-sizing:border-box;margin:0}
   html,body{width:1200px;height:630px;overflow:hidden}
-  body{font-family:"Segoe UI",Inter,system-ui,-apple-system,Roboto,Arial,sans-serif;color:#e2e8f0;
-    background:radial-gradient(900px 500px at 95% -10%,rgba(99,102,241,.35),transparent 60%),radial-gradient(700px 420px at -10% 110%,rgba(16,185,129,.22),transparent 60%),#0b1220;
-    padding:72px 80px;display:flex;flex-direction:column}
-  .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(148,163,184,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.07) 1px,transparent 1px);background-size:48px 48px}
-  .brand{display:flex;align-items:center;gap:18px;font-size:34px;font-weight:800;letter-spacing:-.02em;position:relative}
-  .mark{width:58px;height:58px;border-radius:14px;background:#4f46e5;display:flex;align-items:center;justify-content:center}
-  .hub{color:#818cf8}
-  .eyebrow{margin-top:64px;font-size:26px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#34d399;position:relative}
-  h1{margin-top:16px;font-size:${title.length > 30 ? 60 : 74}px;line-height:1.08;font-weight:800;letter-spacing:-.03em;color:#fff;max-width:830px;position:relative}
-  p{margin-top:22px;font-size:28px;line-height:1.4;color:#cbd5e1;max-width:1020px;position:relative;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .glyph{position:absolute;right:80px;top:150px;width:170px;height:170px;border-radius:36px;background:rgba(99,102,241,.16);border:2px solid rgba(129,140,248,.45);display:flex;align-items:center;justify-content:center;font-size:${glyph.length > 2 ? 54 : 72}px;font-weight:800;color:#a5b4fc}
-  .foot{margin-top:auto;display:flex;gap:28px;font-size:24px;color:#94a3b8;position:relative}
-  .foot b{color:#e2e8f0;font-weight:600}
-  </style></head><body><div class="grid"></div>
-  <div class="brand"><span class="mark"><svg viewBox="0 0 32 32" width="40" height="40"><path d="M8 22 L14 10 L20 22 M10.5 17h7" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.8" fill="#34d399"/></svg></span><span>Solver<span class="hub">Hub</span></span></div>
-  <div class="glyph">${esc(glyph)}</div>
+  body{font-family:"Atkinson Hyperlegible Next",system-ui,sans-serif;color:#1c2126;background:#f2f4ec;padding:64px 80px 60px;display:flex;flex-direction:column;position:relative}
+  .sheet{position:absolute;right:80px;top:150px;width:250px;height:250px;border:2px solid #a9b5a0;border-radius:4px;background-color:#fdfdf9;
+    background-image:linear-gradient(rgba(96,132,88,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(96,132,88,.16) 1px,transparent 1px);background-size:30px 30px;
+    box-shadow:0 26px 40px -30px rgba(40,52,36,.6);display:flex;align-items:center;justify-content:center;
+    font-family:"STIX Two Text",serif;font-size:${glyph.length > 2 ? 84 : 120}px;color:#1f43c1}
+  .brand{display:flex;align-items:flex-start;color:#1f43c1}
+  .brand svg{width:30px;height:46px;margin-right:-1px}
+  .brand span{font-family:"STIX Two Text",serif;font-weight:600;font-size:36px;line-height:1.2;color:#1c2126;border-top:3px solid #1f43c1;padding:1px 4px 0 3px}
+  .eyebrow{margin-top:64px;font-size:28px;font-weight:700;color:#59646e}
+  h1{margin-top:10px;font-family:"STIX Two Text",serif;font-size:${title.length > 24 ? 60 : 76}px;line-height:1.04;font-weight:600;letter-spacing:-.01em;max-width:770px}
+  p{margin-top:20px;font-size:27px;line-height:1.4;color:#38414a;max-width:770px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .foot{margin-top:auto;padding-top:18px;border-top:2px solid #1c2126;font-size:24px;color:#38414a}
+  </style></head><body>
+  <div class="brand"><svg viewBox="0 0 20 30" aria-hidden="true"><path d="M1.5 18.5 5 16.5l5.2 11L17.6 1H20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg><span>Solver Hub</span></div>
+  <div class="sheet">${esc(glyph)}</div>
   <div class="eyebrow">${esc(eyebrow)}</div>
   <h1>${esc(title)}</h1>
   <p>${esc(summary)}</p>
-  <div class="foot"><b>Free</b><span>Step-by-step solutions</span><span>Runs in your browser</span></div>
+  <div class="foot">Free step-by-step solutions that run in your browser</div>
   </body></html>`;
 }
 
-const jobs = [{ slug: 'default', eyebrow: 'Math · Engineering · Physics', title: 'Calculators that show their work', summary: `${registry.calculators.length} free calculators with exact answers, worked steps, interactive explorers and practice problems.`, glyph: '∫' }];
+const jobs = [{ slug: 'default', eyebrow: 'Math, engineering and physics', title: 'Calculators that show their work', summary: `${registry.calculators.length} free calculators with exact answers, worked steps, interactive explorers and practice problems.`, glyph: '∫' }];
 for (const c of registry.calculators) {
   const cat = cats[c.category];
   jobs.push({ slug: c.id, eyebrow: cat.name, title: c.name.replace(/ Calculator$/, ''), summary: c.summary.length > 150 ? `${c.summary.slice(0, 147).replace(/\s+\S*$/, '')}…` : c.summary, glyph: cat.glyph });

@@ -109,6 +109,7 @@
     var activeCategory = 'all';
     // On the homepage only "featured" cards show until the visitor searches or picks a subject.
     var featuredOnly = list.hasAttribute('data-featured-only');
+    list.classList.add('is-live'); // search is running, so it decides what shows (see styles.css)
 
     // Small typos still match: a word of 4+ letters may differ from a word on the card by one
     // edit (two for 8+ letters), so "volumne" finds "volume" and "pythagorus" finds "pythagoras".

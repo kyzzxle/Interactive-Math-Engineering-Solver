@@ -1,15 +1,15 @@
   <footer class="site-footer">
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
       <div class="md:col-span-2">
-        <p class="brand-text text-lg">Solver<span class="text-indigo-600 dark:text-indigo-400">Hub</span></p>
-        <p class="mt-3 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-400">Interactive Math &amp; Engineering Solver Hub offers free calculators with step-by-step solutions and plain-language lessons, so students can check their work and understand the method behind every answer.</p>
-        <p class="mt-3 text-xs text-slate-500 dark:text-slate-500">Results are provided for learning. Always confirm critical calculations independently — see the <a class="footer-link underline" href="{{root}}disclaimer.html">disclaimer</a>.</p>
+        <p class="brand footer-brand"><svg class="brand-mark" viewBox="0 0 20 30" aria-hidden="true"><path d="M1.5 18.5 5 16.5l5.2 11L17.6 1H20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/></svg><span class="brand-text">Solver Hub</span></p>
+        <p class="mt-4 max-w-md text-sm leading-6">Interactive Math &amp; Engineering Solver Hub offers free calculators with step-by-step solutions and plain-language lessons, so students can check their work and understand the method behind every answer.</p>
+        <p class="mt-3 max-w-md text-sm text-slate-500">Results are provided for learning. Always confirm critical calculations independently — see the <a class="footer-link underline" href="{{root}}disclaimer.html">disclaimer</a>.</p>
       </div>
       <div>
         <h2 class="footer-heading">Subjects</h2>
         <ul class="mt-3 space-y-2 text-sm">
 {{footerCalculators}}
-          <li><a class="footer-link font-medium" href="{{root}}calculators/">Browse all calculators →</a></li>
+          <li><a class="footer-link font-bold" href="{{root}}calculators/">All calculators</a></li>
         </ul>
       </div>
       <div>
@@ -25,6 +25,6 @@
       </div>
     </div>
     <div class="border-t border-slate-200 dark:border-slate-800">
-      <p class="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6 dark:text-slate-500">© {{year}} Interactive Math &amp; Engineering Solver Hub. Free educational resource. Calculations run entirely in your browser.</p>
+      <p class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500 sm:px-6">© {{year}} Interactive Math &amp; Engineering Solver Hub. Free educational resource. Calculations run entirely in your browser.</p>
     </div>
   </footer>

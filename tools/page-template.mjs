@@ -141,13 +141,13 @@ export function renderCalculatorPage({ entry, calc, content, category, related, 
         <ol>
           <li><a href="../../">Home</a></li>
           <li><a href="../">Calculators</a></li>
+          <li><a href="../#${category.id}">${esc(category.name)}</a></li>
           <li><span aria-current="page">${esc(entry.shortName)}</span></li>
         </ol>
       </nav>
 
-      <header class="mt-5 mb-7">
-        <a class="eyebrow" href="../#${category.id}">${esc(category.name)}</a>
-        <h1 class="page-title mt-2">${esc(entry.name)}</h1>
+      <header class="mt-6 mb-8">
+        <h1 class="page-title">${esc(entry.name)}</h1>
         <p class="lead mt-3">${entry.lead}</p>
       </header>
 
@@ -184,7 +184,7 @@ ${renderLearn(calc)}
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
       <aside class="toc-aside hidden lg:block">
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
-          <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">On this page</p>
+          <p class="toc-label">On this page</p>
           <ol>
             ${toc.map(([id, label]) => `<li><a href="#${id}">${label}</a></li>`).join('\n            ')}
           </ol>
