@@ -1,14 +1,44 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the prismatoid calculator does</h2>
+          <h2 id="about-h" style="margin-top:0">What is a prismatoid?</h2>
           <p>A <strong>prismatoid</strong> is a solid whose vertices all lie in two parallel planes. Prisms, pyramids, frustums, wedges and <strong>obelisks</strong> (solids with two non-similar rectangular ends) are all prismatoids, and so is a section of an earth embankment between two survey stations.</p>
-          <p>One formula gives the volume of all of them: the <strong>prismoidal formula</strong>. It needs the areas of the two parallel ends and of the <strong>middle section</strong>, the cross-section halfway between them. The calculator accepts the three areas directly, or works them out for an obelisk or a wedge, and also gives the lateral and total surface area for those shapes.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, make the two ends very different, such as a long narrow top on a wide base. The "average end area" estimate drifts away from the true volume, while the prismoidal formula stays exact.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>One formula, the <strong>prismoidal formula</strong>, gives the volume of all of them. It needs the areas of the two parallel ends and of the <strong>middle section</strong> halfway between them. The calculator:</p>
+          <ul>
+            <li>accepts the three areas directly, for any prismatoid or earthwork,</li>
+            <li>or works them out for an obelisk (rectangular ends) or a wedge (top is an edge),</li>
+            <li>gives the lateral and total surface area for the obelisk and wedge,</li>
+            <li>compares the result with the common average-end-area shortcut.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Slice a prismatoid parallel to its ends. Each side of the slice moves linearly from one end to the other, so the area of the slice is a <strong>quadratic</strong> function of height. Simpson's rule integrates any quadratic exactly using its values at the start, the middle and the end, with weights 1, 4, 1. That is the prismoidal formula.</p>
+          <div class="callout">
+            <p class="callout-title">Average the sides, not the areas</p>
+            <p>For rectangular ends, the middle section is a rectangle whose sides are the averages of the end sides. Its area is not the average of the end areas, and that difference is exactly why the shortcut \(\tfrac{A_1 + A_2}{2}h\) is wrong.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <div class="formula-box">\[ V = \frac{h}{6}\left(A_1 + 4A_m + A_2\right) \]</div>
-          <div class="formula-box">\[ \text{Obelisk: } A_m = \frac{L_1 + L_2}{2}\cdot\frac{W_1 + W_2}{2} \qquad \text{Wedge: } V = \frac{w\,h}{6}\,(2l + e) \]</div>
+          <table>
+            <thead><tr><th scope="col">Solid</th><th scope="col">Middle section</th><th scope="col">Volume</th></tr></thead>
+            <tbody>
+              <tr><td>Obelisk</td><td>\(A_m = \tfrac{L_1 + L_2}{2}\cdot\tfrac{W_1 + W_2}{2}\)</td><td>Prismoidal formula</td></tr>
+              <tr><td>Wedge</td><td>\(A_m = \tfrac{l + e}{2}\cdot\tfrac{w}{2}\)</td><td>\(V = \tfrac{wh}{6}(2l + e)\)</td></tr>
+              <tr><td>Pyramid</td><td>\(A_m = \tfrac{1}{4}B\)</td><td>\(V = \tfrac{h}{6}(B + B) = \tfrac{1}{3}Bh\)</td></tr>
+              <tr><td>Prism</td><td>\(A_m = B\)</td><td>\(V = \tfrac{h}{6}(6B) = Bh\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
           <table class="var-table">
             <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
             <tbody>
@@ -19,21 +49,64 @@
               <tr><td>\(l, w, e\)</td><td>Base length and width of a wedge, and its top edge (parallel to \(l\))</td></tr>
             </tbody>
           </table>
-          <p>For rectangular ends the middle section is a rectangle whose sides are the <strong>averages of the sides</strong>, not a rectangle with the average area. That difference is exactly what makes the prismoidal formula correct where the average-end-area method is not. The formula is Simpson's rule applied to the cross-section area, so it is exact whenever that area is a quadratic function of height.</p>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Let the section area at height \(y\) be \(A(y) = p + qy + ry^2\). Then</p>
+          \[ V = \int_0^h A(y)\,dy = ph + \frac{qh^2}{2} + \frac{rh^3}{3}. \]
+          <p>Now compute \(A_1 = A(0) = p\), \(A_m = A(h/2) = p + \tfrac{qh}{2} + \tfrac{rh^2}{4}\) and \(A_2 = A(h) = p + qh + rh^2\). Substituting,</p>
+          \[ \frac{h}{6}\left(A_1 + 4A_m + A_2\right) = \frac{h}{6}\left(6p + 3qh + 2rh^2\right) = ph + \frac{qh^2}{2} + \frac{rh^3}{3} = V. \]
+          <p>So the formula is exact whenever the cross-section is quadratic, which is the case for every prismatoid.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>An obelisk with a 12 m × 8 m base, a 6 m × 5 m top and a height of 5 m</h3>
+            <h3>Problem</h3>
+            <p>An obelisk has a <strong>12 m × 8 m</strong> base, a <strong>6 m × 5 m</strong> top and a height of <strong>5 m</strong>. Find its volume.</p>
             <h4>Step 1: End areas</h4>
             \[ A_1 = 12 \times 8 = 96, \qquad A_2 = 6 \times 5 = 30 \]
             <h4>Step 2: Middle section</h4>
             \[ A_m = \frac{12 + 6}{2} \times \frac{8 + 5}{2} = 9 \times 6.5 = 58.5 \]
             <h4>Step 3: Prismoidal formula</h4>
             \[ V = \frac{5}{6}\left(96 + 4(58.5) + 30\right) = \frac{5}{6}(360) = 300\ \text{m}^3 \]
-            <p>The average-end-area method would give \(\tfrac{96 + 30}{2} \times 5 = 315\ \text{m}^3\), which is 5% too high.</p>
+            <h4>Compare</h4>
+            <p>The average-end-area method gives \(\tfrac{96 + 30}{2}\times 5 = 315\) m³, which is 5% too high.</p>
           </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a wedge</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A wedge has a <strong>10 cm × 6 cm</strong> base and a top edge of <strong>4 cm</strong> parallel to the 10 cm sides, <strong>5 cm</strong> above the base. Find its volume.</p>
+            <h4>Step 1: Sections</h4>
+            \[ A_1 = 60, \qquad A_m = \frac{10 + 4}{2}\cdot\frac{6}{2} = 7 \times 3 = 21, \qquad A_2 = 0 \]
+            <h4>Step 2: Volume</h4>
+            \[ V = \frac{5}{6}\left(60 + 4(21) + 0\right) = \frac{5}{6}(144) = 120\ \text{cm}^3 \]
+            <p>Check with the wedge formula: \(\tfrac{6 \times 5}{6}(2 \times 10 + 4) = 5 \times 24 = 120\) ✓.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Earthworks.</strong> Highway engineers find cut-and-fill volumes between survey stations with the prismoidal formula.</li>
+            <li><strong>Stockpiles and embankments</strong> on rectangular footprints.</li>
+            <li><strong>Concrete and masonry.</strong> Tapered footings and plinths with different slopes on each side.</li>
+            <li><strong>Roof spaces</strong> such as wedge-shaped attics.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Averaging the end areas for Aₘ.</strong> Average the side lengths instead.</li>
+            <li><strong>Forgetting the 4.</strong> The middle section is weighted four times.</li>
+            <li><strong>Dividing by 3 instead of 6.</strong> The frustum formula uses \(h/3\); the prismoidal formula uses \(h/6\).</li>
+            <li><strong>Sloping height.</strong> \(h\) is perpendicular to the ends.</li>
+          </ol>
         </section>
 
         <section id="assumptions" aria-labelledby="assumptions-h">
@@ -43,5 +116,34 @@
             <li>The surface areas for the obelisk and wedge assume the top is centred over the base. The volume does not depend on that.</li>
             <li>For a solid with similar ends, the <a href="../frustum-of-a-pyramid/">frustum of a pyramid calculator</a> gives the same volume with \(\tfrac{h}{3}(A_1 + A_2 + \sqrt{A_1 A_2})\).</li>
             <li>When entering three areas, the middle section of a convex solid can never be smaller than \(\left(\tfrac{\sqrt{A_1} + \sqrt{A_2}}{2}\right)^2\); smaller values are rejected.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the prismoidal formula?</summary>
+            <div class="faq-answer"><p>V = (h/6)(A₁ + 4Aₘ + A₂), where A₁ and A₂ are the end areas, Aₘ is the middle section and h is the distance between the ends.</p></div>
+          </details>
+          <details>
+            <summary>Is the middle section the average of the end areas?</summary>
+            <div class="faq-answer"><p>No. For rectangular ends, average the lengths and the widths separately and multiply them.</p></div>
+          </details>
+          <details>
+            <summary>Does the prismoidal formula work for a cone or sphere?</summary>
+            <div class="faq-answer"><p>Yes, because their cross-sections are also quadratic in height. For a sphere, A₁ = A₂ = 0 and Aₘ = πr², giving (2r/6)(4πr²) = (4/3)πr³.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between a prismatoid and a frustum?</summary>
+            <div class="faq-answer"><p>A frustum is a special prismatoid whose two ends are similar. A prismatoid's ends can be any shapes.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../frustum-of-a-pyramid/">Frustum of a pyramid</a>: similar ends.</li>
+            <li><a href="../truncated-prism/">Truncated prism</a>: a prism cut at an angle.</li>
+            <li><a href="../numerical-integration/">Numerical integration</a>: Simpson's rule in general.</li>
           </ul>
         </section>

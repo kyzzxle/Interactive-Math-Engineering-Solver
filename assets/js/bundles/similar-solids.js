@@ -1979,7 +1979,7 @@ const calculator = {
     const sym = { 1: 'k', 2: 'k^2', 3: 'k^3' }[n];
     const kTex = kFrac ? kFrac.toTex() : tx(k);
     const rel = kFrac ? '=' : '\\approx';
-    const steps = [{ title: 'Similar solids', text: 'Every length of solid 2 is k times the matching length of solid 1, so areas are multiplied by k² and volumes by k³.' }];
+    const steps = [{ title: 'Similar solids', text: 'Every length of solid 2 is k times the matching length of solid 1, so areas are multiplied by k² and volumes by k³.', note: 'Why: an area is a length times a length, so it picks up the factor k twice; a volume is length × length × length, so it picks up k three times.' }];
     if (given === 'lengths') steps.push({ title: 'Scale factor from the lengths', tex: `k = \\frac{L_2}{L_1} = \\frac{${tx(given1.L2)}}{${tx(given1.L1)}} ${rel} ${kTex}` });
     else steps.push({ title: `Undo the power: the given ratio is ${sym}`, tex: `${sym} = ${given1.frac.toTex()} \\;\\Rightarrow\\; k = ${n === 1 ? '' : n === 2 ? `\\sqrt{${given1.frac.toTex()}}` : `\\sqrt[3]{${given1.frac.toTex()}}`} ${n === 1 ? kTex : `${rel} ${kTex}`}`.replace('k =  ', 'k = ') });
     const k2 = kFrac ? kFrac.pow(2) : null, k3 = kFrac ? kFrac.pow(3) : null;

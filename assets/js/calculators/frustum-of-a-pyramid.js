@@ -76,10 +76,15 @@ export const calculator = {
       visual: { svg: frustumPyramidSketch(type === 'rect' ? 4 : n), caption: `Frustum of a pyramid with ${type === 'rect' ? 'rectangular' : polygonName(n)} bases (sketch, not to scale).` },
       formula: ['V = \\frac{h}{3}\\left(A_1 + A_2 + \\sqrt{A_1 A_2}\\right) \\qquad T = A_1 + A_2 + L'],
       steps: [
-        { title: 'Areas of the two parallel bases', texLines: baseLines },
-        slantStep,
-        { title: 'Volume (prismoidal frustum formula)', texLines: ['V = \\frac{h}{3}\\left(A_1 + A_2 + \\sqrt{A_1 A_2}\\right)', `V = \\frac{${tx(h)}}{3}\\left(${tx(A1)} + ${tx(A2)} + \\sqrt{(${tx(A1)})(${tx(A2)})}\\right)`, `V = \\frac{${tx(h)}}{3}\\left(${tx(A1)} + ${tx(A2)} + ${tx(root)}\\right) ${eq(V)}`] },
-        { title: 'Total surface area', texLines: ['T = A_1 + A_2 + L', `T = ${tx(A1)} + ${tx(A2)} + ${tx(Lat)} ${eq(T)}`] },
+        { title: 'Identify the solid', text: `A frustum of a pyramid is what remains when the top of a pyramid is cut off by a plane parallel to the base. Its bottom base A₁ and top base A₂ are similar ${type === 'rect' ? 'rectangles' : polygonName(n) + 's'}, h = ${fmt(h)} apart.` },
+        { title: 'Areas of the two parallel bases', texLines: baseLines, note: 'The volume formula needs only these two areas and the height.' },
+        { ...slantStep, note: 'Each side face is a trapezoid. Its height is the slant height s, found from the right triangle formed by h and the horizontal step between the two bases.' },
+        { title: 'Volume (frustum formula)', texLines: ['V = \\frac{h}{3}\\left(A_1 + A_2 + \\sqrt{A_1 A_2}\\right)', `V = \\frac{${tx(h)}}{3}\\left(${tx(A1)} + ${tx(A2)} + \\sqrt{(${tx(A1)})(${tx(A2)})}\\right)`, `V = \\frac{${tx(h)}}{3}\\left(${tx(A1)} + ${tx(A2)} + ${tx(root)}\\right) = \\frac{${tx(h)}}{3}\\left(${tx(A1 + A2 + root)}\\right) ${eq(V)}`], note: 'The middle term √(A₁A₂) is the geometric mean of the two base areas. Leaving it out is the most common mistake.' },
+        ...(Math.abs(A1 - A2) > 1e-9 * Math.max(A1, A2) ? [(() => {
+          const big = Math.max(A1, A2), small = Math.min(A1, A2), H = (h * Math.sqrt(big)) / (Math.sqrt(big) - Math.sqrt(small));
+          return { title: 'Check: difference of two pyramids', tex: `V = \\tfrac{1}{3}(${tx(big)})(${tx(H, 4)}) - \\tfrac{1}{3}(${tx(small)})(${tx(H - h, 4)}) \\approx ${tx((big * H - small * (H - h)) / 3)}`, note: `Extending the sides to an apex gives a full pyramid of height H = h√A₁ ÷ (√A₁ − √A₂) ≈ ${fmt(H, 4)}; removing the small top pyramid (height ${fmt(H - h, 4)}) leaves the frustum and gives the same volume.` };
+        })()] : []),
+        { title: 'Total surface area', texLines: ['T = A_1 + A_2 + L', `T = ${tx(A1)} + ${tx(A2)} + ${tx(Lat)} ${eq(T)}`], note: `Without the top (an open hopper): ${fmt(A1 + Lat, 4)}. Without both bases: ${fmt(Lat, 4)}.` },
       ],
       notes: [{ kind: 'info', text: 'Assumptions: the frustum is cut from a right pyramid by a plane parallel to the base, so the two bases are similar, parallel and centred on the same axis.' }],
     };

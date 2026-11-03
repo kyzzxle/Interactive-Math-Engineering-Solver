@@ -1,12 +1,25 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the regular polyhedron calculator does</h2>
-          <p>A <strong>regular polyhedron</strong> is a solid whose faces are all the same regular polygon, with the same number of faces meeting at every vertex. Only five exist, the <strong>Platonic solids</strong>: the tetrahedron (4 triangles), the cube (6 squares), the octahedron (8 triangles), the dodecahedron (12 pentagons) and the icosahedron (20 triangles).</p>
-          <p>Give the edge, or any one of the surface area, volume, inradius or circumradius. The calculator finds all the others, the area of one face, the dihedral angle between faces, and draws the solid in 3D. For the tetrahedron, cube and octahedron with a rational edge it also gives exact radical forms.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Press Play in the explorer and count the faces, edges and vertices of each solid. For every one, vertices − edges + faces = 2 (Euler's formula).</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a regular polyhedron?</h2>
+          <p>A <strong>regular polyhedron</strong> is a solid whose faces are all the same regular polygon, with the same number of faces meeting at every vertex. Only five exist, the <strong>Platonic solids</strong>: the tetrahedron (4 triangles), the cube (6 squares), the octahedron (8 triangles), the dodecahedron (12 pentagons) and the icosahedron (20 triangles). Dice used in board games are made in all five shapes.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Give the edge, or any one of the surface area, volume, inradius or circumradius. The calculator finds the edge first, then all the others, plus the midradius, the area of one face and the dihedral angle between faces. It draws the solid in 3D, and for the tetrahedron, cube and octahedron with a rational edge it gives exact radical forms.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Why only five? At each vertex at least three faces must meet, and their angles must add to <em>less</em> than 360° or the corner would lie flat. Triangles (60°) allow 3, 4 or 5 per vertex: tetrahedron, octahedron, icosahedron. Squares (90°) allow only 3: the cube. Pentagons (108°) allow only 3: the dodecahedron. Hexagons (120°) already add to 360° with three, so nothing else is possible.</p>
+          <p>Every regular polyhedron has a centre that is the same distance from every face (the <strong>inradius</strong> \(r\)), every edge midpoint (the <strong>midradius</strong>) and every vertex (the <strong>circumradius</strong> \(R\)).</p>
+          <div class="callout">
+            <p class="callout-title">Euler's formula</p>
+            <p>For every one of them, vertices − edges + faces = 2. For the cube: 8 − 12 + 6 = 2.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <table class="var-table">
             <thead><tr><th scope="col">Solid</th><th scope="col">Surface area</th><th scope="col">Volume</th><th scope="col">Inradius \(r\)</th><th scope="col">Circumradius \(R\)</th></tr></thead>
             <tbody>
@@ -17,28 +30,113 @@
               <tr><td>Icosahedron</td><td>\(5\sqrt{3}\,a^2\)</td><td>\(\frac{5(3 + \sqrt{5})}{12}a^3\)</td><td>\(\frac{\sqrt{3}(3 + \sqrt{5})}{12}a\)</td><td>\(\frac{1}{4}\sqrt{10 + 2\sqrt{5}}\,a\)</td></tr>
             </tbody>
           </table>
-          <p>Here \(a\) is the edge. The inradius reaches the centre of a face and the circumradius reaches a vertex. A useful check for every regular polyhedron: \(V = \tfrac{1}{3}\,r\,A\), because the solid splits into pyramids, one on each face, with their apex at the centre.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(a\)</td><td>Edge</td><td>All edges are equal.</td></tr>
+              <tr><td>\(A\)</td><td>Surface area</td><td>Number of faces × area of one face.</td></tr>
+              <tr><td>\(r\)</td><td>Inradius</td><td>Centre to the middle of a face; radius of the inscribed sphere.</td></tr>
+              <tr><td>\(R\)</td><td>Circumradius</td><td>Centre to a vertex; radius of the circumscribed sphere.</td></tr>
+              <tr><td>F, E, V</td><td>Faces, edges, vertices</td><td>Tetrahedron 4, 6, 4; cube 6, 12, 8; octahedron 8, 12, 6; dodecahedron 12, 30, 20; icosahedron 20, 30, 12.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Surface area</h3>
+          <p>An equilateral triangle of side \(a\) has area \(\tfrac{\sqrt{3}}{4}a^2\). The tetrahedron has 4 of them: \(\sqrt{3}a^2\); the octahedron 8: \(2\sqrt{3}a^2\); the icosahedron 20: \(5\sqrt{3}a^2\).</p>
+          <h3>Volume of the tetrahedron</h3>
+          <p>A regular tetrahedron is a triangular pyramid. Its base area is \(\tfrac{\sqrt{3}}{4}a^2\); the apex lies above the centroid of the base, which is \(\tfrac{a}{\sqrt{3}}\) from each corner, so the height is \(h = \sqrt{a^2 - \tfrac{a^2}{3}} = a\sqrt{\tfrac{2}{3}}\). Then</p>
+          \[ V = \frac{1}{3}\cdot\frac{\sqrt{3}}{4}a^2\cdot a\sqrt{\frac{2}{3}} = \frac{\sqrt{2}}{12}a^3. \]
+          <h3>A check that works for all five</h3>
+          <p>Join the centre to every face: the solid splits into pyramids, one per face, each with height \(r\). So \(V = \tfrac{1}{3}rA\). The calculator uses this to confirm every result.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A regular tetrahedron with edges of 6 cm</h3>
+            <h3>Problem</h3>
+            <p>A regular tetrahedron has edges of <strong>6 cm</strong>. Find its surface area, volume and radii.</p>
             <h4>Step 1: Surface area</h4>
-            <p>Four equilateral triangles, each \(\tfrac{\sqrt{3}}{4}a^2\):</p>
-            \[ A = \sqrt{3}\,(6)^2 = 36\sqrt{3} \approx 62.354\ \text{cm}^2 \]
+            \[ A = \sqrt{3}(6)^2 = 36\sqrt{3} \approx 62.354\ \text{cm}^2 \]
             <h4>Step 2: Volume</h4>
-            \[ V = \frac{\sqrt{2}}{12}(6)^3 = 18\sqrt{2} \approx 25.456\ \text{cm}^3 \]
+            \[ V = \frac{\sqrt{2}}{12}(6)^3 = \frac{216\sqrt{2}}{12} = 18\sqrt{2} \approx 25.456\ \text{cm}^3 \]
             <h4>Step 3: Radii</h4>
             \[ r = \frac{\sqrt{6}}{12}(6) = \frac{\sqrt{6}}{2} \approx 1.2247, \qquad R = \frac{\sqrt{6}}{4}(6) = \frac{3\sqrt{6}}{2} \approx 3.6742 \]
-            <p>Check: \(\tfrac{1}{3}\,r\,A = \tfrac{1}{3}(1.2247)(62.354) \approx 25.456\), the same volume.</p>
+            <h4>Step 4: Check</h4>
+            <p>\(\tfrac{1}{3}rA = \tfrac{1}{3}(1.2247)(62.354) \approx 25.456\) ✓.</p>
           </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: edge from the volume</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A dodecahedral paperweight has a volume of <strong>1000 cm³</strong>. How long are its edges?</p>
+            <h4>Step 1: Solve for the edge</h4>
+            \[ a = \sqrt[3]{\frac{V}{(15 + 7\sqrt{5})/4}} = \sqrt[3]{\frac{1000}{7.6631}} = \sqrt[3]{130.495} \approx 5.0722\ \text{cm} \]
+            <h4>Step 2: Surface area</h4>
+            \[ A = 3\sqrt{25 + 10\sqrt{5}}\,(5.0722)^2 \approx 20.6457 \times 25.727 \approx 531.16\ \text{cm}^2 \]
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Gaming dice:</strong> d4, d6, d8, d12 and d20 are the five Platonic solids.</li>
+            <li><strong>Chemistry:</strong> methane is tetrahedral; many crystals and molecules are octahedral or icosahedral.</li>
+            <li><strong>Architecture:</strong> geodesic domes are based on the icosahedron.</li>
+            <li><strong>Biology:</strong> many virus shells are icosahedral.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Confusing the inradius and circumradius.</strong> The inradius touches the faces; the circumradius reaches the corners.</li>
+            <li><strong>Using a square pyramid for an octahedron.</strong> An octahedron is two square pyramids base to base, so its volume is twice one pyramid's.</li>
+            <li><strong>Rounding √5 too early</strong> in dodecahedron and icosahedron formulas.</li>
+          </ol>
         </section>
 
         <section id="assumptions" aria-labelledby="assumptions-h">
           <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>The solids are regular: all edges are equal and all faces are identical regular polygons. A box with unequal sides is a <a href="../prism/">prism</a>, and a pyramid on a square base is a <a href="../pyramid/">pyramid</a>.</li>
-            <li>Exact radical forms are shown for the tetrahedron, cube and octahedron when the edge is given as a whole number or fraction. The dodecahedron and icosahedron answers are decimals.</li>
+            <li>The solids are regular: all edges equal and all faces identical regular polygons. A box with unequal sides is a <a href="../prism/">prism</a>, and a pyramid on a square base is a <a href="../pyramid/">pyramid</a>.</li>
+            <li>Exact radical forms are shown for the tetrahedron, cube and octahedron when the edge is a whole number or fraction.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How many regular polyhedrons are there?</summary>
+            <div class="faq-answer"><p>Exactly five: the tetrahedron, cube, octahedron, dodecahedron and icosahedron.</p></div>
+          </details>
+          <details>
+            <summary>What is the volume of a regular tetrahedron?</summary>
+            <div class="faq-answer"><p>V = a³√2/12, where a is the edge.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between inradius and circumradius?</summary>
+            <div class="faq-answer"><p>The inradius is the radius of the largest sphere inside the solid, touching every face. The circumradius is the radius of the sphere through every vertex.</p></div>
+          </details>
+          <details>
+            <summary>Why are there no regular polyhedrons with hexagon faces?</summary>
+            <div class="faq-answer"><p>Three hexagons meeting at a point already make 360°, which lies flat, so they tile a plane instead of closing into a solid.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../pyramid/">Pyramid</a>: the tetrahedron is a triangular pyramid.</li>
+            <li><a href="../prism/">Prism</a>: the cube is a square prism.</li>
+            <li><a href="../sphere/">Sphere</a>: the inscribed and circumscribed spheres.</li>
           </ul>
         </section>

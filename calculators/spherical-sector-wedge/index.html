@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/spherical-sector-wedge/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the volume of a spherical sector?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "V = (2/3)πR²h, where h is the height of its zone (cap)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a lune?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The part of a sphere's surface between two great semicircles with the same ends. Its area is πR²θ/90° for an angle θ in degrees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is spherical excess?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The amount by which a spherical triangle's angles add to more than 180°. The triangle's area is proportional to it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a spherical wedge and a sector?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A wedge is cut by two planes through a diameter, like an orange segment. A sector is a cone from the centre plus the cap on top of it."
+          }
+        }
+      ]
     }
   ]
 }
@@ -253,10 +291,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the spherical sector and wedge calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
+            <li><a href="#about-h">What are spherical sectors, lunes and wedges?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a sector and a spherical triangle</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
             <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -264,22 +311,47 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the spherical sector and wedge calculator does</h2>
+          <h2 id="about-h" style="margin-top:0">What are spherical sectors, lunes and wedges?</h2>
           <p>Besides caps and segments, solid mensuration studies three more parts of a sphere:</p>
           <ul>
             <li>A <strong>spherical sector</strong> is a cone with its apex at the centre, together with the cap above its rim, like an ice-cream cone filled to a rounded top. Its curved surface is a <strong>zone</strong>.</li>
             <li>A <strong>spherical wedge</strong> is cut by two half-planes through a diameter, like a segment of an orange. Its curved surface is a <strong>lune</strong>.</li>
             <li>A <strong>spherical triangle</strong> is bounded by three great-circle arcs. Joined to the centre it forms a <strong>spherical pyramid</strong>.</li>
           </ul>
-          <p>Each one is a simple fraction of the whole sphere, which is why the answers come out as exact multiples of π.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, set the wedge angle to 90°: the wedge is a quarter of the sphere, so its volume is <span class="math" data-tex="\tfrac{1}{4}\cdot\tfrac{4}{3}\pi R^3 = \tfrac{1}{3}\pi R^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>4</mn></mfrac><mo>⋅</mo><mfrac><mn>4</mn><mn>3</mn></mfrac><mi>π</mi><msup><mi>R</mi><mn>3</mn></msup><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>π</mi><msup><mi>R</mi><mn>3</mn></msup></mrow></semantics></math></span></span>.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Sector:</strong> from <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> and the cap height <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>, finds the volume, the zone area, the cone's surface, the total surface, the rim radius and the cone's half-angle.</li>
+            <li><strong>Wedge:</strong> from <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> and the angle <span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span>, finds the lune area, the wedge volume and the wedge's total surface.</li>
+            <li><strong>Triangle:</strong> from <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> and the three angles, finds the spherical excess, the area and the volume of the spherical pyramid.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Each of these is a simple <strong>fraction of the whole sphere</strong>:</p>
+          <ul>
+            <li>a wedge of angle <span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span> is <span class="math" data-tex="\tfrac{\theta}{360^\circ}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>θ</mi><mrow><mn>36</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac></mrow></semantics></math></span></span> of the sphere;</li>
+            <li>a sector with zone height <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> is <span class="math" data-tex="\tfrac{h}{2R}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>h</mi><mrow><mn>2</mn><mi>R</mi></mrow></mfrac></mrow></semantics></math></span></span> of the sphere, because zones of equal height have equal area;</li>
+            <li>a spherical triangle is <span class="math" data-tex="\tfrac{E}{720^\circ}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>E</mi><mrow><mn>72</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac></mrow></semantics></math></span></span> of the surface, where <span class="math" data-tex="E"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow></semantics></math></span></span> is its spherical excess (Girard's theorem).</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Pyramids from the centre</p>
+            <p>Both the sector and the spherical pyramid are made of thin cones from the centre, each of height <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span>, so their volumes are <span class="math" data-tex="\tfrac{1}{3}R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>R</mi></mrow></semantics></math></span></span> times their curved area.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <div class="formula-box"><span class="math-display" data-tex="\text{Sector: } V = \tfrac{2}{3}\pi R^2 h, \qquad A = 2\pi R h + \pi R a, \quad a = \sqrt{h(2R - h)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Sector: </mtext><mi>V</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mi>h</mi><mo separator="true">,</mo><mspace width="2em"/><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>R</mi><mi>h</mi><mo>+</mo><mi>π</mi><mi>R</mi><mi>a</mi><mo separator="true">,</mo><mspace width="1em"/><mi>a</mi><mo>=</mo><msqrt><mrow><mi>h</mi><mo stretchy="false">(</mo><mn>2</mn><mi>R</mi><mo>−</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></msqrt></mrow></semantics></math></span></span></div>
-          <div class="formula-box"><span class="math-display" data-tex="\text{Wedge: } A_{\text{lune}} = \frac{\pi R^2 \theta}{90^\circ}, \qquad V = \frac{\pi R^3 \theta}{270^\circ}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Wedge: </mtext><msub><mi>A</mi><mtext>lune</mtext></msub><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mi>θ</mi></mrow><mrow><mn>9</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>V</mi><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>R</mi><mn>3</mn></msup><mi>θ</mi></mrow><mrow><mn>27</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac></mrow></semantics></math></span></span></div>
+          <div class="formula-box"><span class="math-display" data-tex="\text{Wedge: } A_{\text{lune}} = \frac{\pi R^2 \theta}{90^\circ}, \qquad V = \frac{\pi R^3 \theta}{270^\circ}, \qquad A_{\text{total}} = A_{\text{lune}} + \pi R^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Wedge: </mtext><msub><mi>A</mi><mtext>lune</mtext></msub><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mi>θ</mi></mrow><mrow><mn>9</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>V</mi><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>R</mi><mn>3</mn></msup><mi>θ</mi></mrow><mrow><mn>27</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mtext>total</mtext></msub><mo>=</mo><msub><mi>A</mi><mtext>lune</mtext></msub><mo>+</mo><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup></mrow></semantics></math></span></span></div>
           <div class="formula-box"><span class="math-display" data-tex="\text{Triangle: } E = A + B + C - 180^\circ, \qquad A_{\triangle} = \frac{\pi R^2 E}{180^\circ}, \qquad V_{\text{pyramid}} = \tfrac{1}{3}A_{\triangle} R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Triangle: </mtext><mi>E</mi><mo>=</mo><mi>A</mi><mo>+</mo><mi>B</mi><mo>+</mo><mi>C</mi><mo>−</mo><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mi mathvariant="normal">△</mi></msub><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mi>E</mi></mrow><mrow><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><msub><mi>V</mi><mtext>pyramid</mtext></msub><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><msub><mi>A</mi><mi mathvariant="normal">△</mi></msub><mi>R</mi></mrow></semantics></math></span></span></div>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
           <table class="var-table">
             <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
             <tbody>
@@ -287,24 +359,69 @@
               <tr><td><span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span></td><td>Height of the zone (cap) that forms the sector's curved surface</td></tr>
               <tr><td><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span></td><td>Radius of the sector's rim</td></tr>
               <tr><td><span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span></td><td>Angle between the two planes of a wedge, in degrees</td></tr>
+              <tr><td><span class="math" data-tex="A, B, C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi></mrow></semantics></math></span></span></td><td>Angles of a spherical triangle, in degrees</td></tr>
               <tr><td><span class="math" data-tex="E"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow></semantics></math></span></span></td><td>Spherical excess: how much the triangle's angles exceed 180°</td></tr>
             </tbody>
           </table>
-          <p>The sector's volume is <span class="math" data-tex="\tfrac{1}{3}R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>R</mi></mrow></semantics></math></span></span> times its zone area, just as a pyramid's volume is <span class="math" data-tex="\tfrac{1}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span> height times base. The wedge is the fraction <span class="math" data-tex="\theta/360^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mi mathvariant="normal">/</mi><mn>36</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></semantics></math></span></span> of the sphere, and a spherical triangle is the fraction <span class="math" data-tex="E/720^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi mathvariant="normal">/</mi><mn>72</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></semantics></math></span></span> of the sphere's surface (Girard's theorem).</p>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Sector</h3>
+          <p>The zone has area <span class="math" data-tex="2\pi R h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>R</mi><mi>h</mi></mrow></semantics></math></span></span>. Splitting the sector into thin cones of height <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> on the zone gives</p>
+          <span class="math-display" data-tex="V = \tfrac{1}{3}R\,(2\pi R h) = \tfrac{2}{3}\pi R^2 h."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mi>R</mi><mtext> </mtext><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>R</mi><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mi>h</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Its flat-ish inner surface is a cone with slant height <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> and base radius <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span>, so its area is <span class="math" data-tex="\pi R a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mi>R</mi><mi>a</mi></mrow></semantics></math></span></span>.</p>
+          <h3>Wedge and lune</h3>
+          <p>Rotating the wedge by <span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span> repeatedly, <span class="math" data-tex="\tfrac{360^\circ}{\theta}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>36</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow><mi>θ</mi></mfrac></mrow></semantics></math></span></span> copies fill the sphere. So the lune is <span class="math" data-tex="\tfrac{\theta}{360^\circ}\cdot 4\pi R^2 = \tfrac{\pi R^2 \theta}{90^\circ}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>θ</mi><mrow><mn>36</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac><mo>⋅</mo><mn>4</mn><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mi>θ</mi></mrow><mrow><mn>9</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac></mrow></semantics></math></span></span> and the wedge is <span class="math" data-tex="\tfrac{\theta}{360^\circ}\cdot\tfrac{4}{3}\pi R^3 = \tfrac{\pi R^3\theta}{270^\circ}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>θ</mi><mrow><mn>36</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac><mo>⋅</mo><mfrac><mn>4</mn><mn>3</mn></mfrac><mi>π</mi><msup><mi>R</mi><mn>3</mn></msup><mo>=</mo><mfrac><mrow><mi>π</mi><msup><mi>R</mi><mn>3</mn></msup><mi>θ</mi></mrow><mrow><mn>27</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac></mrow></semantics></math></span></span>.</p>
+          <h3>Girard's theorem</h3>
+          <p>Each pair of great circles through a vertex of the triangle cuts two opposite lunes. The three pairs of lunes cover the sphere once, except the triangle and its opposite copy, which are covered three times. Comparing areas gives <span class="math" data-tex="A_{\triangle} = \pi R^2\,\tfrac{E}{180^\circ}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi mathvariant="normal">△</mi></msub><mo>=</mo><mi>π</mi><msup><mi>R</mi><mn>2</mn></msup><mtext> </mtext><mfrac><mi>E</mi><mrow><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></mfrac></mrow></semantics></math></span></span>.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A sphere of radius 9 cm is cut into a wedge of 40°. Find the lune and the volume.</h3>
+            <h3>Problem</h3>
+            <p>A sphere of radius <strong>9 cm</strong> is cut into a wedge of <strong>40°</strong>. Find the lune and the volume.</p>
             <h4>Step 1: Fraction of the sphere</h4>
             <span class="math-display" data-tex="\frac{40}{360} = \frac{1}{9}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mn>40</mn><mn>360</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>9</mn></mfrac></mrow></semantics></math></span></span>
             <h4>Step 2: Lune area</h4>
             <span class="math-display" data-tex="A = \frac{1}{9} \times 4\pi(9)^2 = 36\pi \approx 113.10\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><mo>×</mo><mn>4</mn><mi>π</mi><mo stretchy="false">(</mo><mn>9</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>36</mn><mi>π</mi><mo>≈</mo><mn>113.10</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
             <h4>Step 3: Wedge volume</h4>
             <span class="math-display" data-tex="V = \frac{1}{9} \times \tfrac{4}{3}\pi(9)^3 = 108\pi \approx 339.29\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><mo>×</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>3</mn></mfrac></mstyle><mi>π</mi><mo stretchy="false">(</mo><mn>9</mn><msup><mo stretchy="false">)</mo><mn>3</mn></msup><mo>=</mo><mn>108</mn><mi>π</mi><mo>≈</mo><mn>339.29</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
-            <p>A sector of the same sphere with a cap 2 cm high would have <span class="math" data-tex="V = \tfrac{2}{3}\pi(9)^2(2) = 108\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>2</mn><mn>3</mn></mfrac><mi>π</mi><mo stretchy="false">(</mo><mn>9</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>108</mn><mi>π</mi></mrow></semantics></math></span></span>: the same volume, by coincidence.</p>
+            <h4>Step 4: Total surface</h4>
+            <span class="math-display" data-tex="A_{\text{total}} = 36\pi + \pi(9)^2 = 117\pi \approx 367.57\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mtext>total</mtext></msub><mo>=</mo><mn>36</mn><mi>π</mi><mo>+</mo><mi>π</mi><mo stretchy="false">(</mo><mn>9</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>117</mn><mi>π</mi><mo>≈</mo><mn>367.57</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
           </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a sector and a spherical triangle</h2>
+          <div class="worked-example">
+            <h3>Sector</h3>
+            <p>A sector of a sphere of radius <strong>6 cm</strong> has a cap height of <strong>2 cm</strong>.</p>
+            <span class="math-display" data-tex="V = \tfrac{2}{3}\pi(6)^2(2) = 48\pi \approx 150.80\ \text{cm}^3, \qquad a = \sqrt{2(12 - 2)} = \sqrt{20} \approx 4.472"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><mi>π</mi><mo stretchy="false">(</mo><mn>6</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>48</mn><mi>π</mi><mo>≈</mo><mn>150.80</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup><mo separator="true">,</mo><mspace width="2em"/><mi>a</mi><mo>=</mo><msqrt><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>12</mn><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msqrt><mo>=</mo><msqrt><mn>20</mn></msqrt><mo>≈</mo><mn>4.472</mn></mrow></semantics></math></span></span>
+            <span class="math-display" data-tex="A = 2\pi(6)(2) + \pi(6)(4.472) = 24\pi + 26.833\pi \approx 159.70\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>π</mi><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>4.472</mn><mo stretchy="false">)</mo><mo>=</mo><mn>24</mn><mi>π</mi><mo>+</mo><mn>26.833</mn><mi>π</mi><mo>≈</mo><mn>159.70</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h3>Triangle</h3>
+            <p>A spherical triangle on a sphere of radius <strong>10 m</strong> has angles 80°, 75° and 65°.</p>
+            <span class="math-display" data-tex="E = 80 + 75 + 65 - 180 = 40^\circ, \qquad A_{\triangle} = \frac{\pi(10)^2(40)}{180} = \frac{200\pi}{9} \approx 69.81\ \text{m}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>E</mi><mo>=</mo><mn>80</mn><mo>+</mo><mn>75</mn><mo>+</mo><mn>65</mn><mo>−</mo><mn>180</mn><mo>=</mo><mn>4</mn><msup><mn>0</mn><mo>∘</mo></msup><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mi mathvariant="normal">△</mi></msub><mo>=</mo><mfrac><mrow><mi>π</mi><mo stretchy="false">(</mo><mn>10</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>40</mn><mo stretchy="false">)</mo></mrow><mn>180</mn></mfrac><mo>=</mo><mfrac><mrow><mn>200</mn><mi>π</mi></mrow><mn>9</mn></mfrac><mo>≈</mo><mn>69.81</mn><mtext> </mtext><msup><mtext>m</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Geography and navigation.</strong> Areas of regions bounded by great circles; the region between two meridians is a lune.</li>
+            <li><strong>Astronomy.</strong> Areas on the celestial sphere.</li>
+            <li><strong>Engineering.</strong> Segments of spherical tanks and domes cut by radial planes.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Confusing a sector with a cap.</strong> A sector includes the cone down to the centre.</li>
+            <li><strong>Forgetting the two semicircles</strong> when the total surface of a wedge is asked.</li>
+            <li><strong>Using plane-triangle rules.</strong> A spherical triangle's angles add to more than 180°.</li>
+          </ol>
         </section>
 
         <section id="assumptions" aria-labelledby="assumptions-h">
@@ -312,7 +429,36 @@
           <ul>
             <li>Angles are in degrees. The wedge angle is the dihedral angle between the two cutting planes.</li>
             <li>A spherical triangle's angles must each be below 180° and add to more than 180° (and less than 540°).</li>
-            <li>For a cap or a slab between two parallel planes, and the area of its zone, use the <a href="../spherical-cap/">spherical cap and segment calculator</a>.</li>
+            <li>For a cap or a slab between two parallel planes, use the <a href="../spherical-cap/">spherical cap and segment calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a spherical sector?</summary>
+            <div class="faq-answer"><p>V = (2/3)πR²h, where h is the height of its zone (cap).</p></div>
+          </details>
+          <details>
+            <summary>What is a lune?</summary>
+            <div class="faq-answer"><p>The part of a sphere's surface between two great semicircles with the same ends. Its area is πR²θ/90° for an angle θ in degrees.</p></div>
+          </details>
+          <details>
+            <summary>What is spherical excess?</summary>
+            <div class="faq-answer"><p>The amount by which a spherical triangle's angles add to more than 180°. The triangle's area is proportional to it.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between a spherical wedge and a sector?</summary>
+            <div class="faq-answer"><p>A wedge is cut by two planes through a diameter, like an orange segment. A sector is a cone from the centre plus the cap on top of it.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../spherical-cap/">Spherical cap and segment</a>.</li>
+            <li><a href="../sphere/">Sphere</a>.</li>
+            <li><a href="../cone/">Cone</a>: the inner part of a sector.</li>
           </ul>
         </section>
 

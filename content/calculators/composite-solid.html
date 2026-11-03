@@ -1,47 +1,146 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the composite solid calculator does</h2>
-          <p>Many real objects are built from simple solids: a grain silo is a cylinder with a dome, a pill is a cylinder with two half-spheres, a pencil tip is a cone on a cylinder. Their volume is the sum of the parts.</p>
-          <p>Surface area needs more care: where two parts are joined, the joining circle is inside the object and is not part of the surface. This calculator counts only the faces you could paint.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Compare the silo with a plain cylinder of the same total height: the dome holds less than the cylinder slice it replaces.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a composite solid?</h2>
+          <p>A <strong>composite solid</strong> is made by joining simple solids together, or by removing one from another. A grain silo is a cylinder with a hemispherical roof; a medicine capsule is a cylinder with a hemisphere at each end; a pencil is a cylinder with a cone; an ice-cream cone is a cone topped with a hemisphere; a pipe is a cylinder with a smaller cylinder removed.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose one of five common shapes and enter its dimensions. The calculator:</p>
+          <ul>
+            <li>finds the volume of each part separately, then adds them (or subtracts the hole),</li>
+            <li>lists only the <strong>exposed</strong> surfaces and adds their areas,</li>
+            <li>draws the solid to scale in a side view, and in 3D in the explorer.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Volumes simply add: the space inside a silo is the space in the cylinder plus the space in the dome. Surface areas need more care. Where two parts are joined, the circle where they meet is <strong>inside</strong> the solid and is not part of its surface, so it must not be counted.</p>
+          <div class="callout">
+            <p class="callout-title">The method for any composite solid</p>
+            <p>1. Sketch it and split it into standard solids. 2. Find each volume and add or subtract. 3. List the faces you could touch from outside, and add only those areas.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ V_{\text{cyl}} = \pi r^2 h \qquad V_{\text{cone}} = \tfrac{1}{3}\pi r^2 H \qquad V_{\text{hemi}} = \tfrac{2}{3}\pi r^3 \]\[ A_{\text{side}} = 2\pi r h \qquad A_{\text{cone}} = \pi r s,\ s = \sqrt{r^2 + H^2} \qquad A_{\text{dome}} = 2\pi r^2 \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Solid</th><th scope="col">Volume</th><th scope="col">Exposed surface</th></tr></thead>
             <tbody>
-              <tr><td>\(r\)</td><td>Common radius of the parts</td></tr>
-              <tr><td>\(h\)</td><td>Height (length) of the cylinder</td></tr>
-              <tr><td>\(H\)</td><td>Height of the cone</td></tr>
-              <tr><td>\(r_i\)</td><td>Inner radius of a tube</td></tr>
+              <tr><td>Silo</td><td>\(\pi r^2 h + \tfrac{2}{3}\pi r^3\)</td><td>\(2\pi r h + 2\pi r^2 + \pi r^2\)</td></tr>
+              <tr><td>Capsule</td><td>\(\pi r^2 h + \tfrac{4}{3}\pi r^3\)</td><td>\(2\pi r h + 4\pi r^2\)</td></tr>
+              <tr><td>Rocket (cylinder + cone)</td><td>\(\pi r^2 h + \tfrac{1}{3}\pi r^2 H\)</td><td>\(2\pi r h + \pi r\sqrt{r^2 + H^2} + \pi r^2\)</td></tr>
+              <tr><td>Ice-cream cone</td><td>\(\tfrac{1}{3}\pi r^2 H + \tfrac{2}{3}\pi r^3\)</td><td>\(\pi r\sqrt{r^2 + H^2} + 2\pi r^2\)</td></tr>
+              <tr><td>Pipe (hollow cylinder)</td><td>\(\pi(r^2 - r_i^2)h\)</td><td>\(2\pi(r + r_i)h + 2\pi(r^2 - r_i^2)\)</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Radius</td><td>Shared by all the parts (the outer radius of a pipe).</td></tr>
+              <tr><td>\(h\)</td><td>Cylinder height</td><td>Length of the straight part only.</td></tr>
+              <tr><td>\(H\)</td><td>Cone height</td><td>Perpendicular height of the cone part.</td></tr>
+              <tr><td>\(r_i\)</td><td>Inner radius</td><td>Radius of a pipe's hole.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Each formula is assembled from standard parts:</p>
+          <ul>
+            <li>cylinder: \(V = \pi r^2 h\), curved side \(2\pi r h\), each end \(\pi r^2\);</li>
+            <li>hemisphere: \(V = \tfrac{2}{3}\pi r^3\) (half of \(\tfrac{4}{3}\pi r^3\)), curved surface \(2\pi r^2\);</li>
+            <li>cone: \(V = \tfrac{1}{3}\pi r^2 H\), curved surface \(\pi r s\) with \(s = \sqrt{r^2 + H^2}\).</li>
+          </ul>
+          <p>For a silo, the cylinder's top circle is covered by the dome, so the surface is the cylinder side, the dome and the floor only: \(2\pi r h + 2\pi r^2 + \pi r^2\). A capsule has no flat faces at all.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A silo: cylinder 10 m tall with a hemispherical roof, r = 3 m</h3>
-            <h4>Step 1 — Volume</h4>
-            \[ V = \pi(3)^2(10) + \tfrac{2}{3}\pi(3)^3 = 90\pi + 18\pi = 108\pi \approx 339.29\ \text{m}^3 \]
-            <h4>Step 2 — Exposed surfaces</h4>
-            \[ A = 2\pi(3)(10) + 2\pi(3)^2 + \pi(3)^2 = 60\pi + 18\pi + 9\pi = 87\pi \approx 273.32\ \text{m}^2 \]
-            <h4>Note</h4>
-            <p>The circle where the roof meets the cylinder is not counted, but the floor is.</p>
+            <h3>Problem</h3>
+            <p>A silo is a cylinder of radius <strong>3 m</strong> and height <strong>10 m</strong> with a hemispherical roof. Find its capacity and its outside surface.</p>
+            <h4>Step 1: Volume of each part</h4>
+            \[ V_{\text{cyl}} = \pi(3)^2(10) = 90\pi, \qquad V_{\text{hemi}} = \tfrac{2}{3}\pi(3)^3 = 18\pi \]
+            <h4>Step 2: Total volume</h4>
+            \[ V = 90\pi + 18\pi = 108\pi \approx 339.29\ \text{m}^3 \]
+            <h4>Step 3: Exposed surfaces</h4>
+            \[ 2\pi(3)(10) = 60\pi\ (\text{side}), \quad 2\pi(3)^2 = 18\pi\ (\text{dome}), \quad \pi(3)^2 = 9\pi\ (\text{floor}) \]
+            \[ A = 60\pi + 18\pi + 9\pi = 87\pi \approx 273.32\ \text{m}^2 \]
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a pipe</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A steel pipe <strong>100 cm</strong> long has an outer radius of <strong>5 cm</strong> and an inner radius of <strong>4 cm</strong>. Find the volume of steel.</p>
+            <h4>Step 1: Outer cylinder minus the hole</h4>
+            \[ V = \pi(5)^2(100) - \pi(4)^2(100) = 2500\pi - 1600\pi = 900\pi \approx 2827.43\ \text{cm}^3 \]
+            <h4>Step 2: Mass</h4>
+            <p>With steel at about 7.85 g/cm³, the pipe weighs about \(2827.43 \times 7.85 \approx 22{,}200\) g, or 22.2 kg.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>All parts share the same radius and are joined along complete circles.</li>
-            <li>For a tube, the inner radius must be smaller than the outer radius.</li>
-            <li>Five shapes are supported: silo, capsule, rocket, ice-cream cone and tube.</li>
+            <li><strong>Storage.</strong> Silos, water towers and tanks with domed ends.</li>
+            <li><strong>Manufacturing.</strong> Capsules, pencils, bullets and bolts.</li>
+            <li><strong>Plumbing and structures.</strong> The weight of pipes and hollow columns.</li>
+            <li><strong>Exam problems.</strong> Composite solids are a favourite way to test several formulas at once.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Counting hidden faces.</strong> The joining circle between parts is inside the solid.</li>
+            <li><strong>Using a full sphere for a dome.</strong> A hemisphere is half: \(\tfrac{2}{3}\pi r^3\).</li>
+            <li><strong>Forgetting the inside of a pipe</strong> when finding the surface to paint or coat.</li>
+            <li><strong>Mismatched radii.</strong> The parts must share the same radius where they join.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Adding the surface areas of the separate parts, which wrongly includes the hidden joining faces.</li>
-            <li>Using the cone’s height instead of its slant height for the curved area.</li>
+            <li>All parts share the radius \(r\), and the hemispheres and cones sit flush on the cylinder.</li>
+            <li>Wall thickness is ignored except for the pipe.</li>
+            <li>For other combinations, add the results of the <a href="../cylinder/">cylinder</a>, <a href="../cone/">cone</a> and <a href="../sphere/">sphere</a> calculators.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the volume of a composite solid?</summary>
+            <div class="faq-answer"><p>Split it into standard solids, find each volume, and add them (subtract any holes).</p></div>
+          </details>
+          <details>
+            <summary>Why is the surface area not just the sum of the parts' surfaces?</summary>
+            <div class="faq-answer"><p>Where two parts join, the surfaces that touch are hidden inside the solid. Only the outside faces count.</p></div>
+          </details>
+          <details>
+            <summary>What is the volume of a capsule?</summary>
+            <div class="faq-answer"><p>πr²h + (4/3)πr³: a cylinder plus two hemispheres, which together make one sphere.</p></div>
+          </details>
+          <details>
+            <summary>What is the volume of a hollow pipe?</summary>
+            <div class="faq-answer"><p>π(R² − r²)h, where R and r are the outer and inner radii.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../cylinder/">Cylinder</a>, <a href="../cone/">cone</a> and <a href="../sphere/">sphere</a>: the building blocks.</li>
+            <li><a href="../spherical-cap/">Spherical cap</a>: shallow domes that are not hemispheres.</li>
+            <li><a href="../frustum-of-a-cone/">Frustum of a cone</a>: tapered sections.</li>
           </ul>
         </section>

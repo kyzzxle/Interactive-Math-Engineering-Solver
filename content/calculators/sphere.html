@@ -1,45 +1,173 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the sphere calculator does</h2>
-          <p>A <strong>sphere</strong> is the set of all points in space at the same distance — the <strong>radius</strong> \(r\) — from a centre point. Because one length fixes the whole shape, knowing any one of the radius, diameter, surface area or volume is enough to find all the others. This calculator works in any direction: it can turn a volume back into a radius as easily as it turns a radius into a volume.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Double the radius and watch the results: the surface area grows 4 times (it depends on \(r^2\)) and the volume grows 8 times (it depends on \(r^3\)).</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a sphere?</h2>
+          <p>A <strong>sphere</strong> is the set of all points in space that are the same distance from a fixed point, the <strong>centre</strong>. That distance is the <strong>radius</strong> \(r\), and twice it is the <strong>diameter</strong> \(d = 2r\). A ball bearing, a soap bubble, a planet (approximately) and the tank of an LPG storage sphere are all spheres.</p>
+          <p>Any plane through the centre cuts the sphere in a <strong>great circle</strong> of radius \(r\), the largest circle that can be drawn on its surface. Half a sphere, cut by such a plane, is a <strong>hemisphere</strong>.</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ A = 4\pi r^2 \qquad V = \frac{4}{3}\pi r^3 \qquad d = 2r \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\(r\)</td><td>Radius: distance from the centre to the surface.</td></tr>
-              <tr><td>\(d\)</td><td>Diameter: the longest straight line through the sphere, \(d = 2r\).</td></tr>
-              <tr><td>\(A\)</td><td>Surface area, in square units.</td></tr>
-              <tr><td>\(V\)</td><td>Volume, in cubic units.</td></tr>
-            </tbody>
-          </table>
-          <p>To work backwards, rearrange: \(r = \sqrt{\dfrac{A}{4\pi}}\) from the area, or \(r = \sqrt[3]{\dfrac{3V}{4\pi}}\) from the volume.</p>
-          <p>Archimedes showed that a sphere's surface area equals the curved area of the cylinder that just encloses it (\(2\pi r \times 2r = 4\pi r^2\)), and its volume is two thirds of that cylinder's volume.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter any one of the radius, the diameter, the surface area or the volume. The calculator works back to the radius, then finds every other measurement:</p>
+          <ul>
+            <li>the radius and the diameter,</li>
+            <li>the surface area \(A\) and the volume \(V\),</li>
+            <li>the circumference of a great circle.</li>
+          </ul>
+          <p>When the radius or diameter is a whole number or a short decimal, the answers are also given in <strong>exact form</strong> as multiples of π, such as \(36\pi\), which is how most textbooks and board exams expect them.</p>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>A ball with radius 3 cm</h3>
-            <h4>Step 1 — Known value</h4>
-            <p>\(r = 3\) cm.</p>
-            <h4>Step 2 — Surface area</h4>
-            \[ A = 4\pi r^2 = 4\pi(3)^2 = 36\pi \approx 113.10 \text{ cm}^2 \]
-            <h4>Step 3 — Volume</h4>
-            \[ V = \frac{4}{3}\pi r^3 = \frac{4}{3}\pi (27) = 36\pi \approx 113.10 \text{ cm}^3 \]
-            <p>The two numbers match only because \(r = 3\): the area is in cm² and the volume in cm³, so they are different kinds of quantity.</p>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>A sphere has only one measurement that matters: its radius. Every other quantity is a power of \(r\) multiplied by a constant:</p>
+          <ul>
+            <li>lengths (diameter, circumference) grow in proportion to \(r\),</li>
+            <li>the surface area grows with \(r^2\),</li>
+            <li>the volume grows with \(r^3\).</li>
+          </ul>
+          <p>Archimedes, who considered it his greatest discovery, showed that a sphere fits exactly inside a cylinder of radius \(r\) and height \(2r\), and that the sphere has <strong>two thirds of the cylinder's volume</strong> and the <strong>same curved area</strong> as the cylinder's side.</p>
+          <div class="callout">
+            <p class="callout-title">Why the volume is one third of r times the area</p>
+            <p>Imagine the surface split into many tiny patches, each the base of a thin cone whose apex is the centre. Each cone has height \(r\), so its volume is \(\tfrac{1}{3}\times\text{base}\times r\). Adding them all gives \(V = \tfrac{1}{3}rA\). The calculator uses this as a check on every answer.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">From the other values</th></tr></thead>
+            <tbody>
+              <tr><td>Diameter</td><td>\(d = 2r\)</td><td>\(r = \dfrac{d}{2}\)</td></tr>
+              <tr><td>Surface area</td><td>\(A = 4\pi r^2 = \pi d^2\)</td><td>\(r = \sqrt{\dfrac{A}{4\pi}}\)</td></tr>
+              <tr><td>Volume</td><td>\(V = \dfrac{4}{3}\pi r^3 = \dfrac{\pi d^3}{6}\)</td><td>\(r = \sqrt[3]{\dfrac{3V}{4\pi}}\)</td></tr>
+              <tr><td>Great circle</td><td>\(C = 2\pi r\)</td><td>\(r = \dfrac{C}{2\pi}\)</td></tr>
+              <tr><td>Hemisphere</td><td>\(V = \dfrac{2}{3}\pi r^3,\ \ A_{\text{curved}} = 2\pi r^2\)</td><td>Total area \(3\pi r^2\) with the flat face</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Radius</td><td>Centre to any point on the surface.</td></tr>
+              <tr><td>\(d\)</td><td>Diameter</td><td>The longest straight line through the sphere, \(2r\). Many problems give this instead of \(r\).</td></tr>
+              <tr><td>\(A\)</td><td>Surface area</td><td>In square units. Use it for paint, coatings or material.</td></tr>
+              <tr><td>\(V\)</td><td>Volume</td><td>In cubic units. 1 litre = 1000 cm³ and 1 m³ = 1000 litres.</td></tr>
+              <tr><td>\(\pi\)</td><td>Pi</td><td>About 3.14159. Keep it as π for exact answers.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume by slicing</h3>
+          <p>Slice the sphere into thin horizontal discs. At height \(y\) above the centre the disc has radius \(\sqrt{r^2 - y^2}\) (Pythagoras), so its area is \(\pi(r^2 - y^2)\). Adding the discs from \(y = -r\) to \(y = r\):</p>
+          \[ V = \int_{-r}^{r} \pi\left(r^2 - y^2\right) dy = \pi\left[r^2 y - \frac{y^3}{3}\right]_{-r}^{r} = \pi\left(\frac{2r^3}{3} + \frac{2r^3}{3}\right) = \frac{4}{3}\pi r^3. \]
+          <h3>Surface area from the volume</h3>
+          <p>Add a thin shell of thickness \(\Delta r\) to the sphere. The extra volume is about the surface area times the thickness, so the surface area is the rate of change of the volume:</p>
+          \[ A = \frac{dV}{dr} = \frac{d}{dr}\left(\frac{4}{3}\pi r^3\right) = 4\pi r^2. \]
+          <h3>Working backwards</h3>
+          <p>If the surface area is known, divide by \(4\pi\) and take the square root. If the volume is known, multiply by 3, divide by \(4\pi\) and take the cube root. These are the rearrangements in the table above.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A ball has a radius of <strong>3 cm</strong>. Find its surface area and volume, exactly and to two decimal places.</p>
+            <h4>Step 1: List the given value</h4>
+            <p>\(r = 3\) cm.</p>
+            <h4>Step 2: Surface area</h4>
+            \[ A = 4\pi r^2 = 4\pi(3)^2 = 4\pi(9) = 36\pi \approx 113.10\ \text{cm}^2 \]
+            <h4>Step 3: Volume</h4>
+            \[ V = \frac{4}{3}\pi r^3 = \frac{4}{3}\pi(27) = 36\pi \approx 113.10\ \text{cm}^3 \]
+            <h4>Step 4: Check</h4>
+            \[ \tfrac{1}{3}rA = \tfrac{1}{3}(3)(36\pi) = 36\pi \checkmark \]
+            <h4>Answer</h4>
+            <p>\(A = 36\pi \approx 113.10\) cm² and \(V = 36\pi \approx 113.10\) cm³. At \(r = 3\) the two numbers happen to be equal, but their units are different.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: radius from the volume</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A spherical water tank must hold <strong>50 m³</strong>. What diameter must it have, and how much steel plate covers its surface?</p>
+            <h4>Step 1: Solve the volume formula for r</h4>
+            \[ r = \sqrt[3]{\frac{3V}{4\pi}} = \sqrt[3]{\frac{3(50)}{4\pi}} = \sqrt[3]{11.9366} \approx 2.2854\ \text{m} \]
+            <h4>Step 2: Diameter</h4>
+            \[ d = 2r \approx 4.5708\ \text{m} \]
+            <h4>Step 3: Surface area</h4>
+            \[ A = 4\pi(2.2854)^2 \approx 4\pi(5.2231) \approx 65.64\ \text{m}^2 \]
+            <h4>Answer</h4>
+            <p>The tank needs a diameter of about <strong>4.57 m</strong> and roughly <strong>65.6 m²</strong> of plate, before allowing for seams and waste.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>The input must be a positive number. A radius of zero is a single point, not a sphere.</li>
-            <li>Exact answers in terms of \(\pi\) are shown when you enter the radius or diameter. Working back from an area or volume involves roots, so those results are decimals.</li>
-            <li>Decimals are rounded to 6 places and marked "approx." whenever they are not exact.</li>
-            <li>Use consistent units: if the radius is in cm, the area is in cm² and the volume in cm³ (1000 cm³ = 1 litre).</li>
+            <li><strong>Storage tanks.</strong> Spheres hold the most volume for the least surface, so pressurised gas tanks are spherical: less steel and fewer weak points.</li>
+            <li><strong>Sports and manufacturing.</strong> The volume of a ball gives the material needed; the surface area gives the leather, rubber or paint.</li>
+            <li><strong>Science.</strong> Drops, bubbles, cells and planets are modelled as spheres to estimate mass (volume × density) and heat loss (through the surface).</li>
+            <li><strong>Domes.</strong> A hemispherical dome has curved area \(2\pi r^2\), which estimates roofing material.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the diameter as the radius.</strong> Halve the diameter first. Using \(d\) instead of \(r\) makes the area 4 times and the volume 8 times too large.</li>
+            <li><strong>Mixing up r² and r³.</strong> Area uses \(r^2\) (square units); volume uses \(r^3\) (cubic units).</li>
+            <li><strong>Forgetting the 4/3.</strong> \(V = \tfrac{4}{3}\pi r^3\), not \(\pi r^3\) or \(\tfrac{1}{3}\pi r^3\).</li>
+            <li><strong>Hemisphere surface.</strong> A solid hemisphere has a curved part \(2\pi r^2\) <em>and</em> a flat circle \(\pi r^2\): \(3\pi r^2\) in total.</li>
+            <li><strong>Rounding π too early.</strong> Keep π until the last step, or use the calculator's exact form.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The solid is a perfect sphere. For a stretched or flattened sphere, use the <a href="../ellipsoid/">ellipsoid calculator</a>.</li>
+            <li>The inputs must be positive. All lengths should be in the same unit.</li>
+            <li>For part of a sphere, use the <a href="../spherical-cap/">spherical cap and segment</a> or <a href="../spherical-sector-wedge/">sector and wedge</a> calculators.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the formula for the volume of a sphere?</summary>
+            <div class="faq-answer"><p>V = (4/3)πr³, where r is the radius. With the diameter d it is V = πd³/6.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the radius if I know the volume?</summary>
+            <div class="faq-answer"><p>Multiply the volume by 3, divide by 4π, and take the cube root: r = ∛(3V/4π). Choose "Volume" in the calculator and it does this for you.</p></div>
+          </details>
+          <details>
+            <summary>Why is the surface area 4πr²?</summary>
+            <div class="faq-answer"><p>Archimedes showed the sphere has the same area as the curved side of the cylinder that just contains it: 2πr wide and 2r tall, which is 4πr². It is also exactly four great circles.</p></div>
+          </details>
+          <details>
+            <summary>What happens to the volume if I double the radius?</summary>
+            <div class="faq-answer"><p>The volume becomes 2³ = 8 times larger and the surface area 2² = 4 times larger.</p></div>
+          </details>
+          <details>
+            <summary>How many litres does a sphere hold?</summary>
+            <div class="faq-answer"><p>Work in centimetres and divide the volume in cm³ by 1000, or work in metres and multiply the volume in m³ by 1000.</p></div>
+          </details>
+          <details>
+            <summary>What is the volume of a hemisphere?</summary>
+            <div class="faq-answer"><p>Half the sphere: (2/3)πr³. Its total surface (curved part plus flat base) is 3πr².</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../spherical-cap/">Spherical cap and segment</a>: the part of a sphere cut off by one or two planes.</li>
+            <li><a href="../spherical-sector-wedge/">Spherical sector, lune and wedge</a>: other parts of a sphere, as fractions of the whole.</li>
+            <li><a href="../cylinder/">Cylinder</a>: compare the sphere with its circumscribed cylinder.</li>
+            <li><a href="../volume-of-revolution/">Volume of revolution</a>: derive the sphere's volume with calculus.</li>
           </ul>
         </section>

@@ -69,9 +69,12 @@ export const calculator = {
       visual: { svg: renderSolid(torusMesh(R, r), { yaw: 20, pitch: 35, scale: 125 / (R + r), title: 'Torus drawn to scale' }), caption: 'The tube is a circle of radius r whose centre travels around a circle of radius R.' },
       formula: ['V = 2\\pi^2 R r^2 \\qquad A = 4\\pi^2 R r'],
       steps: [
-        { title: 'Known values', tex: `R = ${tx(R)},\\quad r = ${tx(r)}${u.texLen}` },
-        { title: 'Pappus: volume = cross-section area × path of its centre', texLines: ['V = \\left(\\pi r^2\\right)\\left(2\\pi R\\right) = 2\\pi^2 R r^2', `V = 2\\pi^2 (${tx(R)})(${tx(r)})^2 ${cV ? `= ${pi2Tex(cV)}` : ''} \\approx ${tx(V)}`] },
-        { title: 'Pappus: area = circumference of the tube × path of its centre', texLines: ['A = \\left(2\\pi r\\right)\\left(2\\pi R\\right) = 4\\pi^2 R r', `A = 4\\pi^2 (${tx(R)})(${tx(r)}) ${cA ? `= ${pi2Tex(cA)}` : ''} \\approx ${tx(A)}`] },
+        { title: 'Known values', tex: `R = ${tx(R)},\\quad r = ${tx(r)}${u.texLen}`, note: 'R is the distance from the centre of the hole to the centre of the tube; r is the radius of the tube itself. The inner radius is R − r and the outer radius is R + r.' },
+        { title: 'Cross-section of the tube', texLines: [`\\text{area} = \\pi r^2 = \\pi (${tx(r)})^2 = ${tx(r * r)}\\pi`, `\\text{circumference} = 2\\pi r = ${tx(2 * r)}\\pi`] },
+        { title: 'Path travelled by the centre of the tube', tex: `2\\pi R = 2\\pi (${tx(R)}) = ${tx(2 * R)}\\pi`, note: 'Theorem of Pappus: sweeping a shape around an axis, the volume is its area times the distance its centroid travels, and the surface is its perimeter times that distance.' },
+        { title: 'Volume', texLines: ['V = \\left(\\pi r^2\\right)\\left(2\\pi R\\right) = 2\\pi^2 R r^2', `V = 2\\pi^2 (${tx(R)})(${tx(r)})^2 = 2\\pi^2 (${tx(R * r * r)}) ${cV ? `= ${pi2Tex(cV)}` : ''} \\approx ${tx(V)}`] },
+        { title: 'Surface area', texLines: ['A = \\left(2\\pi r\\right)\\left(2\\pi R\\right) = 4\\pi^2 R r', `A = 4\\pi^2 (${tx(R)})(${tx(r)}) = 4\\pi^2 (${tx(R * r)}) ${cA ? `= ${pi2Tex(cA)}` : ''} \\approx ${tx(A)}`] },
+        { title: 'Check: straighten the torus into a cylinder', tex: `\\pi r^2 \\times 2\\pi R \\approx ${tx(V)}`, note: `Cut the ring and straighten it: it becomes a cylinder of radius ${fmt(r)} and length 2πR ≈ ${fmt(2 * Math.PI * R, 4)}, with the same volume and curved area.` },
       ],
       notes: [{ kind: 'info', text: R === r ? 'R = r is a horn torus: the hole closes to a single point. The formulas still hold.' : `The hole has diameter 2(R − r) = ${fmt(2 * (R - r))}${u.len ? ` ${u.len}` : ''}.` }],
     };

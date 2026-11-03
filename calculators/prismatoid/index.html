@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/prismatoid/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the prismoidal formula?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "V = (h/6)(A₁ + 4Aₘ + A₂), where A₁ and A₂ are the end areas, Aₘ is the middle section and h is the distance between the ends."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the middle section the average of the end areas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. For rectangular ends, average the lengths and the widths separately and multiply them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the prismoidal formula work for a cone or sphere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, because their cross-sections are also quadratic in height. For a sphere, A₁ = A₂ = 0 and Aₘ = πr², giving (2r/6)(4πr²) = (4/3)πr³."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a prismatoid and a frustum?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A frustum is a special prismatoid whose two ends are similar. A prismatoid's ends can be any shapes."
+          }
+        }
+      ]
     }
   ]
 }
@@ -275,10 +313,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the prismatoid calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
+            <li><a href="#about-h">What is a prismatoid?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a wedge</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
             <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -286,16 +333,46 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the prismatoid calculator does</h2>
+          <h2 id="about-h" style="margin-top:0">What is a prismatoid?</h2>
           <p>A <strong>prismatoid</strong> is a solid whose vertices all lie in two parallel planes. Prisms, pyramids, frustums, wedges and <strong>obelisks</strong> (solids with two non-similar rectangular ends) are all prismatoids, and so is a section of an earth embankment between two survey stations.</p>
-          <p>One formula gives the volume of all of them: the <strong>prismoidal formula</strong>. It needs the areas of the two parallel ends and of the <strong>middle section</strong>, the cross-section halfway between them. The calculator accepts the three areas directly, or works them out for an obelisk or a wedge, and also gives the lateral and total surface area for those shapes.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, make the two ends very different, such as a long narrow top on a wide base. The "average end area" estimate drifts away from the true volume, while the prismoidal formula stays exact.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>One formula, the <strong>prismoidal formula</strong>, gives the volume of all of them. It needs the areas of the two parallel ends and of the <strong>middle section</strong> halfway between them. The calculator:</p>
+          <ul>
+            <li>accepts the three areas directly, for any prismatoid or earthwork,</li>
+            <li>or works them out for an obelisk (rectangular ends) or a wedge (top is an edge),</li>
+            <li>gives the lateral and total surface area for the obelisk and wedge,</li>
+            <li>compares the result with the common average-end-area shortcut.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Slice a prismatoid parallel to its ends. Each side of the slice moves linearly from one end to the other, so the area of the slice is a <strong>quadratic</strong> function of height. Simpson's rule integrates any quadratic exactly using its values at the start, the middle and the end, with weights 1, 4, 1. That is the prismoidal formula.</p>
+          <div class="callout">
+            <p class="callout-title">Average the sides, not the areas</p>
+            <p>For rectangular ends, the middle section is a rectangle whose sides are the averages of the end sides. Its area is not the average of the end areas, and that difference is exactly why the shortcut <span class="math" data-tex="\tfrac{A_1 + A_2}{2}h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>+</mo><msub><mi>A</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mi>h</mi></mrow></semantics></math></span></span> is wrong.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <div class="formula-box"><span class="math-display" data-tex="V = \frac{h}{6}\left(A_1 + 4A_m + A_2\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mi>h</mi><mn>6</mn></mfrac><mrow><mo fence="true">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>+</mo><mn>4</mn><msub><mi>A</mi><mi>m</mi></msub><mo>+</mo><msub><mi>A</mi><mn>2</mn></msub><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span></div>
-          <div class="formula-box"><span class="math-display" data-tex="\text{Obelisk: } A_m = \frac{L_1 + L_2}{2}\cdot\frac{W_1 + W_2}{2} \qquad \text{Wedge: } V = \frac{w\,h}{6}\,(2l + e)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Obelisk: </mtext><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>L</mi><mn>1</mn></msub><mo>+</mo><msub><mi>L</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo>⋅</mo><mfrac><mrow><msub><mi>W</mi><mn>1</mn></msub><mo>+</mo><msub><mi>W</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mspace width="2em"/><mtext>Wedge: </mtext><mi>V</mi><mo>=</mo><mfrac><mrow><mi>w</mi><mtext> </mtext><mi>h</mi></mrow><mn>6</mn></mfrac><mtext> </mtext><mo stretchy="false">(</mo><mn>2</mn><mi>l</mi><mo>+</mo><mi>e</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Solid</th><th scope="col">Middle section</th><th scope="col">Volume</th></tr></thead>
+            <tbody>
+              <tr><td>Obelisk</td><td><span class="math" data-tex="A_m = \tfrac{L_1 + L_2}{2}\cdot\tfrac{W_1 + W_2}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>L</mi><mn>1</mn></msub><mo>+</mo><msub><mi>L</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo>⋅</mo><mfrac><mrow><msub><mi>W</mi><mn>1</mn></msub><mo>+</mo><msub><mi>W</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac></mrow></semantics></math></span></span></td><td>Prismoidal formula</td></tr>
+              <tr><td>Wedge</td><td><span class="math" data-tex="A_m = \tfrac{l + e}{2}\cdot\tfrac{w}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><mi>l</mi><mo>+</mo><mi>e</mi></mrow><mn>2</mn></mfrac><mo>⋅</mo><mfrac><mi>w</mi><mn>2</mn></mfrac></mrow></semantics></math></span></span></td><td><span class="math" data-tex="V = \tfrac{wh}{6}(2l + e)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mrow><mi>w</mi><mi>h</mi></mrow><mn>6</mn></mfrac><mo stretchy="false">(</mo><mn>2</mn><mi>l</mi><mo>+</mo><mi>e</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Pyramid</td><td><span class="math" data-tex="A_m = \tfrac{1}{4}B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mi>B</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="V = \tfrac{h}{6}(B + B) = \tfrac{1}{3}Bh"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mi>h</mi><mn>6</mn></mfrac><mo stretchy="false">(</mo><mi>B</mi><mo>+</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>B</mi><mi>h</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Prism</td><td><span class="math" data-tex="A_m = B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mi>B</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="V = \tfrac{h}{6}(6B) = Bh"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mi>h</mi><mn>6</mn></mfrac><mo stretchy="false">(</mo><mn>6</mn><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mi>B</mi><mi>h</mi></mrow></semantics></math></span></span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
           <table class="var-table">
             <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
             <tbody>
@@ -306,21 +383,64 @@
               <tr><td><span class="math" data-tex="l, w, e"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo separator="true">,</mo><mi>w</mi><mo separator="true">,</mo><mi>e</mi></mrow></semantics></math></span></span></td><td>Base length and width of a wedge, and its top edge (parallel to <span class="math" data-tex="l"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow></semantics></math></span></span>)</td></tr>
             </tbody>
           </table>
-          <p>For rectangular ends the middle section is a rectangle whose sides are the <strong>averages of the sides</strong>, not a rectangle with the average area. That difference is exactly what makes the prismoidal formula correct where the average-end-area method is not. The formula is Simpson's rule applied to the cross-section area, so it is exact whenever that area is a quadratic function of height.</p>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Let the section area at height <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> be <span class="math" data-tex="A(y) = p + qy + ry^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mo>+</mo><mi>q</mi><mi>y</mi><mo>+</mo><mi>r</mi><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. Then</p>
+          <span class="math-display" data-tex="V = \int_0^h A(y)\,dy = ph + \frac{qh^2}{2} + \frac{rh^3}{3}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>h</mi></msubsup><mi>A</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>d</mi><mi>y</mi><mo>=</mo><mi>p</mi><mi>h</mi><mo>+</mo><mfrac><mrow><mi>q</mi><msup><mi>h</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac><mo>+</mo><mfrac><mrow><mi>r</mi><msup><mi>h</mi><mn>3</mn></msup></mrow><mn>3</mn></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Now compute <span class="math" data-tex="A_1 = A(0) = p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><mi>A</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="A_m = A(h/2) = p + \tfrac{qh}{2} + \tfrac{rh^2}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mi>A</mi><mo stretchy="false">(</mo><mi>h</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mo>+</mo><mfrac><mrow><mi>q</mi><mi>h</mi></mrow><mn>2</mn></mfrac><mo>+</mo><mfrac><mrow><mi>r</mi><msup><mi>h</mi><mn>2</mn></msup></mrow><mn>4</mn></mfrac></mrow></semantics></math></span></span> and <span class="math" data-tex="A_2 = A(h) = p + qh + rh^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mi>A</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mo>+</mo><mi>q</mi><mi>h</mi><mo>+</mo><mi>r</mi><msup><mi>h</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. Substituting,</p>
+          <span class="math-display" data-tex="\frac{h}{6}\left(A_1 + 4A_m + A_2\right) = \frac{h}{6}\left(6p + 3qh + 2rh^2\right) = ph + \frac{qh^2}{2} + \frac{rh^3}{3} = V."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mi>h</mi><mn>6</mn></mfrac><mrow><mo fence="true">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>+</mo><mn>4</mn><msub><mi>A</mi><mi>m</mi></msub><mo>+</mo><msub><mi>A</mi><mn>2</mn></msub><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mi>h</mi><mn>6</mn></mfrac><mrow><mo fence="true">(</mo><mn>6</mn><mi>p</mi><mo>+</mo><mn>3</mn><mi>q</mi><mi>h</mi><mo>+</mo><mn>2</mn><mi>r</mi><msup><mi>h</mi><mn>2</mn></msup><mo fence="true">)</mo></mrow><mo>=</mo><mi>p</mi><mi>h</mi><mo>+</mo><mfrac><mrow><mi>q</mi><msup><mi>h</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac><mo>+</mo><mfrac><mrow><mi>r</mi><msup><mi>h</mi><mn>3</mn></msup></mrow><mn>3</mn></mfrac><mo>=</mo><mi>V</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>So the formula is exact whenever the cross-section is quadratic, which is the case for every prismatoid.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>An obelisk with a 12 m × 8 m base, a 6 m × 5 m top and a height of 5 m</h3>
+            <h3>Problem</h3>
+            <p>An obelisk has a <strong>12 m × 8 m</strong> base, a <strong>6 m × 5 m</strong> top and a height of <strong>5 m</strong>. Find its volume.</p>
             <h4>Step 1: End areas</h4>
             <span class="math-display" data-tex="A_1 = 12 \times 8 = 96, \qquad A_2 = 6 \times 5 = 30"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><mn>12</mn><mo>×</mo><mn>8</mn><mo>=</mo><mn>96</mn><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mn>6</mn><mo>×</mo><mn>5</mn><mo>=</mo><mn>30</mn></mrow></semantics></math></span></span>
             <h4>Step 2: Middle section</h4>
             <span class="math-display" data-tex="A_m = \frac{12 + 6}{2} \times \frac{8 + 5}{2} = 9 \times 6.5 = 58.5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><mn>12</mn><mo>+</mo><mn>6</mn></mrow><mn>2</mn></mfrac><mo>×</mo><mfrac><mrow><mn>8</mn><mo>+</mo><mn>5</mn></mrow><mn>2</mn></mfrac><mo>=</mo><mn>9</mn><mo>×</mo><mn>6.5</mn><mo>=</mo><mn>58.5</mn></mrow></semantics></math></span></span>
             <h4>Step 3: Prismoidal formula</h4>
             <span class="math-display" data-tex="V = \frac{5}{6}\left(96 + 4(58.5) + 30\right) = \frac{5}{6}(360) = 300\ \text{m}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>5</mn><mn>6</mn></mfrac><mrow><mo fence="true">(</mo><mn>96</mn><mo>+</mo><mn>4</mn><mo stretchy="false">(</mo><mn>58.5</mn><mo stretchy="false">)</mo><mo>+</mo><mn>30</mn><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mn>5</mn><mn>6</mn></mfrac><mo stretchy="false">(</mo><mn>360</mn><mo stretchy="false">)</mo><mo>=</mo><mn>300</mn><mtext> </mtext><msup><mtext>m</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
-            <p>The average-end-area method would give <span class="math" data-tex="\tfrac{96 + 30}{2} \times 5 = 315\ \text{m}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>96</mn><mo>+</mo><mn>30</mn></mrow><mn>2</mn></mfrac><mo>×</mo><mn>5</mn><mo>=</mo><mn>315</mn><mtext> </mtext><msup><mtext>m</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>, which is 5% too high.</p>
+            <h4>Compare</h4>
+            <p>The average-end-area method gives <span class="math" data-tex="\tfrac{96 + 30}{2}\times 5 = 315"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>96</mn><mo>+</mo><mn>30</mn></mrow><mn>2</mn></mfrac><mo>×</mo><mn>5</mn><mo>=</mo><mn>315</mn></mrow></semantics></math></span></span> m³, which is 5% too high.</p>
           </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a wedge</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A wedge has a <strong>10 cm × 6 cm</strong> base and a top edge of <strong>4 cm</strong> parallel to the 10 cm sides, <strong>5 cm</strong> above the base. Find its volume.</p>
+            <h4>Step 1: Sections</h4>
+            <span class="math-display" data-tex="A_1 = 60, \qquad A_m = \frac{10 + 4}{2}\cdot\frac{6}{2} = 7 \times 3 = 21, \qquad A_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><mn>60</mn><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mi>m</mi></msub><mo>=</mo><mfrac><mrow><mn>10</mn><mo>+</mo><mn>4</mn></mrow><mn>2</mn></mfrac><mo>⋅</mo><mfrac><mn>6</mn><mn>2</mn></mfrac><mo>=</mo><mn>7</mn><mo>×</mo><mn>3</mn><mo>=</mo><mn>21</mn><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Volume</h4>
+            <span class="math-display" data-tex="V = \frac{5}{6}\left(60 + 4(21) + 0\right) = \frac{5}{6}(144) = 120\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>5</mn><mn>6</mn></mfrac><mrow><mo fence="true">(</mo><mn>60</mn><mo>+</mo><mn>4</mn><mo stretchy="false">(</mo><mn>21</mn><mo stretchy="false">)</mo><mo>+</mo><mn>0</mn><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mn>5</mn><mn>6</mn></mfrac><mo stretchy="false">(</mo><mn>144</mn><mo stretchy="false">)</mo><mo>=</mo><mn>120</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+            <p>Check with the wedge formula: <span class="math" data-tex="\tfrac{6 \times 5}{6}(2 \times 10 + 4) = 5 \times 24 = 120"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>6</mn><mo>×</mo><mn>5</mn></mrow><mn>6</mn></mfrac><mo stretchy="false">(</mo><mn>2</mn><mo>×</mo><mn>10</mn><mo>+</mo><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>5</mn><mo>×</mo><mn>24</mn><mo>=</mo><mn>120</mn></mrow></semantics></math></span></span> ✓.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Earthworks.</strong> Highway engineers find cut-and-fill volumes between survey stations with the prismoidal formula.</li>
+            <li><strong>Stockpiles and embankments</strong> on rectangular footprints.</li>
+            <li><strong>Concrete and masonry.</strong> Tapered footings and plinths with different slopes on each side.</li>
+            <li><strong>Roof spaces</strong> such as wedge-shaped attics.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Averaging the end areas for Aₘ.</strong> Average the side lengths instead.</li>
+            <li><strong>Forgetting the 4.</strong> The middle section is weighted four times.</li>
+            <li><strong>Dividing by 3 instead of 6.</strong> The frustum formula uses <span class="math" data-tex="h/3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi mathvariant="normal">/</mi><mn>3</mn></mrow></semantics></math></span></span>; the prismoidal formula uses <span class="math" data-tex="h/6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi mathvariant="normal">/</mi><mn>6</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Sloping height.</strong> <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> is perpendicular to the ends.</li>
+          </ol>
         </section>
 
         <section id="assumptions" aria-labelledby="assumptions-h">
@@ -330,6 +450,35 @@
             <li>The surface areas for the obelisk and wedge assume the top is centred over the base. The volume does not depend on that.</li>
             <li>For a solid with similar ends, the <a href="../frustum-of-a-pyramid/">frustum of a pyramid calculator</a> gives the same volume with <span class="math" data-tex="\tfrac{h}{3}(A_1 + A_2 + \sqrt{A_1 A_2})"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>h</mi><mn>3</mn></mfrac><mo stretchy="false">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>+</mo><msub><mi>A</mi><mn>2</mn></msub><mo>+</mo><msqrt><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>A</mi><mn>2</mn></msub></mrow></msqrt><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</li>
             <li>When entering three areas, the middle section of a convex solid can never be smaller than <span class="math" data-tex="\left(\tfrac{\sqrt{A_1} + \sqrt{A_2}}{2}\right)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mfrac><mrow><msqrt><msub><mi>A</mi><mn>1</mn></msub></msqrt><mo>+</mo><msqrt><msub><mi>A</mi><mn>2</mn></msub></msqrt></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup></mrow></semantics></math></span></span>; smaller values are rejected.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the prismoidal formula?</summary>
+            <div class="faq-answer"><p>V = (h/6)(A₁ + 4Aₘ + A₂), where A₁ and A₂ are the end areas, Aₘ is the middle section and h is the distance between the ends.</p></div>
+          </details>
+          <details>
+            <summary>Is the middle section the average of the end areas?</summary>
+            <div class="faq-answer"><p>No. For rectangular ends, average the lengths and the widths separately and multiply them.</p></div>
+          </details>
+          <details>
+            <summary>Does the prismoidal formula work for a cone or sphere?</summary>
+            <div class="faq-answer"><p>Yes, because their cross-sections are also quadratic in height. For a sphere, A₁ = A₂ = 0 and Aₘ = πr², giving (2r/6)(4πr²) = (4/3)πr³.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between a prismatoid and a frustum?</summary>
+            <div class="faq-answer"><p>A frustum is a special prismatoid whose two ends are similar. A prismatoid's ends can be any shapes.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../frustum-of-a-pyramid/">Frustum of a pyramid</a>: similar ends.</li>
+            <li><a href="../truncated-prism/">Truncated prism</a>: a prism cut at an angle.</li>
+            <li><a href="../numerical-integration/">Numerical integration</a>: Simpson's rule in general.</li>
           </ul>
         </section>
 

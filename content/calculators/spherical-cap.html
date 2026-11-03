@@ -1,47 +1,147 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the spherical cap and segment calculator does</h2>
-          <p>A <strong>spherical cap</strong> is the piece of a ball cut off by one plane — a dome. A <strong>spherical segment</strong> (or zone, for its curved surface) is the slice between two parallel planes. Both depend only on the sphere’s radius \(R\) and where the cuts are.</p>
-          <p>A remarkable fact due to Archimedes: the curved area of a cap or zone is \(2\pi R h\), which depends only on its height \(h\), not on where on the sphere the slice is taken.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, set h = R: the cap becomes a hemisphere holding exactly half of the sphere’s volume.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a spherical cap?</h2>
+          <p>A <strong>spherical cap</strong> is the piece of a sphere cut off by a single plane, like the top of a dome or the part of a ball above the waterline. Its flat face is a circle, the <strong>base</strong>, and its curved face is a <strong>zone of one base</strong>.</p>
+          <p>Cutting a sphere with <em>two</em> parallel planes gives a <strong>spherical segment</strong> (a slab of the sphere with two circular faces). Its curved surface is a <strong>zone</strong>. A hemisphere is a cap whose height equals the radius.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Cap:</strong> from the sphere radius \(R\) and the cap height \(h\), finds the base radius, the volume, the curved area, the base area and the total surface area.</li>
+            <li><strong>Segment:</strong> from \(R\) and the positions \(y_1\), \(y_2\) of the two cutting planes measured from the centre, finds the height, both base radii, the volume and the zone area.</li>
+          </ul>
+          <p>Answers are given as exact multiples of π for whole-number or short-decimal inputs.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Draw the sphere from the side. The cutting plane is a horizontal line at distance \(R - h\) from the centre. From the centre to the rim of the base is \(R\) (a radius), so the right triangle with legs \(R - h\) and \(a\) gives the base radius:</p>
+          \[ a^2 = R^2 - (R - h)^2 = h(2R - h). \]
+          <div class="callout">
+            <p class="callout-title">Archimedes' surprise</p>
+            <p>The curved area of a cap is \(2\pi Rh\), which depends only on its height, not on where the cut is. Equal-height slices of a sphere always have equal curved areas, exactly like slices of the cylinder that wraps around it.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ a^2 = h(2R - h) \qquad V_{\text{cap}} = \frac{\pi h^2 (3R - h)}{3} \]\[ V_{\text{segment}} = \frac{\pi h}{6}\left(3a_1^2 + 3a_2^2 + h^2\right) \qquad A_{\text{curved}} = 2\pi R h \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Cap (one cut)</th><th scope="col">Segment (two cuts)</th></tr></thead>
             <tbody>
-              <tr><td>\(R\)</td><td>Radius of the sphere</td></tr>
-              <tr><td>\(h\)</td><td>Height of the cap or segment</td></tr>
-              <tr><td>\(a,\ a_1,\ a_2\)</td><td>Radii of the flat circular faces</td></tr>
-              <tr><td>\(y_1,\ y_2\)</td><td>Signed distances of the cutting planes from the centre</td></tr>
+              <tr><td>Height</td><td>\(h\)</td><td>\(h = y_2 - y_1\)</td></tr>
+              <tr><td>Base radius</td><td>\(a = \sqrt{h(2R - h)}\)</td><td>\(a_i = \sqrt{R^2 - y_i^2}\)</td></tr>
+              <tr><td>Volume</td><td>\(V = \dfrac{\pi h^2(3R - h)}{3} = \dfrac{\pi h}{6}(3a^2 + h^2)\)</td><td>\(V = \dfrac{\pi h}{6}(3a_1^2 + 3a_2^2 + h^2)\)</td></tr>
+              <tr><td>Curved area</td><td>\(2\pi R h\)</td><td>\(2\pi R h\) (zone)</td></tr>
+              <tr><td>Total area</td><td>\(2\pi R h + \pi a^2\)</td><td>\(2\pi R h + \pi a_1^2 + \pi a_2^2\)</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(R\)</td><td>Sphere radius</td><td>Of the whole sphere the cap is cut from.</td></tr>
+              <tr><td>\(h\)</td><td>Height</td><td>Thickness of the cap or segment, \(0 \lt h \le 2R\).</td></tr>
+              <tr><td>\(a\)</td><td>Base radius</td><td>Radius of the flat circular face.</td></tr>
+              <tr><td>\(y_1, y_2\)</td><td>Plane positions</td><td>Signed distances of the cuts from the centre (negative below it).</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume by slicing</h3>
+          <p>Horizontal slices at height \(y\) are circles of radius \(\sqrt{R^2 - y^2}\). A cap of height \(h\) runs from \(y = R - h\) to \(y = R\):</p>
+          \[ V = \int_{R-h}^{R} \pi(R^2 - y^2)\,dy = \frac{\pi h^2(3R - h)}{3}. \]
+          <p>A segment between \(y_1\) and \(y_2\) is the same integral with those limits, which simplifies to \(\tfrac{\pi h}{6}(3a_1^2 + 3a_2^2 + h^2)\).</p>
+          <h3>Curved area</h3>
+          <p>For a surface of revolution, a thin band at height \(y\) has area \(2\pi x\,ds\). On a sphere, \(x\,ds = R\,dy\), so</p>
+          \[ A = \int_{R-h}^{R} 2\pi R\,dy = 2\pi R h. \]
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A cap of height 2 cm cut from a sphere of radius 5 cm</h3>
-            <h4>Step 1 — Base radius</h4>
-            \[ a^2 = 2(10 - 2) = 16,\quad a = 4\ \text{cm} \]
-            <h4>Step 2 — Volume</h4>
-            \[ V = \frac{\pi (2)^2 (15 - 2)}{3} = \frac{52\pi}{3} \approx 54.45\ \text{cm}^3 \]
-            <h4>Step 3 — Surface</h4>
-            \[ 2\pi(5)(2) + \pi(4)^2 = 20\pi + 16\pi = 36\pi \approx 113.10\ \text{cm}^2 \]
+            <h3>Problem</h3>
+            <p>A cap of height <strong>2 cm</strong> is cut from a sphere of radius <strong>5 cm</strong>. Find the base radius, the volume and the total surface area.</p>
+            <h4>Step 1: Base radius</h4>
+            \[ a^2 = 2(2 \cdot 5 - 2) = 2(8) = 16, \qquad a = 4\ \text{cm} \]
+            <h4>Step 2: Volume</h4>
+            \[ V = \frac{\pi(2)^2(3 \cdot 5 - 2)}{3} = \frac{\pi(4)(13)}{3} = \frac{52\pi}{3} \approx 54.45\ \text{cm}^3 \]
+            <h4>Step 3: Curved and total area</h4>
+            \[ A_{\text{curved}} = 2\pi(5)(2) = 20\pi, \qquad A_{\text{base}} = \pi(4)^2 = 16\pi, \qquad A = 36\pi \approx 113.10\ \text{cm}^2 \]
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a segment between two planes</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A sphere of radius <strong>5 m</strong> is cut by planes <strong>1 m below</strong> and <strong>3 m above</strong> the centre. Find the volume of the slab between them and its zone area.</p>
+            <h4>Step 1: Height and base radii</h4>
+            \[ h = 3 - (-1) = 4, \qquad a_1^2 = 25 - 1 = 24, \qquad a_2^2 = 25 - 9 = 16 \]
+            <h4>Step 2: Volume</h4>
+            \[ V = \frac{\pi(4)}{6}\left(3(24) + 3(16) + 16\right) = \frac{4\pi}{6}(136) = \frac{272\pi}{3} \approx 284.84\ \text{m}^3 \]
+            <h4>Step 3: Zone area</h4>
+            \[ A = 2\pi(5)(4) = 40\pi \approx 125.66\ \text{m}^2 \]
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>0 &lt; h ≤ 2R for a cap; −R ≤ y₁ &lt; y₂ ≤ R for a segment.</li>
-            <li>h = R gives a hemisphere; h = 2R gives the whole sphere.</li>
-            <li>Exact π multiples are shown when R, h and the plane positions are exact numbers.</li>
+            <li><strong>Domes and tank ends.</strong> Shallow domes and dished heads of tanks are caps.</li>
+            <li><strong>Liquid in a spherical tank.</strong> The liquid at depth \(h\) fills a cap of height \(h\).</li>
+            <li><strong>Optics.</strong> Lenses are bounded by spherical caps.</li>
+            <li><strong>Geography.</strong> The area of the Earth above a given latitude is a zone.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the base radius a instead of the sphere radius R</strong> in \(\tfrac{\pi h^2(3R - h)}{3}\).</li>
+            <li><strong>Forgetting the base</strong> when the total surface is asked.</li>
+            <li><strong>Heights over 2R.</strong> A cap cannot be taller than the sphere's diameter.</li>
+            <li><strong>Signs of y₁ and y₂.</strong> Planes below the centre have negative positions.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Measuring h from the centre instead of from the cutting plane to the top of the cap.</li>
-            <li>Forgetting the flat base(s) when the total surface area is asked for.</li>
+            <li>The cutting planes are parallel and the solid is part of a perfect sphere.</li>
+            <li>For the cone from the centre plus a cap, see the <a href="../spherical-sector-wedge/">spherical sector calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a spherical cap?</summary>
+            <div class="faq-answer"><p>V = πh²(3R − h)/3, where R is the sphere's radius and h is the cap's height.</p></div>
+          </details>
+          <details>
+            <summary>What is a zone of a sphere?</summary>
+            <div class="faq-answer"><p>The curved surface between two parallel planes that cut the sphere. Its area is 2πRh, where h is the distance between the planes.</p></div>
+          </details>
+          <details>
+            <summary>How much liquid is in a partly filled spherical tank?</summary>
+            <div class="faq-answer"><p>If the liquid depth is h, the liquid is a cap of height h: V = πh²(3R − h)/3.</p></div>
+          </details>
+          <details>
+            <summary>Is a hemisphere a spherical cap?</summary>
+            <div class="faq-answer"><p>Yes, with h = R. Then V = (2/3)πR³ and the curved area is 2πR².</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../sphere/">Sphere</a>: the whole solid.</li>
+            <li><a href="../spherical-sector-wedge/">Spherical sector, lune and wedge</a>.</li>
+            <li><a href="../volume-of-revolution/">Volume of revolution</a>: the integrals behind these formulas.</li>
           </ul>
         </section>

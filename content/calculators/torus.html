@@ -1,45 +1,138 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the torus calculator does</h2>
-          <p>A <strong>torus</strong> is the doughnut shape made by sweeping a circle of radius \(r\) (the tube) around a circle of radius \(R\) (from the centre of the hole to the centre of the tube).</p>
-          <p><strong>Pappus’s centroid theorems</strong> give its size neatly: the volume is the tube’s cross-section area times the distance travelled by its centre, \(2\pi R\), and the surface area is the tube’s circumference times that same distance.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Double R in the explorer: the volume doubles. Double r: the volume becomes four times larger.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a torus?</h2>
+          <p>A <strong>torus</strong> is the doughnut shape made by sweeping a circle around an axis in its own plane that does not cross it. Inner tubes, O-rings, bagels and lifebuoys are tori.</p>
+          <p>Two radii describe it: the <strong>major radius</strong> \(R\), from the centre of the hole to the centre of the tube, and the <strong>minor radius</strong> \(r\), the radius of the tube itself. The hole has radius \(R - r\) and the outer edge has radius \(R + r\).</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter \(R\) and \(r\) (with \(R \ge r\)). The calculator finds the volume, the surface area, and the inner and outer radii, with exact multiples of π² for whole-number inputs.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>The key idea is the <strong>Theorem of Pappus</strong>: when a flat shape is swept around an axis, the volume is its area times the distance travelled by its centroid, and the surface is its perimeter times that same distance.</p>
+          <p>For a torus, the swept shape is a circle of radius \(r\) whose centre travels around a circle of radius \(R\), a distance of \(2\pi R\).</p>
+          <div class="callout">
+            <p class="callout-title">Straighten the doughnut</p>
+            <p>Cut the torus once and bend it straight: it becomes a cylinder of radius \(r\) and length \(2\pi R\). Its volume \(\pi r^2 \cdot 2\pi R\) and curved area \(2\pi r \cdot 2\pi R\) are exactly the torus formulas.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ V = (\pi r^2)(2\pi R) = 2\pi^2 R r^2 \]\[ A = (2\pi r)(2\pi R) = 4\pi^2 R r \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">From Pappus</th></tr></thead>
             <tbody>
-              <tr><td>\(R\)</td><td>Major radius: centre of the hole to the centre of the tube</td></tr>
-              <tr><td>\(r\)</td><td>Minor radius: radius of the tube</td></tr>
-              <tr><td>\(R - r,\ R + r\)</td><td>Inner and outer radii of the ring</td></tr>
+              <tr><td>Volume</td><td>\(V = 2\pi^2 R r^2\)</td><td>\((\pi r^2)(2\pi R)\)</td></tr>
+              <tr><td>Surface area</td><td>\(A = 4\pi^2 R r\)</td><td>\((2\pi r)(2\pi R)\)</td></tr>
+              <tr><td>Inner radius</td><td>\(R - r\)</td><td>Radius of the hole.</td></tr>
+              <tr><td>Outer radius</td><td>\(R + r\)</td><td>Half the overall width.</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(R\)</td><td>Major radius</td><td>Centre of the hole to the centre of the tube.</td></tr>
+              <tr><td>\(r\)</td><td>Minor radius</td><td>Radius of the tube's circular cross-section.</td></tr>
+              <tr><td>\(V\)</td><td>Volume</td><td>Cubic units.</td></tr>
+              <tr><td>\(A\)</td><td>Surface area</td><td>Square units.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume by washers</h3>
+          <p>Slice horizontally. At height \(y\) the slice is a ring between radii \(R - \sqrt{r^2 - y^2}\) and \(R + \sqrt{r^2 - y^2}\), with area \(4\pi R\sqrt{r^2 - y^2}\). Integrating,</p>
+          \[ V = \int_{-r}^{r} 4\pi R\sqrt{r^2 - y^2}\,dy = 4\pi R\cdot\frac{\pi r^2}{2} = 2\pi^2 R r^2, \]
+          <p>because the integral of \(\sqrt{r^2 - y^2}\) is the area of a half-circle.</p>
+          <h3>From R and the hole</h3>
+          <p>If you know the inner radius \(R_i\) and outer radius \(R_o\) instead, then \(R = \tfrac{R_o + R_i}{2}\) and \(r = \tfrac{R_o - R_i}{2}\).</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A doughnut with R = 6 cm and r = 2 cm</h3>
-            <h4>Step 1 — Volume</h4>
-            \[ V = 2\pi^2 (6)(2)^2 = 48\pi^2 \approx 473.74\ \text{cm}^3 \]
-            <h4>Step 2 — Surface area</h4>
-            \[ A = 4\pi^2 (6)(2) = 48\pi^2 \approx 473.74\ \text{cm}^2 \]
-            <h4>Note</h4>
-            <p>The numbers match only because r = 2 here; volume and area are different kinds of quantity.</p>
+            <h3>Problem</h3>
+            <p>A torus has major radius <strong>6 cm</strong> and tube radius <strong>2 cm</strong>. Find its volume and surface area.</p>
+            <h4>Step 1: Volume</h4>
+            \[ V = 2\pi^2(6)(2)^2 = 2\pi^2(24) = 48\pi^2 \approx 473.74\ \text{cm}^3 \]
+            <h4>Step 2: Surface area</h4>
+            \[ A = 4\pi^2(6)(2) = 48\pi^2 \approx 473.74\ \text{cm}^2 \]
+            <h4>Step 3: Hole and outer size</h4>
+            <p>Hole radius \(6 - 2 = 4\) cm; outer radius \(6 + 2 = 8\) cm, so the torus is 16 cm across.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: from inner and outer diameters</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A rubber O-ring has an inner diameter of <strong>40 mm</strong> and an outer diameter of <strong>50 mm</strong>. What volume of rubber does it contain?</p>
+            <h4>Step 1: Radii</h4>
+            \[ R_i = 20,\ R_o = 25 \;\Rightarrow\; R = \frac{25 + 20}{2} = 22.5\ \text{mm},\quad r = \frac{25 - 20}{2} = 2.5\ \text{mm} \]
+            <h4>Step 2: Volume</h4>
+            \[ V = 2\pi^2(22.5)(2.5)^2 = 2\pi^2(140.625) \approx 2775.8\ \text{mm}^3 \approx 2.78\ \text{cm}^3 \]
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Requires R ≥ r &gt; 0 (a ring torus; R = r is a horn torus with no hole).</li>
-            <li>For r &gt; R the tube crosses the axis (spindle torus) and the formulas count the overlap twice, so this case is rejected.</li>
+            <li><strong>Seals and O-rings.</strong> The material needed and how much an O-ring fills its groove.</li>
+            <li><strong>Inner tubes and lifebuoys.</strong> Air volume and surface material.</li>
+            <li><strong>Electrical engineering.</strong> Toroidal transformer cores and inductors.</li>
+            <li><strong>Architecture and plumbing.</strong> Curved pipe bends are parts of tori.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the hole radius as R.</strong> \(R\) goes to the centre of the tube, not to its inner edge.</li>
+            <li><strong>Using diameters.</strong> Convert inner/outer diameters to \(R\) and \(r\) first.</li>
+            <li><strong>π instead of π².</strong> The torus formulas contain \(\pi^2\).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using the outer radius R + r as R.</li>
-            <li>Writing π instead of π²: the torus formulas contain π twice.</li>
+            <li>This is a ring torus with \(R \ge r\). At \(R = r\) it becomes a horn torus with no hole.</li>
+            <li>The tube's cross-section is a circle.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a torus?</summary>
+            <div class="faq-answer"><p>V = 2π²Rr², where R is the distance from the centre to the middle of the tube and r is the tube radius.</p></div>
+          </details>
+          <details>
+            <summary>What is the surface area of a torus?</summary>
+            <div class="faq-answer"><p>A = 4π²Rr.</p></div>
+          </details>
+          <details>
+            <summary>What is the Theorem of Pappus?</summary>
+            <div class="faq-answer"><p>Sweeping a flat shape around an axis, the volume equals its area times the distance its centroid travels, and the surface equals its perimeter times that distance.</p></div>
+          </details>
+          <details>
+            <summary>How do I find R and r from the inner and outer radii?</summary>
+            <div class="faq-answer"><p>R is their average and r is half their difference.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../cylinder/">Cylinder</a>: the straightened torus.</li>
+            <li><a href="../volume-of-revolution/">Volume of revolution</a>: washers and shells.</li>
+            <li><a href="../composite-solid/">Composite solids</a>.</li>
           </ul>
         </section>

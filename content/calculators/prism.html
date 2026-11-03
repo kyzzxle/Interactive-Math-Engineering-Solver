@@ -1,43 +1,167 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the prism calculator does</h2>
-          <p>A <strong>prism</strong> is a solid with two identical, parallel polygon faces (the bases) joined by rectangular side faces. Its cross-section is the same all the way along, which makes its volume simply "base area × height". Choose one of the supported prism types — a box, a cube, a triangular prism with any triangle as its base, or a prism on a regular polygon — and the calculator finds the base area, perimeter, lateral area, total surface area and volume.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change only the height: the volume and lateral area change in proportion, but the base area does not. Change a base edge and every result changes.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a prism?</h2>
+          <p>A <strong>prism</strong> is a solid with two identical, parallel faces called <strong>bases</strong>, joined by flat side faces. In a <strong>right prism</strong> the side faces are rectangles that stand perpendicular to the bases. The prism is named after the shape of its base: a box is a rectangular prism, a cube is a square prism with equal edges, a Toblerone box is a triangular prism, and a pencil is close to a hexagonal prism.</p>
+          <p>The distance between the two bases is the <strong>height</strong> \(h\) (sometimes called the length, when the prism lies on its side).</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ V = B h \qquad L = P h \qquad T = 2B + P h \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\(B\)</td><td>Area of one base.</td></tr>
-              <tr><td>\(P\)</td><td>Perimeter of one base.</td></tr>
-              <tr><td>\(h\)</td><td>Height of the prism: the distance between the bases (its "length" when lying down).</td></tr>
-              <tr><td>\(L, T, V\)</td><td>Lateral area, total surface area and volume.</td></tr>
-            </tbody>
-          </table>
-          <p>Base areas used: rectangle \(B = lw\); triangle by Heron's formula \(B = \sqrt{s(s-a)(s-b)(s-c)}\) with \(s = \tfrac{a+b+c}{2}\); regular \(n\)-gon with side \(a\): \(B = \dfrac{n a^2}{4\tan(180^\circ/n)}\).</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose the base and enter its measurements and the height. The calculator handles:</p>
+          <ul>
+            <li><strong>rectangular prisms</strong> (boxes) from length, width and height,</li>
+            <li><strong>cubes</strong> from one edge,</li>
+            <li><strong>triangular prisms</strong> from the three sides of the base, using Heron's formula,</li>
+            <li><strong>regular prisms</strong> with 3 to 12 equal sides, using the apothem.</li>
+          </ul>
+          <p>It reports the base area and perimeter, the lateral area, the total surface area, the volume and, in centimetres or metres, the capacity in litres.</p>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>A triangular prism with base sides 3, 4, 5 cm and length 10 cm</h3>
-            <h4>Step 1 — Base area (Heron's formula)</h4>
-            \[ s = \frac{3 + 4 + 5}{2} = 6, \qquad B = \sqrt{6(3)(2)(1)} = \sqrt{36} = 6 \text{ cm}^2 \]
-            <h4>Step 2 — Perimeter and lateral area</h4>
-            \[ P = 12 \text{ cm}, \qquad L = P h = 12 \times 10 = 120 \text{ cm}^2 \]
-            <h4>Step 3 — Total area and volume</h4>
-            \[ T = 2(6) + 120 = 132 \text{ cm}^2, \qquad V = 6 \times 10 = 60 \text{ cm}^3 \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Every slice of a prism parallel to its base is an exact copy of the base. That is why one rule gives the volume of every prism, whatever the base shape: <strong>volume = base area × height</strong>.</p>
+          <p>For the surface, unfold the prism into a <strong>net</strong>: two bases and a row of rectangles. The rectangles all have height \(h\), and their widths are the edges of the base, so together they form one long rectangle of width equal to the base perimeter \(P\). Hence the lateral area is \(Ph\).</p>
+          <div class="callout">
+            <p class="callout-title">Find the base first</p>
+            <p>A prism problem is really a plane-geometry problem about its base. Once you know the base area \(B\) and perimeter \(P\), everything else is one multiplication.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Volume</td><td>\(V = B h\)</td><td>Any right or oblique prism (with perpendicular height).</td></tr>
+              <tr><td>Lateral area</td><td>\(L = P h\)</td><td>Right prisms.</td></tr>
+              <tr><td>Total surface area</td><td>\(T = 2B + P h\)</td><td>Two bases plus the sides.</td></tr>
+              <tr><td>Rectangular box</td><td>\(V = l w h,\ T = 2(lw + lh + wh)\)</td><td>Diagonal \(\sqrt{l^2 + w^2 + h^2}\).</td></tr>
+              <tr><td>Cube</td><td>\(V = a^3,\ T = 6a^2\)</td><td>Diagonal \(a\sqrt{3}\).</td></tr>
+              <tr><td>Triangle base (Heron)</td><td>\(B = \sqrt{s(s - a)(s - b)(s - c)},\ s = \tfrac{a + b + c}{2}\)</td><td>Any triangle from its sides.</td></tr>
+              <tr><td>Regular n-gon base</td><td>\(B = \tfrac{1}{2}P\,m,\ m = \dfrac{a}{2\tan(180^\circ/n)}\)</td><td>\(m\) is the apothem.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(B\)</td><td>Base area</td><td>Area of one base.</td></tr>
+              <tr><td>\(P\)</td><td>Base perimeter</td><td>Sum of the base edges.</td></tr>
+              <tr><td>\(h\)</td><td>Height</td><td>Distance between the bases.</td></tr>
+              <tr><td>\(l, w\)</td><td>Length, width</td><td>Sides of a rectangular base.</td></tr>
+              <tr><td>\(a, b, c\)</td><td>Edges</td><td>Sides of the base; \(a\) is the edge of a cube or regular polygon.</td></tr>
+              <tr><td>\(m\)</td><td>Apothem</td><td>Centre of a regular polygon to the middle of a side.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume</h3>
+          <p>Every slice parallel to the base has area \(B\), so \(V = \int_0^h B\,dy = Bh\). For a box, \(B = lw\), giving \(V = lwh\).</p>
+          <h3>Area of a regular polygon base</h3>
+          <p>Join the centre to every vertex. The polygon splits into \(n\) identical triangles, each with base \(a\) and height equal to the apothem \(m\):</p>
+          \[ B = n \cdot \tfrac{1}{2} a m = \tfrac{1}{2}(na)\,m = \tfrac{1}{2} P m, \qquad m = \frac{a}{2\tan(180^\circ / n)}. \]
+          <p>The apothem comes from the right triangle with half a side \(a/2\) and the central half-angle \(180^\circ/n\).</p>
+          <h3>Heron's formula</h3>
+          <p>When only the three sides of a triangle are known, Heron's formula gives the area without needing a height. With the semi-perimeter \(s = \tfrac{a + b + c}{2}\), \(B = \sqrt{s(s - a)(s - b)(s - c)}\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A closed box measures <strong>8 cm × 5 cm × 3 cm</strong>. Find its volume and the card needed to make it.</p>
+            <h4>Step 1: Base area and perimeter</h4>
+            \[ B = 8 \times 5 = 40\ \text{cm}^2, \qquad P = 2(8 + 5) = 26\ \text{cm} \]
+            <h4>Step 2: Lateral area</h4>
+            \[ L = P h = 26 \times 3 = 78\ \text{cm}^2 \]
+            <h4>Step 3: Total surface area</h4>
+            \[ T = 2(40) + 78 = 158\ \text{cm}^2 \]
+            <p>Check with the box formula: \(2(8\cdot5 + 8\cdot3 + 5\cdot3) = 2(40 + 24 + 15) = 158\) ✓.</p>
+            <h4>Step 4: Volume</h4>
+            \[ V = B h = 40 \times 3 = 120\ \text{cm}^3 = 0.12\ \text{L} \]
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a hexagonal prism</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A concrete column is a regular hexagonal prism with sides of <strong>0.3 m</strong> and a height of <strong>3 m</strong>. How much concrete is needed?</p>
+            <h4>Step 1: Apothem</h4>
+            \[ m = \frac{0.3}{2\tan 30^\circ} = \frac{0.3}{2(0.57735)} \approx 0.25981\ \text{m} \]
+            <h4>Step 2: Base area</h4>
+            \[ B = \tfrac{1}{2}(6 \times 0.3)(0.25981) \approx 0.23383\ \text{m}^2 \]
+            <h4>Step 3: Volume</h4>
+            \[ V = 0.23383 \times 3 \approx 0.7015\ \text{m}^3 \]
+            <h4>Answer</h4>
+            <p>About <strong>0.70 m³</strong> of concrete. (A regular hexagon's area is also \(\tfrac{3\sqrt{3}}{2}a^2\), which gives the same result.)</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Only <strong>right</strong> prisms are supported (side edges perpendicular to the bases).</li>
-            <li>Supported bases: rectangle, square (cube), any triangle, and regular polygons with 3, 4, 5, 6, 8, 10 or 12 sides.</li>
-            <li>Triangle sides must satisfy the triangle inequality; otherwise no triangle exists and no result is shown.</li>
-            <li>Regular-polygon and Heron results usually involve square roots or trigonometric values, so they are shown as decimals rounded to 6 places.</li>
+            <li><strong>Packaging and shipping.</strong> Box volume and the card or film to wrap it.</li>
+            <li><strong>Construction.</strong> Concrete for beams, footings, slabs and columns; earth to fill a trench.</li>
+            <li><strong>Rooms and tanks.</strong> Air volume for ventilation, water in a rectangular tank, paint for the walls (lateral area).</li>
+            <li><strong>Roofs and tents.</strong> A gable roof space is a triangular prism.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Confusing the prism's height with a triangle's height.</strong> A triangular prism has two heights: the triangle's (for the base area) and the prism's (between the bases).</li>
+            <li><strong>Counting the bases once.</strong> A closed prism has two bases.</li>
+            <li><strong>Impossible triangles.</strong> Three sides form a triangle only if each is shorter than the other two together.</li>
+            <li><strong>Using the side length instead of the apothem</strong> for a regular polygon's area.</li>
+            <li><strong>Unit conversions.</strong> 1 m³ = 1,000,000 cm³ = 1000 L.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The prism is right: its side faces are rectangles. For a prism cut by a slanted plane, use the <a href="../truncated-prism/">truncated prism calculator</a>.</li>
+            <li>The volume \(Bh\) also holds for an oblique prism if \(h\) is the perpendicular height, but the lateral area formula does not.</li>
+            <li>Regular bases have 3, 4, 5, 6, 8, 10 or 12 sides.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the formula for the volume of any prism?</summary>
+            <div class="faq-answer"><p>Volume = area of the base × height, V = Bh. It works for every base shape.</p></div>
+          </details>
+          <details>
+            <summary>Is a cube a prism?</summary>
+            <div class="faq-answer"><p>Yes: a square prism whose height equals its base edge. V = a³ and the surface is 6a².</p></div>
+          </details>
+          <details>
+            <summary>How do I find the area of a triangular base from its sides?</summary>
+            <div class="faq-answer"><p>Use Heron's formula: s = (a + b + c)/2 and area = √(s(s − a)(s − b)(s − c)).</p></div>
+          </details>
+          <details>
+            <summary>What is the lateral area of a prism?</summary>
+            <div class="faq-answer"><p>The total area of the side faces, not counting the two bases. For a right prism it is the base perimeter times the height.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the space diagonal of a box?</summary>
+            <div class="faq-answer"><p>Use the 3-D Pythagorean theorem: √(l² + w² + h²).</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../pyramid/">Pyramid</a>: one third of the prism with the same base and height.</li>
+            <li><a href="../truncated-prism/">Truncated prism</a>: a prism cut at an angle.</li>
+            <li><a href="../prismatoid/">Prismatoid</a>: one formula for prisms, pyramids and frustums.</li>
+            <li><a href="../regular-polyhedron/">Regular polyhedrons</a>: the cube and the other Platonic solids.</li>
           </ul>
         </section>

@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/torus/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the volume of a torus?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "V = 2π²Rr², where R is the distance from the centre to the middle of the tube and r is the tube radius."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the surface area of a torus?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A = 4π²Rr."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Theorem of Pappus?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sweeping a flat shape around an axis, the volume equals its area times the distance its centroid travels, and the surface equals its perimeter times that distance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find R and r from the inner and outer radii?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "R is their average and r is half their difference."
+          }
+        }
+      ]
     }
   ]
 }
@@ -229,10 +267,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the torus calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is a torus?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: from inner and outer diameters</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -240,48 +287,141 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the torus calculator does</h2>
-          <p>A <strong>torus</strong> is the doughnut shape made by sweeping a circle of radius <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> (the tube) around a circle of radius <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> (from the centre of the hole to the centre of the tube).</p>
-          <p><strong>Pappus’s centroid theorems</strong> give its size neatly: the volume is the tube’s cross-section area times the distance travelled by its centre, <span class="math" data-tex="2\pi R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>R</mi></mrow></semantics></math></span></span>, and the surface area is the tube’s circumference times that same distance.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Double R in the explorer: the volume doubles. Double r: the volume becomes four times larger.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a torus?</h2>
+          <p>A <strong>torus</strong> is the doughnut shape made by sweeping a circle around an axis in its own plane that does not cross it. Inner tubes, O-rings, bagels and lifebuoys are tori.</p>
+          <p>Two radii describe it: the <strong>major radius</strong> <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span>, from the centre of the hole to the centre of the tube, and the <strong>minor radius</strong> <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>, the radius of the tube itself. The hole has radius <span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span> and the outer edge has radius <span class="math" data-tex="R + r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>+</mo><mi>r</mi></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> (with <span class="math" data-tex="R \ge r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>≥</mo><mi>r</mi></mrow></semantics></math></span></span>). The calculator finds the volume, the surface area, and the inner and outer radii, with exact multiples of π² for whole-number inputs.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>The key idea is the <strong>Theorem of Pappus</strong>: when a flat shape is swept around an axis, the volume is its area times the distance travelled by its centroid, and the surface is its perimeter times that same distance.</p>
+          <p>For a torus, the swept shape is a circle of radius <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> whose centre travels around a circle of radius <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span>, a distance of <span class="math" data-tex="2\pi R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>R</mi></mrow></semantics></math></span></span>.</p>
+          <div class="callout">
+            <p class="callout-title">Straighten the doughnut</p>
+            <p>Cut the torus once and bend it straight: it becomes a cylinder of radius <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> and length <span class="math" data-tex="2\pi R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>R</mi></mrow></semantics></math></span></span>. Its volume <span class="math" data-tex="\pi r^2 \cdot 2\pi R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo>⋅</mo><mn>2</mn><mi>π</mi><mi>R</mi></mrow></semantics></math></span></span> and curved area <span class="math" data-tex="2\pi r \cdot 2\pi R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi><mo>⋅</mo><mn>2</mn><mi>π</mi><mi>R</mi></mrow></semantics></math></span></span> are exactly the torus formulas.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="V = (\pi r^2)(2\pi R) = 2\pi^2 R r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mo stretchy="false">(</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>R</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mi>R</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span><span class="math-display" data-tex="A = (2\pi r)(2\pi R) = 4\pi^2 R r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>r</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>R</mi><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn><msup><mi>π</mi><mn>2</mn></msup><mi>R</mi><mi>r</mi></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">From Pappus</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span></td><td>Major radius: centre of the hole to the centre of the tube</td></tr>
-              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Minor radius: radius of the tube</td></tr>
-              <tr><td><span class="math" data-tex="R - r,\ R + r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi><mo separator="true">,</mo><mtext> </mtext><mi>R</mi><mo>+</mo><mi>r</mi></mrow></semantics></math></span></span></td><td>Inner and outer radii of the ring</td></tr>
+              <tr><td>Volume</td><td><span class="math" data-tex="V = 2\pi^2 R r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mi>R</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(\pi r^2)(2\pi R)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>R</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Surface area</td><td><span class="math" data-tex="A = 4\pi^2 R r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mn>4</mn><msup><mi>π</mi><mn>2</mn></msup><mi>R</mi><mi>r</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(2\pi r)(2\pi R)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>r</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>R</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Inner radius</td><td><span class="math" data-tex="R - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span></td><td>Radius of the hole.</td></tr>
+              <tr><td>Outer radius</td><td><span class="math" data-tex="R + r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>+</mo><mi>r</mi></mrow></semantics></math></span></span></td><td>Half the overall width.</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span></td><td>Major radius</td><td>Centre of the hole to the centre of the tube.</td></tr>
+              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Minor radius</td><td>Radius of the tube's circular cross-section.</td></tr>
+              <tr><td><span class="math" data-tex="V"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow></semantics></math></span></span></td><td>Volume</td><td>Cubic units.</td></tr>
+              <tr><td><span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span></td><td>Surface area</td><td>Square units.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume by washers</h3>
+          <p>Slice horizontally. At height <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> the slice is a ring between radii <span class="math" data-tex="R - \sqrt{r^2 - y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>−</mo><msqrt><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span> and <span class="math" data-tex="R + \sqrt{r^2 - y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>+</mo><msqrt><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span>, with area <span class="math" data-tex="4\pi R\sqrt{r^2 - y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>π</mi><mi>R</mi><msqrt><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span>. Integrating,</p>
+          <span class="math-display" data-tex="V = \int_{-r}^{r} 4\pi R\sqrt{r^2 - y^2}\,dy = 4\pi R\cdot\frac{\pi r^2}{2} = 2\pi^2 R r^2,"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><msubsup><mo>∫</mo><mrow><mo>−</mo><mi>r</mi></mrow><mi>r</mi></msubsup><mn>4</mn><mi>π</mi><mi>R</mi><msqrt><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt><mtext> </mtext><mi>d</mi><mi>y</mi><mo>=</mo><mn>4</mn><mi>π</mi><mi>R</mi><mo>⋅</mo><mfrac><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mi>R</mi><msup><mi>r</mi><mn>2</mn></msup><mo separator="true">,</mo></mrow></semantics></math></span></span>
+          <p>because the integral of <span class="math" data-tex="\sqrt{r^2 - y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span> is the area of a half-circle.</p>
+          <h3>From R and the hole</h3>
+          <p>If you know the inner radius <span class="math" data-tex="R_i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub></mrow></semantics></math></span></span> and outer radius <span class="math" data-tex="R_o"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>o</mi></msub></mrow></semantics></math></span></span> instead, then <span class="math" data-tex="R = \tfrac{R_o + R_i}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><msub><mi>R</mi><mi>o</mi></msub><mo>+</mo><msub><mi>R</mi><mi>i</mi></msub></mrow><mn>2</mn></mfrac></mrow></semantics></math></span></span> and <span class="math" data-tex="r = \tfrac{R_o - R_i}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mfrac><mrow><msub><mi>R</mi><mi>o</mi></msub><mo>−</mo><msub><mi>R</mi><mi>i</mi></msub></mrow><mn>2</mn></mfrac></mrow></semantics></math></span></span>.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A doughnut with R = 6 cm and r = 2 cm</h3>
-            <h4>Step 1 — Volume</h4>
-            <span class="math-display" data-tex="V = 2\pi^2 (6)(2)^2 = 48\pi^2 \approx 473.74\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>48</mn><msup><mi>π</mi><mn>2</mn></msup><mo>≈</mo><mn>473.74</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
-            <h4>Step 2 — Surface area</h4>
-            <span class="math-display" data-tex="A = 4\pi^2 (6)(2) = 48\pi^2 \approx 473.74\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mn>4</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>48</mn><msup><mi>π</mi><mn>2</mn></msup><mo>≈</mo><mn>473.74</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
-            <h4>Note</h4>
-            <p>The numbers match only because r = 2 here; volume and area are different kinds of quantity.</p>
+            <h3>Problem</h3>
+            <p>A torus has major radius <strong>6 cm</strong> and tube radius <strong>2 cm</strong>. Find its volume and surface area.</p>
+            <h4>Step 1: Volume</h4>
+            <span class="math-display" data-tex="V = 2\pi^2(6)(2)^2 = 2\pi^2(24) = 48\pi^2 \approx 473.74\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo><mo>=</mo><mn>48</mn><msup><mi>π</mi><mn>2</mn></msup><mo>≈</mo><mn>473.74</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 2: Surface area</h4>
+            <span class="math-display" data-tex="A = 4\pi^2(6)(2) = 48\pi^2 \approx 473.74\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mn>4</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>48</mn><msup><mi>π</mi><mn>2</mn></msup><mo>≈</mo><mn>473.74</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 3: Hole and outer size</h4>
+            <p>Hole radius <span class="math" data-tex="6 - 2 = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>−</mo><mn>2</mn><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span> cm; outer radius <span class="math" data-tex="6 + 2 = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span> cm, so the torus is 16 cm across.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: from inner and outer diameters</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A rubber O-ring has an inner diameter of <strong>40 mm</strong> and an outer diameter of <strong>50 mm</strong>. What volume of rubber does it contain?</p>
+            <h4>Step 1: Radii</h4>
+            <span class="math-display" data-tex="R_i = 20,\ R_o = 25 \;\Rightarrow\; R = \frac{25 + 20}{2} = 22.5\ \text{mm},\quad r = \frac{25 - 20}{2} = 2.5\ \text{mm}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>=</mo><mn>20</mn><mo separator="true">,</mo><mtext> </mtext><msub><mi>R</mi><mi>o</mi></msub><mo>=</mo><mn>25</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>R</mi><mo>=</mo><mfrac><mrow><mn>25</mn><mo>+</mo><mn>20</mn></mrow><mn>2</mn></mfrac><mo>=</mo><mn>22.5</mn><mtext> mm</mtext><mo separator="true">,</mo><mspace width="1em"/><mi>r</mi><mo>=</mo><mfrac><mrow><mn>25</mn><mo>−</mo><mn>20</mn></mrow><mn>2</mn></mfrac><mo>=</mo><mn>2.5</mn><mtext> mm</mtext></mrow></semantics></math></span></span>
+            <h4>Step 2: Volume</h4>
+            <span class="math-display" data-tex="V = 2\pi^2(22.5)(2.5)^2 = 2\pi^2(140.625) \approx 2775.8\ \text{mm}^3 \approx 2.78\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mn>22.5</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2.5</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>2</mn><msup><mi>π</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mn>140.625</mn><mo stretchy="false">)</mo><mo>≈</mo><mn>2775.8</mn><mtext> </mtext><msup><mtext>mm</mtext><mn>3</mn></msup><mo>≈</mo><mn>2.78</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Requires R ≥ r &gt; 0 (a ring torus; R = r is a horn torus with no hole).</li>
-            <li>For r &gt; R the tube crosses the axis (spindle torus) and the formulas count the overlap twice, so this case is rejected.</li>
+            <li><strong>Seals and O-rings.</strong> The material needed and how much an O-ring fills its groove.</li>
+            <li><strong>Inner tubes and lifebuoys.</strong> Air volume and surface material.</li>
+            <li><strong>Electrical engineering.</strong> Toroidal transformer cores and inductors.</li>
+            <li><strong>Architecture and plumbing.</strong> Curved pipe bends are parts of tori.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the hole radius as R.</strong> <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> goes to the centre of the tube, not to its inner edge.</li>
+            <li><strong>Using diameters.</strong> Convert inner/outer diameters to <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> first.</li>
+            <li><strong>π instead of π².</strong> The torus formulas contain <span class="math" data-tex="\pi^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>π</mi><mn>2</mn></msup></mrow></semantics></math></span></span>.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using the outer radius R + r as R.</li>
-            <li>Writing π instead of π²: the torus formulas contain π twice.</li>
+            <li>This is a ring torus with <span class="math" data-tex="R \ge r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>≥</mo><mi>r</mi></mrow></semantics></math></span></span>. At <span class="math" data-tex="R = r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>r</mi></mrow></semantics></math></span></span> it becomes a horn torus with no hole.</li>
+            <li>The tube's cross-section is a circle.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a torus?</summary>
+            <div class="faq-answer"><p>V = 2π²Rr², where R is the distance from the centre to the middle of the tube and r is the tube radius.</p></div>
+          </details>
+          <details>
+            <summary>What is the surface area of a torus?</summary>
+            <div class="faq-answer"><p>A = 4π²Rr.</p></div>
+          </details>
+          <details>
+            <summary>What is the Theorem of Pappus?</summary>
+            <div class="faq-answer"><p>Sweeping a flat shape around an axis, the volume equals its area times the distance its centroid travels, and the surface equals its perimeter times that distance.</p></div>
+          </details>
+          <details>
+            <summary>How do I find R and r from the inner and outer radii?</summary>
+            <div class="faq-answer"><p>R is their average and r is half their difference.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../cylinder/">Cylinder</a>: the straightened torus.</li>
+            <li><a href="../volume-of-revolution/">Volume of revolution</a>: washers and shells.</li>
+            <li><a href="../composite-solid/">Composite solids</a>.</li>
           </ul>
         </section>
 

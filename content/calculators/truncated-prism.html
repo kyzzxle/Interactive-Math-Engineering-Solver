@@ -1,14 +1,41 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the truncated prism calculator does</h2>
-          <p>A <strong>truncated prism</strong> is what remains when a prism is cut by a plane that is not parallel to its base. The lateral edges then have different lengths, the side faces become trapezoids, and the top is a tilted polygon.</p>
-          <p>The calculator finds the volume of a right truncated triangular or rectangular prism from its base and the three or four lateral edges, together with each trapezoidal face, the area of the slanted top and the total surface area. For an oblique truncated prism, enter the area of the right section (the section perpendicular to the edges) instead.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, change the three edges but keep their sum the same. The solid tilts, yet the volume does not change: only the average edge matters.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a truncated prism?</h2>
+          <p>A <strong>truncated prism</strong> is what remains when a prism is cut by a plane that is not parallel to its base. The lateral edges then have different lengths, the side faces become trapezoids, and the top is a tilted polygon. A wedge of cake cut at an angle, a slanted chimney top and a sloped roof over a rectangular room are truncated prisms.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>For a <strong>right truncated triangular prism</strong>, from the three base sides and three lateral edges.</li>
+            <li>For a <strong>right truncated rectangular prism</strong>, from the base and four lateral edges, checking that the top is a single plane.</li>
+            <li>For <strong>any truncated prism</strong>, from the area of the right section and the lateral edges.</li>
+          </ul>
+          <p>It finds the volume, every trapezoidal face, the area of the slanted top and the total surface area, and draws the solid in 3D.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>A truncated triangular prism splits into <strong>three pyramids</strong> on the same base triangle, with heights equal to the three lateral edges. Each has volume \(\tfrac{1}{3}Bh_i\), so the total is \(B\) times the <strong>average edge</strong>.</p>
+          <div class="callout">
+            <p class="callout-title">Same as a straight prism</p>
+            <p>A truncated prism has the same volume as an ordinary prism on the same base whose height is the average of the lateral edges.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ V = B\,\frac{h_1 + h_2 + h_3}{3} \qquad V = B\,\frac{h_1 + h_2 + h_3 + h_4}{4} \]</div>
-          <div class="formula-box">\[ \text{Any truncated prism: } V = S \times \bar{h} \]</div>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Solid</th><th scope="col">Volume</th><th scope="col">Side faces</th></tr></thead>
+            <tbody>
+              <tr><td>Triangular (right)</td><td>\(V = B\,\dfrac{h_1 + h_2 + h_3}{3}\)</td><td>Trapezoids: side × average of its two edges</td></tr>
+              <tr><td>Rectangular (right)</td><td>\(V = B\,\dfrac{h_1 + h_2 + h_3 + h_4}{4}\)</td><td>Needs \(h_1 + h_3 = h_2 + h_4\)</td></tr>
+              <tr><td>Any truncated prism</td><td>\(V = S\,\bar{h}\)</td><td>\(S\) = right-section area</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
           <table class="var-table">
             <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
             <tbody>
@@ -18,29 +45,89 @@
               <tr><td>\(\bar{h}\)</td><td>Average lateral edge</td></tr>
             </tbody>
           </table>
-          <p>Why the average works: a truncated triangular prism splits into three pyramids on the same base, with heights \(h_1\), \(h_2\) and \(h_3\), so \(V = \tfrac{1}{3}B(h_1 + h_2 + h_3)\). Each side face of a right truncated prism is a trapezoid with area (side) × (average of its two edges).</p>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Call the base triangle \(PQR\) and the top triangle \(P'Q'R'\), with \(PP' = h_1\), \(QQ' = h_2\), \(RR' = h_3\). Cut the solid into three tetrahedra: \(P'PQR\), \(Q'P'QR\) and \(R'P'Q'R\). Each can be shown to have the same volume as a pyramid on \(PQR\) with height \(h_1\), \(h_2\) and \(h_3\) respectively, because their apexes slide parallel to the lateral edges without changing their distance from the base plane. Adding:</p>
+          \[ V = \tfrac{1}{3}B h_1 + \tfrac{1}{3}B h_2 + \tfrac{1}{3}B h_3 = B\,\frac{h_1 + h_2 + h_3}{3}. \]
+          <p>A rectangular base splits into two triangles; with a planar top the result is the average of the four edges.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A right truncated prism on a triangle with sides 5, 6 and 7 cm, with edges 4, 6 and 9 cm</h3>
-            <h4>Step 1: Base area by Heron's formula</h4>
-            \[ s = \frac{5 + 6 + 7}{2} = 9, \qquad B = \sqrt{9(4)(3)(2)} = \sqrt{216} = 6\sqrt{6} \approx 14.697 \]
-            <h4>Step 2: Average edge</h4>
-            \[ \bar{h} = \frac{4 + 6 + 9}{3} = \frac{19}{3} \approx 6.3333 \]
-            <h4>Step 3: Volume</h4>
-            \[ V = 14.697 \times 6.3333 \approx 93.08\ \text{cm}^3 \]
-            <p>The lateral faces are trapezoids of area \(5 \cdot \tfrac{4 + 6}{2} = 25\), \(6 \cdot \tfrac{6 + 9}{2} = 45\) and \(7 \cdot \tfrac{9 + 4}{2} = 45.5\).</p>
+            <h3>Problem</h3>
+            <p>A right truncated prism stands on a triangle with sides <strong>5, 6 and 7 cm</strong>. Its edges are <strong>4, 6 and 9 cm</strong>. Find its volume and lateral area.</p>
+            <h4>Step 1: Base area (Heron)</h4>
+            \[ s = 9, \qquad B = \sqrt{9(4)(3)(2)} = \sqrt{216} = 6\sqrt{6} \approx 14.697\ \text{cm}^2 \]
+            <h4>Step 2: Average edge and volume</h4>
+            \[ \bar{h} = \frac{4 + 6 + 9}{3} = \frac{19}{3}, \qquad V = 14.697 \times 6.3333 \approx 93.08\ \text{cm}^3 \]
+            <h4>Step 3: Lateral faces</h4>
+            \[ 5\cdot\frac{4 + 6}{2} = 25,\quad 6\cdot\frac{6 + 9}{2} = 45,\quad 7\cdot\frac{9 + 4}{2} = 45.5,\quad L = 115.5\ \text{cm}^2 \]
           </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a sloped rectangular roof space</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A room is <strong>8 m × 5 m</strong>. Its walls are <strong>3, 5, 9 and 7 m</strong> high at the four corners (in order) under a single sloping ceiling. Find the volume of the room.</p>
+            <h4>Step 1: Check the ceiling is flat</h4>
+            \[ h_1 + h_3 = 3 + 9 = 12, \qquad h_2 + h_4 = 5 + 7 = 12\ \checkmark \]
+            <h4>Step 2: Volume</h4>
+            \[ V = (8 \times 5)\,\frac{3 + 5 + 9 + 7}{4} = 40 \times 6 = 240\ \text{m}^3 \]
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Buildings.</strong> Rooms and sheds with sloping roofs.</li>
+            <li><strong>Earthworks.</strong> Volumes of fill on a sloping site, using corner depths.</li>
+            <li><strong>Manufacturing.</strong> Bars and posts cut at an angle.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the longest or shortest edge</strong> as the height. Use the average.</li>
+            <li><strong>Corner heights in the wrong order.</strong> Opposite corners are \(h_1, h_3\) and \(h_2, h_4\).</li>
+            <li><strong>Inconsistent corners.</strong> Four heights that do not satisfy \(h_1 + h_3 = h_2 + h_4\) do not form one flat top.</li>
+          </ol>
         </section>
 
         <section id="assumptions" aria-labelledby="assumptions-h">
           <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
             <li>For the triangular and rectangular options the prism is right: its lateral edges are perpendicular to the base.</li>
-            <li>A rectangular prism cut by one plane must have \(h_1 + h_3 = h_2 + h_4\) (opposite edges with equal sums); otherwise the four top corners do not lie in one plane.</li>
             <li>For an oblique truncated prism, or one with both ends slanted, use the right-section option with the full lateral edge lengths. A solid whose two ends are parallel polygons of different shapes is a <a href="../prismatoid/">prismatoid</a>.</li>
             <li>An uncut prism is the special case with all edges equal; see the <a href="../prism/">prism calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a truncated triangular prism?</summary>
+            <div class="faq-answer"><p>The base area times the average of the three lateral edges: V = B(h₁ + h₂ + h₃)/3.</p></div>
+          </details>
+          <details>
+            <summary>What is the right section of a prism?</summary>
+            <div class="faq-answer"><p>The cross-section perpendicular to the lateral edges. For a right prism it is the same as the base.</p></div>
+          </details>
+          <details>
+            <summary>Why must h₁ + h₃ = h₂ + h₄ for a rectangular base?</summary>
+            <div class="faq-answer"><p>A plane over a rectangle rises by the same amount along opposite sides, so the diagonally opposite corner heights must have equal sums.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../prism/">Prism</a>: the uncut solid.</li>
+            <li><a href="../prismatoid/">Prismatoid</a>: the prismoidal formula.</li>
+            <li><a href="../pyramid/">Pyramid</a>: the building block of the derivation.</li>
           </ul>
         </section>

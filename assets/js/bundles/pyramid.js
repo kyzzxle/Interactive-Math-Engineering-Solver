@@ -2353,11 +2353,13 @@ const calculator = {
       visual: { svg: pyramidSketch(type === 'rect' ? 4 : n, { h: `h = ${fmt(h, 4)}`, s: type === 'rect' ? `${fmt(Number(values.l), 3)} × ${fmt(Number(values.w), 3)}` : `a = ${fmt(Number(values.a), 4)}` }), caption: `Sketch of a ${desc} (not to scale).` },
       formula: ['V = \\frac{1}{3} B h \\qquad T = B + L'],
       steps: [
+        { title: 'Identify the solid', text: `A right ${desc}: the apex is directly above the centre of the base, at height h = ${fmt(h)}.`, note: 'Three different lengths appear in pyramid problems: the height h (apex to base, vertical), the slant height s (apex to the middle of a base edge, along a face) and the lateral edge (apex to a corner). Keep them apart.' },
         { title: 'Base area', texLines: baseLines },
-        slantInfo,
-        { title: 'Lateral area (sum of the triangular faces)', texLines: lateralLines },
-        { title: 'Total surface area', texLines: ['T = B + L', `T = ${tx(B)} + ${tx(L)} ${eq(T)}`] },
-        { title: 'Volume (one third of the prism with the same base and height)', texLines: ['V = \\frac{1}{3} B h', `V = \\frac{1}{3}(${tx(B)})(${tx(h)}) ${eq(V)}`] },
+        { ...slantInfo, note: 'The slant height is the height of each triangular face. It is always longer than h.' },
+        { title: 'Lateral area (sum of the triangular faces)', texLines: lateralLines, note: 'Each face is a triangle with area ½ × (base edge) × (slant height).' },
+        { title: 'Total surface area', texLines: ['T = B + L', `T = ${tx(B)} + ${tx(L)} ${eq(T)}`], note: 'A pyramid has only one base, so it is added once.' },
+        { title: 'Volume (one third of the prism with the same base and height)', texLines: ['V = \\frac{1}{3} B h', `V = \\frac{1}{3}(${tx(B)})(${tx(h)}) = \\frac{${tx(B * h)}}{3} ${eq(V)}`], note: `The prism with the same base and height would hold ${fmt(B * h, 4)}; three such pyramids fill it exactly.` },
+        { title: 'Lateral edge (apex to a corner)', tex: `e \\approx ${tx(edge)}`, note: 'Found from the height and the distance from the centre of the base to a corner (Pythagorean theorem). Useful for the length of a roof hip or a tent pole.' },
       ],
       notes: [{ kind: 'info', text: 'Assumes a right pyramid: the apex is directly above the centre of the base. The volume formula holds for any pyramid if h is the perpendicular height.' }],
     };

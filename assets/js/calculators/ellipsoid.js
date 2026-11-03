@@ -86,8 +86,8 @@ export const calculator = {
     const E = ellipsoidArea(a, b, c);
     const T = thomsen(a, b, c);
     const steps = [
-      { title: 'Known values', tex: `a = ${tx(a)},\\quad b = ${tx(b)},\\quad c = ${tx(c)}${u.texLen}` },
-      { title: 'Volume', texLines: ['V = \\frac{4}{3}\\pi abc', `V = \\frac{4}{3}\\pi (${tx(a)})(${tx(b)})(${tx(c)})`, coef ? `V = ${piTex(coef)} \\approx ${tx(V)}${u.texVol}` : `V \\approx ${tx(V)}${u.texVol}`] },
+      { title: 'Known values', tex: `a = ${tx(a)},\\quad b = ${tx(b)},\\quad c = ${tx(c)}${u.texLen}`, note: 'a, b and c are the semi-axes: half of the ellipsoid’s length, width and height, measured from the centre.' },
+      { title: 'Volume', texLines: ['V = \\frac{4}{3}\\pi abc', `V = \\frac{4}{3}\\pi (${tx(a)})(${tx(b)})(${tx(c)}) = \\frac{4}{3}\\pi (${tx(a * b * c)})`, coef ? `V = ${piTex(coef)} \\approx ${tx(V)}${u.texVol}` : `V \\approx ${tx(V)}${u.texVol}`], note: 'An ellipsoid is a sphere stretched by different amounts in three directions, so r³ in the sphere formula becomes a·b·c.' },
     ];
     if (E.sphere) {
       steps.push({ title: 'Surface area (all semi-axes equal: a sphere)', tex: `S = 4\\pi a^2 \\approx ${tx(E.S)}${u.texArea}` });

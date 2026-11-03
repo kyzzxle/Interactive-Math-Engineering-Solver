@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/similar-solids/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "If one solid is twice as tall, how much bigger is its volume?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the solids are similar, the volume is 2³ = 8 times larger and the surface area 2² = 4 times larger."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the scale factor from two volumes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Divide the volumes and take the cube root: k = ∛(V₂/V₁)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are all cylinders similar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Two cylinders are similar only if their heights and radii are in the same ratio. All spheres and all cubes are similar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the rule work for any shape?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, for any pair of exactly similar solids, however complicated."
+          }
+        }
+      ]
     }
   ]
 }
@@ -243,10 +281,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the similar solids calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What are similar solids?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: from a volume ratio</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -254,49 +301,135 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the similar solids calculator does</h2>
-          <p>Two solids are <strong>similar</strong> when one is an exact scaled copy of the other: every length is multiplied by the same <strong>scale factor</strong> <span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span>. Areas are then multiplied by <span class="math" data-tex="k^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and volumes by <span class="math" data-tex="k^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup></mrow></semantics></math></span></span>.</p>
-          <p>This calculator starts from whatever you know — two matching lengths, or a ratio of lengths, areas or volumes — and finds the other ratios, exactly when possible.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>A model at scale 1 : 10 needs only 1/1000 of the material of the real object — that is k³ at work.</p></div>
+          <h2 id="about-h" style="margin-top:0">What are similar solids?</h2>
+          <p>Two solids are <strong>similar</strong> when one is an exact scaled copy of the other: the same shape, with every length multiplied by the same <strong>scale factor</strong> <span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span>. Two spheres are always similar; two cubes are always similar; a model car and the real car are similar if the model is accurate.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Give two matching lengths, the scale factor itself, the ratio of the surface areas or the ratio of the volumes. The calculator finds the scale factor <span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span>, the area ratio <span class="math" data-tex="k^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and the volume ratio <span class="math" data-tex="k^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup></mrow></semantics></math></span></span>, exactly where possible, and scales a surface area or volume of the first solid to the second.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Every length is multiplied by <span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span>. An area is a length times a length, so it is multiplied by <span class="math" data-tex="k \cdot k = k^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>⋅</mo><mi>k</mi><mo>=</mo><msup><mi>k</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. A volume is length × length × length, so it is multiplied by <span class="math" data-tex="k^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup></mrow></semantics></math></span></span>.</p>
+          <span class="math-display" data-tex="\frac{L_2}{L_1} = k, \qquad \frac{A_2}{A_1} = k^2, \qquad \frac{V_2}{V_1} = k^3."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><msub><mi>L</mi><mn>2</mn></msub><msub><mi>L</mi><mn>1</mn></msub></mfrac><mo>=</mo><mi>k</mi><mo separator="true">,</mo><mspace width="2em"/><mfrac><msub><mi>A</mi><mn>2</mn></msub><msub><mi>A</mi><mn>1</mn></msub></mfrac><mo>=</mo><msup><mi>k</mi><mn>2</mn></msup><mo separator="true">,</mo><mspace width="2em"/><mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mfrac><mo>=</mo><msup><mi>k</mi><mn>3</mn></msup><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <div class="callout">
+            <p class="callout-title">Why big animals have thick legs</p>
+            <p>Double an animal's size and its weight (volume) grows 8 times, but the strength of its bones (cross-section area) only 4 times. That is why elephants have proportionally thicker legs than mice.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="\frac{L_2}{L_1} = k \qquad \frac{A_2}{A_1} = k^2 \qquad \frac{V_2}{V_1} = k^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><msub><mi>L</mi><mn>2</mn></msub><msub><mi>L</mi><mn>1</mn></msub></mfrac><mo>=</mo><mi>k</mi><mspace width="2em"/><mfrac><msub><mi>A</mi><mn>2</mn></msub><msub><mi>A</mi><mn>1</mn></msub></mfrac><mo>=</mo><msup><mi>k</mi><mn>2</mn></msup><mspace width="2em"/><mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mfrac><mo>=</mo><msup><mi>k</mi><mn>3</mn></msup></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Given</th><th scope="col">Scale factor</th><th scope="col">Then</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span></td><td>Length ratio (scale factor), solid 2 ÷ solid 1</td></tr>
-              <tr><td><span class="math" data-tex="A_1,\ A_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><mtext> </mtext><msub><mi>A</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Surface areas</td></tr>
-              <tr><td><span class="math" data-tex="V_1,\ V_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub><mo separator="true">,</mo><mtext> </mtext><msub><mi>V</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Volumes</td></tr>
+              <tr><td>Two lengths</td><td><span class="math" data-tex="k = \dfrac{L_2}{L_1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>L</mi><mn>2</mn></msub><msub><mi>L</mi><mn>1</mn></msub></mfrac></mstyle></mrow></semantics></math></span></span></td><td><span class="math" data-tex="A_2 = k^2 A_1,\ V_2 = k^3 V_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><msup><mi>k</mi><mn>2</mn></msup><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><mtext> </mtext><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><msup><mi>k</mi><mn>3</mn></msup><msub><mi>V</mi><mn>1</mn></msub></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Area ratio</td><td><span class="math" data-tex="k = \sqrt{\dfrac{A_2}{A_1}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><msqrt><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>A</mi><mn>2</mn></msub><msub><mi>A</mi><mn>1</mn></msub></mfrac></mstyle></msqrt></mrow></semantics></math></span></span></td><td><span class="math" data-tex="V_2/V_1 = \left(\dfrac{A_2}{A_1}\right)^{3/2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mi mathvariant="normal">/</mi><msub><mi>V</mi><mn>1</mn></msub><mo>=</mo><msup><mrow><mo fence="true">(</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>A</mi><mn>2</mn></msub><msub><mi>A</mi><mn>1</mn></msub></mfrac></mstyle><mo fence="true">)</mo></mrow><mrow><mn>3</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Volume ratio</td><td><span class="math" data-tex="k = \sqrt[3]{\dfrac{V_2}{V_1}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mroot><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mfrac></mstyle><mn>3</mn></mroot></mrow></semantics></math></span></span></td><td><span class="math" data-tex="A_2/A_1 = \left(\dfrac{V_2}{V_1}\right)^{2/3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mi mathvariant="normal">/</mi><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><msup><mrow><mo fence="true">(</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mfrac></mstyle><mo fence="true">)</mo></mrow><mrow><mn>2</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow></msup></mrow></semantics></math></span></span></td></tr>
             </tbody>
           </table>
-          <p>From an area ratio, take a square root to get k; from a volume ratio, take a cube root.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span></td><td>Scale factor</td><td>Length of solid 2 ÷ matching length of solid 1.</td></tr>
+              <tr><td><span class="math" data-tex="L_1, L_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>L</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Matching lengths</td><td>Any pair: heights, radii, edges, diagonals.</td></tr>
+              <tr><td><span class="math" data-tex="A_1, A_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>A</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Surface areas</td><td>Or any matching areas (a face, a cross-section).</td></tr>
+              <tr><td><span class="math" data-tex="V_1, V_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>V</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Volumes</td><td>Or capacities, or masses of the same material.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Take a cube of edge <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span>. Its similar copy has edge <span class="math" data-tex="ka"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mi>a</mi></mrow></semantics></math></span></span>. Then</p>
+          <span class="math-display" data-tex="\frac{A_2}{A_1} = \frac{6(ka)^2}{6a^2} = k^2, \qquad \frac{V_2}{V_1} = \frac{(ka)^3}{a^3} = k^3."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><msub><mi>A</mi><mn>2</mn></msub><msub><mi>A</mi><mn>1</mn></msub></mfrac><mo>=</mo><mfrac><mrow><mn>6</mn><mo stretchy="false">(</mo><mi>k</mi><mi>a</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mrow><mn>6</mn><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><msup><mi>k</mi><mn>2</mn></msup><mo separator="true">,</mo><mspace width="2em"/><mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mfrac><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>k</mi><mi>a</mi><msup><mo stretchy="false">)</mo><mn>3</mn></msup></mrow><msup><mi>a</mi><mn>3</mn></msup></mfrac><mo>=</mo><msup><mi>k</mi><mn>3</mn></msup><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Any solid can be filled with tiny cubes; scaling the solid scales every cube the same way, so the same ratios hold for every shape. Check with spheres: <span class="math" data-tex="\tfrac{4}{3}\pi(kr)^3 = k^3\cdot\tfrac{4}{3}\pi r^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>4</mn><mn>3</mn></mfrac><mi>π</mi><mo stretchy="false">(</mo><mi>k</mi><mi>r</mi><msup><mo stretchy="false">)</mo><mn>3</mn></msup><mo>=</mo><msup><mi>k</mi><mn>3</mn></msup><mo>⋅</mo><mfrac><mn>4</mn><mn>3</mn></mfrac><mi>π</mi><msup><mi>r</mi><mn>3</mn></msup></mrow></semantics></math></span></span>.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Two similar jugs are 4 cm and 6 cm tall; the small one holds 64 cm³</h3>
-            <h4>Step 1 — Scale factor</h4>
+            <h3>Problem</h3>
+            <p>Two similar cones have heights <strong>4 cm</strong> and <strong>6 cm</strong>. The smaller holds <strong>64 cm³</strong>. How much does the larger hold?</p>
+            <h4>Step 1: Scale factor</h4>
             <span class="math-display" data-tex="k = \frac{6}{4} = \frac{3}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>k</mi><mo>=</mo><mfrac><mn>6</mn><mn>4</mn></mfrac><mo>=</mo><mfrac><mn>3</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>
-            <h4>Step 2 — Volume ratio</h4>
-            <span class="math-display" data-tex="k^3 = \frac{27}{8}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup><mo>=</mo><mfrac><mn>27</mn><mn>8</mn></mfrac></mrow></semantics></math></span></span>
-            <h4>Step 3 — Larger volume</h4>
+            <h4>Step 2: Volume ratio</h4>
+            <span class="math-display" data-tex="k^3 = \left(\frac{3}{2}\right)^3 = \frac{27}{8}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup><mo>=</mo><msup><mrow><mo fence="true">(</mo><mfrac><mn>3</mn><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mn>3</mn></msup><mo>=</mo><mfrac><mn>27</mn><mn>8</mn></mfrac></mrow></semantics></math></span></span>
+            <h4>Step 3: Scale the volume</h4>
             <span class="math-display" data-tex="V_2 = 64 \times \frac{27}{8} = 216\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><mn>64</mn><mo>×</mo><mfrac><mn>27</mn><mn>8</mn></mfrac><mo>=</mo><mn>216</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: from a volume ratio</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Two similar tanks have volumes in the ratio <strong>27 : 8</strong>. The smaller needs <strong>40 m²</strong> of paint. How much does the larger need?</p>
+            <h4>Step 1: Undo the cube</h4>
+            <span class="math-display" data-tex="k = \sqrt[3]{\frac{27}{8}} = \frac{3}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>k</mi><mo>=</mo><mroot><mfrac><mn>27</mn><mn>8</mn></mfrac><mn>3</mn></mroot><mo>=</mo><mfrac><mn>3</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>
+            <h4>Step 2: Area ratio and paint</h4>
+            <span class="math-display" data-tex="k^2 = \frac{9}{4}, \qquad A_2 = 40 \times \frac{9}{4} = 90\ \text{m}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>k</mi><mn>2</mn></msup><mo>=</mo><mfrac><mn>9</mn><mn>4</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mn>40</mn><mo>×</mo><mfrac><mn>9</mn><mn>4</mn></mfrac><mo>=</mo><mn>90</mn><mtext> </mtext><msup><mtext>m</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Ratios must be positive. The solids must be similar: same shape, every length scaled equally.</li>
-            <li>Exact fractions are shown when the roots of the ratios are rational.</li>
+            <li><strong>Scale models.</strong> Predicting the real object's material and capacity from a model.</li>
+            <li><strong>Packaging.</strong> How much more a larger, similar container holds.</li>
+            <li><strong>Engineering.</strong> Scaling laws in structures and fluid flow.</li>
+            <li><strong>Biology.</strong> Why heat loss, strength and weight change differently with size.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Scaling volume by k.</strong> Volume scales by <span class="math" data-tex="k^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>3</mn></msup></mrow></semantics></math></span></span>, area by <span class="math" data-tex="k^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mn>2</mn></msup></mrow></semantics></math></span></span>.</li>
+            <li><strong>Taking the ratio upside down.</strong> Keep solid 2 ÷ solid 1 consistently.</li>
+            <li><strong>Assuming solids are similar.</strong> Two cylinders are similar only if both radius and height scale by the same factor.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Scaling a volume by k instead of k³ (or an area by k instead of k²).</li>
-            <li>Mixing up the order of the ratio: here it is always solid 2 divided by solid 1.</li>
+            <li>The two solids are exactly similar.</li>
+            <li>Masses scale like volumes only for the same material.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>If one solid is twice as tall, how much bigger is its volume?</summary>
+            <div class="faq-answer"><p>If the solids are similar, the volume is 2³ = 8 times larger and the surface area 2² = 4 times larger.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the scale factor from two volumes?</summary>
+            <div class="faq-answer"><p>Divide the volumes and take the cube root: k = ∛(V₂/V₁).</p></div>
+          </details>
+          <details>
+            <summary>Are all cylinders similar?</summary>
+            <div class="faq-answer"><p>No. Two cylinders are similar only if their heights and radii are in the same ratio. All spheres and all cubes are similar.</p></div>
+          </details>
+          <details>
+            <summary>Does the rule work for any shape?</summary>
+            <div class="faq-answer"><p>Yes, for any pair of exactly similar solids, however complicated.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../frustum-of-a-pyramid/">Frustum of a pyramid</a>: its formula comes from two similar pyramids.</li>
+            <li><a href="../cone/">Cone</a> and <a href="../sphere/">sphere</a>: try scaling them.</li>
           </ul>
         </section>
 

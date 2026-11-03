@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/cylindrical-wedge-oblique/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the volume of a cylindrical wedge?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "V = (2/3)r²h, for a wedge cut by a plane through a diameter of the base rising to height h."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Cavalieri's principle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If two solids have the same height and equal cross-sectional areas at every level, they have the same volume."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does leaning a cylinder change its volume?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, as long as the perpendicular height stays the same. It does increase the lateral area."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is there no simple formula for the lateral area of an oblique cylinder?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It needs the perimeter of an ellipse, which has no elementary closed form."
+          }
+        }
+      ]
     }
   ]
 }
@@ -249,10 +287,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the cylindrical wedge and oblique solids calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
+            <li><a href="#about-h">What are cylindrical wedges and oblique solids?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: an oblique cylinder</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
             <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -260,18 +307,38 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the cylindrical wedge and oblique solids calculator does</h2>
+          <h2 id="about-h" style="margin-top:0">What are cylindrical wedges and oblique solids?</h2>
           <p>A <strong>cylindrical wedge</strong>, or <strong>ungula</strong> ("hoof"), is cut from a right circular cylinder by a plane that passes through a diameter of the base and rises to a height <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> at the far side. It looks like a wedge of cheese cut from a round block.</p>
-          <p>An <strong>oblique</strong> cylinder or cone leans to one side: its axis is not perpendicular to its base. <strong>Cavalieri's principle</strong> says two solids with the same height and equal cross-sections at every level have the same volume, so leaning a cylinder or cone does not change its volume. Its slanted surface does get larger.</p>
-          <p>The calculator covers all three: the wedge's volume, curved face, base and slanted face; the oblique cylinder's volume and lateral area from its element length and angle; and the oblique cone's volume and lateral area.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, drag the lean slider. The volume readout stays fixed while the lateral edge grows, which is Cavalieri's principle in action.</p></div>
+          <p>An <strong>oblique</strong> cylinder or cone leans to one side: its axis is not perpendicular to its base. A leaning stack of coins is an oblique cylinder.</p>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Wedge:</strong> from <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>, the volume, the curved face, the semicircular base, the slanted half-ellipse and the total surface.</li>
+            <li><strong>Oblique cylinder:</strong> from <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>, the element length <span class="math" data-tex="L"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow></semantics></math></span></span> and the angle <span class="math" data-tex="\alpha"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow></semantics></math></span></span>, the perpendicular height, the volume and the lateral area.</li>
+            <li><strong>Oblique cone:</strong> from <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> and the apex offset <span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span>, the volume and the lateral area (computed numerically).</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p><strong>Cavalieri's principle</strong>: two solids with the same height whose horizontal cross-sections have equal areas at every level have the same volume. Leaning a cylinder or cone does not change its slices, so its volume does not change. Its slanted side does get larger.</p>
+          <div class="callout">
+            <p class="callout-title">No π in the wedge</p>
+            <p>The wedge's volume <span class="math" data-tex="\tfrac{2}{3}r^2h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span> and curved area <span class="math" data-tex="2rh"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>r</mi><mi>h</mi></mrow></semantics></math></span></span> contain no π, even though it is cut from a cylinder. The slices that produce them are triangles, not circles.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <div class="formula-box"><span class="math-display" data-tex="\text{Wedge: } V = \tfrac{2}{3} r^2 h, \qquad A_{\text{curved}} = 2 r h, \qquad A_{\text{slanted}} = \tfrac{\pi}{2}\,r\sqrt{r^2 + h^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Wedge: </mtext><mi>V</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mtext>curved</mtext></msub><mo>=</mo><mn>2</mn><mi>r</mi><mi>h</mi><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mtext>slanted</mtext></msub><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mi>π</mi><mn>2</mn></mfrac></mstyle><mtext> </mtext><mi>r</mi><msqrt><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>+</mo><msup><mi>h</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></div>
           <div class="formula-box"><span class="math-display" data-tex="\text{Oblique cylinder: } h = L\sin\alpha, \qquad V = \pi r^2 h, \qquad A_{\text{lateral}} = P_{\text{right section}} \times L"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Oblique cylinder: </mtext><mi>h</mi><mo>=</mo><mi>L</mi><mi>sin</mi><mo>⁡</mo><mi>α</mi><mo separator="true">,</mo><mspace width="2em"/><mi>V</mi><mo>=</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi><mo separator="true">,</mo><mspace width="2em"/><msub><mi>A</mi><mtext>lateral</mtext></msub><mo>=</mo><msub><mi>P</mi><mtext>right section</mtext></msub><mo>×</mo><mi>L</mi></mrow></semantics></math></span></span></div>
           <div class="formula-box"><span class="math-display" data-tex="\text{Oblique cone: } V = \tfrac{1}{3}\pi r^2 h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Oblique cone: </mtext><mi>V</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span></div>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
           <table class="var-table">
             <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
             <tbody>
@@ -279,33 +346,110 @@
               <tr><td><span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span></td><td>Perpendicular height (for the wedge, the height at the far edge)</td></tr>
               <tr><td><span class="math" data-tex="L"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow></semantics></math></span></span></td><td>Length of an element (lateral line) of an oblique cylinder</td></tr>
               <tr><td><span class="math" data-tex="\alpha"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow></semantics></math></span></span></td><td>Angle between the elements and the base</td></tr>
+              <tr><td><span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span></td><td>Horizontal offset of an oblique cone's apex from above the base centre</td></tr>
               <tr><td><span class="math" data-tex="P_{\text{right section}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mtext>right section</mtext></msub></mrow></semantics></math></span></span></td><td>Perimeter of the section perpendicular to the elements: an ellipse with semi-axes <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="r\sin\alpha"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>sin</mi><mo>⁡</mo><mi>α</mi></mrow></semantics></math></span></span></td></tr>
             </tbody>
           </table>
-          <p>The wedge's volume comes from slicing: sections perpendicular to the cutting diameter are right triangles of area <span class="math" data-tex="\tfrac{h}{2r}(r^2 - x^2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>h</mi><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo stretchy="false">(</mo><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, and integrating from <span class="math" data-tex="-r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span> to <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> gives <span class="math" data-tex="\tfrac{2}{3}r^2 h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span>. Remarkably, neither the volume nor the curved area contains π.</p>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Wedge volume</h3>
+          <p>Put the cutting diameter on the <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>-axis. A slice perpendicular to it at <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> is a right triangle with base <span class="math" data-tex="y = \sqrt{r^2 - x^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msqrt><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span> and height <span class="math" data-tex="\tfrac{h}{r}y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>h</mi><mi>r</mi></mfrac><mi>y</mi></mrow></semantics></math></span></span>, so its area is <span class="math" data-tex="\tfrac{h}{2r}(r^2 - x^2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>h</mi><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo stretchy="false">(</mo><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="V = \int_{-r}^{r} \frac{h}{2r}(r^2 - x^2)\,dx = \frac{h}{2r}\cdot\frac{4r^3}{3} = \frac{2}{3}r^2 h."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><msubsup><mo>∫</mo><mrow><mo>−</mo><mi>r</mi></mrow><mi>r</mi></msubsup><mfrac><mi>h</mi><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo stretchy="false">(</mo><msup><mi>r</mi><mn>2</mn></msup><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup><mo stretchy="false">)</mo><mtext> </mtext><mi>d</mi><mi>x</mi><mo>=</mo><mfrac><mi>h</mi><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo>⋅</mo><mfrac><mrow><mn>4</mn><msup><mi>r</mi><mn>3</mn></msup></mrow><mn>3</mn></mfrac><mo>=</mo><mfrac><mn>2</mn><mn>3</mn></mfrac><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Wedge curved area</h3>
+          <p>At angle <span class="math" data-tex="t"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow></semantics></math></span></span> around the base, the curved wall has height <span class="math" data-tex="h\sin t"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>sin</mi><mo>⁡</mo><mi>t</mi></mrow></semantics></math></span></span>. Unrolled over the arc length <span class="math" data-tex="r\,dt"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mtext> </mtext><mi>d</mi><mi>t</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="A = \int_0^{\pi} h\sin t\cdot r\,dt = 2rh."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>π</mi></msubsup><mi>h</mi><mi>sin</mi><mo>⁡</mo><mi>t</mi><mo>⋅</mo><mi>r</mi><mtext> </mtext><mi>d</mi><mi>t</mi><mo>=</mo><mn>2</mn><mi>r</mi><mi>h</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Oblique cylinder lateral area</h3>
+          <p>Cut the cylinder perpendicular to its elements and unroll: the side becomes a parallelogram-like strip whose width is the perimeter of that right section and whose length is <span class="math" data-tex="L"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow></semantics></math></span></span>.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>A wedge cut from a cylinder of radius 6 cm, rising to 9 cm</h3>
+            <h3>Problem</h3>
+            <p>A wedge is cut from a cylinder of radius <strong>6 cm</strong>, rising to <strong>9 cm</strong>. Find its volume and total surface.</p>
             <h4>Step 1: Volume</h4>
             <span class="math-display" data-tex="V = \tfrac{2}{3}(6)^2(9) = 216\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><mo stretchy="false">(</mo><mn>6</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>9</mn><mo stretchy="false">)</mo><mo>=</mo><mn>216</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
             <h4>Step 2: Curved surface</h4>
             <span class="math-display" data-tex="A_{\text{curved}} = 2(6)(9) = 108\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mtext>curved</mtext></msub><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>9</mn><mo stretchy="false">)</mo><mo>=</mo><mn>108</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
             <h4>Step 3: Flat faces</h4>
             <span class="math-display" data-tex="\text{base} = \tfrac{1}{2}\pi(6)^2 \approx 56.55, \qquad \text{slanted face} = \tfrac{\pi}{2}(6)\sqrt{36 + 81} \approx 101.94"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>base</mtext><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>π</mi><mo stretchy="false">(</mo><mn>6</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>≈</mo><mn>56.55</mn><mo separator="true">,</mo><mspace width="2em"/><mtext>slanted face</mtext><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mi>π</mi><mn>2</mn></mfrac></mstyle><mo stretchy="false">(</mo><mn>6</mn><mo stretchy="false">)</mo><msqrt><mrow><mn>36</mn><mo>+</mo><mn>81</mn></mrow></msqrt><mo>≈</mo><mn>101.94</mn></mrow></semantics></math></span></span>
-            <p>The total surface area is about <span class="math" data-tex="108 + 56.55 + 101.94 = 266.49\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>108</mn><mo>+</mo><mn>56.55</mn><mo>+</mo><mn>101.94</mn><mo>=</mo><mn>266.49</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>.</p>
+            <h4>Step 4: Total</h4>
+            <p><span class="math" data-tex="108 + 56.55 + 101.94 \approx 266.49"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>108</mn><mo>+</mo><mn>56.55</mn><mo>+</mo><mn>101.94</mn><mo>≈</mo><mn>266.49</mn></mrow></semantics></math></span></span> cm².</p>
           </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: an oblique cylinder</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>An oblique cylinder has base radius <strong>4 cm</strong>, elements <strong>10 cm</strong> long, inclined at <strong>60°</strong> to the base. Find its volume and lateral area.</p>
+            <h4>Step 1: Perpendicular height</h4>
+            <span class="math-display" data-tex="h = 10\sin 60^\circ = 5\sqrt{3} \approx 8.660\ \text{cm}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo>=</mo><mn>10</mn><mi>sin</mi><mo>⁡</mo><mn>6</mn><msup><mn>0</mn><mo>∘</mo></msup><mo>=</mo><mn>5</mn><msqrt><mn>3</mn></msqrt><mo>≈</mo><mn>8.660</mn><mtext> cm</mtext></mrow></semantics></math></span></span>
+            <h4>Step 2: Volume</h4>
+            <span class="math-display" data-tex="V = \pi(4)^2(8.660) \approx 435.31\ \text{cm}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>8.660</mn><mo stretchy="false">)</mo><mo>≈</mo><mn>435.31</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 3: Right section and lateral area</h4>
+            <p>The right section is an ellipse with semi-axes 4 and <span class="math" data-tex="4\sin 60^\circ \approx 3.464"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>sin</mi><mo>⁡</mo><mn>6</mn><msup><mn>0</mn><mo>∘</mo></msup><mo>≈</mo><mn>3.464</mn></mrow></semantics></math></span></span>; its perimeter is about 23.479 cm.</p>
+            <span class="math-display" data-tex="A_{\text{lateral}} \approx 23.479 \times 10 = 234.79\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>A</mi><mtext>lateral</mtext></msub><mo>≈</mo><mn>23.479</mn><mo>×</mo><mn>10</mn><mo>=</mo><mn>234.79</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <p>An upright cylinder of the same height would have lateral area <span class="math" data-tex="2\pi(4)(8.660) \approx 217.66"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>8.660</mn><mo stretchy="false">)</mo><mo>≈</mo><mn>217.66</mn></mrow></semantics></math></span></span> cm², so the lean adds about 8%.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Tanks.</strong> A horizontal cylindrical tank tilted on its side contains a wedge-shaped volume of liquid.</li>
+            <li><strong>Structures.</strong> Leaning columns and inclined pipes.</li>
+            <li><strong>Manufacturing.</strong> Mitre cuts on round bars produce ungulas.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the element length for the volume.</strong> Volume uses the perpendicular height <span class="math" data-tex="L\sin\alpha"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>sin</mi><mo>⁡</mo><mi>α</mi></mrow></semantics></math></span></span>.</li>
+            <li><strong>Using 2πr × L for the lateral area.</strong> That is only right when the cylinder is upright.</li>
+            <li><strong>Adding π to the wedge volume.</strong> It is <span class="math" data-tex="\tfrac{2}{3}r^2h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span>.</li>
+          </ol>
         </section>
 
         <section id="assumptions" aria-labelledby="assumptions-h">
           <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>The wedge's cutting plane passes through a full diameter of the base. Other wedges (cut through a chord) need integration.</li>
-            <li>The oblique cylinder has parallel circular ends. Its lateral area uses the perimeter of an ellipse, which has no elementary formula, so it is computed numerically.</li>
-            <li>The oblique cone's lateral area is also computed numerically, by adding up thin triangles from the apex to the rim.</li>
+            <li>The wedge's cutting plane passes through a full diameter of the base.</li>
+            <li>The oblique cylinder has parallel circular ends; its lateral area uses a numerical ellipse perimeter.</li>
+            <li>The oblique cone's lateral area is computed numerically.</li>
             <li>Upright versions: see the <a href="../cylinder/">cylinder</a> and <a href="../cone/">cone</a> calculators.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a cylindrical wedge?</summary>
+            <div class="faq-answer"><p>V = (2/3)r²h, for a wedge cut by a plane through a diameter of the base rising to height h.</p></div>
+          </details>
+          <details>
+            <summary>What is Cavalieri's principle?</summary>
+            <div class="faq-answer"><p>If two solids have the same height and equal cross-sectional areas at every level, they have the same volume.</p></div>
+          </details>
+          <details>
+            <summary>Does leaning a cylinder change its volume?</summary>
+            <div class="faq-answer"><p>No, as long as the perpendicular height stays the same. It does increase the lateral area.</p></div>
+          </details>
+          <details>
+            <summary>Why is there no simple formula for the lateral area of an oblique cylinder?</summary>
+            <div class="faq-answer"><p>It needs the perimeter of an ellipse, which has no elementary closed form.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../cylinder/">Cylinder</a> and <a href="../cone/">cone</a>.</li>
+            <li><a href="../ellipse/">Ellipse</a>: the right section of an oblique cylinder.</li>
+            <li><a href="../definite-integral/">Definite integrals</a>: the slicing method.</li>
           </ul>
         </section>
 

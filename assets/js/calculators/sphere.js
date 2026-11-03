@@ -26,7 +26,7 @@ export const calculator = {
     if (!v.ok()) return v.result();
     const u = units(values.unit);
     let r;
-    const steps = [{ title: 'Identify the known value', tex: `${known} = ${tx(x)}${known === 'A' ? u.texArea : known === 'V' ? u.texVol : u.texLen}` }];
+    const steps = [{ title: 'Identify the known value', tex: `${known} = ${tx(x)}${known === 'A' ? u.texArea : known === 'V' ? u.texVol : u.texLen}`, note: 'Every formula for a sphere uses the radius r, so the first job is always to find r.' }];
     if (known === 'r') r = x;
     else if (known === 'd') { r = x / 2; steps.push({ title: 'Find the radius from the diameter', texLines: ['r = \\frac{d}{2}', `r = \\frac{${tx(x)}}{2} = ${tx(r)}`] }); }
     else if (known === 'A') { r = Math.sqrt(x / (4 * Math.PI)); steps.push({ title: 'Solve A = 4πr² for the radius', texLines: ['r = \\sqrt{\\frac{A}{4\\pi}}', `r = \\sqrt{\\frac{${tx(x)}}{4\\pi}} \\approx ${tx(r)}`] }); }
@@ -39,8 +39,9 @@ export const calculator = {
     if (known === 'r' || known === 'd') { rF = parseFrac(values.value); if (rF && known === 'd') rF = rF.div(2); }
     const cA = rF ? rF.pow(2).mul(4) : null;
     const cV = rF ? rF.pow(3).mul(4).div(3) : null;
-    steps.push({ title: 'Surface area', texLines: ['A = 4\\pi r^2', `A = 4\\pi (${tx(r)})^2`, cA ? `A = ${piTex(cA)} \\approx ${tx(A)}` : `A \\approx ${tx(A)}`] });
-    steps.push({ title: 'Volume', texLines: ['V = \\frac{4}{3}\\pi r^3', `V = \\frac{4}{3}\\pi (${tx(r)})^3`, cV ? `V = ${piTex(cV)} \\approx ${tx(V)}` : `V \\approx ${tx(V)}`] });
+    steps.push({ title: 'Surface area', texLines: ['A = 4\\pi r^2', `A = 4\\pi (${tx(r)})^2 = 4\\pi (${tx(r * r)})`, cA ? `A = ${piTex(cA)} \\approx ${tx(A)}` : `A \\approx ${tx(A)}`], note: 'Square the radius first, then multiply by 4π. The surface of a sphere is exactly four times the area of its great circle, πr².' });
+    steps.push({ title: 'Volume', texLines: ['V = \\frac{4}{3}\\pi r^3', `V = \\frac{4}{3}\\pi (${tx(r)})^3 = \\frac{4}{3}\\pi (${tx(r ** 3)})`, cV ? `V = ${piTex(cV)} \\approx ${tx(V)}` : `V \\approx ${tx(V)}`], note: 'Cube the radius, multiply by 4 and divide by 3, then multiply by π.' });
+    steps.push({ title: 'Check the answer', tex: `V = \\tfrac{1}{3}\\,r\\,A = \\tfrac{1}{3}(${tx(r)})(${tx(A)}) \\approx ${tx((r * A) / 3)}`, note: 'A sphere can be split into thin cones from the centre to the surface, each of height r, so its volume is one third of r times its surface area. This agrees with the volume above.' });
     const answers = [
       answer('Radius r', r, { unit: u.len }),
       answer('Diameter d', 2 * r, { unit: u.len }),

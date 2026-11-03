@@ -76,6 +76,52 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/cylinder/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the formula for the volume of a cylinder?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "V = πr²h: the area of the circular base times the height."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between lateral and total surface area?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The lateral area is the curved side only, 2πrh. The total surface area adds the two circular ends: 2πr² + 2πrh."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the height if I know the volume?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rearrange V = πr²h to h = V ÷ (πr²)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many litres are in a cylinder?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Compute the volume in cm³ and divide by 1000, or in m³ and multiply by 1000."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does doubling the radius double the volume?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The volume depends on r², so doubling the radius multiplies the volume by 4. Doubling the height only doubles it."
+          }
+        }
+      ]
     }
   ]
 }
@@ -234,10 +280,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the cylinder calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is a cylinder?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: from the diameter</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -245,49 +300,169 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the cylinder calculator does</h2>
-          <p>A <strong>right circular cylinder</strong> has two equal, parallel circular bases joined by a curved side that meets them at right angles — the shape of a can, pipe or tank. Enter the radius (or diameter) and the height to get the volume, the curved (lateral) area, the area of the bases and the total surface area, with exact multiples of <span class="math" data-tex="\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi></mrow></semantics></math></span></span> wherever possible.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Doubling the height doubles both the volume and the curved area. Doubling the radius multiplies the volume by 4 because the radius is squared.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a cylinder?</h2>
+          <p>A <strong>right circular cylinder</strong> is the solid formed by two identical, parallel circles (the <strong>bases</strong>) joined by a curved surface that meets them at right angles. It is the shape of a can, a pipe, a water tank, a column or a roll of coins.</p>
+          <p>Its size is fixed by two numbers: the <strong>radius</strong> <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> of the bases and the <strong>height</strong> <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> between them. A cylinder is a prism with a circular base, so the same rule applies: volume = base area × height.</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="LSA = 2\pi r h \qquad TSA = 2\pi r^2 + 2\pi r h = 2\pi r(r + h) \qquad V = \pi r^2 h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi><mspace width="2em"/><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>r</mi><mo stretchy="false">(</mo><mi>r</mi><mo>+</mo><mi>h</mi><mo stretchy="false">)</mo><mspace width="2em"/><mi>V</mi><mo>=</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Radius of each circular base (half the diameter).</td></tr>
-              <tr><td><span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span></td><td>Height: perpendicular distance between the bases.</td></tr>
-              <tr><td><span class="math" data-tex="LSA"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi></mrow></semantics></math></span></span></td><td>Lateral (curved) surface area.</td></tr>
-              <tr><td><span class="math" data-tex="TSA"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi></mrow></semantics></math></span></span></td><td>Total surface area: curved side plus both bases.</td></tr>
-              <tr><td><span class="math" data-tex="V"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow></semantics></math></span></span></td><td>Volume: base area <span class="math" data-tex="\pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span> times height.</td></tr>
-            </tbody>
-          </table>
-          <p><strong>Why <span class="math" data-tex="2\pi r h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi></mrow></semantics></math></span></span>?</strong> Cut the curved side along a vertical line and flatten it: you get a rectangle whose width is the circumference <span class="math" data-tex="2\pi r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi></mrow></semantics></math></span></span> and whose height is <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter the radius (or the diameter) and the height. The calculator finds:</p>
+          <ul>
+            <li>the area of each circular base,</li>
+            <li>the lateral (curved) surface area,</li>
+            <li>the total surface area, and the area of an open-topped cylinder,</li>
+            <li>the volume, and the capacity in litres when you work in centimetres.</li>
+          </ul>
+          <p>For whole-number or short-decimal inputs it also gives exact answers in terms of π.</p>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>A tank with radius 4 cm and height 10 cm</h3>
-            <h4>Step 1 — Known values</h4>
-            <p><span class="math" data-tex="r = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span> cm, <span class="math" data-tex="h = 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>10</mn></mrow></semantics></math></span></span> cm.</p>
-            <h4>Step 2 — Curved area</h4>
-            <span class="math-display" data-tex="LSA = 2\pi(4)(10) = 80\pi \approx 251.33 \text{ cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>10</mn><mo stretchy="false">)</mo><mo>=</mo><mn>80</mn><mi>π</mi><mo>≈</mo><mn>251.33</mn><msup><mtext> cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
-            <h4>Step 3 — Total surface area</h4>
-            <span class="math-display" data-tex="TSA = 2\pi(4)^2 + 80\pi = 32\pi + 80\pi = 112\pi \approx 351.86 \text{ cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mn>80</mn><mi>π</mi><mo>=</mo><mn>32</mn><mi>π</mi><mo>+</mo><mn>80</mn><mi>π</mi><mo>=</mo><mn>112</mn><mi>π</mi><mo>≈</mo><mn>351.86</mn><msup><mtext> cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
-            <h4>Step 4 — Volume</h4>
-            <span class="math-display" data-tex="V = \pi(4)^2(10) = 160\pi \approx 502.65 \text{ cm}^3 \approx 0.503 \text{ L}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>10</mn><mo stretchy="false">)</mo><mo>=</mo><mn>160</mn><mi>π</mi><mo>≈</mo><mn>502.65</mn><msup><mtext> cm</mtext><mn>3</mn></msup><mo>≈</mo><mn>0.503</mn><mtext> L</mtext></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Think of a cylinder as a stack of identical coins. Each coin is a circle of area <span class="math" data-tex="\pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span>; stacking them to height <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> gives a volume of <span class="math" data-tex="\pi r^2 h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span>.</p>
+          <p>For the surface, cut the curved side straight down and unroll it. It flattens into a <strong>rectangle</strong>: one side is the height <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>, the other is the length of the circle it wrapped around, the circumference <span class="math" data-tex="2\pi r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi></mrow></semantics></math></span></span>. So the curved area is <span class="math" data-tex="2\pi r h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi></mrow></semantics></math></span></span>.</p>
+          <div class="callout">
+            <p class="callout-title">Closed, open or a pipe?</p>
+            <p>A closed can has two bases, an open tank has one, and a pipe has none. Decide which surfaces really exist before adding areas.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">What it means</th></tr></thead>
+            <tbody>
+              <tr><td>Base area</td><td><span class="math" data-tex="B = \pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td><td>One circular end.</td></tr>
+              <tr><td>Lateral area</td><td><span class="math" data-tex="LSA = 2\pi r h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi></mrow></semantics></math></span></span></td><td>The unrolled rectangle.</td></tr>
+              <tr><td>Total surface area</td><td><span class="math" data-tex="TSA = 2\pi r^2 + 2\pi r h = 2\pi r(r + h)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>r</mi><mo stretchy="false">(</mo><mi>r</mi><mo>+</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Two bases plus the side.</td></tr>
+              <tr><td>Open top</td><td><span class="math" data-tex="\pi r^2 + 2\pi r h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi></mrow></semantics></math></span></span></td><td>One base plus the side.</td></tr>
+              <tr><td>Volume</td><td><span class="math" data-tex="V = \pi r^2 h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span></td><td>Base area × height.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Radius</td><td>Half the diameter of a base.</td></tr>
+              <tr><td><span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span></td><td>Diameter</td><td><span class="math" data-tex="2r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>r</mi></mrow></semantics></math></span></span>; pipe sizes are usually given this way.</td></tr>
+              <tr><td><span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span></td><td>Height</td><td>Distance between the bases (the length of a pipe).</td></tr>
+              <tr><td><span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span></td><td>Base area</td><td>Square units.</td></tr>
+              <tr><td><span class="math" data-tex="V"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow></semantics></math></span></span></td><td>Volume</td><td>Cubic units; 1000 cm³ = 1 litre.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume</h3>
+          <p>Every horizontal slice is the same circle, so integrating the slice area over the height gives</p>
+          <span class="math-display" data-tex="V = \int_0^h \pi r^2\,dy = \pi r^2 h."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>h</mi></msubsup><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mtext> </mtext><mi>d</mi><mi>y</mi><mo>=</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Lateral area</h3>
+          <p>Unrolled, the side is a rectangle <span class="math" data-tex="2\pi r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi></mrow></semantics></math></span></span> by <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="LSA = (2\pi r)(h) = 2\pi r h."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>r</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Total area</h3>
+          <span class="math-display" data-tex="TSA = 2(\pi r^2) + 2\pi r h = 2\pi r(r + h)."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="false">)</mo><mo>+</mo><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>r</mi><mo stretchy="false">(</mo><mi>r</mi><mo>+</mo><mi>h</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Factoring out <span class="math" data-tex="2\pi r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi></mrow></semantics></math></span></span> makes the calculation quicker by hand.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A closed can has radius <strong>4 cm</strong> and height <strong>10 cm</strong>. Find the metal needed and the volume.</p>
+            <h4>Step 1: Base area</h4>
+            <span class="math-display" data-tex="B = \pi(4)^2 = 16\pi \approx 50.27\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>B</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>16</mn><mi>π</mi><mo>≈</mo><mn>50.27</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 2: Lateral area</h4>
+            <span class="math-display" data-tex="LSA = 2\pi(4)(10) = 80\pi \approx 251.33\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>10</mn><mo stretchy="false">)</mo><mo>=</mo><mn>80</mn><mi>π</mi><mo>≈</mo><mn>251.33</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 3: Total surface area</h4>
+            <span class="math-display" data-tex="TSA = 2(16\pi) + 80\pi = 112\pi \approx 351.86\ \text{cm}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mi>S</mi><mi>A</mi><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mn>16</mn><mi>π</mi><mo stretchy="false">)</mo><mo>+</mo><mn>80</mn><mi>π</mi><mo>=</mo><mn>112</mn><mi>π</mi><mo>≈</mo><mn>351.86</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 4: Volume</h4>
+            <span class="math-display" data-tex="V = \pi(4)^2(10) = 160\pi \approx 502.65\ \text{cm}^3 \approx 0.503\ \text{L}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>10</mn><mo stretchy="false">)</mo><mo>=</mo><mn>160</mn><mi>π</mi><mo>≈</mo><mn>502.65</mn><mtext> </mtext><msup><mtext>cm</mtext><mn>3</mn></msup><mo>≈</mo><mn>0.503</mn><mtext> L</mtext></mrow></semantics></math></span></span>
+            <h4>Answer</h4>
+            <p>The can uses <span class="math" data-tex="112\pi \approx 351.86"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>112</mn><mi>π</mi><mo>≈</mo><mn>351.86</mn></mrow></semantics></math></span></span> cm² of metal and holds <span class="math" data-tex="160\pi \approx 502.65"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>160</mn><mi>π</mi><mo>≈</mo><mn>502.65</mn></mrow></semantics></math></span></span> cm³, about half a litre.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: from the diameter</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A water tank has a diameter of <strong>1.8 m</strong> and a height of <strong>2.5 m</strong>, with an open top. How many litres does it hold, and how much sheet metal does it use?</p>
+            <h4>Step 1: Radius</h4>
+            <span class="math-display" data-tex="r = \frac{1.8}{2} = 0.9\ \text{m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>r</mi><mo>=</mo><mfrac><mn>1.8</mn><mn>2</mn></mfrac><mo>=</mo><mn>0.9</mn><mtext> m</mtext></mrow></semantics></math></span></span>
+            <h4>Step 2: Volume</h4>
+            <span class="math-display" data-tex="V = \pi(0.9)^2(2.5) = \pi(0.81)(2.5) = 2.025\pi \approx 6.362\ \text{m}^3 \approx 6362\ \text{L}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>0.9</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mn>2.5</mn><mo stretchy="false">)</mo><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mn>0.81</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2.5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2.025</mn><mi>π</mi><mo>≈</mo><mn>6.362</mn><mtext> </mtext><msup><mtext>m</mtext><mn>3</mn></msup><mo>≈</mo><mn>6362</mn><mtext> L</mtext></mrow></semantics></math></span></span>
+            <h4>Step 3: Sheet metal (one base plus side)</h4>
+            <span class="math-display" data-tex="\pi(0.9)^2 + 2\pi(0.9)(2.5) = 0.81\pi + 4.5\pi = 5.31\pi \approx 16.68\ \text{m}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>π</mi><mo stretchy="false">(</mo><mn>0.9</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>π</mi><mo stretchy="false">(</mo><mn>0.9</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2.5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0.81</mn><mi>π</mi><mo>+</mo><mn>4.5</mn><mi>π</mi><mo>=</mo><mn>5.31</mn><mi>π</mi><mo>≈</mo><mn>16.68</mn><mtext> </mtext><msup><mtext>m</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Answer</h4>
+            <p>About <strong>6360 litres</strong> and <strong>16.7 m²</strong> of sheet metal.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>The cylinder is a <em>right</em> circular cylinder. An oblique cylinder has the same volume <span class="math" data-tex="\pi r^2 h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup><mi>h</mi></mrow></semantics></math></span></span> (with <span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span> measured perpendicularly) but a different lateral area.</li>
-            <li>Radius and height must be positive numbers.</li>
-            <li>An open container (such as a cup) uses <span class="math" data-tex="LSA + \pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>S</mi><mi>A</mi><mo>+</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span> rather than the total surface area.</li>
-            <li>Exact answers are shown as multiples of <span class="math" data-tex="\pi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi></mrow></semantics></math></span></span>; decimals are rounded to 6 places.</li>
+            <li><strong>Tanks and pipes.</strong> Water, fuel and grain storage; the volume of water in a length of pipe.</li>
+            <li><strong>Concrete columns.</strong> The volume of concrete for a round column or a bored pile.</li>
+            <li><strong>Packaging.</strong> The metal for a can (surface area) and its capacity (volume).</li>
+            <li><strong>Engines.</strong> The displacement of a cylinder is <span class="math" data-tex="\pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span> times the piston stroke.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the diameter as the radius.</strong> Halve it first, or the volume comes out four times too large.</li>
+            <li><strong>Counting the wrong number of bases.</strong> Closed: two; open: one; pipe: none.</li>
+            <li><strong>Writing the lateral area as πr²h.</strong> That is the volume. The side is <span class="math" data-tex="2\pi r h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi><mi>r</mi><mi>h</mi></mrow></semantics></math></span></span>.</li>
+            <li><strong>Mixing units.</strong> A diameter in millimetres with a height in metres gives nonsense. Convert first.</li>
+            <li><strong>Litres.</strong> 1 m³ = 1000 L, and 1000 cm³ = 1 L.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The cylinder is right: its side is perpendicular to its bases. For a leaning cylinder, see the <a href="../cylindrical-wedge-oblique/">oblique solids calculator</a> (the volume is the same for the same perpendicular height).</li>
+            <li>Wall thickness is ignored. For a pipe with a hole, use the pipe option of the <a href="../composite-solid/">composite solid calculator</a>.</li>
+            <li>Exact forms in π are shown for whole-number and short-decimal inputs.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the formula for the volume of a cylinder?</summary>
+            <div class="faq-answer"><p>V = πr²h: the area of the circular base times the height.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between lateral and total surface area?</summary>
+            <div class="faq-answer"><p>The lateral area is the curved side only, 2πrh. The total surface area adds the two circular ends: 2πr² + 2πrh.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the height if I know the volume?</summary>
+            <div class="faq-answer"><p>Rearrange V = πr²h to h = V ÷ (πr²).</p></div>
+          </details>
+          <details>
+            <summary>How many litres are in a cylinder?</summary>
+            <div class="faq-answer"><p>Compute the volume in cm³ and divide by 1000, or in m³ and multiply by 1000.</p></div>
+          </details>
+          <details>
+            <summary>Does doubling the radius double the volume?</summary>
+            <div class="faq-answer"><p>No. The volume depends on r², so doubling the radius multiplies the volume by 4. Doubling the height only doubles it.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../cone/">Cone</a>: one third of the cylinder with the same base and height.</li>
+            <li><a href="../sphere/">Sphere</a>: two thirds of its circumscribed cylinder.</li>
+            <li><a href="../cylindrical-wedge-oblique/">Cylindrical wedge and oblique cylinders</a>.</li>
+            <li><a href="../composite-solid/">Composite solids</a>: silos, capsules and pipes built from cylinders.</li>
           </ul>
         </section>
 

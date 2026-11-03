@@ -76,6 +76,52 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/pyramid/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the volume of a pyramid?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One third of the base area times the height: V = (1/3)Bh."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the slant height of a pyramid?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The height of a triangular face, from the middle of a base edge to the apex: √(h² + m²), where m is the apothem."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the height from the slant height?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "h = √(s² − m²). For a square pyramid, m is half the base edge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a tetrahedron a pyramid?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, a triangular pyramid. If all four faces are equilateral it is a regular tetrahedron; see the regular polyhedron calculator."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the volume one third of a prism?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A cube can be cut into three identical pyramids that meet at one corner, and slicing shows the same one-third factor for any base."
+          }
+        }
+      ]
     }
   ]
 }
@@ -249,10 +295,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the pyramid calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is a pyramid?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a rectangular base</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -260,47 +315,169 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the pyramid calculator does</h2>
-          <p>A <strong>pyramid</strong> has a polygon base and triangular faces that meet at a single point, the apex. In a <strong>right pyramid</strong> the apex sits directly above the centre of the base. Enter the base dimensions and the perpendicular height; the calculator finds the slant height of the faces, the lateral and total surface areas, the length of a lateral edge and the volume.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the pyramid taller with the same base: the volume rises in proportion to the height, while the slant height — and so the lateral area — grows more gradually.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a pyramid?</h2>
+          <p>A <strong>pyramid</strong> has a polygon base and triangular side faces that meet at a single point, the <strong>apex</strong>. In a <strong>right pyramid</strong> the apex is directly above the centre of the base. The Egyptian pyramids are square pyramids; a hip roof and a church spire are pyramids too.</p>
+          <p>Like a prism, a pyramid is named by its base: triangular, square, rectangular, pentagonal, hexagonal and so on. A triangular pyramid whose faces are all equilateral is a <strong>regular tetrahedron</strong>.</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="V = \frac{1}{3} B h \qquad s = \sqrt{h^2 + m^2} \qquad L = \frac{1}{2} P s \qquad T = B + L"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>B</mi><mi>h</mi><mspace width="2em"/><mi>s</mi><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><msup><mi>m</mi><mn>2</mn></msup></mrow></msqrt><mspace width="2em"/><mi>L</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>P</mi><mi>s</mi><mspace width="2em"/><mi>T</mi><mo>=</mo><mi>B</mi><mo>+</mo><mi>L</mi></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="B, P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo separator="true">,</mo><mi>P</mi></mrow></semantics></math></span></span></td><td>Area and perimeter of the base.</td></tr>
-              <tr><td><span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span></td><td>Perpendicular height from the apex to the base.</td></tr>
-              <tr><td><span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span></td><td>Apothem of a regular base: distance from its centre to the middle of an edge.</td></tr>
-              <tr><td><span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span></td><td>Slant height: height of each triangular face.</td></tr>
-            </tbody>
-          </table>
-          <p>For a <strong>rectangular</strong> base <span class="math" data-tex="l \times w"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>×</mo><mi>w</mi></mrow></semantics></math></span></span> the faces have two different slant heights, <span class="math" data-tex="s_l = \sqrt{h^2 + (w/2)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>l</mi></msub><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>w</mi><mi mathvariant="normal">/</mi><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span> and <span class="math" data-tex="s_w = \sqrt{h^2 + (l/2)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>w</mi></msub><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>l</mi><mi mathvariant="normal">/</mi><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span>, and the lateral area is <span class="math" data-tex="L = l s_l + w s_w"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mi>l</mi><msub><mi>s</mi><mi>l</mi></msub><mo>+</mo><mi>w</mi><msub><mi>s</mi><mi>w</mi></msub></mrow></semantics></math></span></span>.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose a regular base (3 to 12 equal sides) or a rectangular base, and enter its edges and the height. The calculator finds:</p>
+          <ul>
+            <li>the base area, using the apothem for regular bases,</li>
+            <li>the slant height of each face (two different ones for a rectangle),</li>
+            <li>the lateral area, the total surface area and the volume,</li>
+            <li>the lateral edge from the apex to a corner.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>A square pyramid with base edge 6 m and height 4 m</h3>
-            <h4>Step 1 — Base area and apothem</h4>
-            <span class="math-display" data-tex="B = 6^2 = 36 \text{ m}^2, \qquad m = \frac{6}{2} = 3 \text{ m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>B</mi><mo>=</mo><msup><mn>6</mn><mn>2</mn></msup><mo>=</mo><mn>36</mn><msup><mtext> m</mtext><mn>2</mn></msup><mo separator="true">,</mo><mspace width="2em"/><mi>m</mi><mo>=</mo><mfrac><mn>6</mn><mn>2</mn></mfrac><mo>=</mo><mn>3</mn><mtext> m</mtext></mrow></semantics></math></span></span>
-            <h4>Step 2 — Slant height</h4>
-            <span class="math-display" data-tex="s = \sqrt{4^2 + 3^2} = 5 \text{ m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mo>=</mo><msqrt><mrow><msup><mn>4</mn><mn>2</mn></msup><mo>+</mo><msup><mn>3</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>5</mn><mtext> m</mtext></mrow></semantics></math></span></span>
-            <h4>Step 3 — Surface areas</h4>
-            <span class="math-display" data-tex="L = \frac{1}{2}(24)(5) = 60 \text{ m}^2, \qquad T = 36 + 60 = 96 \text{ m}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>60</mn><msup><mtext> m</mtext><mn>2</mn></msup><mo separator="true">,</mo><mspace width="2em"/><mi>T</mi><mo>=</mo><mn>36</mn><mo>+</mo><mn>60</mn><mo>=</mo><mn>96</mn><msup><mtext> m</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
-            <h4>Step 4 — Volume</h4>
-            <span class="math-display" data-tex="V = \frac{1}{3}(36)(4) = 48 \text{ m}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mo stretchy="false">(</mo><mn>36</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>48</mn><msup><mtext> m</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>A pyramid problem involves three different right triangles inside the solid:</p>
+          <ul>
+            <li><strong>Height, apothem, slant height:</strong> from the centre of the base to the middle of an edge (apothem <span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span>) and up to the apex, <span class="math" data-tex="s = \sqrt{h^2 + m^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><msup><mi>m</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span>. This gives the face heights.</li>
+            <li><strong>Height, circumradius, lateral edge:</strong> from the centre to a corner and up, <span class="math" data-tex="e = \sqrt{h^2 + R^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><msup><mi>R</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span>. This gives the edge lengths.</li>
+            <li><strong>Half an edge, slant height, lateral edge</strong> on each face: <span class="math" data-tex="e^2 = s^2 + (a/2)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mn>2</mn></msup><mo>=</mo><msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>a</mi><mi mathvariant="normal">/</mi><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>.</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">One third of a prism</p>
+            <p>Three pyramids of equal volume can be assembled into the prism with the same base and height. So a pyramid holds exactly one third as much: <span class="math" data-tex="V = \tfrac{1}{3}Bh"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>B</mi><mi>h</mi></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Volume</td><td><span class="math" data-tex="V = \tfrac{1}{3}Bh"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>B</mi><mi>h</mi></mrow></semantics></math></span></span></td><td>Any pyramid, any base.</td></tr>
+              <tr><td>Slant height (regular)</td><td><span class="math" data-tex="s = \sqrt{h^2 + m^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><msup><mi>m</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td><td><span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span> is the apothem of the base.</td></tr>
+              <tr><td>Lateral area (regular)</td><td><span class="math" data-tex="L = \tfrac{1}{2}P s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>P</mi><mi>s</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> triangles of area <span class="math" data-tex="\tfrac{1}{2}as"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>a</mi><mi>s</mi></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td>Total area</td><td><span class="math" data-tex="T = B + L"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>B</mi><mo>+</mo><mi>L</mi></mrow></semantics></math></span></span></td><td>One base only.</td></tr>
+              <tr><td>Rectangular base</td><td><span class="math" data-tex="L = l\sqrt{h^2 + (w/2)^2} + w\sqrt{h^2 + (l/2)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mi>l</mi><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>w</mi><mi mathvariant="normal">/</mi><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mi>w</mi><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>l</mi><mi mathvariant="normal">/</mi><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td><td>Two pairs of different faces.</td></tr>
+              <tr><td>Lateral edge</td><td><span class="math" data-tex="e = \sqrt{h^2 + R^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><msqrt><mrow><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><msup><mi>R</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td><td><span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span> = centre to a corner.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span></td><td>Base area</td><td>Area of the polygon base.</td></tr>
+              <tr><td><span class="math" data-tex="h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow></semantics></math></span></span></td><td>Height</td><td>Apex to base, perpendicular.</td></tr>
+              <tr><td><span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span></td><td>Slant height</td><td>Height of a triangular face.</td></tr>
+              <tr><td><span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span></td><td>Apothem</td><td>Centre of the base to the middle of an edge.</td></tr>
+              <tr><td><span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span></td><td>Circumradius</td><td>Centre of the base to a corner.</td></tr>
+              <tr><td><span class="math" data-tex="e"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span></td><td>Lateral edge</td><td>Apex to a corner of the base.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume by slicing</h3>
+          <p>At distance <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> below the apex, a horizontal slice is the base shrunk by the factor <span class="math" data-tex="y/h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mi mathvariant="normal">/</mi><mi>h</mi></mrow></semantics></math></span></span>, so its area is <span class="math" data-tex="B\,(y/h)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mtext> </mtext><mo stretchy="false">(</mo><mi>y</mi><mi mathvariant="normal">/</mi><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>. Adding the slices:</p>
+          <span class="math-display" data-tex="V = \int_0^h B\frac{y^2}{h^2}\,dy = \frac{B}{h^2}\cdot\frac{h^3}{3} = \frac{1}{3}Bh."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>h</mi></msubsup><mi>B</mi><mfrac><msup><mi>y</mi><mn>2</mn></msup><msup><mi>h</mi><mn>2</mn></msup></mfrac><mtext> </mtext><mi>d</mi><mi>y</mi><mo>=</mo><mfrac><mi>B</mi><msup><mi>h</mi><mn>2</mn></msup></mfrac><mo>⋅</mo><mfrac><msup><mi>h</mi><mn>3</mn></msup><mn>3</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>B</mi><mi>h</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Lateral area of a regular pyramid</h3>
+          <p>All <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> faces are congruent isosceles triangles with base <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and height <span class="math" data-tex="s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="L = n\cdot\tfrac{1}{2}a s = \tfrac{1}{2}(na)s = \tfrac{1}{2}Ps."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mo>=</mo><mi>n</mi><mo>⋅</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>a</mi><mi>s</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo stretchy="false">(</mo><mi>n</mi><mi>a</mi><mo stretchy="false">)</mo><mi>s</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi>P</mi><mi>s</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A square pyramid has base edges of <strong>6 m</strong> and a height of <strong>4 m</strong>. Find the slant height, the surface area and the volume.</p>
+            <h4>Step 1: Base area and apothem</h4>
+            <span class="math-display" data-tex="B = 6^2 = 36\ \text{m}^2, \qquad m = \tfrac{6}{2} = 3\ \text{m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>B</mi><mo>=</mo><msup><mn>6</mn><mn>2</mn></msup><mo>=</mo><mn>36</mn><mtext> </mtext><msup><mtext>m</mtext><mn>2</mn></msup><mo separator="true">,</mo><mspace width="2em"/><mi>m</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>6</mn><mn>2</mn></mfrac></mstyle><mo>=</mo><mn>3</mn><mtext> m</mtext></mrow></semantics></math></span></span>
+            <h4>Step 2: Slant height</h4>
+            <span class="math-display" data-tex="s = \sqrt{4^2 + 3^2} = \sqrt{25} = 5\ \text{m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mo>=</mo><msqrt><mrow><msup><mn>4</mn><mn>2</mn></msup><mo>+</mo><msup><mn>3</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mn>25</mn></msqrt><mo>=</mo><mn>5</mn><mtext> m</mtext></mrow></semantics></math></span></span>
+            <h4>Step 3: Lateral and total area</h4>
+            <span class="math-display" data-tex="L = \tfrac{1}{2}(4 \times 6)(5) = 60\ \text{m}^2, \qquad T = 36 + 60 = 96\ \text{m}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo stretchy="false">(</mo><mn>4</mn><mo>×</mo><mn>6</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>60</mn><mtext> </mtext><msup><mtext>m</mtext><mn>2</mn></msup><mo separator="true">,</mo><mspace width="2em"/><mi>T</mi><mo>=</mo><mn>36</mn><mo>+</mo><mn>60</mn><mo>=</mo><mn>96</mn><mtext> </mtext><msup><mtext>m</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 4: Volume</h4>
+            <span class="math-display" data-tex="V = \tfrac{1}{3}(36)(4) = 48\ \text{m}^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>V</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mo stretchy="false">(</mo><mn>36</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>48</mn><mtext> </mtext><msup><mtext>m</mtext><mn>3</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 5: Lateral edge</h4>
+            <span class="math-display" data-tex="R = 3\sqrt{2} \approx 4.2426, \qquad e = \sqrt{4^2 + 18} = \sqrt{34} \approx 5.831\ \text{m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mo>=</mo><mn>3</mn><msqrt><mn>2</mn></msqrt><mo>≈</mo><mn>4.2426</mn><mo separator="true">,</mo><mspace width="2em"/><mi>e</mi><mo>=</mo><msqrt><mrow><msup><mn>4</mn><mn>2</mn></msup><mo>+</mo><mn>18</mn></mrow></msqrt><mo>=</mo><msqrt><mn>34</mn></msqrt><mo>≈</mo><mn>5.831</mn><mtext> m</mtext></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a rectangular base</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A hip roof is a pyramid on a <strong>10 m × 6 m</strong> rectangle, rising <strong>4 m</strong>. Find the roof area.</p>
+            <h4>Step 1: Slant heights</h4>
+            <span class="math-display" data-tex="s_l = \sqrt{4^2 + 3^2} = 5\ \text{m}\ \ (\text{faces on the 10 m edges}), \qquad s_w = \sqrt{4^2 + 5^2} = \sqrt{41} \approx 6.403\ \text{m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>s</mi><mi>l</mi></msub><mo>=</mo><msqrt><mrow><msup><mn>4</mn><mn>2</mn></msup><mo>+</mo><msup><mn>3</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>5</mn><mtext> m  </mtext><mo stretchy="false">(</mo><mtext>faces on the 10 m edges</mtext><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><msub><mi>s</mi><mi>w</mi></msub><mo>=</mo><msqrt><mrow><msup><mn>4</mn><mn>2</mn></msup><mo>+</mo><msup><mn>5</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mn>41</mn></msqrt><mo>≈</mo><mn>6.403</mn><mtext> m</mtext></mrow></semantics></math></span></span>
+            <h4>Step 2: Roof area</h4>
+            <span class="math-display" data-tex="L = 10(5) + 6(6.403) \approx 50 + 38.42 = 88.42\ \text{m}^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mo>=</mo><mn>10</mn><mo stretchy="false">(</mo><mn>5</mn><mo stretchy="false">)</mo><mo>+</mo><mn>6</mn><mo stretchy="false">(</mo><mn>6.403</mn><mo stretchy="false">)</mo><mo>≈</mo><mn>50</mn><mo>+</mo><mn>38.42</mn><mo>=</mo><mn>88.42</mn><mtext> </mtext><msup><mtext>m</mtext><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Answer</h4>
+            <p>The roof covers about <strong>88.4 m²</strong>. The two triangles on the long edges are 25 m² each and the two on the short edges are about 19.2 m² each.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Right pyramids only: regular polygon bases (3, 4, 5, 6, 8, 10 or 12 sides) or rectangular bases, with the apex over the centre.</li>
-            <li>The volume formula <span class="math" data-tex="\tfrac{1}{3}Bh"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac><mi>B</mi><mi>h</mi></mrow></semantics></math></span></span> also holds for oblique pyramids, but their lateral areas are different and are not calculated here.</li>
-            <li>All lengths must be positive. Results are rounded to 6 decimal places.</li>
+            <li><strong>Roofs.</strong> Hip roofs and spires: roofing area is the lateral area.</li>
+            <li><strong>Monuments and architecture.</strong> Volumes of stone; glass for pyramidal skylights.</li>
+            <li><strong>Packaging and tents.</strong> Pyramidal boxes and tents.</li>
+            <li><strong>Stockpiles</strong> on a rectangular footprint.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the slant height in the volume.</strong> Volume needs the perpendicular height.</li>
+            <li><strong>Confusing slant height and lateral edge.</strong> The slant height meets the middle of a base edge; the lateral edge meets a corner, and is longer.</li>
+            <li><strong>Forgetting the 1/3.</strong></li>
+            <li><strong>One slant height for a rectangle.</strong> A rectangular pyramid has two different face heights.</li>
+            <li><strong>Adding two bases.</strong> A pyramid has only one.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The pyramid is right. For a leaning pyramid, the volume formula still holds with the perpendicular height, but the face areas differ.</li>
+            <li>For a pyramid with its top cut off, use the <a href="../frustum-of-a-pyramid/">frustum of a pyramid calculator</a>.</li>
+            <li>Regular bases have 3 to 12 equal sides.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a pyramid?</summary>
+            <div class="faq-answer"><p>One third of the base area times the height: V = (1/3)Bh.</p></div>
+          </details>
+          <details>
+            <summary>What is the slant height of a pyramid?</summary>
+            <div class="faq-answer"><p>The height of a triangular face, from the middle of a base edge to the apex: √(h² + m²), where m is the apothem.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the height from the slant height?</summary>
+            <div class="faq-answer"><p>h = √(s² − m²). For a square pyramid, m is half the base edge.</p></div>
+          </details>
+          <details>
+            <summary>Is a tetrahedron a pyramid?</summary>
+            <div class="faq-answer"><p>Yes, a triangular pyramid. If all four faces are equilateral it is a regular tetrahedron; see the regular polyhedron calculator.</p></div>
+          </details>
+          <details>
+            <summary>Why is the volume one third of a prism?</summary>
+            <div class="faq-answer"><p>A cube can be cut into three identical pyramids that meet at one corner, and slicing shows the same one-third factor for any base.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../frustum-of-a-pyramid/">Frustum of a pyramid</a>: the top cut off.</li>
+            <li><a href="../cone/">Cone</a>: a pyramid with a circular base.</li>
+            <li><a href="../prismatoid/">Prismatoid</a>: the prismoidal formula includes pyramids.</li>
+            <li><a href="../regular-polyhedron/">Regular polyhedrons</a>: the tetrahedron and octahedron.</li>
           </ul>
         </section>
 

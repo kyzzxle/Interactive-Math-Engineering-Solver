@@ -1,45 +1,158 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the frustum of a pyramid calculator does</h2>
-          <p>A <strong>frustum of a pyramid</strong> is what remains when a pyramid is cut by a plane parallel to its base and the top is removed. It has two similar, parallel polygon bases and trapezoidal side faces — the shape of many hoppers, planters, dams and pedestal footings. The calculator handles frustums with regular polygon bases (square, hexagon and others) and with rectangular bases.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Set the top edge equal to the bottom edge and you get a prism; set the top edge to 0 and you get a complete pyramid. The volume formula covers both cases.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a frustum of a pyramid?</h2>
+          <p>A <strong>frustum of a pyramid</strong> is what remains when a pyramid is cut by a plane parallel to its base and the top piece, including the apex, is removed. It has two parallel bases that are <strong>similar</strong> polygons of different sizes, joined by trapezoidal side faces. Concrete footings, hoppers, lampshades with square sections and the lower part of a square chimney are frustums.</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ V = \frac{h}{3}\left(A_1 + A_2 + \sqrt{A_1 A_2}\right) \qquad T = A_1 + A_2 + L \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\(A_1, A_2\)</td><td>Areas of the bottom (larger) and top (smaller) bases.</td></tr>
-              <tr><td>\(h\)</td><td>Perpendicular distance between the bases.</td></tr>
-              <tr><td>\(s\)</td><td>Slant height of a trapezoidal face, \(s = \sqrt{h^2 + (m_1 - m_2)^2}\), where \(m_1, m_2\) are the apothems of the bases.</td></tr>
-              <tr><td>\(L\)</td><td>Lateral area: for a regular \(n\)-gon, \(L = n\cdot\frac{a + b}{2}\cdot s\).</td></tr>
-            </tbody>
-          </table>
-          <p>The volume formula comes from subtracting the small removed pyramid from the large original one; the \(\sqrt{A_1 A_2}\) term is the "average" that appears because the cross-sectional area changes quadratically with height.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter the bottom and top edges of a regular base (3 to 12 sides), or the dimensions of two similar rectangles, and the height. The calculator finds:</p>
+          <ul>
+            <li>the areas of both bases,</li>
+            <li>the slant height of each trapezoidal face (two for rectangular bases),</li>
+            <li>the lateral area, the total surface area and the volume,</li>
+            <li>a check of the volume as the difference of two pyramids.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Square frustum: bottom edge 10 m, top edge 6 m, height 3 m</h3>
-            <h4>Step 1 — Base areas</h4>
-            \[ A_1 = 10^2 = 100, \qquad A_2 = 6^2 = 36, \qquad \sqrt{A_1 A_2} = 60 \]
-            <h4>Step 2 — Volume</h4>
-            \[ V = \frac{3}{3}(100 + 36 + 60) = 196 \text{ m}^3 \]
-            <h4>Step 3 — Slant height and lateral area</h4>
-            \[ s = \sqrt{3^2 + (5 - 3)^2} = \sqrt{13} \approx 3.6056, \qquad L = 4\cdot\frac{10 + 6}{2}\cdot\sqrt{13} = 32\sqrt{13} \approx 115.38 \text{ m}^2 \]
-            <h4>Step 4 — Total surface area</h4>
-            \[ T = 100 + 36 + 115.38 \approx 251.38 \text{ m}^2 \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Extend the sloping faces upward until they meet: the frustum is a <strong>large pyramid minus a small pyramid</strong> on top. Because the two pyramids are similar, every length in the small one is the same fraction of the large one, which is what produces the frustum formula.</p>
+          <p>For the faces, cut through the middle of a side face. The right triangle there has legs \(h\) and the horizontal step between the two bases (for regular bases, the difference of the apothems \(m_1 - m_2\)), and its hypotenuse is the slant height \(s\).</p>
+          <div class="callout">
+            <p class="callout-title">The middle term matters</p>
+            <p>The volume uses \(A_1 + A_2 + \sqrt{A_1 A_2}\). The term \(\sqrt{A_1 A_2}\), the geometric mean of the bases, is what students most often forget.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Volume</td><td>\(V = \dfrac{h}{3}\left(A_1 + A_2 + \sqrt{A_1 A_2}\right)\)</td><td>Similar, parallel bases.</td></tr>
+              <tr><td>Square frustum</td><td>\(V = \dfrac{h}{3}\left(a^2 + ab + b^2\right)\)</td><td>Edges \(a\) and \(b\).</td></tr>
+              <tr><td>Slant height (regular)</td><td>\(s = \sqrt{h^2 + (m_1 - m_2)^2}\)</td><td>\(m\) = apothem of each base.</td></tr>
+              <tr><td>Lateral area (regular)</td><td>\(L = \tfrac{1}{2}(P_1 + P_2)\,s\)</td><td>\(n\) trapezoids.</td></tr>
+              <tr><td>Total area</td><td>\(T = A_1 + A_2 + L\)</td><td></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(A_1,\ A_2\)</td><td>Base areas</td><td>Bottom (larger) and top.</td></tr>
+              <tr><td>\(a,\ b\)</td><td>Base edges</td><td>Bottom and top edge of a regular base.</td></tr>
+              <tr><td>\(h\)</td><td>Height</td><td>Perpendicular distance between the bases.</td></tr>
+              <tr><td>\(s\)</td><td>Slant height</td><td>Height of a trapezoidal face.</td></tr>
+              <tr><td>\(P_1,\ P_2\)</td><td>Perimeters</td><td>Of the two bases.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume as the difference of two pyramids</h3>
+          <p>Let the full pyramid have height \(H\). The small pyramid on top has height \(H - h\). Similar figures have areas in the ratio of the squares of their lengths, so</p>
+          \[ \frac{A_2}{A_1} = \left(\frac{H - h}{H}\right)^2 \quad\Longrightarrow\quad H = \frac{h\sqrt{A_1}}{\sqrt{A_1} - \sqrt{A_2}}. \]
+          <p>Subtracting the volumes, \(V = \tfrac{1}{3}A_1 H - \tfrac{1}{3}A_2(H - h)\). Substituting and using \(A_1\sqrt{A_1} - A_2\sqrt{A_2} = (\sqrt{A_1} - \sqrt{A_2})(A_1 + \sqrt{A_1 A_2} + A_2)\) gives</p>
+          \[ V = \frac{h}{3}\left(A_1 + A_2 + \sqrt{A_1 A_2}\right). \]
+          <h3>Lateral area</h3>
+          <p>Each side face is a trapezoid with parallel sides \(a\) and \(b\) and height \(s\), so its area is \(\tfrac{1}{2}(a + b)s\). With \(n\) faces, \(L = \tfrac{1}{2}(na + nb)s = \tfrac{1}{2}(P_1 + P_2)s\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A square frustum has a bottom edge of <strong>10 m</strong>, a top edge of <strong>6 m</strong> and a height of <strong>3 m</strong>. Find its volume and surface area.</p>
+            <h4>Step 1: Base areas</h4>
+            \[ A_1 = 10^2 = 100, \qquad A_2 = 6^2 = 36, \qquad \sqrt{A_1 A_2} = \sqrt{3600} = 60 \]
+            <h4>Step 2: Volume</h4>
+            \[ V = \frac{3}{3}(100 + 36 + 60) = 196\ \text{m}^3 \]
+            <h4>Step 3: Slant height</h4>
+            \[ m_1 - m_2 = 5 - 3 = 2, \qquad s = \sqrt{3^2 + 2^2} = \sqrt{13} \approx 3.6056\ \text{m} \]
+            <h4>Step 4: Lateral and total area</h4>
+            \[ L = \tfrac{1}{2}(40 + 24)(3.6056) \approx 115.38\ \text{m}^2, \qquad T \approx 100 + 36 + 115.38 = 251.38\ \text{m}^2 \]
+            <h4>Check</h4>
+            <p>Full pyramid height \(H = \tfrac{3(10)}{10 - 6} = 7.5\); \(\tfrac{1}{3}(100)(7.5) - \tfrac{1}{3}(36)(4.5) = 250 - 54 = 196\) ✓.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a concrete footing</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A footing has a <strong>2.4 m × 1.6 m</strong> bottom and a similar <strong>1.2 m × 0.8 m</strong> top, <strong>0.9 m</strong> high. How much concrete is needed?</p>
+            <h4>Step 1: Base areas</h4>
+            \[ A_1 = 2.4 \times 1.6 = 3.84, \qquad A_2 = 1.2 \times 0.8 = 0.96, \qquad \sqrt{A_1 A_2} = \sqrt{3.6864} = 1.92 \]
+            <h4>Step 2: Volume</h4>
+            \[ V = \frac{0.9}{3}(3.84 + 0.96 + 1.92) = 0.3(6.72) = 2.016\ \text{m}^3 \]
+            <h4>Answer</h4>
+            <p>About <strong>2.02 m³</strong> of concrete. The bases are similar (each top side is half the bottom), so the frustum formula applies.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>The frustum comes from a <strong>right</strong> pyramid: the two bases are parallel, similar and centred on the same vertical axis.</li>
-            <li>Rectangular bases must have the same proportions (\(L_2/L_1 = W_2/W_1\)); otherwise the side faces would not meet at one apex and the solid is not a pyramid frustum. The calculator rejects such inputs and tells you the matching width.</li>
-            <li>The bottom base must be the larger one. A top edge of 0 gives a pyramid.</li>
-            <li>Results are rounded to 6 decimal places.</li>
+            <li><strong>Footings and pedestals.</strong> Concrete volumes for tapered foundations.</li>
+            <li><strong>Hoppers and bins.</strong> Capacity of square or rectangular hoppers, and the sheet metal for their sides.</li>
+            <li><strong>Earthworks and dams.</strong> Excavations with sloping sides.</li>
+            <li><strong>Architecture.</strong> Tapered towers and the top of an obelisk.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Leaving out √(A₁A₂).</strong> This underestimates the volume.</li>
+            <li><strong>Averaging the two areas.</strong> \(\tfrac{A_1 + A_2}{2}h\) is only an approximation, and always too large.</li>
+            <li><strong>Using the slant height for the volume.</strong></li>
+            <li><strong>Non-similar bases.</strong> If the bases have different proportions, the solid is not a frustum; use the <a href="../prismatoid/">prismatoid calculator</a>.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The frustum is cut from a right pyramid by a plane parallel to the base, so the bases are similar, parallel and centred.</li>
+            <li>For rectangular bases, the calculator checks that \(L_2/L_1 = W_2/W_1\).</li>
+            <li>For circular bases, use the <a href="../frustum-of-a-cone/">frustum of a cone</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a frustum of a pyramid?</summary>
+            <div class="faq-answer"><p>V = (h/3)(A₁ + A₂ + √(A₁A₂)), where A₁ and A₂ are the areas of the two parallel bases and h is the height.</p></div>
+          </details>
+          <details>
+            <summary>What if the top edge is zero?</summary>
+            <div class="faq-answer"><p>Then the solid is a full pyramid and the formula reduces to V = (1/3)A₁h.</p></div>
+          </details>
+          <details>
+            <summary>What if both bases are the same size?</summary>
+            <div class="faq-answer"><p>Then it is a prism: √(A₁A₂) = A₁ and V = (h/3)(3A₁) = A₁h.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the slant height of a square frustum?</summary>
+            <div class="faq-answer"><p>s = √(h² + ((a − b)/2)²), where a and b are the bottom and top edges.</p></div>
+          </details>
+          <details>
+            <summary>Can I use this for an earth dam or trench with different slopes?</summary>
+            <div class="faq-answer"><p>Only if the two ends are similar. Otherwise use the prismoidal formula in the prismatoid calculator.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../pyramid/">Pyramid</a>: the solid before it was cut.</li>
+            <li><a href="../frustum-of-a-cone/">Frustum of a cone</a>: the circular version.</li>
+            <li><a href="../prismatoid/">Prismatoid</a>: the prismoidal formula for non-similar ends.</li>
           </ul>
         </section>

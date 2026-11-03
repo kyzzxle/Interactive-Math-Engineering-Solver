@@ -1,44 +1,166 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the pyramid calculator does</h2>
-          <p>A <strong>pyramid</strong> has a polygon base and triangular faces that meet at a single point, the apex. In a <strong>right pyramid</strong> the apex sits directly above the centre of the base. Enter the base dimensions and the perpendicular height; the calculator finds the slant height of the faces, the lateral and total surface areas, the length of a lateral edge and the volume.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the pyramid taller with the same base: the volume rises in proportion to the height, while the slant height — and so the lateral area — grows more gradually.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a pyramid?</h2>
+          <p>A <strong>pyramid</strong> has a polygon base and triangular side faces that meet at a single point, the <strong>apex</strong>. In a <strong>right pyramid</strong> the apex is directly above the centre of the base. The Egyptian pyramids are square pyramids; a hip roof and a church spire are pyramids too.</p>
+          <p>Like a prism, a pyramid is named by its base: triangular, square, rectangular, pentagonal, hexagonal and so on. A triangular pyramid whose faces are all equilateral is a <strong>regular tetrahedron</strong>.</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ V = \frac{1}{3} B h \qquad s = \sqrt{h^2 + m^2} \qquad L = \frac{1}{2} P s \qquad T = B + L \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\(B, P\)</td><td>Area and perimeter of the base.</td></tr>
-              <tr><td>\(h\)</td><td>Perpendicular height from the apex to the base.</td></tr>
-              <tr><td>\(m\)</td><td>Apothem of a regular base: distance from its centre to the middle of an edge.</td></tr>
-              <tr><td>\(s\)</td><td>Slant height: height of each triangular face.</td></tr>
-            </tbody>
-          </table>
-          <p>For a <strong>rectangular</strong> base \(l \times w\) the faces have two different slant heights, \(s_l = \sqrt{h^2 + (w/2)^2}\) and \(s_w = \sqrt{h^2 + (l/2)^2}\), and the lateral area is \(L = l s_l + w s_w\).</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose a regular base (3 to 12 equal sides) or a rectangular base, and enter its edges and the height. The calculator finds:</p>
+          <ul>
+            <li>the base area, using the apothem for regular bases,</li>
+            <li>the slant height of each face (two different ones for a rectangle),</li>
+            <li>the lateral area, the total surface area and the volume,</li>
+            <li>the lateral edge from the apex to a corner.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>A square pyramid with base edge 6 m and height 4 m</h3>
-            <h4>Step 1 — Base area and apothem</h4>
-            \[ B = 6^2 = 36 \text{ m}^2, \qquad m = \frac{6}{2} = 3 \text{ m} \]
-            <h4>Step 2 — Slant height</h4>
-            \[ s = \sqrt{4^2 + 3^2} = 5 \text{ m} \]
-            <h4>Step 3 — Surface areas</h4>
-            \[ L = \frac{1}{2}(24)(5) = 60 \text{ m}^2, \qquad T = 36 + 60 = 96 \text{ m}^2 \]
-            <h4>Step 4 — Volume</h4>
-            \[ V = \frac{1}{3}(36)(4) = 48 \text{ m}^3 \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>A pyramid problem involves three different right triangles inside the solid:</p>
+          <ul>
+            <li><strong>Height, apothem, slant height:</strong> from the centre of the base to the middle of an edge (apothem \(m\)) and up to the apex, \(s = \sqrt{h^2 + m^2}\). This gives the face heights.</li>
+            <li><strong>Height, circumradius, lateral edge:</strong> from the centre to a corner and up, \(e = \sqrt{h^2 + R^2}\). This gives the edge lengths.</li>
+            <li><strong>Half an edge, slant height, lateral edge</strong> on each face: \(e^2 = s^2 + (a/2)^2\).</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">One third of a prism</p>
+            <p>Three pyramids of equal volume can be assembled into the prism with the same base and height. So a pyramid holds exactly one third as much: \(V = \tfrac{1}{3}Bh\).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Volume</td><td>\(V = \tfrac{1}{3}Bh\)</td><td>Any pyramid, any base.</td></tr>
+              <tr><td>Slant height (regular)</td><td>\(s = \sqrt{h^2 + m^2}\)</td><td>\(m\) is the apothem of the base.</td></tr>
+              <tr><td>Lateral area (regular)</td><td>\(L = \tfrac{1}{2}P s\)</td><td>\(n\) triangles of area \(\tfrac{1}{2}as\).</td></tr>
+              <tr><td>Total area</td><td>\(T = B + L\)</td><td>One base only.</td></tr>
+              <tr><td>Rectangular base</td><td>\(L = l\sqrt{h^2 + (w/2)^2} + w\sqrt{h^2 + (l/2)^2}\)</td><td>Two pairs of different faces.</td></tr>
+              <tr><td>Lateral edge</td><td>\(e = \sqrt{h^2 + R^2}\)</td><td>\(R\) = centre to a corner.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Notes</th></tr></thead>
+            <tbody>
+              <tr><td>\(B\)</td><td>Base area</td><td>Area of the polygon base.</td></tr>
+              <tr><td>\(h\)</td><td>Height</td><td>Apex to base, perpendicular.</td></tr>
+              <tr><td>\(s\)</td><td>Slant height</td><td>Height of a triangular face.</td></tr>
+              <tr><td>\(m\)</td><td>Apothem</td><td>Centre of the base to the middle of an edge.</td></tr>
+              <tr><td>\(R\)</td><td>Circumradius</td><td>Centre of the base to a corner.</td></tr>
+              <tr><td>\(e\)</td><td>Lateral edge</td><td>Apex to a corner of the base.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Volume by slicing</h3>
+          <p>At distance \(y\) below the apex, a horizontal slice is the base shrunk by the factor \(y/h\), so its area is \(B\,(y/h)^2\). Adding the slices:</p>
+          \[ V = \int_0^h B\frac{y^2}{h^2}\,dy = \frac{B}{h^2}\cdot\frac{h^3}{3} = \frac{1}{3}Bh. \]
+          <h3>Lateral area of a regular pyramid</h3>
+          <p>All \(n\) faces are congruent isosceles triangles with base \(a\) and height \(s\):</p>
+          \[ L = n\cdot\tfrac{1}{2}a s = \tfrac{1}{2}(na)s = \tfrac{1}{2}Ps. \]
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A square pyramid has base edges of <strong>6 m</strong> and a height of <strong>4 m</strong>. Find the slant height, the surface area and the volume.</p>
+            <h4>Step 1: Base area and apothem</h4>
+            \[ B = 6^2 = 36\ \text{m}^2, \qquad m = \tfrac{6}{2} = 3\ \text{m} \]
+            <h4>Step 2: Slant height</h4>
+            \[ s = \sqrt{4^2 + 3^2} = \sqrt{25} = 5\ \text{m} \]
+            <h4>Step 3: Lateral and total area</h4>
+            \[ L = \tfrac{1}{2}(4 \times 6)(5) = 60\ \text{m}^2, \qquad T = 36 + 60 = 96\ \text{m}^2 \]
+            <h4>Step 4: Volume</h4>
+            \[ V = \tfrac{1}{3}(36)(4) = 48\ \text{m}^3 \]
+            <h4>Step 5: Lateral edge</h4>
+            \[ R = 3\sqrt{2} \approx 4.2426, \qquad e = \sqrt{4^2 + 18} = \sqrt{34} \approx 5.831\ \text{m} \]
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a rectangular base</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A hip roof is a pyramid on a <strong>10 m × 6 m</strong> rectangle, rising <strong>4 m</strong>. Find the roof area.</p>
+            <h4>Step 1: Slant heights</h4>
+            \[ s_l = \sqrt{4^2 + 3^2} = 5\ \text{m}\ \ (\text{faces on the 10 m edges}), \qquad s_w = \sqrt{4^2 + 5^2} = \sqrt{41} \approx 6.403\ \text{m} \]
+            <h4>Step 2: Roof area</h4>
+            \[ L = 10(5) + 6(6.403) \approx 50 + 38.42 = 88.42\ \text{m}^2 \]
+            <h4>Answer</h4>
+            <p>The roof covers about <strong>88.4 m²</strong>. The two triangles on the long edges are 25 m² each and the two on the short edges are about 19.2 m² each.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Right pyramids only: regular polygon bases (3, 4, 5, 6, 8, 10 or 12 sides) or rectangular bases, with the apex over the centre.</li>
-            <li>The volume formula \(\tfrac{1}{3}Bh\) also holds for oblique pyramids, but their lateral areas are different and are not calculated here.</li>
-            <li>All lengths must be positive. Results are rounded to 6 decimal places.</li>
+            <li><strong>Roofs.</strong> Hip roofs and spires: roofing area is the lateral area.</li>
+            <li><strong>Monuments and architecture.</strong> Volumes of stone; glass for pyramidal skylights.</li>
+            <li><strong>Packaging and tents.</strong> Pyramidal boxes and tents.</li>
+            <li><strong>Stockpiles</strong> on a rectangular footprint.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the slant height in the volume.</strong> Volume needs the perpendicular height.</li>
+            <li><strong>Confusing slant height and lateral edge.</strong> The slant height meets the middle of a base edge; the lateral edge meets a corner, and is longer.</li>
+            <li><strong>Forgetting the 1/3.</strong></li>
+            <li><strong>One slant height for a rectangle.</strong> A rectangular pyramid has two different face heights.</li>
+            <li><strong>Adding two bases.</strong> A pyramid has only one.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The pyramid is right. For a leaning pyramid, the volume formula still holds with the perpendicular height, but the face areas differ.</li>
+            <li>For a pyramid with its top cut off, use the <a href="../frustum-of-a-pyramid/">frustum of a pyramid calculator</a>.</li>
+            <li>Regular bases have 3 to 12 equal sides.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the volume of a pyramid?</summary>
+            <div class="faq-answer"><p>One third of the base area times the height: V = (1/3)Bh.</p></div>
+          </details>
+          <details>
+            <summary>What is the slant height of a pyramid?</summary>
+            <div class="faq-answer"><p>The height of a triangular face, from the middle of a base edge to the apex: √(h² + m²), where m is the apothem.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the height from the slant height?</summary>
+            <div class="faq-answer"><p>h = √(s² − m²). For a square pyramid, m is half the base edge.</p></div>
+          </details>
+          <details>
+            <summary>Is a tetrahedron a pyramid?</summary>
+            <div class="faq-answer"><p>Yes, a triangular pyramid. If all four faces are equilateral it is a regular tetrahedron; see the regular polyhedron calculator.</p></div>
+          </details>
+          <details>
+            <summary>Why is the volume one third of a prism?</summary>
+            <div class="faq-answer"><p>A cube can be cut into three identical pyramids that meet at one corner, and slicing shows the same one-third factor for any base.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../frustum-of-a-pyramid/">Frustum of a pyramid</a>: the top cut off.</li>
+            <li><a href="../cone/">Cone</a>: a pyramid with a circular base.</li>
+            <li><a href="../prismatoid/">Prismatoid</a>: the prismoidal formula includes pyramids.</li>
+            <li><a href="../regular-polyhedron/">Regular polyhedrons</a>: the tetrahedron and octahedron.</li>
           </ul>
         </section>

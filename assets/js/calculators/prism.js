@@ -75,11 +75,14 @@ export const calculator = {
     const L = P * h, T = 2 * B + L, V = B * h;
     if (![L, T, V].every(Number.isFinite)) return { ok: false, errors: [{ field: 'h', message: 'These values are too large to compute reliably.' }] };
     const steps = [
-      { title: 'Base area B and perimeter P', texLines: baseLines },
-      { title: 'Lateral area (the rectangular sides)', text: 'Each side face is a rectangle whose width is one base edge and whose height is h, so together they make P × h.', texLines: ['L = P h', `L = (${tx(P)})(${tx(h)}) ${eq(L)}`] },
-      { title: 'Total surface area', texLines: ['T = 2B + L', `T = 2(${tx(B)}) + ${tx(L)} ${eq(T)}`] },
-      { title: 'Volume', texLines: ['V = B h', `V = (${tx(B)})(${tx(h)}) ${eq(V)}`] },
+      { title: 'Identify the solid', text: `A ${desc}. Every right prism has two identical, parallel bases joined by rectangular side faces, and its height h is the distance between the bases.` },
+      { title: 'Base area B and perimeter P', texLines: baseLines, note: 'Everything about a prism follows from its base: the area B gives the volume and the perimeter P gives the side faces.' },
+      { title: 'Lateral area (the rectangular sides)', text: 'Each side face is a rectangle whose width is one base edge and whose height is h, so together they make P × h — like unrolling the sides into one long rectangle.', texLines: ['L = P h', `L = (${tx(P)})(${tx(h)}) ${eq(L)}`] },
+      { title: 'Total surface area', texLines: ['T = 2B + L', `T = 2(${tx(B)}) + ${tx(L)} = ${tx(2 * B)} + ${tx(L)} ${eq(T)}`], note: `Two bases (top and bottom) plus the sides. For an open box, leave out one base: ${fmt(B + L, 4)}.` },
+      { title: 'Volume', texLines: ['V = B h', `V = (${tx(B)})(${tx(h)}) ${eq(V)}`], note: 'A prism is a stack of identical slices shaped like the base, so the volume is the base area times the height.' },
     ];
+    if (u.len === 'cm') steps.push({ title: 'Convert to litres', tex: `${tx(V)}\\,\\text{cm}^3 \\div 1000 = ${tx(V / 1000)}\\,\\text{L}`, note: '1 litre = 1000 cm³.' });
+    if (u.len === 'm') steps.push({ title: 'Convert to litres', tex: `${tx(V)}\\,\\text{m}^3 \\times 1000 = ${tx(V * 1000)}\\,\\text{L}`, note: '1 m³ = 1000 litres.' });
     return {
       ok: true,
       final: { texLines: [`V ${Number.isInteger(V) ? '=' : '\\approx'} ${tx(V)}${u.texVol}`, `T ${Number.isInteger(T) ? '=' : '\\approx'} ${tx(T)}${u.texArea}`] },

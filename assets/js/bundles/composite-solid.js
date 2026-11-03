@@ -1969,8 +1969,8 @@ const calculator = {
     const V = parts.reduce((a, p) => a + p.V, 0), A = areas.reduce((a, p) => a + p.A, 0);
     if (!Number.isFinite(V) || V > 1e300) return { ok: false, errors: [{ message: 'These values are too large to compute reliably.' }] };
     const steps = [
-      { title: 'Known values', tex: [`r = ${tx(r)}`, h ? `h = ${tx(h)}` : '', H ? `H = ${tx(H)}` : '', ri ? `r_i = ${tx(ri)}` : ''].filter(Boolean).join(',\\quad ') + L },
-      ...parts.map((p) => ({ title: `Volume of the ${p.name.toLowerCase()}`, tex: `${p.Vtex} \\approx ${tx(p.V)}` })),
+      { title: 'Known values', tex: [`r = ${tx(r)}`, h ? `h = ${tx(h)}` : '', H ? `H = ${tx(H)}` : '', ri ? `r_i = ${tx(ri)}` : ''].filter(Boolean).join(',\\quad ') + L, note: 'Split the composite solid into simple parts that share the same radius r. Find each part on its own, then add (or subtract a hole).' },
+      ...parts.map((p) => ({ title: `Volume of the ${p.name.toLowerCase()}`, tex: `${p.Vtex} \\approx ${tx(p.V)}`, note: p.name.includes('emisphere') ? 'A hemisphere is half a sphere: ½ × (4/3)πr³ = (2/3)πr³.' : p.name === 'Cone' ? 'A cone is one third of the cylinder with the same base and height.' : p.name.startsWith('Hole') ? 'The hole is a cylinder of the inner radius, removed from the outer one.' : 'Base area πr² times the height.' })),
       { title: 'Combine the volumes', texLines: [combine, `V \\approx ${parts.map((p, i) => `${p.V < 0 ? '- ' : i ? '+ ' : ''}${tx(Math.abs(p.V), 4)}`).join(' ')} \\approx ${tx(V)}${u.texVol}`] },
       { title: 'Exposed surfaces only', text: type === 'tube' ? 'A tube has an outside, an inside and two ring-shaped ends.' : 'Where two parts are joined, the joining circle is inside the solid and is not part of the surface.' },
       ...areas.map((a) => ({ title: a.name, tex: `${a.tex} \\approx ${tx(a.A)}` })),
