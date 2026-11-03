@@ -1,0 +1,57 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the depreciation calculator does</h2>
+          <p>Machines, vehicles and buildings lose value as they are used. <strong>Depreciation</strong> spreads that loss, the first cost minus the salvage value, over the asset's useful life. The value left on the records at any time is the <strong>book value</strong>.</p>
+          <p>The calculator finds the depreciation charge for a chosen year, the accumulated depreciation, the book value and a full schedule by five methods:</p>
+          <ul>
+            <li><strong>Straight line:</strong> the same amount every year.</li>
+            <li><strong>Sinking fund:</strong> equal yearly deposits that, with interest, add up to \(C - S\). Smaller charges early, larger later.</li>
+            <li><strong>Declining balance (Matheson):</strong> a fixed percentage of the book value each year, chosen so the book value ends exactly at \(S\).</li>
+            <li><strong>Double declining balance:</strong> twice the straight-line rate, applied to the book value.</li>
+            <li><strong>Sum of the years' digits (SYD):</strong> fractions \(n/\text{SYD}, (n-1)/\text{SYD}, \dots\) of \(C - S\), largest first.</li>
+          </ul>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, compare the curves. The declining-balance and SYD methods fall fastest early on, which is why they are called accelerated methods. All except double declining balance end exactly at the salvage value.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \text{Straight line:}\quad d = \frac{C - S}{n}, \qquad BV_m = C - m\,d \]</div>
+          <div class="formula-box">\[ \text{Sinking fund:}\quad d = (C - S)\,\frac{i}{(1 + i)^{n} - 1}, \qquad D_m = d\,\frac{(1 + i)^{m} - 1}{i} \]</div>
+          <div class="formula-box">\[ \text{Declining balance:}\quad k = 1 - \sqrt[n]{\frac{S}{C}}, \qquad BV_m = C\,(1 - k)^{m} \]</div>
+          <div class="formula-box">\[ \text{SYD:}\quad d_m = (C - S)\,\frac{n - m + 1}{n(n + 1)/2} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(C\)</td><td>First cost (purchase price plus installation)</td></tr>
+              <tr><td>\(S\)</td><td>Salvage value at the end of the life</td></tr>
+              <tr><td>\(n\)</td><td>Useful life in years</td></tr>
+              <tr><td>\(m\)</td><td>The year being considered</td></tr>
+              <tr><td>\(d_m,\ D_m\)</td><td>Depreciation in year \(m\), and accumulated depreciation after \(m\) years</td></tr>
+              <tr><td>\(BV_m\)</td><td>Book value at the end of year \(m\): \(C - D_m\)</td></tr>
+              <tr><td>\(k,\ i\)</td><td>Declining-balance rate; interest rate for the sinking fund method</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A machine costs 800,000, lasts 10 years and has a salvage value of 80,000. Find its book value after 4 years.</h3>
+            <h4>Straight line</h4>
+            \[ d = \frac{800{,}000 - 80{,}000}{10} = 72{,}000, \qquad BV_4 = 800{,}000 - 4(72{,}000) = 512{,}000 \]
+            <h4>Declining balance (Matheson)</h4>
+            \[ k = 1 - \sqrt[10]{\frac{80{,}000}{800{,}000}} \approx 0.205672, \qquad BV_4 = 800{,}000\,(0.794328)^4 \approx 318{,}485.74 \]
+            <h4>Sum of the years' digits</h4>
+            \[ \text{SYD} = \frac{10 \times 11}{2} = 55, \qquad D_4 = 720{,}000 \times \frac{10 + 9 + 8 + 7}{55} \approx 445{,}090.91, \qquad BV_4 \approx 354{,}909.09 \]
+            <p>The same machine can show very different book values depending on the method, which is why the method must be stated.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The life is a whole number of years and depreciation is charged at the end of each year.</li>
+            <li>The Matheson formula needs a salvage value above 0. Double declining balance ignores the salvage value, so its final book value is usually not exactly \(S\).</li>
+            <li>Tax rules (such as MACRS in the United States or local tax codes) may prescribe their own methods and lives; these are not modelled here.</li>
+            <li>The sinking fund deposit is an <a href="../annuity/">annuity</a> whose future worth is \(C - S\).</li>
+          </ul>
+        </section>

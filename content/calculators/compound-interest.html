@@ -1,0 +1,47 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the compound interest calculator does</h2>
+          <p>With <strong>compound interest</strong>, the interest earned in each period is added to the balance, so the next period's interest is calculated on a larger amount. Money grows exponentially instead of in a straight line. This is the idea behind the <strong>time value of money</strong>: an amount today is worth more than the same amount later, because it can earn interest in the meantime.</p>
+          <p>The calculator finds the future worth \(F\), the present worth \(P\), the nominal rate \(r\) or the number of years \(n\), for interest compounded annually, semi-annually, quarterly, monthly, daily or continuously. It also gives the effective annual rate, a year-by-year balance table and a graph comparing compound with simple interest.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, keep the rate and years fixed and change the compounding from annually to continuously. The future worth rises, but by less each time: compounding more often has diminishing returns.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ F = P\,(1 + i)^{N}, \qquad i = \frac{r}{m}, \qquad N = m\,n \]</div>
+          <div class="formula-box">\[ P = \frac{F}{(1 + i)^{N}} \qquad F_{\text{continuous}} = P\,e^{r n} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(P\)</td><td>Present worth (principal)</td></tr>
+              <tr><td>\(F\)</td><td>Future worth after \(n\) years</td></tr>
+              <tr><td>\(r\)</td><td>Nominal annual rate, as a decimal</td></tr>
+              <tr><td>\(m\)</td><td>Compounding periods per year (1, 2, 4, 12, 365)</td></tr>
+              <tr><td>\(i\)</td><td>Interest rate per period</td></tr>
+              <tr><td>\(n,\ N\)</td><td>Years, and the total number of compounding periods</td></tr>
+            </tbody>
+          </table>
+          <p>The factor \((1 + i)^N\) is often written \((F/P, i, N)\) in engineering economy tables, and its reciprocal \((P/F, i, N)\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>100,000 invested at 6% compounded quarterly for 5 years</h3>
+            <h4>Step 1: Rate per period and number of periods</h4>
+            \[ i = \frac{0.06}{4} = 0.015, \qquad N = 4 \times 5 = 20 \]
+            <h4>Step 2: Future worth</h4>
+            \[ F = 100{,}000\,(1.015)^{20} \approx 100{,}000 \times 1.346855 \approx 134{,}685.50 \]
+            <h4>Step 3: Compare</h4>
+            <p>Simple interest at 6% would give \(100{,}000\,(1 + 0.06 \times 5) = 130{,}000\). The extra 4,685.50 is interest earned on interest.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The rate stays constant for the whole period and there are no deposits or withdrawals. For a series of equal payments, use the <a href="../annuity/">annuity calculator</a>.</li>
+            <li>Interest is added only at the end of each period, so a fractional number of periods (for example 5.45 years compounded annually) is an approximation. The balance table shows whole years.</li>
+            <li>To compare rates with different compounding, convert them with the <a href="../effective-interest-rate/">effective interest rate calculator</a>.</li>
+            <li>Amounts are rounded to two decimal places and can be in any currency.</li>
+          </ul>
+        </section>

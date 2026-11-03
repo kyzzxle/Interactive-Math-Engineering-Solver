@@ -1,0 +1,45 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the break-even calculator does</h2>
+          <p>A business has two kinds of cost. <strong>Fixed costs</strong>, such as rent, salaries and equipment payments, stay the same whatever it produces. <strong>Variable costs</strong>, such as materials and energy, grow with every unit made. The <strong>break-even point</strong> is the volume at which revenue exactly covers both: no profit and no loss.</p>
+          <p>The calculator finds the break-even volume and revenue, the contribution margin, the volume needed for a target profit, and the profit or loss at a planned volume. A break-even chart shows where the revenue and total cost lines cross.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, raise the variable cost towards the price. The break-even point moves far to the right; when the price equals the variable cost, the lines never cross.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ \text{Total cost} = FC + v\,Q \qquad \text{Revenue} = p\,Q \]</div>
+          <div class="formula-box">\[ Q_{BE} = \frac{FC}{p - v} \qquad R_{BE} = p\,Q_{BE} \qquad Q_{\text{target}} = \frac{FC + \text{profit}}{p - v} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(FC\)</td><td>Fixed cost per period</td></tr>
+              <tr><td>\(v\)</td><td>Variable cost per unit</td></tr>
+              <tr><td>\(p\)</td><td>Selling price per unit</td></tr>
+              <tr><td>\(p - v\)</td><td>Contribution margin: what each unit contributes to fixed cost and profit</td></tr>
+              <tr><td>\(Q_{BE},\ R_{BE}\)</td><td>Break-even volume and break-even revenue</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A bakery has fixed costs of 240,000 a month. Each cake costs 35 to make and sells for 75.</h3>
+            <h4>Step 1: Contribution margin</h4>
+            \[ p - v = 75 - 35 = 40 \]
+            <h4>Step 2: Break-even volume and revenue</h4>
+            \[ Q_{BE} = \frac{240{,}000}{40} = 6{,}000\ \text{cakes}, \qquad R_{BE} = 75 \times 6{,}000 = 450{,}000 \]
+            <h4>Step 3: Volume for a profit of 100,000</h4>
+            \[ Q = \frac{240{,}000 + 100{,}000}{40} = 8{,}500\ \text{cakes} \]
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Price and variable cost per unit are constant, so cost and revenue are straight lines. Bulk discounts or overtime would bend them.</li>
+            <li>Fixed costs do not change within the range of output considered, and everything produced is sold.</li>
+            <li>The break-even volume is often fractional; in practice round up to the next whole unit, as the calculator also shows.</li>
+            <li>The break-even point is where two straight lines meet: the same algebra as the <a href="../linear-equation-solver/">linear equation solver</a>.</li>
+          </ul>
+        </section>

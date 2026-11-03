@@ -1,0 +1,53 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the annuity calculator does</h2>
+          <p>An <strong>annuity</strong> is a series of equal payments made at equal intervals: loan amortisation, rent, insurance premiums, a monthly savings plan. Instead of moving each payment through time separately, an annuity formula converts the whole series into one equivalent amount today (the present worth \(P\)) or at the end (the future worth \(F\)), or finds the payment that matches a given \(P\) or \(F\).</p>
+          <p>The calculator handles four kinds of annuity:</p>
+          <ul>
+            <li><strong>Ordinary annuity:</strong> payments at the end of each period (most loans).</li>
+            <li><strong>Annuity due:</strong> payments at the start of each period (rent, premiums).</li>
+            <li><strong>Deferred annuity:</strong> the first payment comes after several periods with no payment.</li>
+            <li><strong>Perpetuity:</strong> payments that continue forever (endowments, scholarships).</li>
+          </ul>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, set the rate to 0%. The present worth becomes simply the sum of the payments. Raise the rate and the present worth falls, because later payments are discounted more.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ P = A\,\frac{1 - (1 + i)^{-N}}{i} \qquad F = A\,\frac{(1 + i)^{N} - 1}{i} \]</div>
+          <div class="formula-box">\[ P_{\text{due}} = P\,(1 + i) \qquad P_{\text{deferred}} = A\,\frac{1 - (1 + i)^{-N}}{i}\,(1 + i)^{-k} \qquad P_{\text{perpetuity}} = \frac{A}{i} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A\)</td><td>Equal payment each period</td></tr>
+              <tr><td>\(i\)</td><td>Interest rate per payment period (nominal annual rate ÷ payments per year)</td></tr>
+              <tr><td>\(N\)</td><td>Number of payments</td></tr>
+              <tr><td>\(k\)</td><td>Number of deferred periods (no payment)</td></tr>
+              <tr><td>\(P,\ F\)</td><td>Present worth at time 0, future worth at the last payment</td></tr>
+            </tbody>
+          </table>
+          <p>Engineering economy tables write these factors as \((P/A, i, N)\) and \((F/A, i, N)\). The payment for a loan uses the capital recovery factor \((A/P, i, N) = \dfrac{i}{1 - (1 + i)^{-N}}\), and the payment for a savings goal uses the sinking fund factor \((A/F, i, N) = \dfrac{i}{(1 + i)^{N} - 1}\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>A 500,000 car loan repaid monthly over 5 years at 12% compounded monthly</h3>
+            <h4>Step 1: Rate per month and number of payments</h4>
+            \[ i = \frac{0.12}{12} = 0.01, \qquad N = 12 \times 5 = 60 \]
+            <h4>Step 2: Present worth factor</h4>
+            \[ \frac{1 - (1.01)^{-60}}{0.01} \approx 44.955038 \]
+            <h4>Step 3: Monthly payment</h4>
+            \[ A = \frac{500{,}000}{44.955038} \approx 11{,}122.22 \]
+            <p>Over 60 months the borrower pays about 667,333.43 in total (60 payments of the unrounded 11,122.2238), of which 167,333.43 is interest. The amortisation table on the calculator shows how much of each payment goes to interest and how much reduces the balance.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Payments are equal and the rate is constant. Interest is compounded at the payment frequency; if it is not, convert the rate first with the <a href="../effective-interest-rate/">effective interest rate calculator</a>.</li>
+            <li>For a deferred annuity, the first payment is at the end of period \(k + 1\). Its future worth, at the last payment, is the same as an ordinary annuity's.</li>
+            <li>A perpetuity has no future worth, and it needs an interest rate above 0.</li>
+            <li>For cash flows that are not equal, use the <a href="../npv-irr/">NPV and IRR calculator</a>.</li>
+          </ul>
+        </section>

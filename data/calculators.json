@@ -8,6 +8,7 @@
     { "id": "statistics-probability", "name": "Statistics & Probability", "glyph": "σ", "description": "Describing data and quantifying uncertainty: averages, spread, normal and binomial distributions, confidence intervals." },
     { "id": "combinatorics", "name": "Combinatorics", "glyph": "n!", "description": "Systematic counting: factorials, arrangements, selections, the binomial theorem and inclusion–exclusion." },
     { "id": "engineering-mathematics", "name": "Engineering Mathematics", "glyph": "⚙", "description": "Complex numbers, matrices and the numerical methods engineers use for roots, derivatives and integrals." },
+    { "id": "engineering-economy", "name": "Engineering Economy", "glyph": "%", "description": "The time value of money: simple and compound interest, effective rates, annuities, depreciation, break-even analysis and present worth, as taught in engineering economy courses." },
     { "id": "physics", "name": "Physics", "glyph": "Δv", "description": "Motion, forces, energy, circuits and waves: kinematics, projectiles, Newton's second law, Ohm's law and resistor networks, each with its assumptions stated." }
   ],
   "calculators": [
@@ -1027,6 +1028,76 @@
       "title": "Thermal Expansion and Calorimetry Calculator with Steps | Solver Hub",
       "description": "Calculate thermal expansion of rods and liquids, the heat needed to change temperature, and the final temperature of a mixture, step by step.",
       "lead": "Choose expansion, heating or mixing, pick a material for typical constants, and see each formula with your values substituted.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "simple-interest", "name": "Simple Interest Calculator", "shortName": "Simple Interest", "category": "engineering-economy", "generated": true,
+      "summary": "Interest, future amount, principal, rate or time with simple interest, including ordinary (360-day) and exact (365-day) interest.",
+      "keywords": ["simple interest", "I = Prt", "ordinary interest", "exact interest", "principal", "future amount", "maturity value", "engineering economy"],
+      "related": ["compound-interest", "effective-interest-rate", "annuity"],
+      "title": "Simple Interest Calculator – I = Prt, Ordinary & Exact Interest | Solver Hub",
+      "description": "Solve simple interest problems for the interest, future amount, principal, rate or time, with ordinary and exact interest for periods in days and every step shown.",
+      "lead": "Choose what to find, enter the other values, and see the formula rearranged, the time converted to years and the interest worked out step by step.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "compound-interest", "name": "Compound Interest Calculator", "shortName": "Compound Interest", "category": "engineering-economy", "generated": true, "featured": true,
+      "summary": "Future worth, present worth, nominal rate or number of years with interest compounded annually to continuously, with a year-by-year table.",
+      "keywords": ["compound interest", "future worth", "present worth", "F = P(1+i)^n", "compounded monthly", "continuous compounding", "time value of money", "engineering economy"],
+      "related": ["effective-interest-rate", "simple-interest", "annuity"],
+      "title": "Compound Interest Calculator – Future & Present Worth | Solver Hub",
+      "description": "Find the future worth, present worth, nominal rate or time for compound interest, compounded annually, quarterly, monthly, daily or continuously, with every step shown.",
+      "lead": "Enter three of the four values and the compounding frequency. The calculator finds the fourth, the effective rate and the balance at the end of every year.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "effective-interest-rate", "name": "Effective Interest Rate Calculator", "shortName": "Effective Interest Rate", "category": "engineering-economy", "generated": true,
+      "summary": "Convert a nominal rate to an effective annual rate and back, or to an equivalent rate with a different compounding frequency.",
+      "keywords": ["effective interest rate", "effective annual rate", "nominal rate", "equivalent rate", "annual percentage yield", "compounded quarterly", "continuous compounding"],
+      "related": ["compound-interest", "annuity", "simple-interest"],
+      "title": "Effective Interest Rate Calculator – Nominal to Effective Rate | Solver Hub",
+      "description": "Convert nominal interest rates to effective annual rates and back, compare compounding frequencies and find equivalent rates, with step-by-step working.",
+      "lead": "Convert between nominal and effective rates, or find the equivalent rate for a different compounding frequency, and compare every frequency in one table.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "annuity", "name": "Annuity Calculator", "shortName": "Annuities", "category": "engineering-economy", "generated": true, "featured": true,
+      "summary": "Present worth, future worth or payment of ordinary, due, deferred and perpetual annuities, with a cash-flow diagram and amortisation table.",
+      "keywords": ["annuity", "ordinary annuity", "annuity due", "deferred annuity", "perpetuity", "loan payment", "amortization", "sinking fund", "present worth of annuity", "engineering economy"],
+      "related": ["compound-interest", "npv-irr", "depreciation"],
+      "title": "Annuity Calculator – Ordinary, Due, Deferred & Perpetuity | Solver Hub",
+      "description": "Solve annuity problems for present worth, future worth or periodic payment: ordinary annuities, annuities due, deferred annuities and perpetuities, step by step.",
+      "lead": "Choose the type of annuity and what to find. The calculator shows the annuity factor, the cash-flow diagram and, for loans, how each payment is split.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "depreciation", "name": "Depreciation Calculator", "shortName": "Depreciation", "category": "engineering-economy", "generated": true,
+      "summary": "Depreciation and book value by straight line, sinking fund, declining balance, double declining balance and sum-of-the-years'-digits methods.",
+      "keywords": ["depreciation", "book value", "straight line depreciation", "sinking fund method", "declining balance", "Matheson formula", "double declining balance", "sum of the years digits", "SYD", "salvage value"],
+      "related": ["annuity", "break-even", "npv-irr"],
+      "title": "Depreciation Calculator – Straight Line, SYD, Declining Balance | Solver Hub",
+      "description": "Find the depreciation charge and book value for any year by straight line, sinking fund, declining balance, double declining balance or SYD, with a full schedule.",
+      "lead": "Enter the first cost, salvage value and life, pick a method and a year. The calculator gives that year's depreciation, the book value and a chart comparing all methods.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "break-even", "name": "Break-Even Calculator", "shortName": "Break-Even Analysis", "category": "engineering-economy", "generated": true,
+      "summary": "Break-even volume and revenue from fixed cost, variable cost and price, plus the units for a target profit, with a break-even chart.",
+      "keywords": ["break-even point", "break even analysis", "fixed cost", "variable cost", "contribution margin", "target profit", "break-even chart", "engineering economy"],
+      "related": ["npv-irr", "depreciation", "linear-equation-solver"],
+      "title": "Break-Even Calculator – Break-Even Point, Units & Revenue | Solver Hub",
+      "description": "Find the break-even volume and revenue from fixed cost, variable cost per unit and price, plus the sales needed for a target profit, with a chart and every step.",
+      "lead": "Enter the fixed cost, the variable cost per unit and the selling price. The calculator finds where revenue meets total cost and draws the break-even chart.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "npv-irr", "name": "NPV and IRR Calculator", "shortName": "NPV & IRR", "category": "engineering-economy", "generated": true,
+      "summary": "Net present worth, internal rate of return and payback period of a cash-flow series, with a cash-flow diagram and an NPV curve.",
+      "keywords": ["net present value", "NPV", "net present worth", "internal rate of return", "IRR", "payback period", "MARR", "discounted cash flow", "present worth analysis", "engineering economy"],
+      "related": ["annuity", "compound-interest", "break-even"],
+      "title": "NPV and IRR Calculator – Net Present Worth & Payback | Solver Hub",
+      "description": "Find the net present worth, internal rate of return and payback period of any series of cash flows, with a discounting table, NPV curve and step-by-step working.",
+      "lead": "Enter the cash flows from period 0 onwards and the interest rate. The calculator discounts each one, finds the IRR and tells you whether the project pays.",
       "updated": "2026-11-03"
     }
   ]

@@ -1,0 +1,46 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the simple interest calculator does</h2>
+          <p><strong>Simple interest</strong> is interest paid on the original amount only. If you borrow a principal \(P\) at a yearly rate \(r\) for \(t\) years, the interest is the same every year, and none of it is added to the balance to earn more interest.</p>
+          <p>The calculator solves for any one of the future amount, the principal, the rate or the time. Time can be entered in years, months or days. For days it uses either <strong>ordinary interest</strong> (a 360-day year) or <strong>exact interest</strong> (a 365-day year), the two conventions used in engineering economy courses and licensure exam problems.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Load the 120-day example and switch between ordinary and exact interest. The 360-day year always gives slightly more interest, because the same number of days is a larger fraction of a shorter year.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ I = P\,r\,t \qquad F = P + I = P\,(1 + r\,t) \]</div>
+          <div class="formula-box">\[ P = \frac{F}{1 + r\,t} \qquad r = \frac{F - P}{P\,t} \qquad t = \frac{F - P}{P\,r} \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(P\)</td><td>Principal: the amount borrowed or deposited</td></tr>
+              <tr><td>\(F\)</td><td>Future amount (maturity value): principal plus interest</td></tr>
+              <tr><td>\(I\)</td><td>Interest earned or paid</td></tr>
+              <tr><td>\(r\)</td><td>Interest rate per year, as a decimal (8% = 0.08)</td></tr>
+              <tr><td>\(t\)</td><td>Time in years: months ÷ 12, or days ÷ 360 (ordinary) or ÷ 365 (exact)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>50,000 borrowed at 8% simple interest for 18 months</h3>
+            <h4>Step 1: Time in years</h4>
+            \[ t = \frac{18}{12} = 1.5 \]
+            <h4>Step 2: Interest</h4>
+            \[ I = P\,r\,t = 50{,}000 \times 0.08 \times 1.5 = 6{,}000 \]
+            <h4>Step 3: Amount to repay</h4>
+            \[ F = 50{,}000 + 6{,}000 = 56{,}000 \]
+            <p>Had the same loan run for 120 days, ordinary interest would give \(50{,}000 \times 0.08 \times \tfrac{120}{360} = 1{,}333.33\), and exact interest \(50{,}000 \times 0.08 \times \tfrac{120}{365} = 1{,}315.07\).</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Interest is earned on the principal only. If interest is added to the balance, use the <a href="../compound-interest/">compound interest calculator</a>.</li>
+            <li>The rate is a yearly rate. A rate quoted per month must be multiplied by 12 first.</li>
+            <li>Exact interest here uses 365 days. For a period that falls in a leap year, some textbooks use 366 days.</li>
+            <li>Amounts are rounded to two decimal places. They can be in any currency.</li>
+          </ul>
+        </section>

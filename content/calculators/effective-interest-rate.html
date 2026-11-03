@@ -1,0 +1,43 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What the effective interest rate calculator does</h2>
+          <p>A bank may quote "12% compounded monthly". That 12% is the <strong>nominal rate</strong>: the rate per month (1%) multiplied by 12. Because interest is added every month and then earns interest itself, the balance actually grows by more than 12% in a year. The true yearly growth is the <strong>effective rate</strong>, here about 12.68%.</p>
+          <p>The calculator converts a nominal rate to an effective rate, an effective rate back to a nominal rate, or one compounding frequency to another with the same effective rate. A table shows how the effective rate of the same nominal rate changes with the compounding frequency.</p>
+          <div class="callout try-it"><p class="callout-title">Try it</p><p>Enter 12% and look at the table. Monthly compounding gives 12.68%, daily 12.747%, and continuous 12.750%: the effective rate approaches \(e^{r} - 1\) but never exceeds it.</p></div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formulas and variables</h2>
+          <div class="formula-box">\[ ER = \left(1 + \frac{r}{m}\right)^{m} - 1 \qquad r = m\left[(1 + ER)^{1/m} - 1\right] \]</div>
+          <div class="formula-box">\[ ER_{\text{continuous}} = e^{r} - 1 \qquad r = \ln(1 + ER) \]</div>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(r\)</td><td>Nominal annual rate, as a decimal</td></tr>
+              <tr><td>\(m\)</td><td>Compounding periods per year</td></tr>
+              <tr><td>\(ER\)</td><td>Effective annual rate: the actual growth in one year</td></tr>
+            </tbody>
+          </table>
+          <p>Two rates are <strong>equivalent</strong> when they have the same effective rate. That is how you compare a loan quoted quarterly with one quoted monthly.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Worked example</h2>
+          <div class="worked-example">
+            <h3>Which is better for a depositor: 6% compounded semi-annually or 5.95% compounded monthly?</h3>
+            <h4>Step 1: Effective rate of the first offer</h4>
+            \[ ER_1 = \left(1 + \frac{0.06}{2}\right)^{2} - 1 = 1.0609 - 1 = 6.09\% \]
+            <h4>Step 2: Effective rate of the second offer</h4>
+            \[ ER_2 = \left(1 + \frac{0.0595}{12}\right)^{12} - 1 \approx 6.1150\% \]
+            <h4>Step 3: Compare</h4>
+            <p>The second offer has the lower nominal rate but the higher effective rate, so it earns more.</p>
+          </div>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The rate is constant for the whole year and there are no fees. Real loans may add charges that raise the true cost.</li>
+            <li>Daily compounding uses 365 periods a year.</li>
+            <li>Use the effective rate, or the rate per period, in the <a href="../compound-interest/">compound interest</a> and <a href="../annuity/">annuity</a> formulas.</li>
+          </ul>
+        </section>

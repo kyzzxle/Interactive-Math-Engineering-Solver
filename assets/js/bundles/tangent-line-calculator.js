@@ -2229,6 +2229,11 @@ function niceStep(range, target = 6) {
 }
 
 function fmtTick(v, step) {
+  // Large ticks are shortened (800000 → 800k, 1500000 → 1.5M) so they fit beside the axis.
+  if (step >= 1000 && Math.abs(v) >= 1000) {
+    const [div, suffix] = step >= 1e6 || Math.abs(v) >= 1e7 ? [1e6, 'M'] : [1e3, 'k'];
+    if (step < 1e12) return fmtTick(v / div, step / div) + suffix;
+  }
   const d = Math.max(0, -Math.floor(Math.log10(step) + 1e-9));
   const s = v.toFixed(Math.min(d, 6));
   return s === '-0' ? '0' : s.replace(/\.0+$/, '');
