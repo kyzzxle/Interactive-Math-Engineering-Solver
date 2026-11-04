@@ -16,10 +16,10 @@ function renderField(f, fields) {
   let show = '';
   let hidden = '';
   if (f.showWhen) {
-    const [field, list] = Object.entries(f.showWhen)[0];
-    show = ` data-show-when="${field}=${list.join('|')}"`;
-    const ctrl = fields.find((x) => x.name === field);
-    if (ctrl && !list.includes(defaultValue(ctrl))) hidden = ' hidden';
+    // Every condition must hold (e.g. mode = inverse AND ftype = power); they are joined with ";".
+    const conds = Object.entries(f.showWhen);
+    show = ` data-show-when="${conds.map(([field, list]) => `${field}=${list.join('|')}`).join(';')}"`;
+    if (conds.some(([field, list]) => { const ctrl = fields.find((x) => x.name === field); return ctrl && !list.includes(defaultValue(ctrl)); })) hidden = ' hidden';
   }
   const hint = f.hint ? `<p id="${id}-hint" class="field-hint">${esc(f.hint)}</p>` : '';
   const describedBy = `${f.hint ? `${id}-hint ` : ''}${id}-error`;
@@ -60,7 +60,7 @@ export function renderForm(calc) {
     if (f.row) {
       const group = [f];
       while (fields[i + 1] && fields[i + 1].row === f.row) group.push(fields[++i]);
-      const show = f.rowShowWhen ? (() => { const [k, l] = Object.entries(f.rowShowWhen)[0]; const ctrl = fields.find((x) => x.name === k); return ` data-show-when="${k}=${l.join('|')}"${ctrl && !l.includes(defaultValue(ctrl)) ? ' hidden' : ''}`; })() : '';
+      const show = f.rowShowWhen ? (() => { const conds = Object.entries(f.rowShowWhen); const off = conds.some(([k, l]) => { const ctrl = fields.find((x) => x.name === k); return ctrl && !l.includes(defaultValue(ctrl)); }); return ` data-show-when="${conds.map(([k, l]) => `${k}=${l.join('|')}`).join(';')}"${off ? ' hidden' : ''}`; })() : '';
       blocks.push(`<div class="field-row mt-4"${show}>${group.map((g) => renderField(g, fields)).join('')}</div>`);
     } else {
       blocks.push(`<div class="mt-4">${renderField(f, fields)}</div>`);

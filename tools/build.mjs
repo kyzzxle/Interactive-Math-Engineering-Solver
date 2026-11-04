@@ -221,7 +221,7 @@ ${html}`;
           <div class="directory-section-head">
             <span class="category-glyph" aria-hidden="true">${escapeHtml(cat.glyph)}</span>
             <div>
-              <h2 id="${cat.id}-heading">${escapeHtml(cat.name)}</h2>
+              <h2 id="${cat.id}-heading">${escapeHtml(cat.name)}<span class="directory-count">${calcs.length} calculator${calcs.length === 1 ? '' : 's'}</span></h2>
               <p>${escapeHtml(cat.description)}</p>
             </div>
           </div>

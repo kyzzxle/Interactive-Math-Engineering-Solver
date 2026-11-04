@@ -163,7 +163,8 @@
           <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         </button>
         <button type="button" class="icon-btn md:hidden" data-menu-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
-          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-menu" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>
@@ -227,50 +228,50 @@
                 <select id="f-ftype" name="ftype" class="select" aria-describedby="f-ftype-error"><option value="linfrac" selected>f(x) = (ax + b)/(cx + d)</option><option value="power">f(x) = a(x − h)ⁿ + k</option><option value="exp">f(x) = a·bˣ + k</option></select>
                 <p id="f-ftype-error" class="field-error" data-error-for="ftype"></p>
               </div></div>
-            <div class="field-row mt-4" data-show-when="mode=inverse" hidden><div class="field" data-show-when="mode=inverse" hidden>
+            <div class="field-row mt-4" data-show-when="mode=inverse;ftype=linfrac" hidden><div class="field" data-show-when="mode=inverse;ftype=linfrac" hidden>
                 <label class="field-label" for="f-a">a</label>
                 <input id="f-a" name="a" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 2" aria-describedby="f-a-error">
                 <p id="f-a-error" class="field-error" data-error-for="a"></p>
-              </div><div class="field" data-show-when="mode=inverse" hidden>
+              </div><div class="field" data-show-when="mode=inverse;ftype=linfrac" hidden>
                 <label class="field-label" for="f-b">b</label>
                 <input id="f-b" name="b" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 1" aria-describedby="f-b-error">
                 <p id="f-b-error" class="field-error" data-error-for="b"></p>
-              </div><div class="field" data-show-when="mode=inverse" hidden>
+              </div><div class="field" data-show-when="mode=inverse;ftype=linfrac" hidden>
                 <label class="field-label" for="f-c">c</label>
                 <input id="f-c" name="c" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 1" aria-describedby="f-c-error">
                 <p id="f-c-error" class="field-error" data-error-for="c"></p>
-              </div><div class="field" data-show-when="mode=inverse" hidden>
+              </div><div class="field" data-show-when="mode=inverse;ftype=linfrac" hidden>
                 <label class="field-label" for="f-d">d</label>
                 <input id="f-d" name="d" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. -3" aria-describedby="f-d-error">
                 <p id="f-d-error" class="field-error" data-error-for="d"></p>
               </div></div>
-            <div class="field-row mt-4" data-show-when="mode=inverse" hidden><div class="field" data-show-when="mode=inverse" hidden>
+            <div class="field-row mt-4" data-show-when="mode=inverse;ftype=power" hidden><div class="field" data-show-when="mode=inverse;ftype=power" hidden>
                 <label class="field-label" for="f-pa">a</label>
                 <input id="f-pa" name="pa" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 2" aria-describedby="f-pa-error">
                 <p id="f-pa-error" class="field-error" data-error-for="pa"></p>
-              </div><div class="field" data-show-when="mode=inverse" hidden>
+              </div><div class="field" data-show-when="mode=inverse;ftype=power" hidden>
                 <label class="field-label" for="f-ph">h</label>
                 <input id="f-ph" name="ph" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 1" aria-describedby="f-ph-error">
                 <p id="f-ph-error" class="field-error" data-error-for="ph"></p>
-              </div><div class="field" data-show-when="mode=inverse" hidden>
+              </div><div class="field" data-show-when="mode=inverse;ftype=power" hidden>
                 <label class="field-label" for="f-pk">k</label>
                 <input id="f-pk" name="pk" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. -3" aria-describedby="f-pk-error">
                 <p id="f-pk-error" class="field-error" data-error-for="pk"></p>
               </div></div>
-            <div class="mt-4"><div class="field" data-show-when="mode=inverse" hidden>
+            <div class="mt-4"><div class="field" data-show-when="mode=inverse;ftype=power" hidden>
                 <label class="field-label" for="f-pn">Power n</label>
                 <select id="f-pn" name="pn" class="select" aria-describedby="f-pn-error"><option value="3" selected>3 (cube)</option><option value="2">2 (square, x ≥ h)</option></select>
                 <p id="f-pn-error" class="field-error" data-error-for="pn"></p>
               </div></div>
-            <div class="field-row mt-4" data-show-when="mode=inverse" hidden><div class="field" data-show-when="mode=inverse" hidden>
+            <div class="field-row mt-4" data-show-when="mode=inverse;ftype=exp" hidden><div class="field" data-show-when="mode=inverse;ftype=exp" hidden>
                 <label class="field-label" for="f-ea">a</label>
                 <input id="f-ea" name="ea" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 3" aria-describedby="f-ea-error">
                 <p id="f-ea-error" class="field-error" data-error-for="ea"></p>
-              </div><div class="field" data-show-when="mode=inverse" hidden>
+              </div><div class="field" data-show-when="mode=inverse;ftype=exp" hidden>
                 <label class="field-label" for="f-eb">Base b</label>
                 <input id="f-eb" name="eb" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 2" aria-describedby="f-eb-error">
                 <p id="f-eb-error" class="field-error" data-error-for="eb"></p>
-              </div><div class="field" data-show-when="mode=inverse" hidden>
+              </div><div class="field" data-show-when="mode=inverse;ftype=exp" hidden>
                 <label class="field-label" for="f-ek">k</label>
                 <input id="f-ek" name="ek" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 1" aria-describedby="f-ek-error">
                 <p id="f-ek-error" class="field-error" data-error-for="ek"></p>

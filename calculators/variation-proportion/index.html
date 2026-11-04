@@ -163,7 +163,8 @@
           <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         </button>
         <button type="button" class="icon-btn md:hidden" data-menu-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
-          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-menu" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>
@@ -216,7 +217,7 @@
                 <label class="field-label" for="f-n">Power of x</label>
                 <select id="f-n" name="n" class="select" aria-describedby="f-n-error"><option value="1" selected>1 (first power)</option><option value="2">2 (square)</option><option value="3">3 (cube)</option><option value="1/2">½ (square root)</option></select>
                 <p id="f-n-error" class="field-error" data-error-for="n"></p>
-              </div><div class="field" data-show-when="mode=variation">
+              </div><div class="field" data-show-when="mode=variation;kind=joint|combined" hidden>
                 <label class="field-label" for="f-m">Power of w</label>
                 <select id="f-m" name="m" class="select" aria-describedby="f-m-error"><option value="1" selected>1 (first power)</option><option value="2">2 (square)</option><option value="3">3 (cube)</option><option value="1/2">½ (square root)</option></select>
                 <p id="f-m-error" class="field-error" data-error-for="m"></p>
@@ -225,7 +226,7 @@
                 <label class="field-label" for="f-x1">Known x</label>
                 <input id="f-x1" name="x1" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 2" aria-describedby="f-x1-error">
                 <p id="f-x1-error" class="field-error" data-error-for="x1"></p>
-              </div><div class="field" data-show-when="mode=variation">
+              </div><div class="field" data-show-when="mode=variation;kind=joint|combined" hidden>
                 <label class="field-label" for="f-w1">Known w</label>
                 <input id="f-w1" name="w1" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 3" aria-describedby="f-w1-error">
                 <p id="f-w1-error" class="field-error" data-error-for="w1"></p>
@@ -238,7 +239,7 @@
                 <label class="field-label" for="f-x2">New x</label>
                 <input id="f-x2" name="x2" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 5" aria-describedby="f-x2-error">
                 <p id="f-x2-error" class="field-error" data-error-for="x2"></p>
-              </div><div class="field" data-show-when="mode=variation">
+              </div><div class="field" data-show-when="mode=variation;kind=joint|combined" hidden>
                 <label class="field-label" for="f-w2">New w</label>
                 <input id="f-w2" name="w2" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 4" aria-describedby="f-w2-error">
                 <p id="f-w2-error" class="field-error" data-error-for="w2"></p>
@@ -256,7 +257,7 @@
                 <label class="field-label" for="f-pb">b</label>
                 <input id="f-pb" name="pb" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 5" aria-describedby="f-pb-error">
                 <p id="f-pb-error" class="field-error" data-error-for="pb"></p>
-              </div><div class="field" data-show-when="mode=proportion" hidden>
+              </div><div class="field" data-show-when="mode=proportion;ptype=fourth" hidden>
                 <label class="field-label" for="f-pc">c</label>
                 <input id="f-pc" name="pc" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 12" aria-describedby="f-pc-error">
                 <p id="f-pc-error" class="field-error" data-error-for="pc"></p>

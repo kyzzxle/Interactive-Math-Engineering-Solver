@@ -30,10 +30,13 @@ export function mountCalculator(calc) {
   // ---------------------------------------------------------- conditional fields and unit suffixes
   const syncVisibility = () => {
     form.querySelectorAll('[data-show-when]').forEach((el) => {
-      const [field, list] = el.getAttribute('data-show-when').split('=');
-      const ctrl = form.elements.namedItem(field);
-      const value = ctrl ? ctrl.value : '';
-      el.hidden = !list.split('|').includes(value);
+      // "field=a|b;other=c": shown only when every condition holds
+      el.hidden = !el.getAttribute('data-show-when').split(';').every((cond) => {
+        const [field, list] = cond.split('=');
+        const ctrl = form.elements.namedItem(field);
+        const value = ctrl ? ctrl.value : '';
+        return list.split('|').includes(value);
+      });
     });
     const unitCtrl = form.elements.namedItem('unit');
     const unit = unitCtrl ? unitCtrl.value : '';

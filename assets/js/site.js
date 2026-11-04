@@ -35,11 +35,21 @@
   var menuBtn = document.querySelector('[data-menu-toggle]');
   var mobileNav = document.getElementById('mobile-nav');
   if (menuBtn && mobileNav) {
+    var closeTimer;
     menuBtn.addEventListener('click', function () {
       var open = menuBtn.getAttribute('aria-expanded') === 'true';
       menuBtn.setAttribute('aria-expanded', String(!open));
       menuBtn.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
-      mobileNav.hidden = open;
+      clearTimeout(closeTimer);
+      if (open) {
+        // fade the links out, then hide the menu
+        mobileNav.classList.remove('is-open');
+        closeTimer = setTimeout(function () { mobileNav.hidden = true; }, 200);
+      } else {
+        mobileNav.hidden = false;
+        void mobileNav.offsetHeight; // apply the closed state first, so the links transition in
+        mobileNav.classList.add('is-open');
+      }
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
@@ -47,6 +57,34 @@
         menuBtn.focus();
       }
     });
+  }
+
+  // ------------------------------------------------------------ header shadow once the page scrolls
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 8); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ------------------------------------------------------------ gentle reveal of home-page sections
+  // Only when motion is welcome and IntersectionObserver exists; otherwise sections are simply
+  // visible. A timer reveals anything still waiting, so content can never stay hidden.
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  var motionOk = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  if (revealEls.length && motionOk && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('reveal-ready');
+    var revealAll = function () { revealEls.forEach(function (el) { el.classList.add('is-revealed'); }); };
+    var observed = false;
+    var revealer = new IntersectionObserver(function (entries) {
+      observed = true;
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-revealed'); revealer.unobserve(entry.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { revealer.observe(el); });
+    setTimeout(function () { if (!observed) revealAll(); }, 2500);
+    window.addEventListener('beforeprint', revealAll);
   }
 
   // ------------------------------------------------------------ active navigation link

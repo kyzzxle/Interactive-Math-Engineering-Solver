@@ -163,7 +163,8 @@
           <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         </button>
         <button type="button" class="icon-btn md:hidden" data-menu-toggle aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
-          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-menu" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>
@@ -239,7 +240,7 @@
                 <input id="f-c1" name="c1" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 20" aria-describedby="f-c1-error">
                 <p id="f-c1-error" class="field-error" data-error-for="c1"></p>
               </div></div>
-            <div class="field-row mt-4" data-show-when="mode=mixture" hidden><div class="field" data-show-when="mode=mixture" hidden>
+            <div class="field-row mt-4" data-show-when="mode=mixture" hidden><div class="field" data-show-when="mode=mixture;mkind=mix" hidden>
                 <label class="field-label" for="f-x2">Amount 2</label>
                 <input id="f-x2" name="x2" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 15" aria-describedby="f-x2-error">
                 <p id="f-x2-error" class="field-error" data-error-for="x2"></p>
@@ -248,7 +249,7 @@
                 <input id="f-c2" name="c2" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 50" aria-describedby="f-c2-error">
                 <p id="f-c2-error" class="field-error" data-error-for="c2"></p>
               </div></div>
-            <div class="mt-4"><div class="field" data-show-when="mode=mixture" hidden>
+            <div class="mt-4"><div class="field" data-show-when="mode=mixture;mkind=find" hidden>
                 <label class="field-label" for="f-ct">Target concentration (%)</label>
                 <input id="f-ct" name="ct" class="input" type="text" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="e.g. 35" aria-describedby="f-ct-error">
                 <p id="f-ct-error" class="field-error" data-error-for="ct"></p>
