@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/inequality-solver/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When do I flip the inequality sign?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When you multiply or divide both sides by a negative number."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I solve a quadratic inequality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Move everything to one side, find the roots, then use the direction the parabola opens (or test points) to decide which intervals work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is interval notation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A way to write a set of numbers: (2, 3) means between 2 and 3, excluding both; [2, 3] includes both; ∞ always gets a round bracket."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if the quadratic has no real roots?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It never changes sign, so the inequality is true for every x or for none, depending on which way the parabola opens."
+          }
+        }
+      ]
     }
   ]
 }
@@ -208,8 +246,12 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Then test yourself on a fresh problem — use a hint if you get stuck.</p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Where is the parabola above the axis?</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
         <div class="panel learn-panel" id="practice">
           <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Solve a quadratic inequality</h3></div></div>
           <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
@@ -224,10 +266,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the inequality solver does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is an inequality?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">The sign-chart method</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a linear inequality</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -235,48 +286,159 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the inequality solver does</h2>
-          <p>An <strong>inequality</strong> asks where an expression is greater or less than another. Move everything to one side, find where it equals zero (the boundary points), then check the sign in between.</p>
-          <p>For a linear inequality there is one boundary. For a quadratic there can be two, one or none; the direction the parabola opens tells you where it is positive or negative.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Dividing or multiplying both sides by a negative number reverses the inequality sign.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is an inequality?</h2>
+          <p>An <strong>inequality</strong> compares two expressions with <span class="math" data-tex="\lt"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="\le"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="\gt"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo></mrow></semantics></math></span></span> or <span class="math" data-tex="\ge"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo></mrow></semantics></math></span></span>. Its solution is usually a whole interval of numbers, not a single value. A <strong>linear</strong> inequality like <span class="math" data-tex="-3x + 4 \ge 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>3</mn><mi>x</mi><mo>+</mo><mn>4</mn><mo>≥</mo><mn>10</mn></mrow></semantics></math></span></span> is solved almost like an equation; a <strong>quadratic</strong> one like <span class="math" data-tex="x^2 - 5x \lt -6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn><mi>x</mi><mo>&lt;</mo><mo>−</mo><mn>6</mn></mrow></semantics></math></span></span> is solved by finding where a parabola is above or below the x-axis.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Solve <span class="math" data-tex="-3x \lt 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>3</mn><mi>x</mi><mo>&lt;</mo><mn>6</mn></mrow></semantics></math></span></span>. Dividing by <span class="math" data-tex="-3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span> reverses the sign: <span class="math" data-tex="x \gt -2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span>. Test <span class="math" data-tex="x = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="0 \lt 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mn>6</mn></mrow></semantics></math></span></span> ✓.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="ax + b &lt; 0 \qquad ax^2 + bx + c &lt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo>&lt;</mo><mn>0</mn><mspace width="2em"/><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span><span class="math-display" data-tex="x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="a,\ b,\ c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mtext> </mtext><mi>b</mi><mo separator="true">,</mo><mtext> </mtext><mi>c</mi></mrow></semantics></math></span></span></td><td>Coefficients after moving everything to one side</td></tr>
-              <tr><td><span class="math" data-tex="\lt,\ \le,\ \gt,\ \ge"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mo separator="true">,</mo><mtext> </mtext><mo>≤</mo><mo separator="true">,</mo><mtext> </mtext><mo>&gt;</mo><mo separator="true">,</mo><mtext> </mtext><mo>≥</mo></mrow></semantics></math></span></span></td><td>Strict (open dot) or inclusive (filled dot) inequalities</td></tr>
-            </tbody>
-          </table>
-          <p>An upward parabola (a &gt; 0) is negative between its roots and positive outside them.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Solves linear and quadratic inequalities in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>, with both sides typed as expressions.</li>
+            <li>Finds exact boundary points (in simplest radical form when needed).</li>
+            <li>Gives the solution in inequality notation, interval notation and on a number line.</li>
+            <li>Checks the answer with a test point in each interval.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Solve x² − 5x &lt; −6</h3>
-            <h4>Step 1 — One side</h4>
-            <span class="math-display" data-tex="x^2 - 5x + 6 &lt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn><mi>x</mi><mo>+</mo><mn>6</mn><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Boundary points</h4>
-            <span class="math-display" data-tex="(x - 2)(x - 3) = 0 \Rightarrow x = 2,\ 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mo>⇒</mo><mi>x</mi><mo>=</mo><mn>2</mn><mo separator="true">,</mo><mtext> </mtext><mn>3</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Sign</h4>
-            <p>The parabola opens upward, so it is negative between the roots:</p><span class="math-display" data-tex="2 &lt; x &lt; 3,\quad \text{i.e. } (2,\ 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><mn>3</mn><mo separator="true">,</mo><mspace width="1em"/><mtext>i.e. </mtext><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mtext> </mtext><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>Move everything to one side so the question becomes "where is this expression positive (or negative)?" A polynomial can only change sign where it equals 0, so its roots split the number line into intervals with a constant sign in each.</p>
+          <p>For a quadratic <span class="math" data-tex="ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span> with two roots:</p>
+          <ul>
+            <li>if <span class="math" data-tex="a \gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span> (opens upward), it is negative between the roots and positive outside;</li>
+            <li>if <span class="math" data-tex="a \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span> (opens downward), the opposite.</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Reversing the sign</p>
+            <p>Multiplying or dividing both sides by a negative number flips the inequality: <span class="math" data-tex="2 \lt 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>&lt;</mo><mn>3</mn></mrow></semantics></math></span></span>, but <span class="math" data-tex="-2 \gt -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2</mn><mo>&gt;</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Inequality (<span class="math" data-tex="a \gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>, roots <span class="math" data-tex="r_1 \lt r_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>1</mn></msub><mo>&lt;</mo><msub><mi>r</mi><mn>2</mn></msub></mrow></semantics></math></span></span>)</th><th scope="col">Solution</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="a(x - r_1)(x - r_2) \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>r</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>r</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span></td><td><span class="math" data-tex="r_1 \lt x \lt r_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mn>1</mn></msub><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><msub><mi>r</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td></tr>
+              <tr><td><span class="math" data-tex="a(x - r_1)(x - r_2) \gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>r</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>r</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span></td><td><span class="math" data-tex="x \lt r_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&lt;</mo><msub><mi>r</mi><mn>1</mn></msub></mrow></semantics></math></span></span> or <span class="math" data-tex="x \gt r_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><msub><mi>r</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td></tr>
+              <tr><td>No real roots, <span class="math" data-tex="\gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>All real numbers</td></tr>
+              <tr><td>No real roots, <span class="math" data-tex="\lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>No solution</td></tr>
+            </tbody>
+          </table>
+          <p>Use square brackets for <span class="math" data-tex="\le"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="\ge"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo></mrow></semantics></math></span></span> (boundary included) and round brackets for <span class="math" data-tex="\lt"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="\gt"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Term</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Boundary point</td><td>A value where the two sides are equal.</td></tr>
+              <tr><td>Test point</td><td>A value inside an interval used to find its sign.</td></tr>
+              <tr><td><span class="math" data-tex="(a, b)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="[a, b]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">]</mo></mrow></semantics></math></span></span></td><td>Open and closed intervals.</td></tr>
+              <tr><td><span class="math" data-tex="\cup"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∪</mo></mrow></semantics></math></span></span></td><td>Union: "or", joining two intervals.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">The sign-chart method</h2>
+          <ol>
+            <li>Move every term to one side: <span class="math" data-tex="f(x) \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span> (or another sign).</li>
+            <li>Find the roots of <span class="math" data-tex="f(x) = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>; they are the boundary points.</li>
+            <li>Pick a test point in each interval and find the sign of <span class="math" data-tex="f"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi></mrow></semantics></math></span></span> there.</li>
+            <li>Keep the intervals with the required sign, and include the boundaries for <span class="math" data-tex="\le"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo></mrow></semantics></math></span></span> or <span class="math" data-tex="\ge"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo></mrow></semantics></math></span></span>.</li>
+          </ol>
+          <p>This works because a polynomial is continuous: it cannot change sign without passing through 0.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="x^2 - 5x \lt -6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn><mi>x</mi><mo>&lt;</mo><mo>−</mo><mn>6</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: One side</h4>
+            <span class="math-display" data-tex="x^2 - 5x + 6 \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn><mi>x</mi><mo>+</mo><mn>6</mn><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Boundary points</h4>
+            <span class="math-display" data-tex="(x - 2)(x - 3) = 0 \;\Rightarrow\; x = 2,\ x = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>x</mi><mo>=</mo><mn>2</mn><mo separator="true">,</mo><mtext> </mtext><mi>x</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Sign</h4>
+            <p>The parabola opens upward, so it is negative between the roots.</p>
+            <span class="math-display" data-tex="2 \lt x \lt 3, \qquad (2, 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><mn>3</mn><mo separator="true">,</mo><mspace width="2em"/><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="x = 2.5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>2.5</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="6.25 - 12.5 + 6 = -0.25 \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6.25</mn><mo>−</mo><mn>12.5</mn><mo>+</mo><mn>6</mn><mo>=</mo><mo>−</mo><mn>0.25</mn><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span> ✓. <span class="math" data-tex="x = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="16 - 20 + 6 = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mo>−</mo><mn>20</mn><mo>+</mo><mn>6</mn><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>, not negative ✓.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a linear inequality</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="-3x + 4 \ge 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>3</mn><mi>x</mi><mo>+</mo><mn>4</mn><mo>≥</mo><mn>10</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Subtract 4</h4>
+            <span class="math-display" data-tex="-3x \ge 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>−</mo><mn>3</mn><mi>x</mi><mo>≥</mo><mn>6</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Divide by −3 and reverse the sign</h4>
+            <span class="math-display" data-tex="x \le -2, \qquad (-\infty, -2]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>≤</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mspace width="2em"/><mo stretchy="false">(</mo><mo>−</mo><mi mathvariant="normal">∞</mi><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">]</mo></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="x = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="9 + 4 = 13 \ge 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mo>+</mo><mn>4</mn><mo>=</mo><mn>13</mn><mo>≥</mo><mn>10</mn></mrow></semantics></math></span></span> ✓. <span class="math" data-tex="x = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="4 \ge 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>≥</mo><mn>10</mn></mrow></semantics></math></span></span> is false ✓.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Linear and quadratic expressions in x only (degree ≤ 2 after moving terms).</li>
-            <li>Coefficients may be fractions; boundaries are exact (fractions or simplest radicals).</li>
+            <li><strong>Design limits:</strong> stresses, deflections or temperatures that must stay below an allowable value.</li>
+            <li><strong>Budgets:</strong> how many units can be bought for at most a given amount.</li>
+            <li><strong>Projectiles:</strong> the time interval during which an object is above a certain height.</li>
+            <li><strong>Profit:</strong> the production range where revenue exceeds cost.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Not reversing the sign</strong> after multiplying or dividing by a negative number.</li>
+            <li><strong>Taking square roots of both sides.</strong> <span class="math" data-tex="x^2 \lt 9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>&lt;</mo><mn>9</mn></mrow></semantics></math></span></span> means <span class="math" data-tex="-3 \lt x \lt 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>3</mn><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><mn>3</mn></mrow></semantics></math></span></span>, not just <span class="math" data-tex="x \lt 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&lt;</mo><mn>3</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Wrong brackets.</strong> <span class="math" data-tex="\le"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo></mrow></semantics></math></span></span> includes the endpoint: use <span class="math" data-tex="[\ ]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mtext> </mtext><mo stretchy="false">]</mo></mrow></semantics></math></span></span>.</li>
+            <li><strong>Choosing the wrong region.</strong> Always test a point.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Forgetting to reverse the sign when dividing by a negative number.</li>
-            <li>Writing x &lt; 2 and x &gt; 3 for “outside the roots” — it must be “or”.</li>
+            <li>Both sides are polynomials in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> of degree at most 2.</li>
+            <li>Boundary points are exact; decimals are shown for irrational ones.</li>
+            <li>For absolute values, use the <a href="../absolute-value-equations/">absolute value calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>When do I flip the inequality sign?</summary>
+            <div class="faq-answer"><p>When you multiply or divide both sides by a negative number.</p></div>
+          </details>
+          <details>
+            <summary>How do I solve a quadratic inequality?</summary>
+            <div class="faq-answer"><p>Move everything to one side, find the roots, then use the direction the parabola opens (or test points) to decide which intervals work.</p></div>
+          </details>
+          <details>
+            <summary>What is interval notation?</summary>
+            <div class="faq-answer"><p>A way to write a set of numbers: (2, 3) means between 2 and 3, excluding both; [2, 3] includes both; ∞ always gets a round bracket.</p></div>
+          </details>
+          <details>
+            <summary>What if the quadratic has no real roots?</summary>
+            <div class="faq-answer"><p>It never changes sign, so the inequality is true for every x or for none, depending on which way the parabola opens.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../absolute-value-equations/">Absolute value inequalities</a>.</li>
+            <li><a href="../quadratic-equation-solver/">Quadratic equations</a>.</li>
+            <li><a href="../linear-equation-solver/">Linear equations</a>.</li>
           </ul>
         </section>
 

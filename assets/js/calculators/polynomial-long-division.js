@@ -9,9 +9,12 @@ import { polyMul, polyAdd } from '../lib/expr.js';
 import { plot } from '../lib/plot.js';
 import { randInt } from '../lib/learn.js';
 import { Frac } from '../lib/fraction.js';
+import { remainderExplore } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
 
 export const calculator = {
   id: 'polynomial-long-division',
+  explore: remainderExplore,
   practice: {
     title: 'Divide by (x − c)',
     generate(rand) {
@@ -89,3 +92,11 @@ export const calculator = {
     };
   },
 };
+
+// Explanations for each step.
+withNotes(calculator, {
+  'Set up': 'Write both polynomials in descending powers, with 0 for any missing power.',
+  'Step': 'Divide the leading term of what is left by the leading term of the divisor, multiply the whole divisor by that term and subtract. Repeat until the remainder has a lower degree than the divisor.',
+  'Result': 'The division stops when the remainder has a lower degree than the divisor.',
+  'Check': 'Multiplying back and adding the remainder must give the dividend.',
+});

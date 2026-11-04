@@ -831,6 +831,56 @@
       "updated": "2026-11-03"
     },
     {
+      "id": "absolute-value-equations", "name": "Absolute Value Equation and Inequality Solver", "shortName": "Absolute Value Equations", "category": "algebra", "generated": true,
+      "summary": "Solve |ax + b| = k, |ax + b| = cx + d, |ax + b| = |cx + d| and absolute value inequalities, with cases, checks and interval notation.",
+      "keywords": ["absolute value equation", "absolute value inequality", "modulus", "two cases", "extraneous solution", "interval notation", "V-shaped graph"],
+      "related": ["inequality-solver", "linear-equation-solver", "radical-rational-equations"],
+      "title": "Absolute Value Equation & Inequality Solver – with Steps | Solver Hub",
+      "description": "Solve absolute value equations and inequalities step by step: split into cases, reject extraneous roots, and get interval notation with a graph of the V.",
+      "lead": "Choose the type of problem and enter the coefficients. The solver splits it into cases, checks every answer, and shows where the V-shaped graph meets the other side.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "radical-rational-equations", "name": "Radical and Rational Equation Solver", "shortName": "Radical & Rational Equations", "category": "algebra", "generated": true,
+      "summary": "Solve √(ax + b) = cx + d and equations with x in a denominator, checking every candidate for extraneous roots.",
+      "keywords": ["radical equation", "square root equation", "rational equation", "extraneous solution", "extraneous root", "least common denominator", "excluded values"],
+      "related": ["absolute-value-equations", "quadratic-equation-solver", "rational-expression-simplifier"],
+      "title": "Radical & Rational Equation Solver – Extraneous Roots Checked | Solver Hub",
+      "description": "Solve square root and rational equations step by step. Square or clear denominators, solve, then see exactly which roots are extraneous and why.",
+      "lead": "Enter a square root equation or a rational equation. The solver squares or multiplies by the LCD, solves, and tests every candidate against the original equation.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "function-operations", "name": "Function Operations Calculator – Composition and Inverse", "shortName": "Function Operations", "category": "algebra", "generated": true,
+      "summary": "Compose and combine two functions, evaluate f(g(x)) at a point, and find inverse functions with their domain and range.",
+      "keywords": ["composition of functions", "f(g(x))", "inverse function", "domain and range", "function operations", "one-to-one", "f inverse"],
+      "related": ["logarithm-calculator", "rational-expression-simplifier", "exponent-and-radical-simplifier"],
+      "title": "Function Composition & Inverse Function Calculator | Solver Hub",
+      "description": "Find f(g(x)), g(f(x)), f + g, f · g and f / g, evaluate them at a point, or find an inverse function with its domain, range and a check.",
+      "lead": "Enter two functions to compose and combine them, or pick a function type to find its inverse, domain and range, with every step shown.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "variation-proportion", "name": "Variation and Proportion Calculator", "shortName": "Variation & Proportion", "category": "algebra", "generated": true,
+      "summary": "Direct, inverse, joint and combined variation with powers; fourth, mean and third proportionals; and sharing a total in a ratio.",
+      "keywords": ["direct variation", "inverse variation", "joint variation", "combined variation", "constant of variation", "proportion", "mean proportional", "ratio"],
+      "related": ["linear-equation-solver", "work-mixture-clock", "exponent-and-radical-simplifier"],
+      "title": "Variation & Proportion Calculator – Direct, Inverse, Joint | Solver Hub",
+      "description": "Solve direct, inverse, joint and combined variation problems by finding k, solve proportions, and divide a quantity in a ratio, step by step.",
+      "lead": "Pick the type of variation, enter one known set of values and the new values. The calculator finds the constant k and the unknown, and checks it with ratios.",
+      "updated": "2026-11-03"
+    },
+    {
+      "id": "work-mixture-clock", "name": "Work, Mixture and Clock Problem Solver", "shortName": "Work, Mixture & Clock", "category": "algebra", "generated": true,
+      "summary": "Work-rate problems (together, against, with a head start), mixtures and concentrations, and clock-hand angles and times.",
+      "keywords": ["work problems", "work rate", "pipes filling a tank", "mixture problems", "concentration", "clock problems", "angle between clock hands"],
+      "related": ["variation-proportion", "linear-equation-solver", "systems-of-linear-equations"],
+      "title": "Work, Mixture & Clock Problem Solver – with Steps | Solver Hub",
+      "description": "Solve work-rate, mixture and clock problems step by step: combined rates, concentrations, the angle between the hands and when they line up.",
+      "lead": "Choose a problem type and enter the numbers. The solver sets up the equation, solves it exactly and checks the answer.",
+      "updated": "2026-11-03"
+    },
+    {
       "id": "inverse-trig-functions", "name": "Inverse Trigonometric Function Calculator", "shortName": "Inverse Trig Functions", "category": "trigonometry", "generated": true,
       "summary": "arcsin, arccos and arctan with exact special values, domain and range, and every angle with the same sine, cosine or tangent.",
       "keywords": ["arcsin", "arccos", "arctan", "inverse trig", "principal value", "sin inverse"],

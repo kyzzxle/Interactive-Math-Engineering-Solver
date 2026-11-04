@@ -1,40 +1,149 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Systems of linear equations</h2>
-          <p>A <strong>system of linear equations</strong> is a set of equations that must all be true at once. With two unknowns, each equation is a line and the solution is where the lines meet; with three unknowns each equation is a plane. This solver handles systems of two equations in \(x, y\) or three in \(x, y, z\), using the <strong>elimination method</strong> written as row operations, with exact fractions throughout.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second equation a multiple of the first (for example double every number). The two lines become one, and the solver reports infinitely many solutions in terms of a parameter \(t\).</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a system of linear equations?</h2>
+          <p>A <strong>system of linear equations</strong> is a set of equations that must all be true at once, such as \(2x + 3y = 12\) and \(x - y = 1\). Its solution is the set of values that satisfies every equation. With two unknowns, each equation is a line, and the solution is where the lines meet. With three unknowns, each equation is a plane.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second equation a multiple of the first, such as \(x + 2y = 4\) and \(2x + 4y = 8\). They describe the same line, so there are infinitely many solutions.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Solves 2 × 2 and 3 × 3 systems by elimination (Gauss–Jordan), showing each row operation.</li>
+            <li>Works with exact fractions throughout.</li>
+            <li>Detects systems with no solution or infinitely many.</li>
+            <li>Checks the solution in every original equation and graphs a 2 × 2 system.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>Three operations never change the solutions of a system:</p>
+          <ol>
+            <li>swapping two equations;</li>
+            <li>multiplying an equation by a non-zero number;</li>
+            <li>adding a multiple of one equation to another.</li>
+          </ol>
+          <p><strong>Elimination</strong> uses them to remove one variable at a time until each equation contains a single unknown. Written in a grid of coefficients (the augmented matrix), this is Gauss–Jordan elimination.</p>
+          <div class="callout">
+            <p class="callout-title">Three possible outcomes</p>
+            <p>Exactly one solution (lines or planes meeting at a point), no solution (parallel lines), or infinitely many (the same line, or planes meeting in a line).</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Method</h2>
-          <p>Write the coefficients as an augmented matrix and use three operations that never change the solutions:</p>
-          <ol>
-            <li>Swap two equations: \(R_i \leftrightarrow R_j\).</li>
-            <li>Multiply an equation by a non-zero number: \(R_i \to kR_i\).</li>
-            <li>Add a multiple of one equation to another: \(R_i \to R_i + kR_j\) (this is "elimination").</li>
-          </ol>
-          <div class="formula-box">\[ \left[\begin{array}{cc|c} a_1 & b_1 & c_1 \\ a_2 & b_2 & c_2 \end{array}\right] \;\longrightarrow\; \left[\begin{array}{cc|c} 1 & 0 & x \\ 0 & 1 & y \end{array}\right] \]</div>
-          <p>The outcome is one of three cases: a <strong>unique</strong> solution, <strong>no</strong> solution (a row reads \(0 = k\) with \(k \ne 0\)), or <strong>infinitely many</strong> solutions (a free variable remains).</p>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Method</th><th scope="col">Idea</th></tr></thead>
+            <tbody>
+              <tr><td>Substitution</td><td>Solve one equation for a variable and substitute it into the others</td></tr>
+              <tr><td>Elimination</td><td>Add multiples of equations to cancel a variable</td></tr>
+              <tr><td>Cramer's rule (2 × 2)</td><td>\(x = \tfrac{c_1b_2 - c_2b_1}{a_1b_2 - a_2b_1}\), \(y = \tfrac{a_1c_2 - a_2c_1}{a_1b_2 - a_2b_1}\)</td></tr>
+              <tr><td>Determinant test</td><td>\(\det A \ne 0\): exactly one solution</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(x, y, z\)</td><td>The unknowns.</td></tr>
+              <tr><td>\(a_i, b_i, c_i\)</td><td>Coefficients of each equation.</td></tr>
+              <tr><td>\([A \mid b]\)</td><td>The augmented matrix: coefficients and right-hand sides.</td></tr>
+              <tr><td>Pivot</td><td>The leading entry used to eliminate a variable from the other rows.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Why elimination works</h2>
+          <p>If \((x, y)\) satisfies \(E_1\) and \(E_2\), it also satisfies \(E_1 + kE_2\): adding true equations gives a true equation. The step is reversible (subtract \(kE_2\) again), so no solutions are gained or lost. Choosing \(k\) to cancel a variable reduces the number of unknowns.</p>
+          <p>For a 2 × 2 system, eliminating \(y\) from \(a_1x + b_1y = c_1\) and \(a_2x + b_2y = c_2\) gives \((a_1b_2 - a_2b_1)x = c_1b_2 - c_2b_1\), which is Cramer's rule.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Solve \(2x + 3y = 12\) and \(x - y = 1\)</h3>
-            <h4>Step 1 — Eliminate x</h4>
-            <p>Multiply the second equation by 2 and subtract it from the first:</p>
-            \[ (2x + 3y) - (2x - 2y) = 12 - 2 \;\Rightarrow\; 5y = 10 \;\Rightarrow\; y = 2 \]
-            <h4>Step 2 — Back-substitute</h4>
-            \[ x - 2 = 1 \;\Rightarrow\; x = 3 \]
-            <h4>Step 3 — Check</h4>
+            <h3>Problem</h3>
+            <p>Solve \(2x + 3y = 12\) and \(x - y = 1\).</p>
+            <h4>Step 1: Eliminate y</h4>
+            <p>Multiply the second equation by 3 and add: \(2x + 3y + 3x - 3y = 12 + 3\), so \(5x = 15\) and \(x = 3\).</p>
+            <h4>Step 2: Back-substitute</h4>
+            \[ 3 - y = 1 \;\Rightarrow\; y = 2 \]
+            <h4>Check</h4>
             <p>\(2(3) + 3(2) = 12\) ✓ and \(3 - 2 = 1\) ✓.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: three unknowns</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(x + y + z = 6\), \(2x - y + z = 3\), \(x + 2y - z = 2\).</p>
+            <h4>Step 1: Eliminate z</h4>
+            <p>Add the first and third equations: \(2x + 3y = 8\). Subtract the first from the second: \(x - 2y = -3\).</p>
+            <h4>Step 2: Solve the 2 × 2 system</h4>
+            <p>From \(x = 2y - 3\): \(2(2y - 3) + 3y = 8\), so \(7y = 14\), \(y = 2\) and \(x = 1\).</p>
+            <h4>Step 3: Back-substitute</h4>
+            \[ 1 + 2 + z = 6 \;\Rightarrow\; z = 3 \]
+            <h4>Check</h4>
+            <p>\(2 - 2 + 3 = 3\) ✓ and \(1 + 4 - 3 = 2\) ✓.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Two equations in two unknowns or three equations in three unknowns. Type 0 for a missing term.</li>
-            <li>Coefficients can be integers, decimals or fractions; results are exact fractions.</li>
-            <li>For larger systems, or to use Cramer's rule or the inverse matrix, use the <a href="../matrix-method-linear-systems/">matrix methods calculator</a>.</li>
+            <li><strong>Circuits:</strong> Kirchhoff's laws give a linear system for the loop currents.</li>
+            <li><strong>Statics:</strong> force and moment balances for the reactions of a truss or beam.</li>
+            <li><strong>Mixtures and blending:</strong> amounts of ingredients that meet several targets.</li>
+            <li><strong>Curve fitting:</strong> the parabola through three points.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Multiplying only one side of an equation.</strong> Every term must be multiplied.</li>
+            <li><strong>Sign errors when subtracting equations.</strong> Subtract every term, including the right side.</li>
+            <li><strong>Stopping after one variable.</strong> Substitute back to find the others.</li>
+            <li><strong>Treating "0 = 0" as an error.</strong> It means a dependent system with infinitely many solutions.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Two or three unknowns; coefficients may be fractions or decimals, handled exactly.</li>
+            <li>For larger systems, use the <a href="../matrix-method-linear-systems/">matrix method</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I solve a system of two equations?</summary>
+            <div class="faq-answer"><p>Eliminate one variable by adding a multiple of one equation to the other, solve for the remaining variable, then substitute back.</p></div>
+          </details>
+          <details>
+            <summary>How can I tell if a system has no solution?</summary>
+            <div class="faq-answer"><p>Elimination produces a false statement like 0 = 5. For two equations, the lines are parallel.</p></div>
+          </details>
+          <details>
+            <summary>What is Gauss–Jordan elimination?</summary>
+            <div class="faq-answer"><p>Elimination done on the augmented matrix until each row has a single leading 1, so the solution can be read off directly.</p></div>
+          </details>
+          <details>
+            <summary>Which method is best?</summary>
+            <div class="faq-answer"><p>Substitution is quick when a variable has coefficient 1; elimination is more systematic and works for any size.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../matrix-method-linear-systems/">Matrix method for linear systems</a>.</li>
+            <li><a href="../intersection-of-two-lines/">Intersection of two lines</a>.</li>
+            <li><a href="../matrix-calculator/">Matrices and determinants</a>.</li>
           </ul>
         </section>

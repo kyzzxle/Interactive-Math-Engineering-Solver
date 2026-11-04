@@ -10,6 +10,8 @@ import { validator } from '../lib/calc-kit.js';
 import { parse, toPoly, polyToNode, polyMul, texOf, textOf, ExprError } from '../lib/expr.js';
 import { Frac, bgcd, lcmBig } from '../lib/fraction.js';
 import { rationalRoots, synthDiv } from '../lib/numeric.js';
+import { factoringExplore, factoringPractice } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
 
 const Z = () => new Frac(0n);
 
@@ -95,6 +97,8 @@ function linTex(q, p) {
 
 export const calculator = {
   id: 'polynomial-factoring',
+  explore: factoringExplore,
+  practice: factoringPractice,
   fields: [
     { name: 'poly', label: 'Polynomial in x', type: 'text', placeholder: 'e.g. x^3 - 6x^2 + 11x - 6', hint: 'Degree 2 to 6 with rational coefficients. Use ^ for powers, e.g. 2x^4 - 32.' },
   ],
@@ -205,7 +209,13 @@ export const calculator = {
       final: { tex: `${texOf(polyToNode(poly))} = ${factored}` },
       answers: [
         { label: 'Factored form', valueTex: factored, primary: true, copy: factored.replace(/\\left|\\right/g, '').replace(/\^\{(\d+)\}/g, '^$1').replace(/\\frac\{(-?\d+)\}\{(\d+)\}/g, '($1/$2)') },
-        { label: 'Rational roots', value: linear.length ? [...counts.values()].map(({ r, m }) => `${r}${m > 1 ? ` (multiplicity ${m})` : ''}`).join(', ') + (k ? ', 0' : '') : k ? '0' : 'none' },
+        { label: 'Rational roots', value: (() => {
+          // every rational root in increasing order, including 0 when x^k was factored out
+          const all = [...counts.values()].map(({ r, m }) => ({ r, m, x: Number(r.toNumber ? r.toNumber() : r) }));
+          if (k) all.push({ r: '0', m: k, x: 0 });
+          all.sort((p, q) => p.x - q.x);
+          return all.length ? all.map(({ r, m }) => `${r}${m > 1 ? ` (multiplicity ${m})` : ''}`).join(', ') : 'none';
+        })() },
         { label: 'Degree', value: String(deg) },
       ],
       notes, steps,
@@ -214,3 +224,14 @@ export const calculator = {
     };
   },
 };
+
+// Explanations for each step.
+withNotes(calculator, {
+  'Write the polynomial in standard form': 'Order the terms from the highest power down, so the leading coefficient and the constant term are easy to read.',
+  'Factor out the greatest common factor': 'Always take out common factors first: what is left is smaller and easier to factor.',
+  'Greatest common factor': 'Always look for a common factor first.',
+  'Rational root theorem': 'This limits the search for roots to a short list of candidates, each tested by substitution.',
+  'Divide out each root': 'Dividing by (x − r) lowers the degree by one, so the next factor is easier to find.',
+  'Look for quadratic or cubic factors': 'With no rational roots left, the polynomial may still split into higher-degree factors, or it may be irreducible over the rationals.',
+  'Check by multiplying': 'Multiplying the factors back together must give the original polynomial.',
+});

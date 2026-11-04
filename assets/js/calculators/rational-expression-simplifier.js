@@ -8,6 +8,9 @@ import { parsePolyField, polyDivide, polyGcd, polyTex, polyText, degree, factorR
 import { polyRealRoots } from '../lib/numeric.js';
 import { plot } from '../lib/plot.js';
 import { Frac } from '../lib/fraction.js';
+import { rationalExplore, rationalPractice } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
+import { parsePolyField as __ppf, polyGcd as __gcd, polyDivide as __div, evalNum as __ev, degree as __deg } from '../lib/poly-kit.js';
 
 /** TeX of p in factored form over the rationals: c(x − r)²(x² + 1)… */
 export function factoredTex(p) {
@@ -28,6 +31,8 @@ const realZeros = (p) => {
 
 export const calculator = {
   id: 'rational-expression-simplifier',
+  explore: rationalExplore,
+  practice: rationalPractice,
   fields: [
     { name: 'num', label: 'Numerator P(x)', type: 'text', placeholder: 'e.g. x^2 - 9', hint: 'A polynomial in x, degree up to 6. Coefficients may be fractions.' },
     { name: 'den', label: 'Denominator Q(x)', type: 'text', placeholder: 'e.g. x^2 + x - 6' },
@@ -90,3 +95,20 @@ export const calculator = {
     }
   },
 };
+
+// Explanations for each step, and a final check.
+withNotes(calculator, {
+  'The expression': 'Simplify a rational expression like a fraction of numbers: cancel common factors, never common terms.',
+  'Factor the numerator and the denominator': 'Only whole factors can cancel, so factor completely first.',
+  'Greatest common factor': 'Euclid’s algorithm for polynomials finds the largest factor shared by the numerator and the denominator.',
+  'Cancel the common factor': 'Dividing the top and the bottom by the same non-zero factor does not change the value.',
+  'Simplified form': 'This equals the original expression wherever the original is defined.',
+  'Excluded values': 'Values that make the original denominator 0 stay excluded, even when their factor cancels.',
+}, (r, values) => {
+  const N = __ppf(values, 'num', 'the numerator', { allowZero: true }).p, D = __ppf(values, 'den', 'the denominator').p;
+  if (!N || !D) return;
+  const G = __gcd(N, D), Ns = __deg(G) >= 1 ? __div(N, G).q : N, Ds = __deg(G) >= 1 ? __div(D, G).q : D;
+  const xs = [0.5, 1.7, -2.3, 3.1].filter((x) => Math.abs(__ev(D, x)) > 1e-6).slice(0, 2);
+  const f = (v) => +v.toPrecision(8);
+  r.steps.push({ title: 'Check at sample points', texLines: xs.map((x) => `x = ${x}: \\quad \\text{original} \\approx ${f(__ev(N, x) / __ev(D, x))}, \\quad \\text{simplified} \\approx ${f(__ev(Ns, x) / __ev(Ds, x))}\\ \\checkmark`), note: 'At any allowed x the original and the simplified expression give the same value.' });
+});

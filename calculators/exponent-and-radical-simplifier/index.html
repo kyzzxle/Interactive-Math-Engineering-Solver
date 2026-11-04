@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/exponent-and-radical-simplifier/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does a fractional exponent mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "a^(p/q) is the q-th root of a raised to the power p. For example 8^(2/3) = (∛8)² = 4."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I simplify a square root?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Write the number as a perfect square times what is left and take the square root of the perfect square: √50 = √(25·2) = 5√2."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is any number to the power 0 equal to 1?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because aⁿ/aⁿ = 1, and by the quotient rule it is also a⁰."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get rid of negative exponents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Move the factor to the other side of the fraction bar and make the exponent positive: x⁻²y = y/x²."
+          }
+        }
+      ]
     }
   ]
 }
@@ -221,6 +259,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">What a fractional exponent means</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Rational exponents</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -228,10 +281,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Simplifying exponents and radicals</a></li>
-            <li><a href="#formula-h">Rules used</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What are exponents and radicals?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The ideas behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Simplifying a radical, step by step</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a radical and a rational power</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -239,43 +301,159 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Simplifying exponents and radicals</h2>
-          <p>Exponent and radical expressions can usually be written in a shorter, standard form: no negative exponents, each variable written once, and no perfect powers left under a root. This simplifier supports three clearly defined types of problem, each with its own step-by-step explanation:</p>
+          <h2 id="about-h" style="margin-top:0">What are exponents and radicals?</h2>
+          <p>An <strong>exponent</strong> says how many times a base is multiplied by itself: <span class="math" data-tex="x^3 = x \cdot x \cdot x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>=</mo><mi>x</mi><mo>⋅</mo><mi>x</mi><mo>⋅</mo><mi>x</mi></mrow></semantics></math></span></span>. A <strong>radical</strong> undoes it: <span class="math" data-tex="\sqrt[3]{x^3} = x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><msup><mi>x</mi><mn>3</mn></msup><mn>3</mn></mroot><mo>=</mo><mi>x</mi></mrow></semantics></math></span></span>. The two are the same idea written two ways, because a root is a fractional power, <span class="math" data-tex="\sqrt[n]{x} = x^{1/n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mi>x</mi><mi>n</mi></mroot><mo>=</mo><msup><mi>x</mi><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>n</mi></mrow></msup></mrow></semantics></math></span></span>. A handful of rules let you simplify any product, quotient or power of them.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Evaluate <span class="math" data-tex="16^{-3/4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>6</mn><mrow><mo>−</mo><mn>3</mn><mi mathvariant="normal">/</mi><mn>4</mn></mrow></msup></mrow></semantics></math></span></span>. The 4 is a fourth root (<span class="math" data-tex="\sqrt[4]{16} = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mn>16</mn><mn>4</mn></mroot><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>), the 3 is a cube (<span class="math" data-tex="2^3 = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span>) and the minus sign is a reciprocal: <span class="math" data-tex="\tfrac{1}{8}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow></semantics></math></span></span>.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
           <ul>
-            <li><strong>Laws of exponents</strong> — products, quotients and powers of monomials such as <span class="math" data-tex="\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mo stretchy="false">(</mo><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mrow><mn>4</mn><msup><mi>x</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi>y</mi></mrow></mfrac></mstyle></mrow></semantics></math></span></span>.</li>
-            <li><strong>Radicals</strong> — a root of a single term, such as <span class="math" data-tex="\sqrt{72x^5y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>72</mn><msup><mi>x</mi><mn>5</mn></msup><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span> or <span class="math" data-tex="\sqrt[3]{-54a^7}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mo>−</mo><mn>54</mn><msup><mi>a</mi><mn>7</mn></msup></mrow><mn>3</mn></mroot></mrow></semantics></math></span></span>.</li>
-            <li><strong>Rational powers of numbers</strong> — such as <span class="math" data-tex="16^{-3/4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>6</mn><mrow><mo>−</mo><mn>3</mn><mi mathvariant="normal">/</mi><mn>4</mn></mrow></msup></mrow></semantics></math></span></span> or <span class="math" data-tex="12^{3/2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>2</mn><mrow><mn>3</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup></mrow></semantics></math></span></span>.</li>
+            <li><strong>Laws of exponents:</strong> simplifies products, quotients and powers of monomials such as <span class="math" data-tex="\tfrac{(2x^3y^{-2})^2}{4x^{-1}y}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mrow><mn>4</mn><msup><mi>x</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi>y</mi></mrow></mfrac></mrow></semantics></math></span></span>, writing the result with positive exponents.</li>
+            <li><strong>Radicals:</strong> simplifies <span class="math" data-tex="\sqrt[n]{k\,x^a y^b}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mi>k</mi><mtext> </mtext><msup><mi>x</mi><mi>a</mi></msup><msup><mi>y</mi><mi>b</mi></msup></mrow><mi>n</mi></mroot></mrow></semantics></math></span></span> by pulling out every perfect <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th power.</li>
+            <li><strong>Rational powers:</strong> evaluates <span class="math" data-tex="b^{p/q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><mi>p</mi><mi mathvariant="normal">/</mi><mi>q</mi></mrow></msup></mrow></semantics></math></span></span> exactly or in simplest radical form, with a decimal.</li>
           </ul>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change the index in <span class="math" data-tex="\sqrt{72x^5y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>72</mn><msup><mi>x</mi><mn>5</mn></msup><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span> from 2 to 3: different factors are perfect cubes, so a different amount comes out of the root.</p></div>
+          <p>Each result ends with a check: substituting sample values, or raising the answer back to the power of the root.</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Rules used</h2>
-          <div class="formula-box"><span class="math-display" data-tex="a^m a^n = a^{m+n} \qquad \frac{a^m}{a^n} = a^{m-n} \qquad (a^m)^n = a^{mn} \qquad (ab)^n = a^n b^n \qquad a^{-n} = \frac{1}{a^n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>a</mi><mi>m</mi></msup><msup><mi>a</mi><mi>n</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mo>+</mo><mi>n</mi></mrow></msup><mspace width="2em"/><mfrac><msup><mi>a</mi><mi>m</mi></msup><msup><mi>a</mi><mi>n</mi></msup></mfrac><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow></msup><mspace width="2em"/><mo stretchy="false">(</mo><msup><mi>a</mi><mi>m</mi></msup><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mi>n</mi></mrow></msup><mspace width="2em"/><mo stretchy="false">(</mo><mi>a</mi><mi>b</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo>=</mo><msup><mi>a</mi><mi>n</mi></msup><msup><mi>b</mi><mi>n</mi></msup><mspace width="2em"/><msup><mi>a</mi><mrow><mo>−</mo><mi>n</mi></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mi>a</mi><mi>n</mi></msup></mfrac></mrow></semantics></math></span></span></div>
-          <div class="formula-box"><span class="math-display" data-tex="a^{p/q} = \sqrt[q]{a^p} \qquad \sqrt[n]{a^n b} = a\sqrt[n]{b}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>a</mi><mrow><mi>p</mi><mi mathvariant="normal">/</mi><mi>q</mi></mrow></msup><mo>=</mo><mroot><msup><mi>a</mi><mi>p</mi></msup><mi>q</mi></mroot><mspace width="2em"/><mroot><mrow><msup><mi>a</mi><mi>n</mi></msup><mi>b</mi></mrow><mi>n</mi></mroot><mo>=</mo><mi>a</mi><mroot><mi>b</mi><mi>n</mi></mroot></mrow></semantics></math></span></span></div>
-          <p>To simplify a root of index <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>, divide each exponent by <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>: the quotient comes out of the root and the remainder stays inside. For a number, split off the largest perfect <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th power.</p>
-        </section>
-
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Simplify <span class="math" data-tex="\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mo stretchy="false">(</mo><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mrow><mn>4</mn><msup><mi>x</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi>y</mi></mrow></mfrac></mstyle></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Power of a product</h4>
-            <span class="math-display" data-tex="(2x^3y^{-2})^2 = 4x^6y^{-4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><msup><mi>x</mi><mn>6</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow></semantics></math></span></span>
-            <h4>Step 2 — Divide like bases (subtract exponents)</h4>
-            <span class="math-display" data-tex="\frac{4x^6y^{-4}}{4x^{-1}y} = x^{6 - (-1)}\, y^{-4 - 1} = x^7 y^{-5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mn>4</mn><msup><mi>x</mi><mn>6</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><mrow><mn>4</mn><msup><mi>x</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi>y</mi></mrow></mfrac><mo>=</mo><msup><mi>x</mi><mrow><mn>6</mn><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mtext> </mtext><msup><mi>y</mi><mrow><mo>−</mo><mn>4</mn><mo>−</mo><mn>1</mn></mrow></msup><mo>=</mo><msup><mi>x</mi><mn>7</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow></semantics></math></span></span>
-            <h4>Step 3 — Positive exponents</h4>
-            <span class="math-display" data-tex="x^7 y^{-5} = \frac{x^7}{y^5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>7</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>5</mn></mrow></msup><mo>=</mo><mfrac><msup><mi>x</mi><mn>7</mn></msup><msup><mi>y</mi><mn>5</mn></msup></mfrac></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The ideas behind it</h2>
+          <p>Exponents count factors, so the rules are about counting:</p>
+          <ul>
+            <li>Multiplying <span class="math" data-tex="x^3 \cdot x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>⋅</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> puts 3 + 2 factors together: <span class="math" data-tex="x^5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>5</mn></msup></mrow></semantics></math></span></span>.</li>
+            <li>Dividing cancels factors: <span class="math" data-tex="\tfrac{x^5}{x^2} = x^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>x</mi><mn>5</mn></msup><msup><mi>x</mi><mn>2</mn></msup></mfrac><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup></mrow></semantics></math></span></span>. Carrying on past zero gives negative exponents: <span class="math" data-tex="x^{-2} = \tfrac{1}{x^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mi>x</mi><mn>2</mn></msup></mfrac></mrow></semantics></math></span></span>.</li>
+            <li>A power of a power multiplies the counts: <span class="math" data-tex="(x^3)^2 = x^6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>3</mn></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><msup><mi>x</mi><mn>6</mn></msup></mrow></semantics></math></span></span>.</li>
+          </ul>
+          <p>A fractional exponent fits the same rules: <span class="math" data-tex="\left(x^{1/2}\right)^2 = x^1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo fence="true">(</mo><msup><mi>x</mi><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>=</mo><msup><mi>x</mi><mn>1</mn></msup></mrow></semantics></math></span></span>, so <span class="math" data-tex="x^{1/2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></msup></mrow></semantics></math></span></span> must be <span class="math" data-tex="\sqrt{x}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>x</mi></msqrt></mrow></semantics></math></span></span>.</p>
+          <div class="callout">
+            <p class="callout-title">Simplest radical form</p>
+            <p>A radical is simplified when nothing inside is a perfect <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th power: <span class="math" data-tex="\sqrt{72} = \sqrt{36 \cdot 2} = 6\sqrt{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>72</mn></msqrt><mo>=</mo><msqrt><mrow><mn>36</mn><mo>⋅</mo><mn>2</mn></mrow></msqrt><mo>=</mo><mn>6</mn><msqrt><mn>2</mn></msqrt></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Rule</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Product</td><td><span class="math" data-tex="a^m a^n = a^{m + n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mi>m</mi></msup><msup><mi>a</mi><mi>n</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mo>+</mo><mi>n</mi></mrow></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Quotient</td><td><span class="math" data-tex="\tfrac{a^m}{a^n} = a^{m - n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>a</mi><mi>m</mi></msup><msup><mi>a</mi><mi>n</mi></msup></mfrac><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Power of a power</td><td><span class="math" data-tex="(a^m)^n = a^{mn}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>a</mi><mi>m</mi></msup><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mi>n</mi></mrow></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Power of a product</td><td><span class="math" data-tex="(ab)^n = a^nb^n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><mi>b</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo>=</mo><msup><mi>a</mi><mi>n</mi></msup><msup><mi>b</mi><mi>n</mi></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Zero and negative</td><td><span class="math" data-tex="a^0 = 1,\ a^{-n} = \tfrac{1}{a^n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>0</mn></msup><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><msup><mi>a</mi><mrow><mo>−</mo><mi>n</mi></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mi>a</mi><mi>n</mi></msup></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Rational exponent</td><td><span class="math" data-tex="a^{p/q} = \left(\sqrt[q]{a}\right)^p = \sqrt[q]{a^p}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mrow><mi>p</mi><mi mathvariant="normal">/</mi><mi>q</mi></mrow></msup><mo>=</mo><msup><mrow><mo fence="true">(</mo><mroot><mi>a</mi><mi>q</mi></mroot><mo fence="true">)</mo></mrow><mi>p</mi></msup><mo>=</mo><mroot><msup><mi>a</mi><mi>p</mi></msup><mi>q</mi></mroot></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Radical of a product</td><td><span class="math" data-tex="\sqrt[n]{a^nb} = a\sqrt[n]{b}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><msup><mi>a</mi><mi>n</mi></msup><mi>b</mi></mrow><mi>n</mi></mroot><mo>=</mo><mi>a</mi><mroot><mi>b</mi><mi>n</mi></mroot></mrow></semantics></math></span></span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span></td><td>The base.</td></tr>
+              <tr><td><span class="math" data-tex="m, n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo separator="true">,</mo><mi>n</mi></mrow></semantics></math></span></span></td><td>Exponents.</td></tr>
+              <tr><td><span class="math" data-tex="\sqrt[n]{\ }"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mtext> </mtext><mi>n</mi></mroot></mrow></semantics></math></span></span></td><td>The <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th root; <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> is the index (2 for a square root).</td></tr>
+              <tr><td>Radicand</td><td>The expression under the root.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Simplifying a radical, step by step</h2>
+          <p>For <span class="math" data-tex="\sqrt[n]{k\,x^a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mi>k</mi><mtext> </mtext><msup><mi>x</mi><mi>a</mi></msup></mrow><mi>n</mi></mroot></mrow></semantics></math></span></span>:</p>
+          <ol>
+            <li>Split the coefficient <span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span> into the largest perfect <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th power and what is left.</li>
+            <li>Divide each exponent <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> by <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>: the quotient comes out of the root, the remainder stays in. For example <span class="math" data-tex="x^5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>5</mn></msup></mrow></semantics></math></span></span> under a square root is <span class="math" data-tex="x^{2\cdot 2 + 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mrow><mn>2</mn><mo>⋅</mo><mn>2</mn><mo>+</mo><mn>1</mn></mrow></msup></mrow></semantics></math></span></span>, so <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> comes out and <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> stays in.</li>
+            <li>Multiply the outside parts and the inside parts.</li>
+          </ol>
+          <p>To check, raise the outside part to the power <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> and multiply by what is inside: it must rebuild the original radicand.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Simplify <span class="math" data-tex="\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mo stretchy="false">(</mo><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mrow><mn>4</mn><msup><mi>x</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi>y</mi></mrow></mfrac></mstyle></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Power of a product</h4>
+            <span class="math-display" data-tex="(2x^3y^{-2})^2 = 4x^6y^{-4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><msup><mi>x</mi><mn>6</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow></semantics></math></span></span>
+            <h4>Step 2: Divide, subtracting exponents</h4>
+            <span class="math-display" data-tex="\frac{4x^6y^{-4}}{4x^{-1}y} = x^{6 - (-1)}\,y^{-4 - 1} = x^7y^{-5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mn>4</mn><msup><mi>x</mi><mn>6</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><mrow><mn>4</mn><msup><mi>x</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi>y</mi></mrow></mfrac><mo>=</mo><msup><mi>x</mi><mrow><mn>6</mn><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mtext> </mtext><msup><mi>y</mi><mrow><mo>−</mo><mn>4</mn><mo>−</mo><mn>1</mn></mrow></msup><mo>=</mo><msup><mi>x</mi><mn>7</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow></semantics></math></span></span>
+            <h4>Step 3: Positive exponents</h4>
+            <span class="math-display" data-tex="x^7y^{-5} = \frac{x^7}{y^5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>7</mn></msup><msup><mi>y</mi><mrow><mo>−</mo><mn>5</mn></mrow></msup><mo>=</mo><mfrac><msup><mi>x</mi><mn>7</mn></msup><msup><mi>y</mi><mn>5</mn></msup></mfrac></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>With <span class="math" data-tex="x = 1.3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1.3</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="y = 0.7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>0.7</mn></mrow></semantics></math></span></span>, both the original and <span class="math" data-tex="\tfrac{x^7}{y^5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>x</mi><mn>7</mn></msup><msup><mi>y</mi><mn>5</mn></msup></mfrac></mrow></semantics></math></span></span> give about 37.33. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a radical and a rational power</h2>
+          <div class="worked-example">
+            <h3>Part 1: Simplify <span class="math" data-tex="\sqrt{72x^5y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>72</mn><msup><mi>x</mi><mn>5</mn></msup><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></h3>
+            <span class="math-display" data-tex="72 = 36 \cdot 2, \qquad x^5 = x^4 \cdot x, \qquad y^2 = y^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>72</mn><mo>=</mo><mn>36</mn><mo>⋅</mo><mn>2</mn><mo separator="true">,</mo><mspace width="2em"/><msup><mi>x</mi><mn>5</mn></msup><mo>=</mo><msup><mi>x</mi><mn>4</mn></msup><mo>⋅</mo><mi>x</mi><mo separator="true">,</mo><mspace width="2em"/><msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <span class="math-display" data-tex="\sqrt{72x^5y^2} = 6x^2y\sqrt{2x}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msqrt><mrow><mn>72</mn><msup><mi>x</mi><mn>5</mn></msup><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mi>y</mi><msqrt><mrow><mn>2</mn><mi>x</mi></mrow></msqrt></mrow></semantics></math></span></span>
+            <p>Check: <span class="math" data-tex="(6x^2y)^2 \cdot 2x = 36x^4y^2 \cdot 2x = 72x^5y^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mi>y</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>⋅</mo><mn>2</mn><mi>x</mi><mo>=</mo><mn>36</mn><msup><mi>x</mi><mn>4</mn></msup><msup><mi>y</mi><mn>2</mn></msup><mo>⋅</mo><mn>2</mn><mi>x</mi><mo>=</mo><mn>72</mn><msup><mi>x</mi><mn>5</mn></msup><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. ✓</p>
+            <h3>Part 2: Evaluate <span class="math" data-tex="16^{-3/4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>6</mn><mrow><mo>−</mo><mn>3</mn><mi mathvariant="normal">/</mi><mn>4</mn></mrow></msup></mrow></semantics></math></span></span></h3>
+            <span class="math-display" data-tex="16^{-3/4} = \frac{1}{\left(\sqrt[4]{16}\right)^3} = \frac{1}{2^3} = \frac{1}{8} = 0.125"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>1</mn><msup><mn>6</mn><mrow><mo>−</mo><mn>3</mn><mi mathvariant="normal">/</mi><mn>4</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><msup><mrow><mo fence="true">(</mo><mroot><mn>16</mn><mn>4</mn></mroot><mo fence="true">)</mo></mrow><mn>3</mn></msup></mfrac><mo>=</mo><mfrac><mn>1</mn><msup><mn>2</mn><mn>3</mn></msup></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>8</mn></mfrac><mo>=</mo><mn>0.125</mn></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>All variables are assumed to be <strong>positive</strong>. This is the usual textbook convention and means even roots need no absolute-value signs.</li>
-            <li>Sums and differences (such as <span class="math" data-tex="\sqrt{x^2 + 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn></mrow></msqrt></mrow></semantics></math></span></span>) are outside the supported forms and are rejected with an explanation.</li>
-            <li>Even roots of negative numbers are not real and are rejected. Exponent denominators are limited to 12.</li>
-            <li>Exact results use fractions and simplified radicals; decimals are given to 10 significant figures.</li>
+            <li><strong>Scientific notation and units:</strong> <span class="math" data-tex="10^3 \times 10^{-6} = 10^{-3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>3</mn></msup><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup><mo>=</mo><mn>1</mn><msup><mn>0</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow></semantics></math></span></span>, converting kilo- and micro- units.</li>
+            <li><strong>Scaling laws:</strong> volume grows as length³ and area as length², so a model at scale <span class="math" data-tex="\tfrac{1}{10}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>10</mn></mfrac></mrow></semantics></math></span></span> has <span class="math" data-tex="\tfrac{1}{1000}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>1000</mn></mfrac></mrow></semantics></math></span></span> of the volume.</li>
+            <li><strong>Physics formulas:</strong> the pendulum period <span class="math" data-tex="T = 2\pi\sqrt{L/g}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>2</mn><mi>π</mi><msqrt><mrow><mi>L</mi><mi mathvariant="normal">/</mi><mi>g</mi></mrow></msqrt></mrow></semantics></math></span></span> and Kepler's law <span class="math" data-tex="T^2 \propto a^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>T</mi><mn>2</mn></msup><mo>∝</mo><msup><mi>a</mi><mn>3</mn></msup></mrow></semantics></math></span></span>.</li>
+            <li><strong>Growth and decay:</strong> compound interest and half-lives use powers.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Multiplying exponents in a product.</strong> <span class="math" data-tex="x^3 \cdot x^2 = x^5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>⋅</mo><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><msup><mi>x</mi><mn>5</mn></msup></mrow></semantics></math></span></span>, not <span class="math" data-tex="x^6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>6</mn></msup></mrow></semantics></math></span></span>.</li>
+            <li><strong>Treating a negative exponent as a negative number.</strong> <span class="math" data-tex="2^{-3} = \tfrac{1}{8}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow></semantics></math></span></span>, not <span class="math" data-tex="-8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>8</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Applying a power to only part of a product.</strong> <span class="math" data-tex="(2x)^3 = 8x^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>x</mi><msup><mo stretchy="false">)</mo><mn>3</mn></msup><mo>=</mo><mn>8</mn><msup><mi>x</mi><mn>3</mn></msup></mrow></semantics></math></span></span>, not <span class="math" data-tex="2x^3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup></mrow></semantics></math></span></span>.</li>
+            <li><strong>Splitting a root over a sum.</strong> <span class="math" data-tex="\sqrt{9 + 16} = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>9</mn><mo>+</mo><mn>16</mn></mrow></msqrt><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>, not <span class="math" data-tex="3 + 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>+</mo><mn>4</mn></mrow></semantics></math></span></span>.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Variables are assumed positive, so even roots need no absolute values and division is allowed.</li>
+            <li>The laws mode handles products, quotients and powers of monomials (no sums).</li>
+            <li>Radicands are a single term with an integer coefficient.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What does a fractional exponent mean?</summary>
+            <div class="faq-answer"><p>a^(p/q) is the q-th root of a raised to the power p. For example 8^(2/3) = (∛8)² = 4.</p></div>
+          </details>
+          <details>
+            <summary>How do I simplify a square root?</summary>
+            <div class="faq-answer"><p>Write the number as a perfect square times what is left and take the square root of the perfect square: √50 = √(25·2) = 5√2.</p></div>
+          </details>
+          <details>
+            <summary>Why is any number to the power 0 equal to 1?</summary>
+            <div class="faq-answer"><p>Because aⁿ/aⁿ = 1, and by the quotient rule it is also a⁰.</p></div>
+          </details>
+          <details>
+            <summary>How do I get rid of negative exponents?</summary>
+            <div class="faq-answer"><p>Move the factor to the other side of the fraction bar and make the exponent positive: x⁻²y = y/x².</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../logarithm-calculator/">Logarithms</a>: solving for an exponent.</li>
+            <li><a href="../radical-rational-equations/">Radical equations</a>.</li>
+            <li><a href="../variation-proportion/">Variation</a> with powers.</li>
           </ul>
         </section>
 

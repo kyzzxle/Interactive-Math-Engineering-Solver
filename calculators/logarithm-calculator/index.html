@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/logarithm-calculator/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a logarithm in simple terms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The exponent you need: log_b x is the power you raise b to in order to get x."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate a log with a different base?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the change-of-base formula: log_b x = ln x / ln b."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can't I take the log of a negative number?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A positive base raised to any real power is positive, so no real exponent gives a negative number or 0."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I solve an equation with x in the exponent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Isolate the power, take a logarithm of both sides, and solve the resulting linear equation."
+          }
+        }
+      ]
     }
   ]
 }
@@ -227,6 +265,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Exponential and logarithm as mirror images</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Solve a logarithmic equation</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -234,10 +287,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Logarithms</a></li>
-            <li><a href="#formula-h">Formulas and rules</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is a logarithm?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the change-of-base formula</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: an exponential equation</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -245,44 +307,155 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Logarithms</h2>
-          <p>A <strong>logarithm</strong> answers the question "what power?": <span class="math" data-tex="\log_b x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi></mrow></semantics></math></span></span> is the exponent you put on the base <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span> to get <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>. This calculator evaluates logarithms in any valid base — exactly when the answer is a fraction such as <span class="math" data-tex="\log_4 8 = \tfrac{3}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>4</mn></msub><mn>8</mn><mo>=</mo><mfrac><mn>3</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span> — and solves two common equation types: logarithmic equations <span class="math" data-tex="\log_b(ax + c) = d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mo stretchy="false">(</mo><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mi>d</mi></mrow></semantics></math></span></span> and exponential equations <span class="math" data-tex="b^{ax + c} = k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></msup><mo>=</mo><mi>k</mi></mrow></semantics></math></span></span>.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Evaluate <span class="math" data-tex="\log_2 x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>x</mi></mrow></semantics></math></span></span> for <span class="math" data-tex="x = 2, 4, 8, 16"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>2</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>8</mn><mo separator="true">,</mo><mn>16</mn></mrow></semantics></math></span></span>: each doubling of <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> adds exactly 1 to the logarithm. Logarithms turn multiplication into addition.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a logarithm?</h2>
+          <p>A <strong>logarithm</strong> answers the question "to what power must the base be raised to give this number?" Because <span class="math" data-tex="2^5 = 32"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>5</mn></msup><mo>=</mo><mn>32</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="\log_2 32 = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mn>32</mn><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>. Logarithms are the inverse of exponential functions, which makes them the tool for solving equations where the unknown is in an exponent.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Try <span class="math" data-tex="\log_{10} 1000"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>10</mn></msub><mn>1000</mn></mrow></semantics></math></span></span> and then <span class="math" data-tex="\log_{10} 50"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>10</mn></msub><mn>50</mn></mrow></semantics></math></span></span>. The first is exactly 3; the second lies between 1 and 2, because 50 is between <span class="math" data-tex="10^1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>1</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="10^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>2</mn></msup></mrow></semantics></math></span></span>.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Evaluate</strong> <span class="math" data-tex="\log_b x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi></mrow></semantics></math></span></span> for any base, exactly when <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> is a power of the base, otherwise with the change-of-base formula.</li>
+            <li><strong>Solve</strong> <span class="math" data-tex="\log_b(ax + c) = d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mo stretchy="false">(</mo><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mi>d</mi></mrow></semantics></math></span></span>, with the domain check.</li>
+            <li><strong>Solve</strong> exponential equations <span class="math" data-tex="b^{ax + c} = k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></msup><mo>=</mo><mi>k</mi></mrow></semantics></math></span></span>.</li>
+          </ul>
+          <p>Each answer is checked by raising the base to the result.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>The definition is a two-way translation:</p>
+          <span class="math-display" data-tex="\log_b x = y \iff b^y = x \qquad (b \gt 0,\ b \ne 1,\ x \gt 0)."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi><mo>=</mo><mi>y</mi><mtext>  </mtext><mo>⟺</mo><mtext>  </mtext><msup><mi>b</mi><mi>y</mi></msup><mo>=</mo><mi>x</mi><mspace width="2em"/><mo stretchy="false">(</mo><mi>b</mi><mo>&gt;</mo><mn>0</mn><mo separator="true">,</mo><mtext> </mtext><mi>b</mi><mo mathvariant="normal">≠</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><mi>x</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Since <span class="math" data-tex="b^y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>y</mi></msup></mrow></semantics></math></span></span> is always positive, the logarithm of 0 or a negative number is not defined. The graph of <span class="math" data-tex="y = \log_b x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi></mrow></semantics></math></span></span> is the graph of <span class="math" data-tex="y = b^x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msup><mi>b</mi><mi>x</mi></msup></mrow></semantics></math></span></span> reflected in the line <span class="math" data-tex="y = x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi></mrow></semantics></math></span></span>; every logarithm graph passes through <span class="math" data-tex="(1, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="(b, 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>b</mi><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+          <div class="callout">
+            <p class="callout-title">Common and natural logarithms</p>
+            <p><span class="math" data-tex="\log x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mi>x</mi></mrow></semantics></math></span></span> usually means base 10 and <span class="math" data-tex="\ln x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mi>x</mi></mrow></semantics></math></span></span> means base <span class="math" data-tex="e \approx 2.71828"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≈</mo><mn>2.71828</mn></mrow></semantics></math></span></span>. Any other base can be computed from either one.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and rules</h2>
-          <div class="formula-box"><span class="math-display" data-tex="\log_b x = y \iff b^y = x \qquad \log_b x = \frac{\ln x}{\ln b}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi><mo>=</mo><mi>y</mi><mtext>  </mtext><mo>⟺</mo><mtext>  </mtext><msup><mi>b</mi><mi>y</mi></msup><mo>=</mo><mi>x</mi><mspace width="2em"/><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi><mo>=</mo><mfrac><mrow><mi>ln</mi><mo>⁡</mo><mi>x</mi></mrow><mrow><mi>ln</mi><mo>⁡</mo><mi>b</mi></mrow></mfrac></mrow></semantics></math></span></span></div>
-          <div class="formula-box"><span class="math-display" data-tex="\log_b(MN) = \log_b M + \log_b N \qquad \log_b\frac{M}{N} = \log_b M - \log_b N \qquad \log_b(M^k) = k\log_b M"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mo stretchy="false">(</mo><mi>M</mi><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>M</mi><mo>+</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>N</mi><mspace width="2em"/><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mfrac><mi>M</mi><mi>N</mi></mfrac><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>M</mi><mo>−</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>N</mi><mspace width="2em"/><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mo stretchy="false">(</mo><msup><mi>M</mi><mi>k</mi></msup><mo stretchy="false">)</mo><mo>=</mo><mi>k</mi><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>M</mi></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Rule</th><th scope="col">Formula</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span></td><td>Base: positive and not equal to 1. Base 10 is the common log; base <span class="math" data-tex="e \approx 2.71828"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≈</mo><mn>2.71828</mn></mrow></semantics></math></span></span> is the natural log <span class="math" data-tex="\ln"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo></mrow></semantics></math></span></span>.</td></tr>
-              <tr><td><span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span></td><td>Argument: must be positive.</td></tr>
+              <tr><td>Product</td><td><span class="math" data-tex="\log_b(MN) = \log_b M + \log_b N"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mo stretchy="false">(</mo><mi>M</mi><mi>N</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>M</mi><mo>+</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>N</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Quotient</td><td><span class="math" data-tex="\log_b \tfrac{M}{N} = \log_b M - \log_b N"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mfrac><mi>M</mi><mi>N</mi></mfrac><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>M</mi><mo>−</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>N</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Power</td><td><span class="math" data-tex="\log_b M^p = p\log_b M"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><msup><mi>M</mi><mi>p</mi></msup><mo>=</mo><mi>p</mi><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>M</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Change of base</td><td><span class="math" data-tex="\log_b x = \tfrac{\ln x}{\ln b} = \tfrac{\log x}{\log b}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi><mo>=</mo><mfrac><mrow><mi>ln</mi><mo>⁡</mo><mi>x</mi></mrow><mrow><mi>ln</mi><mo>⁡</mo><mi>b</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>log</mi><mo>⁡</mo><mi>x</mi></mrow><mrow><mi>log</mi><mo>⁡</mo><mi>b</mi></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Special values</td><td><span class="math" data-tex="\log_b 1 = 0,\ \log_b b = 1,\ \log_b b^k = k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mn>1</mn><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mtext> </mtext><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>b</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><msup><mi>b</mi><mi>k</mi></msup><mo>=</mo><mi>k</mi></mrow></semantics></math></span></span></td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span></td><td>The base: positive and not 1.</td></tr>
+              <tr><td><span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span></td><td>The argument: must be positive.</td></tr>
+              <tr><td><span class="math" data-tex="a, c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>c</mi></mrow></semantics></math></span></span></td><td>Coefficients of the linear expression <span class="math" data-tex="ax + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="d, k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo separator="true">,</mo><mi>k</mi></mrow></semantics></math></span></span></td><td>The right side of the log or exponential equation.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the change-of-base formula</h2>
+          <p>Let <span class="math" data-tex="y = \log_b x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>x</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="b^y = x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mi>y</mi></msup><mo>=</mo><mi>x</mi></mrow></semantics></math></span></span>. Take the natural logarithm of both sides and use the power rule:</p>
+          <span class="math-display" data-tex="y \ln b = \ln x \;\Rightarrow\; y = \frac{\ln x}{\ln b}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mi>ln</mi><mo>⁡</mo><mi>b</mi><mo>=</mo><mi>ln</mi><mo>⁡</mo><mi>x</mi><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>y</mi><mo>=</mo><mfrac><mrow><mi>ln</mi><mo>⁡</mo><mi>x</mi></mrow><mrow><mi>ln</mi><mo>⁡</mo><mi>b</mi></mrow></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Solving exponential equations</h3>
+          <p>For <span class="math" data-tex="b^{ax + c} = k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></msup><mo>=</mo><mi>k</mi></mrow></semantics></math></span></span>, take <span class="math" data-tex="\log_b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub></mrow></semantics></math></span></span> of both sides: <span class="math" data-tex="ax + c = \log_b k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>b</mi></msub><mi>k</mi></mrow></semantics></math></span></span>, then solve the linear equation for <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Solve <span class="math" data-tex="5^{x - 1} = 200"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>5</mn><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>=</mo><mn>200</mn></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Take <span class="math" data-tex="\log_5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>5</mn></msub></mrow></semantics></math></span></span> of both sides</h4>
-            <span class="math-display" data-tex="x - 1 = \log_5 200"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>−</mo><mn>1</mn><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>5</mn></msub><mn>200</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Change of base</h4>
-            <span class="math-display" data-tex="\log_5 200 = \frac{\ln 200}{\ln 5} \approx \frac{5.298317}{1.609438} \approx 3.292030"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>5</mn></msub><mn>200</mn><mo>=</mo><mfrac><mrow><mi>ln</mi><mo>⁡</mo><mn>200</mn></mrow><mrow><mi>ln</mi><mo>⁡</mo><mn>5</mn></mrow></mfrac><mo>≈</mo><mfrac><mn>5.298317</mn><mn>1.609438</mn></mfrac><mo>≈</mo><mn>3.292030</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Solve</h4>
-            <span class="math-display" data-tex="x \approx 3.292030 + 1 = 4.292030"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>≈</mo><mn>3.292030</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>4.292030</mn></mrow></semantics></math></span></span>
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="\log_3(2x + 1) = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>3</mn></msub><mo stretchy="false">(</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Domain</h4>
+            <p>The argument must be positive: <span class="math" data-tex="2x + 1 \gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="x \gt -\tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: Exponential form</h4>
+            <span class="math-display" data-tex="2x + 1 = 3^4 = 81"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn><mo>=</mo><msup><mn>3</mn><mn>4</mn></msup><mo>=</mo><mn>81</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Solve</h4>
+            <span class="math-display" data-tex="2x = 80 \;\Rightarrow\; x = 40"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mi>x</mi><mo>=</mo><mn>80</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>x</mi><mo>=</mo><mn>40</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="2(40) + 1 = 81 \gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>40</mn><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mo>=</mo><mn>81</mn><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="\log_3 81 = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>3</mn></msub><mn>81</mn><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span> because <span class="math" data-tex="3^4 = 81"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>3</mn><mn>4</mn></msup><mo>=</mo><mn>81</mn></mrow></semantics></math></span></span>. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: an exponential equation</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="5^{x - 1} = 200"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>5</mn><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>=</mo><mn>200</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Take log base 5 of both sides</h4>
+            <span class="math-display" data-tex="x - 1 = \log_5 200"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>−</mo><mn>1</mn><mo>=</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>5</mn></msub><mn>200</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Change of base</h4>
+            <span class="math-display" data-tex="\log_5 200 = \frac{\ln 200}{\ln 5} \approx \frac{5.298317}{1.609438} \approx 3.292030"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>5</mn></msub><mn>200</mn><mo>=</mo><mfrac><mrow><mi>ln</mi><mo>⁡</mo><mn>200</mn></mrow><mrow><mi>ln</mi><mo>⁡</mo><mn>5</mn></mrow></mfrac><mo>≈</mo><mfrac><mn>5.298317</mn><mn>1.609438</mn></mfrac><mo>≈</mo><mn>3.292030</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Solve</h4>
+            <span class="math-display" data-tex="x \approx 4.292030"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>≈</mo><mn>4.292030</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="5^{3.292030} \approx 200"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>5</mn><mn>3.292030</mn></msup><mo>≈</mo><mn>200</mn></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Only real logarithms are used: the base must be positive and not 1, and every logarithm's argument must be positive.</li>
-            <li>An exponential equation <span class="math" data-tex="b^{ax + c} = k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mrow><mi>a</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></msup><mo>=</mo><mi>k</mi></mrow></semantics></math></span></span> has a solution only when <span class="math" data-tex="k &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>.</li>
-            <li>Supported equation types are exactly the two listed above; other forms (such as sums of logarithms) are not solved here.</li>
-            <li>Type <code>e</code> as the base for natural logarithms. Results are rounded to 6 decimal places unless exact.</li>
+            <li><strong>Decibels:</strong> sound level <span class="math" data-tex="10\log_{10}\tfrac{I}{I_0}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>10</mn></msub><mfrac><mi>I</mi><msub><mi>I</mi><mn>0</mn></msub></mfrac></mrow></semantics></math></span></span>; a tenfold increase in intensity adds 10 dB.</li>
+            <li><strong>pH:</strong> <span class="math" data-tex="\text{pH} = -\log_{10}[\text{H}^+]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>pH</mtext><mo>=</mo><mo>−</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>10</mn></msub><mo stretchy="false">[</mo><msup><mtext>H</mtext><mo>+</mo></msup><mo stretchy="false">]</mo></mrow></semantics></math></span></span>.</li>
+            <li><strong>Earthquakes:</strong> magnitude scales are logarithmic.</li>
+            <li><strong>Finance:</strong> the time to double money at interest rate <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> is <span class="math" data-tex="\tfrac{\ln 2}{\ln(1 + r)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>ln</mi><mo>⁡</mo><mn>2</mn></mrow><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span>.</li>
+            <li><strong>Radioactive decay and cooling:</strong> solving for time in exponential models.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Splitting a log of a sum.</strong> <span class="math" data-tex="\log(M + N) \ne \log M + \log N"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>M</mi><mo>+</mo><mi>N</mi><mo stretchy="false">)</mo><mo mathvariant="normal">≠</mo><mi>log</mi><mo>⁡</mo><mi>M</mi><mo>+</mo><mi>log</mi><mo>⁡</mo><mi>N</mi></mrow></semantics></math></span></span>.</li>
+            <li><strong>Ignoring the domain.</strong> A solution that makes the argument 0 or negative must be rejected.</li>
+            <li><strong>Dividing the arguments.</strong> <span class="math" data-tex="\tfrac{\ln 200}{\ln 5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>ln</mi><mo>⁡</mo><mn>200</mn></mrow><mrow><mi>ln</mi><mo>⁡</mo><mn>5</mn></mrow></mfrac></mrow></semantics></math></span></span> is not <span class="math" data-tex="\ln 40"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mn>40</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Using the wrong base on a calculator.</strong> "log" is base 10, "ln" is base <span class="math" data-tex="e"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span>.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The base is positive and not 1; type <code>e</code> for the natural logarithm.</li>
+            <li>The argument of a logarithm must be positive; solutions are checked against this.</li>
+            <li>Decimal results are rounded to 6 places; exact answers are given when the value is a rational power.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is a logarithm in simple terms?</summary>
+            <div class="faq-answer"><p>The exponent you need: log_b x is the power you raise b to in order to get x.</p></div>
+          </details>
+          <details>
+            <summary>How do I calculate a log with a different base?</summary>
+            <div class="faq-answer"><p>Use the change-of-base formula: log_b x = ln x / ln b.</p></div>
+          </details>
+          <details>
+            <summary>Why can't I take the log of a negative number?</summary>
+            <div class="faq-answer"><p>A positive base raised to any real power is positive, so no real exponent gives a negative number or 0.</p></div>
+          </details>
+          <details>
+            <summary>How do I solve an equation with x in the exponent?</summary>
+            <div class="faq-answer"><p>Isolate the power, take a logarithm of both sides, and solve the resulting linear equation.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../exponent-and-radical-simplifier/">Exponents and radicals</a>.</li>
+            <li><a href="../function-operations/">Inverse functions</a>.</li>
+            <li><a href="../compound-interest/">Compound interest</a>.</li>
           </ul>
         </section>
 

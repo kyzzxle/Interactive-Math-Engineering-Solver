@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/quadratic-equation-solver/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the quadratic formula?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "x = (−b ± √(b² − 4ac)) / (2a). It solves every quadratic equation ax² + bx + c = 0."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the discriminant tell me?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If b² − 4ac is positive there are two real roots, if 0 one repeated root, and if negative two complex roots."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When can I factor instead?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When the discriminant is a perfect square, the roots are rational and the quadratic factors over the integers or fractions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are complex roots?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Roots of the form p ± qi, which appear when the discriminant is negative. They always come in conjugate pairs for real coefficients."
+          }
+        }
+      ]
     }
   ]
 }
@@ -228,10 +266,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Solving quadratic equations</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is a quadratic equation?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the quadratic formula</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: complex roots</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -239,45 +286,159 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Solving quadratic equations</h2>
-          <p>A <strong>quadratic equation</strong> has the form <span class="math" data-tex="ax^2 + bx + c = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> with <span class="math" data-tex="a \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span>. It always has two roots when complex numbers are allowed, although they may be equal. The quadratic formula finds them in every case. This solver computes the discriminant, explains what it tells you, and gives the roots exactly — as fractions, simplified radicals or complex numbers — together with decimals, the factored form when it exists, the vertex and a graph.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Increase <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span> step by step in <span class="math" data-tex="x^2 - 3x + c = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>3</mn><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. The parabola rises, the two real roots move together, merge when <span class="math" data-tex="D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and then become complex when the graph lifts off the x-axis.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a quadratic equation?</h2>
+          <p>A <strong>quadratic equation</strong> has the form <span class="math" data-tex="ax^2 + bx + c = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> with <span class="math" data-tex="a \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span>. Its graph <span class="math" data-tex="y = ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span> is a parabola, and the solutions, or <strong>roots</strong>, are where the parabola crosses the x-axis. There can be two real roots, one repeated root, or two complex roots, and the <strong>discriminant</strong> <span class="math" data-tex="b^2 - 4ac"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></semantics></math></span></span> tells you which before you solve.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Increase <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span> until the parabola lifts off the x-axis. The discriminant turns negative and the roots become complex, written <span class="math" data-tex="p \pm qi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>±</mo><mi>q</mi><mi>i</mi></mrow></semantics></math></span></span>.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}, \qquad D = b^2 - 4ac"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>D</mi><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></semantics></math></span></span></div>
-          <table>
-            <thead><tr><th scope="col">Discriminant</th><th scope="col">Roots</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="D &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>, perfect square</td><td>Two different rational roots (the quadratic factors)</td></tr>
-              <tr><td><span class="math" data-tex="D &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>, not a perfect square</td><td>Two different irrational roots</td></tr>
-              <tr><td><span class="math" data-tex="D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>One repeated real root <span class="math" data-tex="x = -\frac{b}{2a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
-              <tr><td><span class="math" data-tex="D &lt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>Two complex conjugate roots <span class="math" data-tex="p \pm qi"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>±</mo><mi>q</mi><mi>i</mi></mrow></semantics></math></span></span></td></tr>
-            </tbody>
-          </table>
-          <p>Vieta's formulas give a quick check: the roots add up to <span class="math" data-tex="-\frac{b}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span> and multiply to <span class="math" data-tex="\frac{c}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>c</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span>.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Computes the discriminant and says what kind of roots to expect.</li>
+            <li>Solves with the quadratic formula, giving exact roots in simplest radical form (with <span class="math" data-tex="i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span> when complex) and decimals.</li>
+            <li>Gives the factored form when the roots are rational.</li>
+            <li>Reports the vertex, the sum and product of the roots, and checks them with Vieta's formulas.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Solve <span class="math" data-tex="2x^2 + 4x - 1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>x</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Discriminant</h4>
-            <span class="math-display" data-tex="D = 4^2 - 4(2)(-1) = 16 + 8 = 24"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>D</mi><mo>=</mo><msup><mn>4</mn><mn>2</mn></msup><mo>−</mo><mn>4</mn><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>16</mn><mo>+</mo><mn>8</mn><mo>=</mo><mn>24</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Quadratic formula</h4>
-            <span class="math-display" data-tex="x = \frac{-4 \pm \sqrt{24}}{2(2)} = \frac{-4 \pm 2\sqrt{6}}{4} = \frac{-2 \pm \sqrt{6}}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mn>4</mn><mo>±</mo><msqrt><mn>24</mn></msqrt></mrow><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mo>−</mo><mn>4</mn><mo>±</mo><mn>2</mn><msqrt><mn>6</mn></msqrt></mrow><mn>4</mn></mfrac><mo>=</mo><mfrac><mrow><mo>−</mo><mn>2</mn><mo>±</mo><msqrt><mn>6</mn></msqrt></mrow><mn>2</mn></mfrac></mrow></semantics></math></span></span>
-            <h4>Step 3 — Decimals</h4>
-            <span class="math-display" data-tex="x_1 \approx -2.224745, \qquad x_2 \approx 0.224745"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>≈</mo><mo>−</mo><mn>2.224745</mn><mo separator="true">,</mo><mspace width="2em"/><msub><mi>x</mi><mn>2</mn></msub><mo>≈</mo><mn>0.224745</mn></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>Every quadratic can be rewritten by <strong>completing the square</strong> as <span class="math" data-tex="a(x - h)^2 + k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mi>k</mi></mrow></semantics></math></span></span>, where <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is the vertex. Setting it to 0 and taking a square root gives the quadratic formula. The square root of the discriminant decides everything:</p>
+          <ul>
+            <li><span class="math" data-tex="b^2 - 4ac \gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>: two real roots, the parabola crosses the axis twice.</li>
+            <li><span class="math" data-tex="b^2 - 4ac = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>: one repeated root, the vertex touches the axis.</li>
+            <li><span class="math" data-tex="b^2 - 4ac \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span>: no real roots; two complex conjugate roots.</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Vieta's formulas</p>
+            <p>The roots always satisfy <span class="math" data-tex="x_1 + x_2 = -\tfrac{b}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>=</mo><mo>−</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span> and <span class="math" data-tex="x_1x_2 = \tfrac{c}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><msub><mi>x</mi><mn>2</mn></msub><mo>=</mo><mfrac><mi>c</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span>: a quick check on any answer.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Discriminant</td><td><span class="math" data-tex="\Delta = b^2 - 4ac"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Vertex</td><td><span class="math" data-tex="\left(-\tfrac{b}{2a},\ c - \tfrac{b^2}{4a}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo separator="true">,</mo><mtext> </mtext><mi>c</mi><mo>−</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><mn>4</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Sum of roots</td><td><span class="math" data-tex="-\tfrac{b}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Product of roots</td><td><span class="math" data-tex="\tfrac{c}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>c</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Factored form</td><td><span class="math" data-tex="a(x - x_1)(x - x_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="a, b, c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi></mrow></semantics></math></span></span></td><td>Coefficients of <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span>, <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> and the constant; <span class="math" data-tex="a \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="\Delta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi></mrow></semantics></math></span></span></td><td>The discriminant.</td></tr>
+              <tr><td><span class="math" data-tex="x_1, x_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>The roots.</td></tr>
+              <tr><td><span class="math" data-tex="i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span></td><td>The imaginary unit, <span class="math" data-tex="i^2 = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>i</mi><mn>2</mn></msup><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the quadratic formula</h2>
+          <p>Divide <span class="math" data-tex="ax^2 + bx + c = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> by <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and move the constant: <span class="math" data-tex="x^2 + \tfrac{b}{a}x = -\tfrac{c}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><mi>x</mi><mo>=</mo><mo>−</mo><mfrac><mi>c</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span>. Add <span class="math" data-tex="\left(\tfrac{b}{2a}\right)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup></mrow></semantics></math></span></span> to both sides to complete the square:</p>
+          <span class="math-display" data-tex="\left(x + \frac{b}{2a}\right)^2 = \frac{b^2 - 4ac}{4a^2}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mi>x</mi><mo>+</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>=</mo><mfrac><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Take the square root of both sides, <span class="math" data-tex="x + \tfrac{b}{2a} = \pm\tfrac{\sqrt{b^2 - 4ac}}{2a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo>=</mo><mo>±</mo><mfrac><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span>, and subtract <span class="math" data-tex="\tfrac{b}{2a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="x^2 - 3x - 10 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>3</mn><mi>x</mi><mo>−</mo><mn>10</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Discriminant</h4>
+            <span class="math-display" data-tex="\Delta = (-3)^2 - 4(1)(-10) = 9 + 40 = 49 \gt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>−</mo><mn>4</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>10</mn><mo stretchy="false">)</mo><mo>=</mo><mn>9</mn><mo>+</mo><mn>40</mn><mo>=</mo><mn>49</mn><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <p>Two real roots, and since 49 is a perfect square they are rational.</p>
+            <h4>Step 2: Quadratic formula</h4>
+            <span class="math-display" data-tex="x = \frac{3 \pm 7}{2} \;\Rightarrow\; x_1 = -2, \quad x_2 = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mn>3</mn><mo>±</mo><mn>7</mn></mrow><mn>2</mn></mfrac><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><msub><mi>x</mi><mn>1</mn></msub><mo>=</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mspace width="1em"/><msub><mi>x</mi><mn>2</mn></msub><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Factored form</h4>
+            <span class="math-display" data-tex="(x + 2)(x - 5) = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>5</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>Sum <span class="math" data-tex="-2 + 5 = 3 = -\tfrac{b}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2</mn><mo>+</mo><mn>5</mn><mo>=</mo><mn>3</mn><mo>=</mo><mo>−</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span>; product <span class="math" data-tex="-10 = \tfrac{c}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>10</mn><mo>=</mo><mfrac><mi>c</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: complex roots</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="x^2 + 2x + 5 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>5</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Discriminant</h4>
+            <span class="math-display" data-tex="\Delta = 4 - 20 = -16 \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mn>4</mn><mo>−</mo><mn>20</mn><mo>=</mo><mo>−</mo><mn>16</mn><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Square root of a negative number</h4>
+            <span class="math-display" data-tex="\sqrt{-16} = 4i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msqrt><mrow><mo>−</mo><mn>16</mn></mrow></msqrt><mo>=</mo><mn>4</mn><mi>i</mi></mrow></semantics></math></span></span>
+            <h4>Step 3: Roots</h4>
+            <span class="math-display" data-tex="x = \frac{-2 \pm 4i}{2} = -1 \pm 2i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mn>2</mn><mo>±</mo><mn>4</mn><mi>i</mi></mrow><mn>2</mn></mfrac><mo>=</mo><mo>−</mo><mn>1</mn><mo>±</mo><mn>2</mn><mi>i</mi></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>Sum <span class="math" data-tex="-2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span> and product <span class="math" data-tex="(-1)^2 + 2^2 = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><msup><mn>2</mn><mn>2</mn></msup><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>, matching <span class="math" data-tex="-\tfrac{b}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span> and <span class="math" data-tex="\tfrac{c}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>c</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span>. ✓ The parabola has its vertex at <span class="math" data-tex="(-1, 4)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, above the axis.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> must not be 0. Coefficients may be integers, decimals or fractions; the arithmetic is exact.</li>
-            <li>Complex roots use <span class="math" data-tex="i = \sqrt{-1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><msqrt><mrow><mo>−</mo><mn>1</mn></mrow></msqrt></mrow></semantics></math></span></span>.</li>
-            <li>Exact roots are shown in simplest radical form; decimal approximations are rounded to 6 places.</li>
+            <li><strong>Projectiles:</strong> when a thrown object reaches a given height (see <a href="../projectile-motion/">projectile motion</a>).</li>
+            <li><strong>Area problems:</strong> the dimensions of a plot with a given area and perimeter.</li>
+            <li><strong>Electrical circuits:</strong> the characteristic equation of an RLC circuit; complex roots mean oscillation.</li>
+            <li><strong>Optimisation:</strong> the vertex gives the maximum or minimum of a quadratic cost or profit.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Not setting the equation to 0 first.</strong> Read <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span> only from <span class="math" data-tex="ax^2 + bx + c = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Sign of <span class="math" data-tex="-b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>b</mi></mrow></semantics></math></span></span>.</strong> If <span class="math" data-tex="b = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>, then <span class="math" data-tex="-b = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>b</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Squaring a negative <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span>.</strong> <span class="math" data-tex="(-3)^2 = 9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>9</mn></mrow></semantics></math></span></span>, not <span class="math" data-tex="-9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>9</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Dividing only part of the numerator by <span class="math" data-tex="2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span>.</strong> The whole <span class="math" data-tex="-b \pm \sqrt{\Delta}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><mi mathvariant="normal">Δ</mi></msqrt></mrow></semantics></math></span></span> is divided.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> cannot be 0. Coefficients may be fractions or decimals; the working is exact.</li>
+            <li>Exact roots are in simplest radical form; decimals are rounded to 6 places.</li>
+            <li>For higher-degree polynomials, use the <a href="../polynomial-factoring/">polynomial factoring calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the quadratic formula?</summary>
+            <div class="faq-answer"><p>x = (−b ± √(b² − 4ac)) / (2a). It solves every quadratic equation ax² + bx + c = 0.</p></div>
+          </details>
+          <details>
+            <summary>What does the discriminant tell me?</summary>
+            <div class="faq-answer"><p>If b² − 4ac is positive there are two real roots, if 0 one repeated root, and if negative two complex roots.</p></div>
+          </details>
+          <details>
+            <summary>When can I factor instead?</summary>
+            <div class="faq-answer"><p>When the discriminant is a perfect square, the roots are rational and the quadratic factors over the integers or fractions.</p></div>
+          </details>
+          <details>
+            <summary>What are complex roots?</summary>
+            <div class="faq-answer"><p>Roots of the form p ± qi, which appear when the discriminant is negative. They always come in conjugate pairs for real coefficients.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../polynomial-factoring/">Polynomial factoring</a>.</li>
+            <li><a href="../inequality-solver/">Quadratic inequalities</a>.</li>
+            <li><a href="../complex-number-calculator/">Complex numbers</a>.</li>
+            <li><a href="../parabola/">The parabola</a>: focus, directrix and vertex.</li>
           </ul>
         </section>
 

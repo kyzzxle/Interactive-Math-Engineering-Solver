@@ -6,9 +6,13 @@ import { validator, fp, formatNumber } from '../lib/calc-kit.js';
 import { parse, toPoly, polyToNode, texOf, textOf, ExprError } from '../lib/expr.js';
 import { Frac } from '../lib/fraction.js';
 import { plot, windowAround } from '../lib/plot.js';
+import { linearExplore, linearPractice } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
 
 export const calculator = {
   id: 'linear-equation-solver',
+  explore: linearExplore,
+  practice: linearPractice,
   fields: [
     { name: 'eq', label: 'Equation in x', type: 'text', placeholder: 'e.g. 3x + 5 = 2x - 7', hint: 'Use x as the variable. Brackets, fractions (1/2) and decimals are allowed.' },
   ],
@@ -83,3 +87,14 @@ export const calculator = {
     };
   },
 };
+
+// Explanations for each step.
+withNotes(calculator, {
+  'Write the equation': 'A linear equation has x only to the first power. The aim is to get x by itself on one side.',
+  'Expand and simplify each side': 'Remove brackets with the distributive law, then combine like terms on each side separately.',
+  'Collect x-terms': 'Doing the same thing to both sides keeps the equation balanced, so its solution does not change.',
+  'Divide both sides by': 'Dividing both sides by the coefficient of x leaves x by itself.',
+  'Check by substituting': 'Both sides give the same number, so the solution is correct.',
+  'Contradiction': 'The x-terms cancelled and left a false statement, so no value of x can work.',
+  'Identity': 'The x-terms cancelled and left a true statement, so every value of x works.',
+});

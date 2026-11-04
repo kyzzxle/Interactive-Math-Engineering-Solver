@@ -8,6 +8,9 @@ import { simplifySqrt } from '../lib/exact.js';
 import { parsePolyField, polyTex, degree, subPoly } from '../lib/poly-kit.js';
 import { Frac } from '../lib/fraction.js';
 import { randInt } from '../lib/learn.js';
+import { inequalityExplore } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
+import { parse as __parse, toPoly as __toPoly } from '../lib/expr.js';
 
 const OPS = { lt: ['<', '<'], le: ['\\le', '≤'], gt: ['>', '>'], ge: ['\\ge', '≥'] };
 const flip = { lt: 'gt', le: 'ge', gt: 'lt', ge: 'le' };
@@ -28,6 +31,7 @@ function numberLine(pieces, points, marks) {
 
 export const calculator = {
   id: 'inequality-solver',
+  explore: inequalityExplore,
   practice: {
     title: 'Solve a quadratic inequality',
     generate(rand) {
@@ -158,3 +162,28 @@ export const calculator = {
     }
   },
 };
+
+// Explanations for each step, and a final check.
+withNotes(calculator, {
+  'Move everything to one side': 'Comparing with 0 is easiest: then only the sign of one expression matters.',
+  'Subtract the constant': 'Adding or subtracting the same number on both sides keeps the inequality the same way round.',
+  'Divide by a negative number': 'Multiplying or dividing by a negative number reverses the order: 2 < 3, but −2 > −3.',
+  'Divide by the positive coefficient': 'Dividing by a positive number keeps the direction of the inequality.',
+  'Discriminant of the quadratic': 'The roots of the quadratic are the boundary points, where the expression can change sign.',
+  'Boundary points': 'The expression is 0 at these points, so they split the number line into intervals.',
+  'Solution': 'Strict signs (< and >) leave the boundary points out; ≤ and ≥ include them.',
+}, (r, values) => {
+  const L = __toPoly(__parse(String(values.lhs))), R = __toPoly(__parse(String(values.rhs)));
+  if (!L || !R) return;
+  const c = [0, 1, 2].map((i) => ((L[i] ? L[i].toNumber() : 0) - (R[i] ? R[i].toNumber() : 0)));
+  if (L.length > 3 || R.length > 3) return;
+  const f = (x) => c[0] + c[1] * x + c[2] * x * x;
+  let roots = [];
+  if (c[2] !== 0) { const D = c[1] * c[1] - 4 * c[2] * c[0]; if (D > 0) roots = [(-c[1] - Math.sqrt(D)) / (2 * c[2]), (-c[1] + Math.sqrt(D)) / (2 * c[2])].sort((p, q) => p - q); else if (D === 0) roots = [-c[1] / (2 * c[2])]; }
+  else if (c[1] !== 0) roots = [-c[0] / c[1]];
+  const pts = roots.length === 0 ? [0] : roots.length === 1 ? [roots[0] - 1, roots[0] + 1] : [roots[0] - 1, (roots[0] + roots[1]) / 2, roots[1] + 1];
+  const op = values.op;
+  const holds = (v) => (op === 'lt' ? v < 0 : op === 'le' ? v <= 0 : op === 'gt' ? v > 0 : v >= 0);
+  const t = (x) => +x.toFixed(4);
+  r.steps.push({ title: 'Check with test points', texLines: pts.map((x) => `x = ${t(x)}: \\quad \\text{value} \\approx ${t(f(x))} \\;\\Rightarrow\\; ${holds(f(x)) ? '\\text{satisfies it}' : '\\text{does not}'}`), note: 'One test point in each interval shows its sign, and these agree with the solution set.' });
+});

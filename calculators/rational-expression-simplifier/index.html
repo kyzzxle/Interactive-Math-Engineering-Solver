@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/rational-expression-simplifier/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I simplify a rational expression?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Factor the numerator and the denominator completely, then cancel the factors they have in common."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are excluded values?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Values of x that make the original denominator 0. The expression is not defined there."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a hole and a vertical asymptote?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A hole comes from a factor that cancels; the graph is missing one point. An asymptote comes from a factor left in the denominator; the graph shoots off to infinity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I cancel x in (x + 2)/x?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The x on top is part of the sum x + 2, not a factor of the whole numerator."
+          }
+        }
+      ]
     }
   ]
 }
@@ -203,6 +241,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Holes and asymptotes</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Holes and asymptotes</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -210,10 +263,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the rational expression simplifier does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is a rational expression?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Euclid's algorithm for polynomials</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a cubic over a quadratic</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -221,47 +283,147 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the rational expression simplifier does</h2>
-          <p>A <strong>rational expression</strong> is a fraction of two polynomials, <span class="math" data-tex="P(x)/Q(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. It is simplified by cancelling their common factors, just as <span class="math" data-tex="\tfrac{6}{8} = \tfrac{3}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>6</mn><mn>8</mn></mfrac><mo>=</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></mrow></semantics></math></span></span> cancels a common factor 2.</p>
-          <p>The calculator finds the greatest common divisor of the polynomials exactly (Euclid’s algorithm), shows both in factored form, and keeps track of the values of x where the original expression is not defined — cancelling a factor does not make those values allowed.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Look at the graph: a cancelled factor leaves a hole, while a factor that stays in the denominator gives a vertical asymptote.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a rational expression?</h2>
+          <p>A <strong>rational expression</strong> is a fraction whose numerator and denominator are polynomials, such as <span class="math" data-tex="\tfrac{x^2 - 9}{x^2 + x - 6}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>9</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>6</mn></mrow></mfrac></mrow></semantics></math></span></span>. It is simplified exactly like a numerical fraction: factor the top and the bottom and cancel the common factors. The one new idea is that the expression is not defined where the denominator is 0, and those <strong>excluded values</strong> stay excluded even after cancelling.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter <span class="math" data-tex="\tfrac{x + 1}{x^2 + 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn></mrow></mfrac></mrow></semantics></math></span></span>. The top and bottom share no factor, so it is already in lowest terms, and <span class="math" data-tex="x^2 + 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span> is never 0, so nothing is excluded.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Factors the numerator and denominator over the rationals.</li>
+            <li>Finds their greatest common factor with Euclid's algorithm and cancels it.</li>
+            <li>Lists the excluded values, the holes (cancelled zeros) and the vertical asymptotes.</li>
+            <li>Checks the simplification at sample points and graphs the result.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p><span class="math" data-tex="\tfrac{AC}{BC} = \tfrac{A}{B}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>A</mi><mi>C</mi></mrow><mrow><mi>B</mi><mi>C</mi></mrow></mfrac><mo>=</mo><mfrac><mi>A</mi><mi>B</mi></mfrac></mrow></semantics></math></span></span> whenever <span class="math" data-tex="C \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span>: dividing the top and the bottom by the same non-zero factor does not change the value. But only <strong>factors</strong> cancel. In <span class="math" data-tex="\tfrac{x + 3}{x + 5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>x</mi><mo>+</mo><mn>3</mn></mrow><mrow><mi>x</mi><mo>+</mo><mn>5</mn></mrow></mfrac></mrow></semantics></math></span></span> the <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> is part of a sum and cannot be cancelled.</p>
+          <p>A cancelled factor <span class="math" data-tex="(x - a)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> leaves a <strong>hole</strong> in the graph at <span class="math" data-tex="x = a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>a</mi></mrow></semantics></math></span></span>: the simplified formula has a value there, but the original expression does not. A factor that stays in the denominator gives a <strong>vertical asymptote</strong>.</p>
+          <div class="callout">
+            <p class="callout-title">Equal, except at the holes</p>
+            <p><span class="math" data-tex="\tfrac{x^2 - 9}{x + 3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>9</mn></mrow><mrow><mi>x</mi><mo>+</mo><mn>3</mn></mrow></mfrac></mrow></semantics></math></span></span> and <span class="math" data-tex="x - 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span> agree for every <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> except <span class="math" data-tex="x = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>, where the first is not defined.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="\frac{P(x)}{Q(x)} = \frac{P(x)/G(x)}{Q(x)/G(x)},\quad G = \gcd(P, Q),\quad Q(x) \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>G</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>G</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac><mo separator="true">,</mo><mspace width="1em"/><mi>G</mi><mo>=</mo><mi>gcd</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>P</mi><mo separator="true">,</mo><mi>Q</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="1em"/><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="\frac{P(x)}{Q(x)} = \frac{P(x) / G(x)}{Q(x) / G(x)}, \qquad G = \gcd(P, Q)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>G</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>G</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>G</mi><mo>=</mo><mi>gcd</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>P</mi><mo separator="true">,</mo><mi>Q</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Feature</th><th scope="col">Where</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="P,\ Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo separator="true">,</mo><mtext> </mtext><mi>Q</mi></mrow></semantics></math></span></span></td><td>Numerator and denominator polynomials</td></tr>
-              <tr><td><span class="math" data-tex="G"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow></semantics></math></span></span></td><td>Greatest common divisor (the common factor)</td></tr>
+              <tr><td>Excluded values</td><td>Zeros of the original denominator <span class="math" data-tex="Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Holes</td><td>Zeros of the common factor <span class="math" data-tex="G"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Vertical asymptotes</td><td>Zeros of the simplified denominator</td></tr>
+              <tr><td>x-intercepts</td><td>Zeros of the simplified numerator</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="P, Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo separator="true">,</mo><mi>Q</mi></mrow></semantics></math></span></span></td><td>Numerator and denominator polynomials.</td></tr>
+              <tr><td><span class="math" data-tex="G"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow></semantics></math></span></span></td><td>Their greatest common factor (gcd).</td></tr>
+              <tr><td>Hole</td><td>A single missing point in the graph.</td></tr>
+              <tr><td>Asymptote</td><td>A vertical line the graph approaches but never reaches.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Euclid's algorithm for polynomials</h2>
+          <p>To find <span class="math" data-tex="\gcd(P, Q)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>gcd</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>P</mi><mo separator="true">,</mo><mi>Q</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> without factoring, divide <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span> by <span class="math" data-tex="Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow></semantics></math></span></span> and keep the remainder <span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span>. Then <span class="math" data-tex="\gcd(P, Q) = \gcd(Q, R)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>gcd</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>P</mi><mo separator="true">,</mo><mi>Q</mi><mo stretchy="false">)</mo><mo>=</mo><mi>gcd</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>Q</mi><mo separator="true">,</mo><mi>R</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, because any common factor of <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow></semantics></math></span></span> also divides <span class="math" data-tex="R = P - \text{(quotient)}\,Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>P</mi><mo>−</mo><mtext>(quotient)</mtext><mtext> </mtext><mi>Q</mi></mrow></semantics></math></span></span>. Repeat until the remainder is 0; the last non-zero remainder is the gcd. This always works, even when the factors have irrational roots.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Simplify (x² − 9)/(x² + x − 6)</h3>
-            <h4>Step 1 — Factor</h4>
+            <h3>Problem</h3>
+            <p>Simplify <span class="math" data-tex="\dfrac{x^2 - 9}{x^2 + x - 6}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>9</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>6</mn></mrow></mfrac></mstyle></mrow></semantics></math></span></span> and describe its graph.</p>
+            <h4>Step 1: Factor</h4>
             <span class="math-display" data-tex="\frac{(x - 3)(x + 3)}{(x + 3)(x - 2)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span>
-            <h4>Step 2 — Cancel (x + 3)</h4>
-            <span class="math-display" data-tex="= \frac{x - 3}{x - 2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mn>3</mn></mrow><mrow><mi>x</mi><mo>−</mo><mn>2</mn></mrow></mfrac></mrow></semantics></math></span></span>
-            <h4>Step 3 — Excluded values</h4>
-            <p>The original denominator is zero at <span class="math" data-tex="x = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="x \ne -3, 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo mathvariant="normal">≠</mo><mo>−</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn></mrow></semantics></math></span></span>. At <span class="math" data-tex="x = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span> the graph has a hole; at <span class="math" data-tex="x = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span> a vertical asymptote.</p>
+            <h4>Step 2: Cancel the common factor</h4>
+            <span class="math-display" data-tex="\frac{x - 3}{x - 2}, \qquad x \ne -3,\ x \ne 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>x</mi><mo>−</mo><mn>3</mn></mrow><mrow><mi>x</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>x</mi><mo mathvariant="normal">≠</mo><mo>−</mo><mn>3</mn><mo separator="true">,</mo><mtext> </mtext><mi>x</mi><mo mathvariant="normal">≠</mo><mn>2</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Features</h4>
+            <p>Hole at <span class="math" data-tex="x = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>, at height <span class="math" data-tex="\tfrac{-6}{-5} = \tfrac{6}{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo>−</mo><mn>6</mn></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mfrac><mn>6</mn><mn>5</mn></mfrac></mrow></semantics></math></span></span>. Vertical asymptote <span class="math" data-tex="x = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>. x-intercept at <span class="math" data-tex="x = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Check</h4>
+            <p>At <span class="math" data-tex="x = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>: original <span class="math" data-tex="\tfrac{-9}{-6} = 1.5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo>−</mo><mn>9</mn></mrow><mrow><mo>−</mo><mn>6</mn></mrow></mfrac><mo>=</mo><mn>1.5</mn></mrow></semantics></math></span></span>, simplified <span class="math" data-tex="\tfrac{-3}{-2} = 1.5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo>−</mo><mn>3</mn></mrow><mrow><mo>−</mo><mn>2</mn></mrow></mfrac><mo>=</mo><mn>1.5</mn></mrow></semantics></math></span></span>. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a cubic over a quadratic</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Simplify <span class="math" data-tex="\dfrac{x^3 - 1}{x^2 - 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>1</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mstyle></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Factor (difference of cubes and of squares)</h4>
+            <span class="math-display" data-tex="\frac{(x - 1)(x^2 + x + 1)}{(x - 1)(x + 1)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span>
+            <h4>Step 2: Cancel</h4>
+            <span class="math-display" data-tex="\frac{x^2 + x + 1}{x + 1}, \qquad x \ne 1,\ x \ne -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>+</mo><mn>1</mn></mrow><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>x</mi><mo mathvariant="normal">≠</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><mi>x</mi><mo mathvariant="normal">≠</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Features</h4>
+            <p>Hole at <span class="math" data-tex="x = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>, at height <span class="math" data-tex="\tfrac{3}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>3</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>. Vertical asymptote <span class="math" data-tex="x = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>. The factor <span class="math" data-tex="x^2 + x + 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span> has no real roots, so there are no x-intercepts.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Polynomials in x up to degree 6 with rational coefficients.</li>
-            <li>Factors are over the rationals: quadratics with irrational roots are left as they are.</li>
+            <li><strong>Transfer functions:</strong> in control engineering, cancelling factors shows the poles and zeros of a system.</li>
+            <li><strong>Average cost:</strong> total cost divided by quantity is a rational function.</li>
+            <li><strong>Optics and circuits:</strong> lens and parallel-resistance formulas simplify to rational expressions.</li>
+            <li><strong>Calculus:</strong> simplifying before taking a limit removes a 0/0 form.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Cancelling terms instead of factors.</strong> <span class="math" data-tex="\tfrac{x + 3}{x + 5} \ne \tfrac{3}{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>x</mi><mo>+</mo><mn>3</mn></mrow><mrow><mi>x</mi><mo>+</mo><mn>5</mn></mrow></mfrac><mo mathvariant="normal">≠</mo><mfrac><mn>3</mn><mn>5</mn></mfrac></mrow></semantics></math></span></span>.</li>
+            <li><strong>Dropping the excluded values.</strong> They come from the original denominator, before cancelling.</li>
+            <li><strong>Confusing holes with asymptotes.</strong> A cancelled factor gives a hole; a remaining one gives an asymptote.</li>
+            <li><strong>Sign slips with <span class="math" data-tex="(a - x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><mo>−</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</strong> <span class="math" data-tex="a - x = -(x - a)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>−</mo><mi>x</mi><mo>=</mo><mo>−</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, so it cancels with <span class="math" data-tex="(x - a)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> leaving <span class="math" data-tex="-1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Cancelling terms instead of factors: (x + 3)/(x + 5) cannot be “simplified” to 3/5.</li>
-            <li>Dropping the excluded values after cancelling.</li>
+            <li>Numerator and denominator are polynomials in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> of degree up to 6, with rational coefficients.</li>
+            <li>Factoring is over the rationals; irrational zeros are found numerically and marked as rounded.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I simplify a rational expression?</summary>
+            <div class="faq-answer"><p>Factor the numerator and the denominator completely, then cancel the factors they have in common.</p></div>
+          </details>
+          <details>
+            <summary>What are excluded values?</summary>
+            <div class="faq-answer"><p>Values of x that make the original denominator 0. The expression is not defined there.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between a hole and a vertical asymptote?</summary>
+            <div class="faq-answer"><p>A hole comes from a factor that cancels; the graph is missing one point. An asymptote comes from a factor left in the denominator; the graph shoots off to infinity.</p></div>
+          </details>
+          <details>
+            <summary>Can I cancel x in (x + 2)/x?</summary>
+            <div class="faq-answer"><p>No. The x on top is part of the sum x + 2, not a factor of the whole numerator.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../polynomial-factoring/">Polynomial factoring</a>.</li>
+            <li><a href="../partial-fractions/">Partial fractions</a>.</li>
+            <li><a href="../radical-rational-equations/">Rational equations</a>.</li>
           </ul>
         </section>
 

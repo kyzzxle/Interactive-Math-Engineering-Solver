@@ -7,7 +7,9 @@
  */
 import { validator } from '../lib/calc-kit.js';
 import { Frac } from '../lib/fraction.js';
-import { parse, simplify, texOf, textOf, ExprError } from '../lib/expr.js';
+import { parse, simplify, texOf, textOf, evaluate, ExprError } from '../lib/expr.js';
+import { exponentExplore, exponentPractice } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
 
 const VARS = ['x', 'y', 'z', 'a', 'b', 'c', 'm', 'n'];
 
@@ -61,6 +63,7 @@ function radicalMode(values, v) {
   ];
   if (vars.length) steps.push({ title: `Divide each exponent by the index ${n}`, text: 'The quotient goes outside the root; the remainder stays inside.', texLines: lines });
   steps.push({ title: 'Write the simplified radical', tex: `${rootTex(texOf(node))} = ${resultTex}` });
+  if (insideTex !== '1' || outsideTex) steps.push({ title: `Check: raise the outside part to the power ${n}`, tex: `\\left(${outsideTex || '1'}\\right)^{${n}} \\cdot ${insideTex} = ${texOf(node)}\\ \\checkmark`, note: `Moving a factor back inside an index-${n} root means raising it to the power ${n}; this must rebuild the original radicand.` });
   return {
     ok: true,
     final: { tex: `${rootTex(texOf(node))} = ${resultTex}` },
@@ -155,6 +158,12 @@ function lawsMode(values, v) {
   ];
   if (lines.length) steps.push({ title: 'Add the exponents of each variable', text: 'Same base: aᵐ · aⁿ = aᵐ⁺ⁿ. The total exponent for each variable is:', texLines: lines });
   steps.push({ title: 'Simplify numbers and write with positive exponents', text: 'Negative exponents move to the denominator: a⁻ⁿ = 1/aⁿ.', tex: `${texOf(rawNode)} = ${texOf(result)}` });
+  const scope = { x: 1.3, y: 0.7, z: 1.1, a: 1.5, b: 0.8, c: 1.2, m: 1.4, n: 0.9 };
+  try {
+    const v1 = evaluate(rawNode, scope), v2 = evaluate(result, scope);
+    const used = [...contributions.keys()].filter((k) => k !== '#');
+    if (Number.isFinite(v1) && Number.isFinite(v2)) steps.push({ title: 'Check with sample values', tex: `${used.length ? `${used.map((k) => `${k} = ${scope[k]}`).join(',\\ ')}: \\quad ` : ''}\\text{original} \\approx ${+v1.toPrecision(8)}, \\quad \\text{simplified} \\approx ${+v2.toPrecision(8)}${Math.abs(v1 - v2) <= 1e-9 * Math.max(1, Math.abs(v1)) ? '\\ \\checkmark' : ''}`, note: 'Substituting the same numbers into both forms must give the same value.' });
+  } catch (e) { /* no check if a sample value is outside the domain */ }
   return {
     ok: true,
     final: { tex: `${texOf(rawNode)} = ${texOf(result)}` },
@@ -168,6 +177,8 @@ function lawsMode(values, v) {
 
 export const calculator = {
   id: 'exponent-and-radical-simplifier',
+  explore: exponentExplore,
+  practice: exponentPractice,
   fields: [
     { name: 'mode', label: 'What do you want to simplify?', type: 'select', options: [['laws', 'Expression with exponents, e.g. (2x³y⁻²)² / (4x⁻¹y)'], ['radical', 'Radical, e.g. √(72x⁵y²) or ∛(−54)'], ['power', 'Number to a fractional power, e.g. 8^(2/3)']] },
     { name: 'expr', label: 'Expression', type: 'text', placeholder: '(2x^3y^-2)^2/(4x^-1y)', hint: 'Use ^ for powers. Variables allowed: x, y, z, a, b, c, m, n.', showWhen: { mode: ['laws'] } },
@@ -191,3 +202,26 @@ export const calculator = {
     return lawsMode(values, v);
   },
 };
+
+// Explanations for each step, and a final check.
+withNotes(calculator, {
+  'Write the expression': 'The product and quotient rules need equal bases; a power of a product applies to every factor.',
+  'Add the exponents of each variable': 'Dividing subtracts exponents, so a factor in the denominator counts with a negative exponent.',
+  'Simplify numbers and write with positive exponents': 'Finished answers are usually written with positive exponents only.',
+  'Write the radical': 'A radical is simplified when no factor inside it is a perfect power of the index.',
+  'Split the coefficient': 'Write the number as a perfect power times what is left, so the perfect power can come out of the root.',
+  'Divide each exponent by the index': 'For xᵐ inside an n-th root, the quotient of m ÷ n comes out and the remainder stays in.',
+  'Write the simplified radical': 'Raising the answer to the power of the index gives the original radicand back.',
+  'Write the power': 'Split the exponent into a root (its denominator) and a power (its numerator).',
+  'Negative exponent': 'A negative exponent means a reciprocal, not a negative number.',
+  'Fractional exponent': 'Taking the root first keeps the numbers small.',
+  'Evaluate exactly': 'The base is a perfect power of the root, so the answer is exact.',
+  'Simplify the radical': 'Pull out every perfect power; what is left stays under the root.',
+}, (r, values) => {
+  if (values.mode !== 'power') return;
+  const card = r.answers.find((a) => a.label === 'Decimal value');
+  const v = Number(card && card.value), b = Number(values.base), e = String(values.exp).split('/');
+  const p = Number(e[0]), q = e.length > 1 ? Number(e[1]) : 1;
+  if (!Number.isFinite(v) || !Number.isFinite(p) || !Number.isFinite(q) || q > 12) return;
+  r.steps.push({ title: 'Check: raise the answer to the power of the root', tex: `\\left(${+v.toPrecision(10)}\\right)^{${q}} \\approx ${+(v ** q).toPrecision(8)} = ${b}^{${p}}${Math.abs(v ** q - b ** p) <= 1e-6 * Math.max(1, Math.abs(b ** p)) ? '\\ \\checkmark' : ''}`, note: 'If a^(p/q) = v, then v^q = a^p.' });
+});

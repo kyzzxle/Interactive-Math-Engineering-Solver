@@ -1,46 +1,148 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the sequence calculator does</h2>
-          <p>An <strong>arithmetic sequence</strong> adds the same difference d each time (3, 7, 11, …). A <strong>geometric sequence</strong> multiplies by the same ratio r each time (5, 10, 20, …).</p>
-          <p>Their sums have neat formulas. A geometric series with |r| &lt; 1 even has a finite sum when infinitely many terms are added, because the terms shrink fast enough.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, try r = 0.5: the running total levels off at 2a₁. Try r = −0.8: it zig-zags towards its limit.</p></div>
+          <h2 id="about-h" style="margin-top:0">What are arithmetic and geometric sequences?</h2>
+          <p>A <strong>sequence</strong> is an ordered list of numbers. In an <strong>arithmetic</strong> sequence you add the same <strong>common difference</strong> \(d\) each time: 3, 7, 11, 15, … (\(d = 4\)). In a <strong>geometric</strong> sequence you multiply by the same <strong>common ratio</strong> \(r\): 3, 1.5, 0.75, … (\(r = \tfrac{1}{2}\)). Both have simple formulas for the \(n\)th term and for the sum of the first \(n\) terms, and a geometric series with \(|r| \lt 1\) even has a finite infinite sum.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the ratio \(r = 2\) instead of \(\tfrac{1}{2}\). The terms grow without limit and the infinite sum no longer exists.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Gives the \(n\)th term and the sum of \(n\) terms for arithmetic or geometric sequences, exactly.</li>
+            <li>Gives the infinite sum of a geometric series when \(|r| \lt 1\).</li>
+            <li>Lists the first terms and charts the terms and the running total.</li>
+            <li>Checks the sum with a second formula.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The ideas behind it</h2>
+          <p>Reaching the \(n\)th term takes \(n - 1\) steps from the first, so \(a_n = a_1 + (n - 1)d\) or \(a_n = a_1r^{n - 1}\).</p>
+          <p><strong>Arithmetic sums.</strong> Pair the first and last terms, the second and second-to-last, and so on: every pair adds to \(a_1 + a_n\), and there are \(\tfrac{n}{2}\) pairs.</p>
+          <p><strong>Geometric sums.</strong> Multiply the sum by \(r\) and subtract it from the original: everything cancels except the first and last pieces.</p>
+          <div class="callout">
+            <p class="callout-title">Infinite sums</p>
+            <p>When \(|r| \lt 1\), \(r^n \to 0\), so \(S_n \to \tfrac{a_1}{1 - r}\). For \(3 + 1.5 + 0.75 + \dots\) the total is \(\tfrac{3}{1 - 0.5} = 6\).</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ a_n = a_1 + (n - 1)d \qquad S_n = \frac{n(a_1 + a_n)}{2} \]\[ a_n = a_1 r^{\,n-1} \qquad S_n = \frac{a_1(1 - r^n)}{1 - r} \qquad S_\infty = \frac{a_1}{1 - r}\ (|r| &lt; 1) \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Arithmetic</th><th scope="col">Geometric</th></tr></thead>
             <tbody>
-              <tr><td>\(a_1\)</td><td>First term</td></tr>
-              <tr><td>\(d\)</td><td>Common difference</td></tr>
-              <tr><td>\(r\)</td><td>Common ratio</td></tr>
-              <tr><td>\(n\)</td><td>Number of terms</td></tr>
+              <tr><td>nth term</td><td>\(a_n = a_1 + (n - 1)d\)</td><td>\(a_n = a_1r^{n - 1}\)</td></tr>
+              <tr><td>Sum of n terms</td><td>\(S_n = \tfrac{n}{2}(a_1 + a_n)\)</td><td>\(S_n = \tfrac{a_1(1 - r^n)}{1 - r}\), \(r \ne 1\)</td></tr>
+              <tr><td>Other sum form</td><td>\(S_n = \tfrac{n}{2}\left[2a_1 + (n - 1)d\right]\)</td><td>\(S_n = \tfrac{a_1 - a_nr}{1 - r}\)</td></tr>
+              <tr><td>Infinite sum</td><td>Does not exist (unless every term is 0)</td><td>\(S_\infty = \tfrac{a_1}{1 - r}\), \(|r| \lt 1\)</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a_1\)</td><td>The first term.</td></tr>
+              <tr><td>\(d\)</td><td>Common difference: \(a_{n+1} - a_n\).</td></tr>
+              <tr><td>\(r\)</td><td>Common ratio: \(\tfrac{a_{n+1}}{a_n}\).</td></tr>
+              <tr><td>\(n\)</td><td>Number of terms.</td></tr>
+              <tr><td>\(a_n, S_n\)</td><td>The nth term and the sum of the first n terms.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the geometric sum</h2>
+          <p>Write \(S_n = a_1 + a_1r + \dots + a_1r^{n - 1}\) and multiply by \(r\): \(rS_n = a_1r + a_1r^2 + \dots + a_1r^n\). Subtract:</p>
+          \[ S_n - rS_n = a_1 - a_1r^n \;\Rightarrow\; S_n = \frac{a_1(1 - r^n)}{1 - r}. \]
+          <p>The arithmetic sum comes from writing the series forwards and backwards and adding: each of the \(n\) columns adds to \(a_1 + a_n\), so \(2S_n = n(a_1 + a_n)\).</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Sum of the first 20 terms of 3, 7, 11, …</h3>
-            <h4>Step 1 — Difference</h4>
-            \[ d = 7 - 3 = 4 \]
-            <h4>Step 2 — 20th term</h4>
-            \[ a_{20} = 3 + 19(4) = 79 \]
-            <h4>Step 3 — Sum</h4>
-            \[ S_{20} = \frac{20(3 + 79)}{2} = 820 \]
+            <h3>Problem</h3>
+            <p>For the arithmetic sequence 3, 7, 11, …, find the 10th term and the sum of the first 10 terms.</p>
+            <h4>Step 1: Identify</h4>
+            <p>\(a_1 = 3\), \(d = 4\), \(n = 10\).</p>
+            <h4>Step 2: 10th term</h4>
+            \[ a_{10} = 3 + 9(4) = 39 \]
+            <h4>Step 3: Sum</h4>
+            \[ S_{10} = \frac{10(3 + 39)}{2} = 210 \]
+            <h4>Check</h4>
+            <p>\(\tfrac{10}{2}\left[2(3) + 9(4)\right] = 5(42) = 210\). ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a geometric series</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>For \(3, \tfrac{3}{2}, \tfrac{3}{4}, \dots\), find the 6th term, the sum of 6 terms and the infinite sum.</p>
+            <h4>Step 1: Identify</h4>
+            <p>\(a_1 = 3\), \(r = \tfrac{1}{2}\).</p>
+            <h4>Step 2: 6th term and sum</h4>
+            \[ a_6 = 3\left(\tfrac{1}{2}\right)^5 = \tfrac{3}{32}, \qquad S_6 = \frac{3\left(1 - \tfrac{1}{64}\right)}{1 - \tfrac{1}{2}} = \frac{189}{32} \approx 5.906 \]
+            <h4>Step 3: Infinite sum</h4>
+            \[ S_\infty = \frac{3}{1 - \tfrac{1}{2}} = 6 \]
+            <p>The partial sums creep up towards 6 but never pass it.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>n is a whole number from 1 to 100,000. Fractions are kept exact while the numbers stay manageable.</li>
-            <li>For r = 1 the sum is n·a₁; the infinite sum exists only when |r| &lt; 1.</li>
+            <li><strong>Finance:</strong> simple interest and straight-line depreciation are arithmetic; compound interest and annuities are geometric (see the <a href="../annuity/">annuity calculator</a>).</li>
+            <li><strong>Construction:</strong> seats in rows that each have a few more than the last.</li>
+            <li><strong>Physics:</strong> a bouncing ball that rises to a fixed fraction of its previous height travels a geometric total distance.</li>
+            <li><strong>Population and decay:</strong> growth or decay by a constant factor each period.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using \(n\) instead of \(n - 1\)</strong> in the nth-term formula.</li>
+            <li><strong>Mixing up d and r.</strong> Check whether the terms differ by a fixed amount or a fixed factor.</li>
+            <li><strong>Using the infinite-sum formula when \(|r| \ge 1\).</strong> The series then has no finite sum.</li>
+            <li><strong>Sign of a negative ratio.</strong> With \(r = -\tfrac{1}{2}\) the terms alternate in sign.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using n instead of n − 1 in the nth-term formula.</li>
-            <li>Applying S∞ when |r| ≥ 1, where the series diverges.</li>
+            <li>\(n\) is a whole number from 1 to 100,000. Terms and sums are exact fractions when they are not too long, otherwise decimals.</li>
+            <li>For other kinds of sequences, see <a href="../recurrence-relations/">recurrence relations</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I tell if a sequence is arithmetic or geometric?</summary>
+            <div class="faq-answer"><p>Subtract neighbouring terms: a constant difference means arithmetic. Divide them: a constant ratio means geometric.</p></div>
+          </details>
+          <details>
+            <summary>What is the formula for the nth term?</summary>
+            <div class="faq-answer"><p>Arithmetic: aₙ = a₁ + (n − 1)d. Geometric: aₙ = a₁·rⁿ⁻¹.</p></div>
+          </details>
+          <details>
+            <summary>When does an infinite geometric series have a sum?</summary>
+            <div class="faq-answer"><p>When the ratio is between −1 and 1. The sum is then a₁ / (1 − r).</p></div>
+          </details>
+          <details>
+            <summary>How do I find the sum of an arithmetic sequence?</summary>
+            <div class="faq-answer"><p>Multiply the number of terms by the average of the first and last terms: Sₙ = n(a₁ + aₙ)/2.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../recurrence-relations/">Recurrence relations</a>.</li>
+            <li><a href="../compound-interest/">Compound interest</a>.</li>
+            <li><a href="../binomial-theorem-expansion/">Binomial theorem</a>.</li>
           </ul>
         </section>

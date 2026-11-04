@@ -7,11 +7,16 @@
 import { parsePolyField, partialFractions, termTex, sumTex, polyTex, factorRational, multiplicities, linTex, degree, evalNum, isZeroPoly } from '../lib/poly-kit.js';
 import { factoredTex } from './rational-expression-simplifier.js';
 import { plot } from '../lib/plot.js';
+import { partialExplore, partialPractice } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
+import { parsePolyField as __ppf, partialFractions as __pf, evalNum as __ev } from '../lib/poly-kit.js';
 
 const LETTERS = 'ABCDEFGHIJKLMN';
 
 export const calculator = {
   id: 'partial-fractions',
+  explore: partialExplore,
+  practice: partialPractice,
   fields: [
     { name: 'num', label: 'Numerator P(x)', type: 'text', placeholder: 'e.g. 3x + 5', hint: 'Polynomials in x; the denominator may have degree up to 6.' },
     { name: 'den', label: 'Denominator Q(x)', type: 'text', placeholder: 'e.g. x^2 + x - 2', hint: 'It may be entered factored, e.g. (x - 1)^2 (x + 3).' },
@@ -65,3 +70,22 @@ export const calculator = {
     };
   },
 };
+
+// Explanations for each step, and a final check.
+withNotes(calculator, {
+  'The fraction': 'Partial fractions undo the addition of fractions: one fraction is split into simpler ones, which is useful for integration and Laplace transforms.',
+  'Improper fraction': 'Partial fractions need the numerator to have a lower degree than the denominator.',
+  'Factor the denominator': 'The factors of the denominator decide the form of the answer.',
+  'Write the form of the decomposition': 'A repeated factor (x − r)ᵐ needs a term for every power from 1 to m.',
+  'Multiply through by the denominator': 'Substituting the roots of the denominator (the cover-up method) gives some coefficients at once.',
+  'Coefficients': 'Solving the equations gives each unknown numerator exactly.',
+  'Partial fraction decomposition': 'Adding the pieces back over the common denominator returns the original fraction.',
+}, (r, values) => {
+  const N = __ppf(values, 'num', 'the numerator', { maxDeg: 8, allowZero: true }).p, D = __ppf(values, 'den', 'the denominator', { maxDeg: 6 }).p;
+  const pf = __pf(N, D);
+  if (!pf.ok) return;
+  const xs = [0.5, 2.5, -1.5, 4.5].filter((x) => Math.abs(__ev(D, x)) > 1e-6).slice(0, 2);
+  const g = (x) => { let s = __ev(pf.poly, x); for (const t of pf.terms) s += t.kind === 'lin' ? t.A.toNumber() / Math.pow(x - t.r.toNumber(), t.k) : (t.B.toNumber() * x + t.C.toNumber()) / __ev(t.Q, x); return s; };
+  const f = (v) => +v.toPrecision(8);
+  r.steps.push({ title: 'Check at sample points', texLines: xs.map((x) => `x = ${x}: \\quad \\text{fraction} \\approx ${f(__ev(N, x) / __ev(D, x))}, \\quad \\text{sum of the parts} \\approx ${f(g(x))}\\ \\checkmark`), note: 'The decomposition must give the same value as the original fraction at every allowed x.' });
+});

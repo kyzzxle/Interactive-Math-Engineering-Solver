@@ -1,0 +1,154 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What is an absolute value equation?</h2>
+          <p>The <strong>absolute value</strong> \(|u|\) is the distance of \(u\) from 0 on the number line, so it is never negative: \(|5| = 5\) and \(|-5| = 5\). An absolute value equation such as \(|2x - 3| = 7\) asks which values of \(x\) put \(2x - 3\) exactly 7 units from 0. Because there are two numbers at that distance, 7 and −7, these equations usually have <strong>two solutions</strong>.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the right side negative, for example \(|x - 1| = -4\). No number has a negative distance from 0, so there is no solution.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>\(|ax + b| = k\): two cases, or none when \(k\) is negative.</li>
+            <li>\(|ax + b| = cx + d\): two cases, then rejects any candidate that makes the right side negative.</li>
+            <li>\(|ax + b| = |cx + d|\): the two expressions are equal or opposite.</li>
+            <li>\(|ax + b| \lt k\), \(\le\), \(\gt\) or \(\ge\): the solution set in inequality and interval notation.</li>
+          </ul>
+          <p>Every answer is exact and checked, and the graph shows where the V-shaped graph of \(|ax + b|\) meets the other side.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>The definition of absolute value splits into two cases:</p>
+          \[ |u| = \begin{cases} u & \text{if } u \ge 0 \\ -u & \text{if } u \lt 0 \end{cases} \]
+          <p>So \(|u| = k\) (with \(k \ge 0\)) means \(u = k\) or \(u = -k\). On a graph, \(y = |ax + b|\) is a V with its vertex on the x-axis at \(x = -\tfrac{b}{a}\). A horizontal line \(y = k\) above the vertex cuts the V twice; a line through the vertex touches it once; a line below the axis misses it.</p>
+          <div class="callout">
+            <p class="callout-title">Distance on the number line</p>
+            <p>\(|x - 3| \lt 2\) means "x is less than 2 units from 3", so \(1 \lt x \lt 5\). \(|x - 3| \gt 2\) means "more than 2 units away": \(x \lt 1\) or \(x \gt 5\).</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Problem</th><th scope="col">Rewrite as</th><th scope="col">Watch out for</th></tr></thead>
+            <tbody>
+              <tr><td>\(|u| = k\)</td><td>\(u = k\) or \(u = -k\)</td><td>No solution if \(k \lt 0\)</td></tr>
+              <tr><td>\(|u| = v\)</td><td>\(u = v\) or \(u = -v\)</td><td>Keep only solutions with \(v \ge 0\)</td></tr>
+              <tr><td>\(|u| = |v|\)</td><td>\(u = v\) or \(u = -v\)</td><td>Remove repeated solutions</td></tr>
+              <tr><td>\(|u| \lt k\)</td><td>\(-k \lt u \lt k\)</td><td>Empty if \(k \le 0\)</td></tr>
+              <tr><td>\(|u| \gt k\)</td><td>\(u \lt -k\) or \(u \gt k\)</td><td>All real numbers if \(k \lt 0\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a, b\)</td><td>Coefficients inside the absolute value, \(|ax + b|\). \(a\) cannot be 0.</td></tr>
+              <tr><td>\(k\)</td><td>A constant right side.</td></tr>
+              <tr><td>\(c, d\)</td><td>Coefficients of the expression on the right, \(cx + d\) or \(|cx + d|\).</td></tr>
+              <tr><td>\(-\tfrac{b}{a}\)</td><td>The vertex of the V, where the inside is 0.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Why the cases work</h2>
+          <h3>Equations</h3>
+          <p>If \(|u| = k\) with \(k \ge 0\), then either \(u \ge 0\), so \(|u| = u = k\), or \(u \lt 0\), so \(|u| = -u = k\) and \(u = -k\). Those are the two cases.</p>
+          <h3>Why some candidates are rejected</h3>
+          <p>For \(|u| = v\), each case is solved as if \(v\) could be anything. But \(|u|\) is never negative, so a candidate that makes \(v\) negative cannot be a solution. It is <strong>extraneous</strong>.</p>
+          <h3>Inequalities</h3>
+          <p>\(|u| \lt k\) says \(u\) lies within \(k\) of 0, which is the double inequality \(-k \lt u \lt k\). Subtract \(b\) from every part and divide by \(a\); if \(a\) is negative, the inequality signs reverse.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(|x - 4| = 2x + 1\).</p>
+            <h4>Step 1: Case 1, the inside equals the right side</h4>
+            \[ x - 4 = 2x + 1 \;\Rightarrow\; x = -5 \]
+            <h4>Step 2: Case 2, the inside equals minus the right side</h4>
+            \[ x - 4 = -(2x + 1) \;\Rightarrow\; 3x = 3 \;\Rightarrow\; x = 1 \]
+            <h4>Step 3: Check both candidates</h4>
+            <p>\(x = -5\): the right side is \(2(-5) + 1 = -9\), which is negative, so it is <strong>rejected</strong>.</p>
+            <p>\(x = 1\): \(|1 - 4| = 3\) and \(2(1) + 1 = 3\). ✓</p>
+            <p>The only solution is \(x = 1\).</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: an inequality</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(|2x - 1| \lt 5\) and write the answer in interval notation.</p>
+            <h4>Step 1: Write a double inequality</h4>
+            \[ -5 \lt 2x - 1 \lt 5 \]
+            <h4>Step 2: Add 1 to every part, then divide by 2</h4>
+            \[ -4 \lt 2x \lt 6 \;\Rightarrow\; -2 \lt x \lt 3 \]
+            <h4>Step 3: Interval notation</h4>
+            <p>\((-2, 3)\), with round brackets because the endpoints are not included.</p>
+            <h4>Check</h4>
+            <p>\(x = 0\) is inside: \(|-1| = 1 \lt 5\). ✓ \(x = 4\) is outside: \(|7| = 7 \gt 5\). ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Tolerances:</strong> a shaft of nominal diameter 25 mm with a tolerance of 0.02 mm must satisfy \(|d - 25| \le 0.02\).</li>
+            <li><strong>Error bounds:</strong> a measurement within 3% of the true value.</li>
+            <li><strong>Control and quality limits:</strong> a temperature kept within 2 °C of a set point.</li>
+            <li><strong>Distances:</strong> points on a line within a given distance of a landmark.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Solving only one case.</strong> \(|u| = k\) almost always has two solutions.</li>
+            <li><strong>Negating only part of the right side.</strong> The second case is \(u = -(cx + d)\), with brackets.</li>
+            <li><strong>Skipping the check.</strong> With \(x\) on the right side, a candidate can be extraneous.</li>
+            <li><strong>Writing a "greater than" answer as one interval.</strong> \(|u| \gt k\) gives two separate pieces joined by "or".</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The expressions inside and outside the absolute value are linear, \(ax + b\) and \(cx + d\).</li>
+            <li>\(a\) cannot be 0. Coefficients may be fractions; all answers are exact.</li>
+            <li>For quadratic expressions inside an absolute value, solve each case with the <a href="../quadratic-equation-solver/">quadratic equation solver</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do you solve an absolute value equation?</summary>
+            <div class="faq-answer"><p>Isolate the absolute value, then split |u| = k into u = k and u = −k. Solve each case and check the answers.</p></div>
+          </details>
+          <details>
+            <summary>Why does an absolute value equation have two solutions?</summary>
+            <div class="faq-answer"><p>Two numbers are a given distance from 0, one positive and one negative, so the expression inside can equal either of them.</p></div>
+          </details>
+          <details>
+            <summary>When does an absolute value equation have no solution?</summary>
+            <div class="faq-answer"><p>When the absolute value equals a negative number, or when every candidate makes the other side negative.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between |x| &lt; k and |x| &gt; k?</summary>
+            <div class="faq-answer"><p>|x| &lt; k is the interval between −k and k. |x| &gt; k is everything outside it: x &lt; −k or x &gt; k.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../inequality-solver/">Linear and quadratic inequalities</a>.</li>
+            <li><a href="../radical-rational-equations/">Radical and rational equations</a>: more equations with extraneous roots.</li>
+            <li><a href="../linear-equation-solver/">Linear equation solver</a>.</li>
+          </ul>
+        </section>

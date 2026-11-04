@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/partial-fractions/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the cover-up method?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a distinct linear factor (x − r), cover it up in the original fraction and substitute x = r into what is left. The result is that factor's coefficient."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if the numerator's degree is too high?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Divide first with polynomial long division, then decompose the proper fraction that remains."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I handle a repeated factor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Include one term for each power of the factor, from 1 up to its multiplicity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are partial fractions useful?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The simple terms are easy to integrate and to invert in Laplace transforms."
+          }
+        }
+      ]
     }
   ]
 }
@@ -203,6 +241,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Add two simple fractions</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Partial fractions with two linear factors</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -210,10 +263,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the partial fraction calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What are partial fractions?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">How the coefficients are found</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a repeated factor</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -221,49 +283,158 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the partial fraction calculator does</h2>
-          <p><strong>Partial fraction decomposition</strong> rewrites a rational function as a sum of simpler fractions, one for each factor of the denominator. It is the key step in integrating rational functions and in inverse Laplace transforms.</p>
-          <p>Each linear factor (x − r) contributes A/(x − r); a repeated factor (x − r)ᵐ contributes one term for each power up to m; an irreducible quadratic factor contributes (Bx + C)/(quadratic). The unknown coefficients are found by matching coefficients — exactly, here.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Check a decomposition by adding the fractions back over the common denominator.</p></div>
+          <h2 id="about-h" style="margin-top:0">What are partial fractions?</h2>
+          <p><strong>Partial fraction decomposition</strong> splits one complicated fraction into a sum of simpler ones: it is adding fractions in reverse. For example <span class="math" data-tex="\tfrac{3x + 5}{x^2 + x - 2} = \tfrac{8/3}{x - 1} + \tfrac{1/3}{x + 2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>8</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>+</mo><mfrac><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></mfrac></mrow></semantics></math></span></span>. Each simple piece is easy to integrate or to invert in a Laplace transform, which is why engineers use it so often.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter <span class="math" data-tex="\tfrac{x^3}{x^2 - 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>x</mi><mn>3</mn></msup><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mrow></semantics></math></span></span>. The numerator's degree is higher, so the calculator divides first: <span class="math" data-tex="x + \tfrac{x}{x^2 - 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mfrac><mi>x</mi><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow></mfrac></mrow></semantics></math></span></span>, then splits the remaining fraction.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="\frac{P(x)}{(x - r)^m\,(x^2 + px + q)} = \frac{A_1}{x - r} + \cdots + \frac{A_m}{(x - r)^m} + \frac{Bx + C}{x^2 + px + q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mi>m</mi></msup><mtext> </mtext><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><msub><mi>A</mi><mn>1</mn></msub><mrow><mi>x</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo>+</mo><mo>⋯</mo><mo>+</mo><mfrac><msub><mi>A</mi><mi>m</mi></msub><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mi>m</mi></msup></mrow></mfrac><mo>+</mo><mfrac><mrow><mi>B</mi><mi>x</mi><mo>+</mo><mi>C</mi></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi></mrow></mfrac></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="A_i,\ B,\ C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub><mo separator="true">,</mo><mtext> </mtext><mi>B</mi><mo separator="true">,</mo><mtext> </mtext><mi>C</mi></mrow></semantics></math></span></span></td><td>Unknown constants</td></tr>
-              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Rational root of the denominator</td></tr>
-              <tr><td><span class="math" data-tex="x^2 + px + q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi></mrow></semantics></math></span></span></td><td>Quadratic factor with no rational roots</td></tr>
-            </tbody>
-          </table>
-          <p>If the numerator’s degree is not lower than the denominator’s, divide first: the decomposition is then polynomial + proper fraction.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Divides first when the fraction is improper.</li>
+            <li>Factors the denominator into linear factors (repeated factors allowed) and at most one irreducible quadratic.</li>
+            <li>Writes the form of the decomposition and solves exactly for every coefficient.</li>
+            <li>Checks the decomposition at sample points and graphs the function with its asymptotes.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Decompose (3x + 5)/(x² + x − 2)</h3>
-            <h4>Step 1 — Factor and set up</h4>
-            <span class="math-display" data-tex="\frac{3x + 5}{(x + 2)(x - 1)} = \frac{A}{x + 2} + \frac{B}{x - 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mi>A</mi><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></mfrac><mo>+</mo><mfrac><mi>B</mi><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac></mrow></semantics></math></span></span>
-            <h4>Step 2 — Clear denominators</h4>
-            <span class="math-display" data-tex="3x + 5 = A(x - 1) + B(x + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn><mo>=</mo><mi>A</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>B</mi><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
-            <h4>Step 3 — Solve</h4>
-            <p>At <span class="math" data-tex="x = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="8 = 3B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mo>=</mo><mn>3</mn><mi>B</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="B = \tfrac{8}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mfrac><mn>8</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>. At <span class="math" data-tex="x = -2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="-1 = -3A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn><mo>=</mo><mo>−</mo><mn>3</mn><mi>A</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="A = \tfrac{1}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>.</p><span class="math-display" data-tex="\frac{3x + 5}{x^2 + x - 2} = \frac{1}{3(x + 2)} + \frac{8}{3(x - 1)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mn>3</mn><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>+</mo><mfrac><mn>8</mn><mrow><mn>3</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>The denominator's factors decide the shape of the answer:</p>
+          <ul>
+            <li>each distinct linear factor <span class="math" data-tex="(x - r)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> gives a term <span class="math" data-tex="\tfrac{A}{x - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>A</mi><mrow><mi>x</mi><mo>−</mo><mi>r</mi></mrow></mfrac></mrow></semantics></math></span></span>;</li>
+            <li>a repeated factor <span class="math" data-tex="(x - r)^m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mi>m</mi></msup></mrow></semantics></math></span></span> gives <span class="math" data-tex="\tfrac{A_1}{x - r} + \tfrac{A_2}{(x - r)^2} + \dots + \tfrac{A_m}{(x - r)^m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>A</mi><mn>1</mn></msub><mrow><mi>x</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo>+</mo><mfrac><msub><mi>A</mi><mn>2</mn></msub><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></mfrac><mo>+</mo><mo>⋯</mo><mo>+</mo><mfrac><msub><mi>A</mi><mi>m</mi></msub><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mi>m</mi></msup></mrow></mfrac></mrow></semantics></math></span></span>;</li>
+            <li>an irreducible quadratic factor gives <span class="math" data-tex="\tfrac{Bx + C}{x^2 + px + q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>B</mi><mi>x</mi><mo>+</mo><mi>C</mi></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi></mrow></mfrac></mrow></semantics></math></span></span>.</li>
+          </ul>
+          <p>Multiplying through by the denominator turns the problem into a polynomial identity, which holds for every <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>. That gives equations for the unknown numerators.</p>
+          <div class="callout">
+            <p class="callout-title">The cover-up method</p>
+            <p>For a distinct linear factor <span class="math" data-tex="(x - r)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, substitute <span class="math" data-tex="x = r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>r</mi></mrow></semantics></math></span></span> after multiplying through: every other term vanishes and the coefficient appears at once.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="\frac{P(x)}{(x - r)^m\,(x^2 + px + q)} = \frac{A_1}{x - r} + \cdots + \frac{A_m}{(x - r)^m} + \frac{Bx + C}{x^2 + px + q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mi>m</mi></msup><mtext> </mtext><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><msub><mi>A</mi><mn>1</mn></msub><mrow><mi>x</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo>+</mo><mo>⋯</mo><mo>+</mo><mfrac><msub><mi>A</mi><mi>m</mi></msub><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mi>m</mi></msup></mrow></mfrac><mo>+</mo><mfrac><mrow><mi>B</mi><mi>x</mi><mo>+</mo><mi>C</mi></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi></mrow></mfrac></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Factor</th><th scope="col">Terms</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="x - r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>r</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="\tfrac{A}{x - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>A</mi><mrow><mi>x</mi><mo>−</mo><mi>r</mi></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td><span class="math" data-tex="(x - r)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span></td><td><span class="math" data-tex="\tfrac{A}{x - r} + \tfrac{B}{(x - r)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>A</mi><mrow><mi>x</mi><mo>−</mo><mi>r</mi></mrow></mfrac><mo>+</mo><mfrac><mi>B</mi><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td><span class="math" data-tex="x^2 + px + q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi></mrow></semantics></math></span></span> (no real roots)</td><td><span class="math" data-tex="\tfrac{Bx + C}{x^2 + px + q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>B</mi><mi>x</mi><mo>+</mo><mi>C</mi></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>p</mi><mi>x</mi><mo>+</mo><mi>q</mi></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Improper fraction</td><td>Polynomial part first, by division</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="P(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="Q(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Numerator and denominator.</td></tr>
+              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>A root of the denominator.</td></tr>
+              <tr><td><span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span></td><td>Its multiplicity.</td></tr>
+              <tr><td><span class="math" data-tex="A, B, C, \dots"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mo>…</mo></mrow></semantics></math></span></span></td><td>The unknown numerators, found exactly.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">How the coefficients are found</h2>
+          <p>Take <span class="math" data-tex="\tfrac{3x + 5}{(x - 1)(x + 2)} = \tfrac{A}{x - 1} + \tfrac{B}{x + 2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mi>A</mi><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>+</mo><mfrac><mi>B</mi><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></mfrac></mrow></semantics></math></span></span>. Multiply both sides by <span class="math" data-tex="(x - 1)(x + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="3x + 5 = A(x + 2) + B(x - 1)."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn><mo>=</mo><mi>A</mi><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>B</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>This holds for every <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>. Choosing <span class="math" data-tex="x = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span> removes <span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="8 = 3A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mo>=</mo><mn>3</mn><mi>A</mi></mrow></semantics></math></span></span>. Choosing <span class="math" data-tex="x = -2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span> removes <span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="-1 = -3B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn><mo>=</mo><mo>−</mo><mn>3</mn><mi>B</mi></mrow></semantics></math></span></span>. Alternatively, compare coefficients: <span class="math" data-tex="A + B = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><mi>B</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="2A - B = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>A</mi><mo>−</mo><mi>B</mi><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>. Both routes give <span class="math" data-tex="A = \tfrac{8}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>8</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>, <span class="math" data-tex="B = \tfrac{1}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Decompose <span class="math" data-tex="\dfrac{3x + 5}{x^2 + x - 2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn></mrow></mfrac></mstyle></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Factor the denominator</h4>
+            <span class="math-display" data-tex="x^2 + x - 2 = (x - 1)(x + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 2: Cover-up</h4>
+            <span class="math-display" data-tex="x = 1:\ A = \frac{3 + 5}{1 + 2} = \frac{8}{3}, \qquad x = -2:\ B = \frac{-6 + 5}{-2 - 1} = \frac{1}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn><mo>:</mo><mtext> </mtext><mi>A</mi><mo>=</mo><mfrac><mrow><mn>3</mn><mo>+</mo><mn>5</mn></mrow><mrow><mn>1</mn><mo>+</mo><mn>2</mn></mrow></mfrac><mo>=</mo><mfrac><mn>8</mn><mn>3</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>x</mi><mo>=</mo><mo>−</mo><mn>2</mn><mo>:</mo><mtext> </mtext><mi>B</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mn>6</mn><mo>+</mo><mn>5</mn></mrow><mrow><mo>−</mo><mn>2</mn><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>
+            <h4>Result</h4>
+            <span class="math-display" data-tex="\frac{3x + 5}{x^2 + x - 2} = \frac{8}{3(x - 1)} + \frac{1}{3(x + 2)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mo>=</mo><mfrac><mn>8</mn><mrow><mn>3</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>+</mo><mfrac><mn>1</mn><mrow><mn>3</mn><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>Put the two terms back over the common denominator:</p>
+            <span class="math-display" data-tex="\frac{8(x + 2) + (x - 1)}{3(x - 1)(x + 2)} = \frac{9x + 15}{3(x^2 + x - 2)} = \frac{3x + 5}{x^2 + x - 2}\ \checkmark"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mn>8</mn><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><mrow><mn>3</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>9</mn><mi>x</mi><mo>+</mo><mn>15</mn></mrow><mrow><mn>3</mn><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>5</mn></mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn></mrow></mfrac><mtext> </mtext><mi mathvariant="normal">✓</mi></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a repeated factor</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Decompose <span class="math" data-tex="\dfrac{x^2 + 1}{(x - 1)^2(x + 2)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn></mrow><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mfrac></mstyle></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Form</h4>
+            <span class="math-display" data-tex="\frac{A}{x - 1} + \frac{B}{(x - 1)^2} + \frac{C}{x + 2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mi>A</mi><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo>+</mo><mfrac><mi>B</mi><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></mfrac><mo>+</mo><mfrac><mi>C</mi><mrow><mi>x</mi><mo>+</mo><mn>2</mn></mrow></mfrac></mrow></semantics></math></span></span>
+            <h4>Step 2: Multiply through</h4>
+            <span class="math-display" data-tex="x^2 + 1 = A(x - 1)(x + 2) + B(x + 2) + C(x - 1)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn><mo>=</mo><mi>A</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>B</mi><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>C</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <h4>Step 3: Find the coefficients</h4>
+            <p><span class="math" data-tex="x = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="2 = 3B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>=</mo><mn>3</mn><mi>B</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="B = \tfrac{2}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>. <span class="math" data-tex="x = -2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="5 = 9C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>=</mo><mn>9</mn><mi>C</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="C = \tfrac{5}{9}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mfrac><mn>5</mn><mn>9</mn></mfrac></mrow></semantics></math></span></span>. Comparing <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> terms: <span class="math" data-tex="1 = A + C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>=</mo><mi>A</mi><mo>+</mo><mi>C</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="A = \tfrac{4}{9}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>4</mn><mn>9</mn></mfrac></mrow></semantics></math></span></span>.</p>
+            <h4>Check</h4>
+            <p>At <span class="math" data-tex="x = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>: the fraction is <span class="math" data-tex="\tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>, and <span class="math" data-tex="-\tfrac{4}{9} + \tfrac{2}{3} + \tfrac{5}{18} = \tfrac{9}{18} = \tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mn>4</mn><mn>9</mn></mfrac><mo>+</mo><mfrac><mn>2</mn><mn>3</mn></mfrac><mo>+</mo><mfrac><mn>5</mn><mn>18</mn></mfrac><mo>=</mo><mfrac><mn>9</mn><mn>18</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Denominators up to degree 6 that factor into linear factors with rational roots plus at most one quadratic factor.</li>
-            <li>Denominators with a cubic or higher factor that has no rational root are not supported.</li>
+            <li><strong>Integration:</strong> each term integrates to a logarithm, a power or an arctangent.</li>
+            <li><strong>Laplace transforms:</strong> splitting a transfer function before using the <a href="../inverse-laplace-transform/">inverse Laplace transform</a>.</li>
+            <li><strong>Circuit and control analysis:</strong> each term is one mode of the system's response.</li>
+            <li><strong>Series:</strong> telescoping sums such as <span class="math" data-tex="\sum \tfrac{1}{n(n + 1)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mfrac><mn>1</mn><mrow><mi>n</mi><mo stretchy="false">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span>.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Skipping the division.</strong> An improper fraction must be divided first.</li>
+            <li><strong>Missing powers of a repeated factor.</strong> <span class="math" data-tex="(x - 1)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span> needs terms for both <span class="math" data-tex="(x - 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="(x - 1)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>.</li>
+            <li><strong>A constant over a quadratic factor.</strong> Use <span class="math" data-tex="Bx + C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi>x</mi><mo>+</mo><mi>C</mi></mrow></semantics></math></span></span>, not just <span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span>.</li>
+            <li><strong>Not factoring the denominator completely.</strong> The form depends on every factor.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using a constant (not Bx + C) over a quadratic factor.</li>
-            <li>Forgetting the lower powers of a repeated factor.</li>
+            <li>The denominator has degree up to 6 and factors into linear factors with rational roots, plus at most one irreducible quadratic.</li>
+            <li>All coefficients are exact fractions.</li>
+            <li>The calculator names the coefficients A, B, C, … in order of the roots of the denominator, from smallest to largest, so its letters can differ from the ones in a textbook. The terms themselves are the same.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the cover-up method?</summary>
+            <div class="faq-answer"><p>For a distinct linear factor (x − r), cover it up in the original fraction and substitute x = r into what is left. The result is that factor's coefficient.</p></div>
+          </details>
+          <details>
+            <summary>What if the numerator's degree is too high?</summary>
+            <div class="faq-answer"><p>Divide first with polynomial long division, then decompose the proper fraction that remains.</p></div>
+          </details>
+          <details>
+            <summary>How do I handle a repeated factor?</summary>
+            <div class="faq-answer"><p>Include one term for each power of the factor, from 1 up to its multiplicity.</p></div>
+          </details>
+          <details>
+            <summary>Why are partial fractions useful?</summary>
+            <div class="faq-answer"><p>The simple terms are easy to integrate and to invert in Laplace transforms.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../polynomial-long-division/">Polynomial long division</a>.</li>
+            <li><a href="../indefinite-integral/">Indefinite integrals</a>.</li>
+            <li><a href="../inverse-laplace-transform/">Inverse Laplace transform</a>.</li>
           </ul>
         </section>
 

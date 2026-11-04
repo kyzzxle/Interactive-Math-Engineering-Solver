@@ -1,0 +1,149 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What are radical and rational equations?</h2>
+          <p>A <strong>radical equation</strong> has the unknown under a root, such as \(\sqrt{x + 7} = x + 1\). A <strong>rational equation</strong> has the unknown in a denominator, such as \(\tfrac{3}{x + 1} = \tfrac{2}{x - 1}\). Both are solved by turning them into ordinary polynomial equations: square both sides, or multiply by the denominators. Both steps can introduce <strong>extraneous roots</strong>, answers that do not satisfy the original equation, so every candidate must be checked.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Solve \(\sqrt{x + 7} = x + 1\). Squaring gives \(x = 2\) or \(x = -3\), but at \(x = -3\) the right side is \(-2\), and a square root is never negative. Only \(x = 2\) survives.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Radical mode:</strong> solves \(\sqrt{ax + b} = cx + d\) by squaring, then checks each candidate.</li>
+            <li><strong>Rational mode:</strong> solves any equation of fractions with polynomials in \(x\), such as \(\tfrac{x}{x - 2} + \tfrac{1}{x} = \tfrac{2}{x(x - 2)}\). It lists the excluded values, multiplies by the least common denominator, solves, and rejects roots that make a denominator 0.</li>
+          </ul>
+          <p>The graph shows both sides of the equation, with solutions marked and rejected roots flagged.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">Why extraneous roots appear</h2>
+          <p><strong>Squaring loses the sign.</strong> \(2\) and \(-2\) have the same square, so \(\sqrt{u} = v\) and \(\sqrt{u} = -v\) both become \(u = v^2\). The squared equation has the solutions of both, and only those with \(v \ge 0\) belong to the original.</p>
+          <p><strong>Multiplying by an expression that can be 0.</strong> Multiplying both sides by \(x - 1\) is only reversible when \(x \ne 1\). A root that makes a denominator 0 was never allowed in the original equation.</p>
+          <div class="callout">
+            <p class="callout-title">Graph view</p>
+            <p>The squared equation describes where the line meets the whole sideways parabola \(y^2 = ax + b\). The square root is only its upper half, so crossings with the lower half are extraneous.</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Equation</th><th scope="col">Method</th><th scope="col">Check</th></tr></thead>
+            <tbody>
+              <tr><td>\(\sqrt{u} = v\)</td><td>Square: \(u = v^2\)</td><td>\(u \ge 0\) and \(v \ge 0\)</td></tr>
+              <tr><td>\(\sqrt{u} = k\)</td><td>\(u = k^2\)</td><td>No solution if \(k \lt 0\)</td></tr>
+              <tr><td>\(\tfrac{A}{B} = \tfrac{C}{D}\)</td><td>Cross-multiply: \(AD = BC\)</td><td>\(B \ne 0\) and \(D \ne 0\)</td></tr>
+              <tr><td>Several fractions</td><td>Multiply every term by the LCD</td><td>The LCD is not 0</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Term</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a, b\)</td><td>The radicand is \(ax + b\).</td></tr>
+              <tr><td>\(c, d\)</td><td>The right side of a radical equation, \(cx + d\).</td></tr>
+              <tr><td>Excluded value</td><td>An x-value that makes a denominator 0.</td></tr>
+              <tr><td>LCD</td><td>Least common denominator: the smallest expression every denominator divides.</td></tr>
+              <tr><td>Extraneous root</td><td>A solution of the transformed equation that fails the original one.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">How the methods work</h2>
+          <h3>Radical equations</h3>
+          <p>Isolate the root first. Squaring \(\sqrt{ax + b} = cx + d\) gives</p>
+          \[ ax + b = c^2x^2 + 2cdx + d^2 \;\Rightarrow\; c^2x^2 + (2cd - a)x + (d^2 - b) = 0, \]
+          <p>a quadratic (or a linear equation when \(c = 0\)). Solve it and test each root in the original equation.</p>
+          <h3>Rational equations</h3>
+          <p>Write each side as one fraction, then multiply both sides by the LCD. The fractions clear, leaving a polynomial equation. Solve it and discard any root that is an excluded value.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(\sqrt{x + 7} = x + 1\).</p>
+            <h4>Step 1: Square both sides</h4>
+            \[ x + 7 = x^2 + 2x + 1 \]
+            <h4>Step 2: Solve the quadratic</h4>
+            \[ x^2 + x - 6 = 0 \;\Rightarrow\; (x + 3)(x - 2) = 0 \;\Rightarrow\; x = -3 \text{ or } x = 2 \]
+            <h4>Step 3: Check</h4>
+            <p>\(x = 2\): \(\sqrt{9} = 3\) and \(2 + 1 = 3\). ✓</p>
+            <p>\(x = -3\): \(\sqrt{4} = 2\) but \(-3 + 1 = -2\). Rejected.</p>
+            <p>The solution is \(x = 2\).</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a rational equation</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(\tfrac{x}{x - 1} = \tfrac{1}{x - 1} + 2\).</p>
+            <h4>Step 1: Excluded value</h4>
+            <p>The denominator is 0 at \(x = 1\), so \(x \ne 1\).</p>
+            <h4>Step 2: Multiply every term by the LCD, \(x - 1\)</h4>
+            \[ x = 1 + 2(x - 1) \;\Rightarrow\; x = 2x - 1 \;\Rightarrow\; x = 1 \]
+            <h4>Step 3: Check</h4>
+            <p>\(x = 1\) is the excluded value, so it is rejected. The equation has <strong>no solution</strong>: for every other \(x\) the left side is \(1 + \tfrac{1}{x - 1}\), which never equals \(\tfrac{1}{x - 1} + 2\).</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Pendulums and free fall:</strong> \(T = 2\pi\sqrt{L/g}\) and \(t = \sqrt{2h/g}\) are solved for a length or height.</li>
+            <li><strong>Lenses:</strong> the thin-lens equation \(\tfrac{1}{f} = \tfrac{1}{d_o} + \tfrac{1}{d_i}\) is a rational equation.</li>
+            <li><strong>Resistors in parallel and work rates:</strong> \(\tfrac{1}{R} = \tfrac{1}{R_1} + \tfrac{1}{R_2}\) has the same form as "two pipes fill a tank".</li>
+            <li><strong>Average speed:</strong> trips at different speeds give equations with the unknown in a denominator.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Squaring term by term.</strong> \((x + 1)^2 = x^2 + 2x + 1\), not \(x^2 + 1\).</li>
+            <li><strong>Squaring before isolating the root.</strong> Get the root alone on one side first.</li>
+            <li><strong>Not checking the answers.</strong> Squaring and clearing denominators can both add roots.</li>
+            <li><strong>Forgetting the excluded values.</strong> Write them down before you multiply anything.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Radical mode handles a single square root of a linear expression equal to a linear expression.</li>
+            <li>Rational mode accepts polynomials and whole-number powers in \(x\); after clearing denominators the degree must be at most 8.</li>
+            <li>Rational roots are exact; other roots are found numerically and shown to 6 decimal places.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is an extraneous solution?</summary>
+            <div class="faq-answer"><p>A value that solves the equation after squaring or clearing denominators, but not the original equation.</p></div>
+          </details>
+          <details>
+            <summary>How do I solve a square root equation?</summary>
+            <div class="faq-answer"><p>Isolate the root, square both sides, solve the resulting equation, then substitute each answer into the original equation.</p></div>
+          </details>
+          <details>
+            <summary>How do I solve an equation with fractions that contain x?</summary>
+            <div class="faq-answer"><p>Note the excluded values, multiply every term by the least common denominator, solve, and reject any excluded value.</p></div>
+          </details>
+          <details>
+            <summary>Can a radical equation have no solution?</summary>
+            <div class="faq-answer"><p>Yes. If every candidate is extraneous, as in √(x) = −2, there is no solution.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../quadratic-equation-solver/">Quadratic equation solver</a>.</li>
+            <li><a href="../rational-expression-simplifier/">Rational expression simplifier</a>.</li>
+            <li><a href="../absolute-value-equations/">Absolute value equations</a>.</li>
+          </ul>
+        </section>

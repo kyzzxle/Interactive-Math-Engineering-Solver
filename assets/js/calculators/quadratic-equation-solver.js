@@ -10,6 +10,7 @@ import { plot } from '../lib/plot.js';
 import { texOf, polyToNode } from '../lib/expr.js';
 
 import { quadraticExplore, quadraticPractice } from '../explore/functions.js';
+import { withNotes } from '../lib/step-notes.js';
 /** √|D| as (a√b)/d with integers. */
 function sqrtParts(D) {
   const A = D.abs();
@@ -133,3 +134,14 @@ export const calculator = {
     };
   },
 };
+
+// Explanations for each step.
+withNotes(calculator, {
+  'Identify a, b and c': 'Write the equation as ax² + bx + c = 0 first; each coefficient keeps its sign.',
+  'Compute the discriminant': 'The discriminant is the expression under the square root in the quadratic formula.',
+  'Interpret the discriminant': 'Positive: two real roots. Zero: one repeated root. Negative: two complex roots.',
+  'Apply the quadratic formula': 'The formula comes from completing the square on ax² + bx + c = 0.',
+  'Evaluate the two roots': 'Use the + sign for one root and the − sign for the other.',
+  'Factored form': 'Each root r gives a factor (x − r), multiplied by the leading coefficient a.',
+  'Write the complex roots': 'The square root of a negative number is imaginary: √(−n) = i√n.',
+});

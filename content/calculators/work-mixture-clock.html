@@ -1,0 +1,156 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">Work, mixture and clock problems</h2>
+          <p>These three word-problem types share one idea: find the quantity that is <strong>conserved</strong> or that changes at a <strong>constant rate</strong>, and write an equation for it. In work problems it is the fraction of the job done per hour; in mixtures, the amount of pure substance; on a clock, the angle each hand turns per minute.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Give B a longer time than A and set B to "works against A", like a drain. If the drain empties faster than the tap fills, the tank is never full.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Work:</strong> the time for two workers, pipes or machines together, or with one working against the other, with an optional head start for A.</li>
+            <li><strong>Mixture:</strong> the concentration of a mixture, or how much of a second solution to add to reach a target.</li>
+            <li><strong>Clock angle:</strong> the angle between the hands at any time.</li>
+            <li><strong>Clock times:</strong> when, between h and h + 1 o'clock, the hands are together, opposite or at a given angle.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The ideas behind it</h2>
+          <h3>Work</h3>
+          <p>If A finishes a job in \(t_A\) hours, A does \(\tfrac{1}{t_A}\) of it each hour. <strong>Rates add</strong> (times do not), so working together the rate is \(\tfrac{1}{t_A} + \tfrac{1}{t_B}\).</p>
+          <h3>Mixtures</h3>
+          <p>The amount of pure substance in a solution is volume × concentration. Mixing conserves it: pure before = pure after.</p>
+          <h3>Clocks</h3>
+          <p>The minute hand turns 6° per minute; the hour hand turns 30° per hour, which is 0.5° per minute. So the minute hand gains \(5.5^\circ\) per minute on the hour hand.</p>
+          <div class="callout">
+            <p class="callout-title">Why the hour hand moves</p>
+            <p>At 3:30 the hour hand is halfway between 3 and 4, at 105°, not at 90°. Forgetting this is the most common clock mistake.</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Problem</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Together</td><td>\(\tfrac{1}{t} = \tfrac{1}{t_A} + \tfrac{1}{t_B} \;\Rightarrow\; t = \tfrac{t_At_B}{t_A + t_B}\)</td></tr>
+              <tr><td>Against</td><td>\(\tfrac{1}{t} = \tfrac{1}{t_A} - \tfrac{1}{t_B}\)</td></tr>
+              <tr><td>Mixture</td><td>\(c = \tfrac{x_1c_1 + x_2c_2}{x_1 + x_2}\)</td></tr>
+              <tr><td>Amount to add</td><td>\(x_2 = \tfrac{x_1(c - c_1)}{c_2 - c}\)</td></tr>
+              <tr><td>Clock angle at h:m</td><td>\(\theta = \left|30h - 5.5m\right|\), then \(360^\circ - \theta\) if over 180°</td></tr>
+              <tr><td>Time for an angle θ</td><td>\(m = \tfrac{2}{11}\left(30h \pm \theta\right)\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(t_A, t_B\)</td><td>Time for A and for B to do the whole job alone.</td></tr>
+              <tr><td>\(t\)</td><td>Time working together.</td></tr>
+              <tr><td>\(x_1, x_2\)</td><td>Amounts of the two solutions.</td></tr>
+              <tr><td>\(c_1, c_2, c\)</td><td>Their concentrations and the mixture's, in percent.</td></tr>
+              <tr><td>\(h, m\)</td><td>Hour and minutes on the clock.</td></tr>
+              <tr><td>\(\theta\)</td><td>Angle between the hands, from 0° to 180°.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the clock formulas</h2>
+          <p>Measure both hands clockwise from 12. At \(h\):\(m\), the hour hand is at \(30h + 0.5m\) degrees and the minute hand at \(6m\) degrees. Their difference is</p>
+          \[ \theta = |30h + 0.5m - 6m| = |30h - 5.5m|. \]
+          <p>To find when the angle is \(\theta\), solve \(30h - 5.5m = \pm\theta\) for \(m\): \(m = \tfrac{30h \mp \theta}{5.5} = \tfrac{2}{11}(30h \mp \theta)\). Keep the values from 0 to 60 minutes.</p>
+          <h3>Mixture equation</h3>
+          <p>Pure substance: \(x_1c_1 + x_2c_2 = (x_1 + x_2)c\). Solving for \(c\) or for \(x_2\) gives the two mixture formulas.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A can do a job in 10 hours and B in 15 hours. A works alone for 2 hours, then B joins. How long do they work together, and what is the total time?</p>
+            <h4>Step 1: Rates</h4>
+            \[ r_A = \tfrac{1}{10}, \qquad r_B = \tfrac{1}{15}, \qquad r_A + r_B = \tfrac{3}{30} + \tfrac{2}{30} = \tfrac{1}{6} \]
+            <h4>Step 2: Work done by A alone</h4>
+            \[ 2 \times \tfrac{1}{10} = \tfrac{1}{5}, \quad \text{leaving } \tfrac{4}{5} \]
+            <h4>Step 3: Time together</h4>
+            \[ t = \frac{4/5}{1/6} = \frac{24}{5} = 4.8 \text{ hours}, \qquad \text{total } 2 + 4.8 = 6.8 \text{ hours} \]
+            <h4>Check</h4>
+            <p>\(\tfrac{1}{5} + 4.8 \times \tfrac{1}{6} = 0.2 + 0.8 = 1\) whole job. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: the clock</h2>
+          <div class="worked-example">
+            <h3>Part 1: The angle at 3:40</h3>
+            \[ \text{hour hand } 30(3) + 0.5(40) = 110^\circ, \qquad \text{minute hand } 6(40) = 240^\circ \]
+            <p>The angle is \(|110 - 240| = 130^\circ\). The formula agrees: \(|90 - 220| = 130^\circ\).</p>
+            <h3>Part 2: When are the hands at right angles after 4:00?</h3>
+            \[ m = \tfrac{2}{11}(120 - 90) = 5\tfrac{5}{11}, \qquad m = \tfrac{2}{11}(120 + 90) = 38\tfrac{2}{11} \]
+            <p>At about 4:05:27 and 4:38:11.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Pumps and reservoirs:</strong> filling a tank with an inflow and an outflow.</li>
+            <li><strong>Production planning:</strong> how long two machines or crews take together.</li>
+            <li><strong>Chemistry and medicine:</strong> diluting a solution or mixing to a target concentration.</li>
+            <li><strong>Concrete and fuels:</strong> blending materials of different grades.</li>
+            <li><strong>Board exams:</strong> all three are standard problem types in engineering licensure reviews.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Adding times instead of rates.</strong> Two pipes taking 6 h and 4 h do not take 10 h, or 5 h, together: they take 2.4 h.</li>
+            <li><strong>Averaging concentrations.</strong> Weight each concentration by its amount.</li>
+            <li><strong>Leaving the hour hand at the hour mark.</strong> It moves 0.5° per minute.</li>
+            <li><strong>Reporting a reflex angle.</strong> If the difference is over 180°, the angle between the hands is 360° minus it.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Workers keep a constant rate and do not get in each other's way.</li>
+            <li>Mixed volumes simply add (no shrinkage on mixing).</li>
+            <li>The clock is an ordinary 12-hour analog clock with hands that move smoothly.</li>
+            <li>All results are exact fractions, with decimals alongside.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I solve a work problem?</summary>
+            <div class="faq-answer"><p>Turn each time into a rate (1/time), add the rates, and take the reciprocal of the total rate to get the time together.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the angle between clock hands?</summary>
+            <div class="faq-answer"><p>Use θ = |30h − 5.5m|. If the result is more than 180°, subtract it from 360°.</p></div>
+          </details>
+          <details>
+            <summary>How often do the hands of a clock overlap?</summary>
+            <div class="faq-answer"><p>11 times in 12 hours, every 12/11 hours (about 65.45 minutes), because the minute hand gains 360° on the hour hand in that time.</p></div>
+          </details>
+          <details>
+            <summary>How do I solve a mixture problem?</summary>
+            <div class="faq-answer"><p>Write an equation for the pure substance: amount × concentration before mixing equals amount × concentration after.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../variation-proportion/">Variation and proportion</a>.</li>
+            <li><a href="../systems-of-linear-equations/">Systems of linear equations</a>, for problems with two unknowns.</li>
+            <li><a href="../motion-calculator/">Motion problems</a>: distance = rate × time.</li>
+          </ul>
+        </section>

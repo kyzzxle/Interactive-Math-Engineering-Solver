@@ -1,0 +1,153 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What are function operations?</h2>
+          <p>Functions can be combined like numbers: added, subtracted, multiplied and divided. They can also be <strong>composed</strong>, feeding the output of one into the other: \((f \circ g)(x) = f(g(x))\). An <strong>inverse function</strong> \(f^{-1}\) undoes \(f\): if \(f(2) = 7\), then \(f^{-1}(7) = 2\).</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Swap f and g. For \(f(x) = 2x + 3\) and \(g(x) = x^2 - 1\), \(f(g(x)) = 2x^2 + 1\) but \(g(f(x)) = 4x^2 + 12x + 8\): composition is not commutative.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Combine:</strong> for any two functions, gives \(f \circ g\), \(g \circ f\), \(f + g\), \(f - g\), \(f \cdot g\) and \(f/g\), simplified. With a value \(x_0\) it also evaluates them, inside out.</li>
+            <li><strong>Inverse:</strong> for \(\tfrac{ax + b}{cx + d}\), \(a(x - h)^n + k\) and \(a \cdot b^x + k\), finds \(f^{-1}\), the domain and range of both, and checks that \(f(f^{-1}(x)) = x\).</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The ideas behind it</h2>
+          <p><strong>Composition is a pipeline.</strong> In \(f(g(x))\), \(g\) acts first and \(f\) acts on its output. The domain of \(f \circ g\) contains only the inputs that \(g\) accepts and whose outputs \(f\) accepts.</p>
+          <p><strong>An inverse swaps inputs and outputs.</strong> Every point \((a, b)\) on the graph of \(f\) becomes \((b, a)\) on the graph of \(f^{-1}\), so the two graphs are mirror images in the line \(y = x\). The domain of \(f^{-1}\) is the range of \(f\), and the other way round.</p>
+          <div class="callout">
+            <p class="callout-title">Only one-to-one functions have inverses</p>
+            <p>If two inputs give the same output, the inverse would not know which one to return. \(x^2\) is not one-to-one, but it is on the restricted domain \(x \ge 0\), whose inverse is \(\sqrt{x}\).</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Operation</th><th scope="col">Definition</th></tr></thead>
+            <tbody>
+              <tr><td>Sum, difference</td><td>\((f \pm g)(x) = f(x) \pm g(x)\)</td></tr>
+              <tr><td>Product, quotient</td><td>\((fg)(x) = f(x)\,g(x)\), \(\left(\tfrac{f}{g}\right)(x) = \tfrac{f(x)}{g(x)}\) where \(g(x) \ne 0\)</td></tr>
+              <tr><td>Composition</td><td>\((f \circ g)(x) = f\big(g(x)\big)\)</td></tr>
+              <tr><td>Inverse of \(\tfrac{ax + b}{cx + d}\)</td><td>\(\tfrac{-dx + b}{cx - a}\)</td></tr>
+              <tr><td>Inverse of \(a(x - h)^3 + k\)</td><td>\(h + \sqrt[3]{\tfrac{x - k}{a}}\)</td></tr>
+              <tr><td>Inverse of \(a\,b^x + k\)</td><td>\(\log_b \tfrac{x - k}{a}\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(f, g\)</td><td>The two functions.</td></tr>
+              <tr><td>\(f \circ g\)</td><td>"f of g": apply g, then f.</td></tr>
+              <tr><td>\(f^{-1}\)</td><td>The inverse of f. It is not \(\tfrac{1}{f}\).</td></tr>
+              <tr><td>\(x_0\)</td><td>A value at which to evaluate.</td></tr>
+              <tr><td>Domain, range</td><td>The allowed inputs and the possible outputs.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">How to find an inverse</h2>
+          <ol>
+            <li>Write \(y = f(x)\).</li>
+            <li>Swap \(x\) and \(y\).</li>
+            <li>Solve for \(y\). The result is \(f^{-1}(x)\).</li>
+          </ol>
+          <p>For \(y = \tfrac{ax + b}{cx + d}\): swapping gives \(x(cy + d) = ay + b\). Collecting the \(y\)-terms, \(y(cx - a) = b - dx\), so</p>
+          \[ f^{-1}(x) = \frac{-dx + b}{cx - a}. \]
+          <p>This works only when \(ad - bc \ne 0\); otherwise \(f\) is a constant.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>For \(f(x) = 2x + 3\) and \(g(x) = x^2 - 1\), find \(f(g(x))\), \(g(f(x))\) and both at \(x = 2\).</p>
+            <h4>Step 1: f(g(x))</h4>
+            \[ f\big(g(x)\big) = 2(x^2 - 1) + 3 = 2x^2 + 1 \]
+            <h4>Step 2: g(f(x))</h4>
+            \[ g\big(f(x)\big) = (2x + 3)^2 - 1 = 4x^2 + 12x + 8 \]
+            <h4>Step 3: At x = 2, inside out</h4>
+            \[ g(2) = 3 \Rightarrow f(3) = 9, \qquad f(2) = 7 \Rightarrow g(7) = 48 \]
+            <h4>Check</h4>
+            <p>\(2(2)^2 + 1 = 9\) and \(4(4) + 24 + 8 = 48\). ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: an inverse</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the inverse of \(f(x) = \tfrac{2x + 1}{x - 3}\), with its domain and range.</p>
+            <h4>Step 1: Swap and solve</h4>
+            \[ x = \frac{2y + 1}{y - 3} \;\Rightarrow\; xy - 3x = 2y + 1 \;\Rightarrow\; y(x - 2) = 3x + 1 \]
+            \[ f^{-1}(x) = \frac{3x + 1}{x - 2} \]
+            <h4>Step 2: Domain and range</h4>
+            <p>\(f\) is undefined at \(x = 3\) and never reaches \(y = 2\). So \(f\) has domain \(x \ne 3\) and range \(y \ne 2\), and \(f^{-1}\) has domain \(x \ne 2\) and range \(y \ne 3\).</p>
+            <h4>Check</h4>
+            <p>\(f(4) = \tfrac{9}{1} = 9\), and \(f^{-1}(9) = \tfrac{28}{7} = 4\). ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Unit conversions:</strong> converting °C to °F and back are inverse functions; chaining conversions is composition.</li>
+            <li><strong>Engineering models:</strong> sensor output as a function of temperature, and the inverse to read temperature from the output.</li>
+            <li><strong>Finance:</strong> compound growth \(A = P(1 + r)^t\) and its inverse, the logarithm, give the time to reach a target.</li>
+            <li><strong>Signal processing:</strong> a chain of filters is a composition of functions.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Composing in the wrong order.</strong> \(f(g(x))\) applies \(g\) first.</li>
+            <li><strong>Treating \(f^{-1}\) as a reciprocal.</strong> \(f^{-1}(x) \ne \tfrac{1}{f(x)}\).</li>
+            <li><strong>Missing brackets when substituting.</strong> \(f(g(x))\) for \(f(x) = x^2\) is \((x + 1)^2\), not \(x^2 + 1\).</li>
+            <li><strong>Forgetting to restrict the domain.</strong> \(x^2\) needs \(x \ge 0\) before it has an inverse.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>In combine mode, f and g may use powers, fractions, roots and functions such as exp, ln and sin. Polynomial and rational results are expanded and reduced.</li>
+            <li>Inverse mode covers three families of functions; the square power uses the domain \(x \ge h\).</li>
+            <li>The domain of a composition is described in words; it is not computed for every expression.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find f(g(x))?</summary>
+            <div class="faq-answer"><p>Replace every x in f with the whole expression g(x), in brackets, and simplify.</p></div>
+          </details>
+          <details>
+            <summary>How do I find an inverse function?</summary>
+            <div class="faq-answer"><p>Write y = f(x), swap x and y, and solve for y.</p></div>
+          </details>
+          <details>
+            <summary>How are the graphs of f and f⁻¹ related?</summary>
+            <div class="faq-answer"><p>They are reflections of each other in the line y = x.</p></div>
+          </details>
+          <details>
+            <summary>Is f(g(x)) the same as g(f(x))?</summary>
+            <div class="faq-answer"><p>Usually not. They are equal only for special pairs, such as a function and its inverse.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../logarithm-calculator/">Logarithms</a>: the inverse of exponential functions.</li>
+            <li><a href="../inverse-trig-functions/">Inverse trigonometric functions</a>.</li>
+            <li><a href="../rational-expression-simplifier/">Rational expressions</a>.</li>
+          </ul>
+        </section>

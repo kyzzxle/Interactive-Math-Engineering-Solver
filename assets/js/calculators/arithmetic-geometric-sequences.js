@@ -7,6 +7,8 @@
 import { validator, answer, fracAnswer, fmt, tx } from '../lib/calc-kit.js';
 import { plot } from '../lib/plot.js';
 import { randInt } from '../lib/learn.js';
+import { withNotes } from '../lib/step-notes.js';
+import { Frac as __F } from '../lib/fraction.js';
 
 export const calculator = {
   id: 'arithmetic-geometric-sequences',
@@ -130,3 +132,22 @@ export const calculator = {
     }
   },
 };
+
+// Explanations for each step, and a final check.
+withNotes(calculator, {
+  'Known values': 'Arithmetic: add the same difference d each time. Geometric: multiply by the same ratio r.',
+  'nth term': 'The first term is a₁, so the nth term is n − 1 steps further on.',
+  'Sum of n terms (average': 'Pair the first and last terms, the second and second-to-last, and so on: every pair has the same sum.',
+  'Sum of n terms': 'Multiply the sum by r and subtract it from the original: almost every term cancels.',
+  'Infinite sum': 'When |r| < 1 the terms shrink towards 0 and the partial sums approach a limit.',
+  'Sum with r = 1': 'Every term equals a₁, so the sum is n copies of it.',
+}, (r, values) => {
+  const n = Number(values.n); if (!Number.isInteger(n) || n < 2 || n > 2000) return;
+  const geo = values.type === 'geo', a1 = __F.of(String(values.a1).trim()), k = __F.of(String(geo ? values.r : values.d).trim());
+  const an = geo ? a1.mul(k.pow(n - 1)) : a1.add(k.mul(n - 1));
+  if (an.n.toString().length > 40 || an.d.toString().length > 40) return;
+  if (!geo) { const S = a1.mul(2).add(k.mul(n - 1)).mul(n).div(2); r.steps.push({ title: 'Check with the other sum formula', tex: `S_{${n}} = \\frac{n}{2}\\left[2a_1 + (n - 1)d\\right] = \\frac{${n}}{2}\\left[2(${a1.toTex()}) + ${n - 1}(${k.toTex()})\\right] = ${S.toTex()}\\ \\checkmark`, note: 'Substituting aₙ = a₁ + (n − 1)d into the pairing formula gives this version; both must agree.' }); return; }
+  if (k.isOne()) return;
+  const S = a1.sub(an.mul(k)).div(__F.of(1).sub(k));
+  r.steps.push({ title: 'Check with the other sum formula', tex: `S_{${n}} = \\frac{a_1 - a_n r}{1 - r} = \\frac{${a1.toTex()} - \\left(${an.toTex()}\\right)\\left(${k.toTex()}\\right)}{1 - \\left(${k.toTex()}\\right)} = ${S.toTex()}\\ \\checkmark`, note: 'This version uses the last term instead of rⁿ; both formulas must agree.' });
+});

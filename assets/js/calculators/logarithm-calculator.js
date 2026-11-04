@@ -8,6 +8,8 @@
 import { validator, fmt, tx, txp, eq, isExact } from '../lib/calc-kit.js';
 import { Frac, parseFrac } from '../lib/fraction.js';
 import { plot } from '../lib/plot.js';
+import { logExplore, logPractice } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
 
 /** If x = b^(p/q) exactly for some q ≤ 12, return the Frac p/q. */
 function exactLog(b, x) {
@@ -27,6 +29,8 @@ const lnTex = (b) => (Math.abs(b - Math.E) < 1e-15 ? '1' : `\\ln ${tx(b)}`);
 
 export const calculator = {
   id: 'logarithm-calculator',
+  explore: logExplore,
+  practice: logPractice,
   fields: [
     { name: 'mode', label: 'Task', type: 'select', options: [['evaluate', 'Evaluate log_b(x)'], ['logeq', 'Solve log_b(ax + c) = d'], ['expeq', 'Solve b^(ax + c) = k']] },
     { name: 'base', label: 'Base b', type: 'number', placeholder: 'e.g. 2', hint: 'b > 0 and b ≠ 1. Type e for the natural logarithm.', },
@@ -126,3 +130,18 @@ function graph(b, x, y, isE) {
     caption: `The curve y = log${isE ? '' : '_b'}(x) passes through (1, 0) and (b, 1); the highlighted point is your answer.`,
   };
 }
+
+// Explanations for each step.
+withNotes(calculator, {
+  'Recognise an exact power': 'When x is a whole-number power of the base, the logarithm is exactly that exponent.',
+  'Change of base': 'Any base works the same way: log_b x = ln x / ln b = log x / log b. Calculators usually have only ln and log.',
+  'Check the domain': 'The argument of a logarithm must be positive.',
+  'Check': 'Raising the base to the answer gives back the argument.',
+  'Rewrite in exponential form': 'log_b(u) = d means u = b^d: a logarithm is an exponent.',
+  'Solve the linear equation': 'No logarithm is left, only a linear equation.',
+  'Write the equation and its domain': '',
+  'Write the equation': 'The unknown is in the exponent, so a logarithm is needed to bring it down.',
+  'Take the logarithm base b': 'log_b(b^u) = u, so taking log base b of both sides frees the exponent.',
+  'Evaluate with the change of base': 'Use natural logarithms: log_b k = ln k / ln b.',
+  'Solve for x': 'Isolate x in the linear equation for the exponent.',
+});

@@ -1,40 +1,156 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Simplifying exponents and radicals</h2>
-          <p>Exponent and radical expressions can usually be written in a shorter, standard form: no negative exponents, each variable written once, and no perfect powers left under a root. This simplifier supports three clearly defined types of problem, each with its own step-by-step explanation:</p>
+          <h2 id="about-h" style="margin-top:0">What are exponents and radicals?</h2>
+          <p>An <strong>exponent</strong> says how many times a base is multiplied by itself: \(x^3 = x \cdot x \cdot x\). A <strong>radical</strong> undoes it: \(\sqrt[3]{x^3} = x\). The two are the same idea written two ways, because a root is a fractional power, \(\sqrt[n]{x} = x^{1/n}\). A handful of rules let you simplify any product, quotient or power of them.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Evaluate \(16^{-3/4}\). The 4 is a fourth root (\(\sqrt[4]{16} = 2\)), the 3 is a cube (\(2^3 = 8\)) and the minus sign is a reciprocal: \(\tfrac{1}{8}\).</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
           <ul>
-            <li><strong>Laws of exponents</strong> — products, quotients and powers of monomials such as \(\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}\).</li>
-            <li><strong>Radicals</strong> — a root of a single term, such as \(\sqrt{72x^5y^2}\) or \(\sqrt[3]{-54a^7}\).</li>
-            <li><strong>Rational powers of numbers</strong> — such as \(16^{-3/4}\) or \(12^{3/2}\).</li>
+            <li><strong>Laws of exponents:</strong> simplifies products, quotients and powers of monomials such as \(\tfrac{(2x^3y^{-2})^2}{4x^{-1}y}\), writing the result with positive exponents.</li>
+            <li><strong>Radicals:</strong> simplifies \(\sqrt[n]{k\,x^a y^b}\) by pulling out every perfect \(n\)th power.</li>
+            <li><strong>Rational powers:</strong> evaluates \(b^{p/q}\) exactly or in simplest radical form, with a decimal.</li>
           </ul>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change the index in \(\sqrt{72x^5y^2}\) from 2 to 3: different factors are perfect cubes, so a different amount comes out of the root.</p></div>
+          <p>Each result ends with a check: substituting sample values, or raising the answer back to the power of the root.</p>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Rules used</h2>
-          <div class="formula-box">\[ a^m a^n = a^{m+n} \qquad \frac{a^m}{a^n} = a^{m-n} \qquad (a^m)^n = a^{mn} \qquad (ab)^n = a^n b^n \qquad a^{-n} = \frac{1}{a^n} \]</div>
-          <div class="formula-box">\[ a^{p/q} = \sqrt[q]{a^p} \qquad \sqrt[n]{a^n b} = a\sqrt[n]{b} \]</div>
-          <p>To simplify a root of index \(n\), divide each exponent by \(n\): the quotient comes out of the root and the remainder stays inside. For a number, split off the largest perfect \(n\)th power.</p>
-        </section>
-
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Simplify \(\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}\)</h3>
-            <h4>Step 1 — Power of a product</h4>
-            \[ (2x^3y^{-2})^2 = 4x^6y^{-4} \]
-            <h4>Step 2 — Divide like bases (subtract exponents)</h4>
-            \[ \frac{4x^6y^{-4}}{4x^{-1}y} = x^{6 - (-1)}\, y^{-4 - 1} = x^7 y^{-5} \]
-            <h4>Step 3 — Positive exponents</h4>
-            \[ x^7 y^{-5} = \frac{x^7}{y^5} \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The ideas behind it</h2>
+          <p>Exponents count factors, so the rules are about counting:</p>
+          <ul>
+            <li>Multiplying \(x^3 \cdot x^2\) puts 3 + 2 factors together: \(x^5\).</li>
+            <li>Dividing cancels factors: \(\tfrac{x^5}{x^2} = x^3\). Carrying on past zero gives negative exponents: \(x^{-2} = \tfrac{1}{x^2}\).</li>
+            <li>A power of a power multiplies the counts: \((x^3)^2 = x^6\).</li>
+          </ul>
+          <p>A fractional exponent fits the same rules: \(\left(x^{1/2}\right)^2 = x^1\), so \(x^{1/2}\) must be \(\sqrt{x}\).</p>
+          <div class="callout">
+            <p class="callout-title">Simplest radical form</p>
+            <p>A radical is simplified when nothing inside is a perfect \(n\)th power: \(\sqrt{72} = \sqrt{36 \cdot 2} = 6\sqrt{2}\).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Rule</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Product</td><td>\(a^m a^n = a^{m + n}\)</td></tr>
+              <tr><td>Quotient</td><td>\(\tfrac{a^m}{a^n} = a^{m - n}\)</td></tr>
+              <tr><td>Power of a power</td><td>\((a^m)^n = a^{mn}\)</td></tr>
+              <tr><td>Power of a product</td><td>\((ab)^n = a^nb^n\)</td></tr>
+              <tr><td>Zero and negative</td><td>\(a^0 = 1,\ a^{-n} = \tfrac{1}{a^n}\)</td></tr>
+              <tr><td>Rational exponent</td><td>\(a^{p/q} = \left(\sqrt[q]{a}\right)^p = \sqrt[q]{a^p}\)</td></tr>
+              <tr><td>Radical of a product</td><td>\(\sqrt[n]{a^nb} = a\sqrt[n]{b}\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(a\)</td><td>The base.</td></tr>
+              <tr><td>\(m, n\)</td><td>Exponents.</td></tr>
+              <tr><td>\(\sqrt[n]{\ }\)</td><td>The \(n\)th root; \(n\) is the index (2 for a square root).</td></tr>
+              <tr><td>Radicand</td><td>The expression under the root.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Simplifying a radical, step by step</h2>
+          <p>For \(\sqrt[n]{k\,x^a}\):</p>
+          <ol>
+            <li>Split the coefficient \(k\) into the largest perfect \(n\)th power and what is left.</li>
+            <li>Divide each exponent \(a\) by \(n\): the quotient comes out of the root, the remainder stays in. For example \(x^5\) under a square root is \(x^{2\cdot 2 + 1}\), so \(x^2\) comes out and \(x\) stays in.</li>
+            <li>Multiply the outside parts and the inside parts.</li>
+          </ol>
+          <p>To check, raise the outside part to the power \(n\) and multiply by what is inside: it must rebuild the original radicand.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Simplify \(\dfrac{(2x^3y^{-2})^2}{4x^{-1}y}\).</p>
+            <h4>Step 1: Power of a product</h4>
+            \[ (2x^3y^{-2})^2 = 4x^6y^{-4} \]
+            <h4>Step 2: Divide, subtracting exponents</h4>
+            \[ \frac{4x^6y^{-4}}{4x^{-1}y} = x^{6 - (-1)}\,y^{-4 - 1} = x^7y^{-5} \]
+            <h4>Step 3: Positive exponents</h4>
+            \[ x^7y^{-5} = \frac{x^7}{y^5} \]
+            <h4>Check</h4>
+            <p>With \(x = 1.3\) and \(y = 0.7\), both the original and \(\tfrac{x^7}{y^5}\) give about 37.33. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a radical and a rational power</h2>
+          <div class="worked-example">
+            <h3>Part 1: Simplify \(\sqrt{72x^5y^2}\)</h3>
+            \[ 72 = 36 \cdot 2, \qquad x^5 = x^4 \cdot x, \qquad y^2 = y^2 \]
+            \[ \sqrt{72x^5y^2} = 6x^2y\sqrt{2x} \]
+            <p>Check: \((6x^2y)^2 \cdot 2x = 36x^4y^2 \cdot 2x = 72x^5y^2\). ✓</p>
+            <h3>Part 2: Evaluate \(16^{-3/4}\)</h3>
+            \[ 16^{-3/4} = \frac{1}{\left(\sqrt[4]{16}\right)^3} = \frac{1}{2^3} = \frac{1}{8} = 0.125 \]
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>All variables are assumed to be <strong>positive</strong>. This is the usual textbook convention and means even roots need no absolute-value signs.</li>
-            <li>Sums and differences (such as \(\sqrt{x^2 + 1}\)) are outside the supported forms and are rejected with an explanation.</li>
-            <li>Even roots of negative numbers are not real and are rejected. Exponent denominators are limited to 12.</li>
-            <li>Exact results use fractions and simplified radicals; decimals are given to 10 significant figures.</li>
+            <li><strong>Scientific notation and units:</strong> \(10^3 \times 10^{-6} = 10^{-3}\), converting kilo- and micro- units.</li>
+            <li><strong>Scaling laws:</strong> volume grows as length³ and area as length², so a model at scale \(\tfrac{1}{10}\) has \(\tfrac{1}{1000}\) of the volume.</li>
+            <li><strong>Physics formulas:</strong> the pendulum period \(T = 2\pi\sqrt{L/g}\) and Kepler's law \(T^2 \propto a^3\).</li>
+            <li><strong>Growth and decay:</strong> compound interest and half-lives use powers.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Multiplying exponents in a product.</strong> \(x^3 \cdot x^2 = x^5\), not \(x^6\).</li>
+            <li><strong>Treating a negative exponent as a negative number.</strong> \(2^{-3} = \tfrac{1}{8}\), not \(-8\).</li>
+            <li><strong>Applying a power to only part of a product.</strong> \((2x)^3 = 8x^3\), not \(2x^3\).</li>
+            <li><strong>Splitting a root over a sum.</strong> \(\sqrt{9 + 16} = 5\), not \(3 + 4\).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Variables are assumed positive, so even roots need no absolute values and division is allowed.</li>
+            <li>The laws mode handles products, quotients and powers of monomials (no sums).</li>
+            <li>Radicands are a single term with an integer coefficient.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What does a fractional exponent mean?</summary>
+            <div class="faq-answer"><p>a^(p/q) is the q-th root of a raised to the power p. For example 8^(2/3) = (∛8)² = 4.</p></div>
+          </details>
+          <details>
+            <summary>How do I simplify a square root?</summary>
+            <div class="faq-answer"><p>Write the number as a perfect square times what is left and take the square root of the perfect square: √50 = √(25·2) = 5√2.</p></div>
+          </details>
+          <details>
+            <summary>Why is any number to the power 0 equal to 1?</summary>
+            <div class="faq-answer"><p>Because aⁿ/aⁿ = 1, and by the quotient rule it is also a⁰.</p></div>
+          </details>
+          <details>
+            <summary>How do I get rid of negative exponents?</summary>
+            <div class="faq-answer"><p>Move the factor to the other side of the fraction bar and make the exponent positive: x⁻²y = y/x².</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../logarithm-calculator/">Logarithms</a>: solving for an exponent.</li>
+            <li><a href="../radical-rational-equations/">Radical equations</a>.</li>
+            <li><a href="../variation-proportion/">Variation</a> with powers.</li>
           </ul>
         </section>

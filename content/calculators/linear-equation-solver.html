@@ -1,42 +1,149 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Solving linear equations</h2>
-          <p>A <strong>linear equation</strong> in one variable can be rearranged into the form \(ax + b = 0\) with \(a \ne 0\); its graph on each side is a straight line. Type the equation exactly as it appears in your problem — with brackets, fractions and x on both sides — and the solver expands each side, collects like terms, isolates \(x\) and checks the answer by substitution. It also recognises the two special cases: equations with no solution and identities that are true for every \(x\).</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Change \(2x + 5\) on the right of \(2(x + 1) = 2x + 5\) to \(2x + 2\): the contradiction becomes an identity, and every real number becomes a solution.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a linear equation?</h2>
+          <p>A <strong>linear equation</strong> in one variable can be written as \(ax + b = 0\): \(x\) appears only to the first power, never squared, under a root or in a denominator. It has exactly one solution unless the \(x\)-terms cancel, in which case it has no solution or infinitely many. Solving it means getting \(x\) by itself while keeping both sides balanced.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter \(2(x + 1) = 2x + 5\). The \(2x\) terms cancel and leave \(2 = 5\), which is false: no value of \(x\) works.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Method and rules</h2>
-          <div class="formula-box">\[ ax + b = cx + d \;\Rightarrow\; (a - c)x = d - b \;\Rightarrow\; x = \frac{d - b}{a - c} \quad (a \ne c) \]</div>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Accepts an equation with brackets, fractions and decimals, such as \(2(x - 3) + 4 = 5x - 11\).</li>
+            <li>Expands and simplifies each side, collects terms and solves exactly.</li>
+            <li>Detects equations with no solution or infinitely many.</li>
+            <li>Checks the answer in the original equation and graphs each side as a line.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>An equation is a balance. Adding, subtracting, multiplying or dividing <strong>both sides</strong> by the same thing (except dividing by 0) keeps it balanced, so the solution does not change. The plan is always the same:</p>
           <ol>
-            <li><strong>Expand</strong> brackets using the distributive law \(k(p + q) = kp + kq\).</li>
-            <li><strong>Collect</strong> like terms on each side.</li>
-            <li><strong>Move</strong> x-terms to one side and constants to the other by adding or subtracting the same amount on both sides.</li>
-            <li><strong>Divide</strong> by the coefficient of \(x\).</li>
-            <li><strong>Check</strong> by substituting the answer into the original equation.</li>
+            <li>Clear brackets and fractions.</li>
+            <li>Collect the \(x\)-terms on one side and the numbers on the other.</li>
+            <li>Divide by the coefficient of \(x\).</li>
           </ol>
-          <p>If the x-terms cancel (\(a = c\)), the equation is either always true (\(d = b\)) or never true (\(d \ne b\)).</p>
-        </section>
-
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Solve \(2(x - 3) + 4 = 5x - 11\)</h3>
-            <h4>Step 1 — Expand and simplify</h4>
-            \[ 2x - 6 + 4 = 5x - 11 \;\Rightarrow\; 2x - 2 = 5x - 11 \]
-            <h4>Step 2 — Collect terms</h4>
-            \[ 2x - 5x = -11 + 2 \;\Rightarrow\; -3x = -9 \]
-            <h4>Step 3 — Divide</h4>
-            \[ x = \frac{-9}{-3} = 3 \]
-            <h4>Step 4 — Check</h4>
-            <p>Left: \(2(3 - 3) + 4 = 4\). Right: \(5(3) - 11 = 4\). ✓</p>
+          <div class="callout">
+            <p class="callout-title">Graph view</p>
+            <p>Each side is a straight line. The solution is the \(x\)-value where the lines cross. Parallel lines never cross (no solution); identical lines cross everywhere (every \(x\)).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box">\[ ax + b = cx + d \;\Rightarrow\; (a - c)x = d - b \;\Rightarrow\; x = \frac{d - b}{a - c} \]</div>
+          <table>
+            <thead><tr><th scope="col">Case</th><th scope="col">Condition</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><td>One solution</td><td>\(a \ne c\)</td><td>\(x = \tfrac{d - b}{a - c}\)</td></tr>
+              <tr><td>No solution</td><td>\(a = c,\ b \ne d\)</td><td>Contradiction</td></tr>
+              <tr><td>Infinitely many</td><td>\(a = c,\ b = d\)</td><td>Identity: every \(x\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(x\)</td><td>The unknown.</td></tr>
+              <tr><td>\(a, c\)</td><td>Coefficients of \(x\) on the left and right, after simplifying.</td></tr>
+              <tr><td>\(b, d\)</td><td>Constant terms on the left and right.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Why the steps work</h2>
+          <p>Start from \(ax + b = cx + d\). Subtract \(cx\) from both sides: \(ax - cx + b = d\). Subtract \(b\): \((a - c)x = d - b\). If \(a - c \ne 0\), divide by it to get the formula. If \(a - c = 0\), the left side is \(0\), and the equation is true only when \(d - b = 0\) as well.</p>
+          <h3>Clearing fractions</h3>
+          <p>Multiplying every term by the least common denominator removes all fractions at once. For \(\tfrac{x}{2} + \tfrac{1}{3} = \tfrac{3}{4}\), multiply by 12: \(6x + 4 = 9\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(2(x - 3) + 4 = 5x - 11\).</p>
+            <h4>Step 1: Expand and simplify</h4>
+            \[ 2x - 6 + 4 = 5x - 11 \;\Rightarrow\; 2x - 2 = 5x - 11 \]
+            <h4>Step 2: Collect terms</h4>
+            \[ 2x - 5x = -11 + 2 \;\Rightarrow\; -3x = -9 \]
+            <h4>Step 3: Divide</h4>
+            \[ x = \frac{-9}{-3} = 3 \]
+            <h4>Check</h4>
+            <p>Left: \(2(0) + 4 = 4\). Right: \(15 - 11 = 4\). ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: fractions</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(\tfrac{x}{2} + \tfrac{1}{3} = \tfrac{3}{4}\).</p>
+            <h4>Step 1: Multiply every term by 12</h4>
+            \[ 6x + 4 = 9 \]
+            <h4>Step 2: Solve</h4>
+            \[ 6x = 5 \;\Rightarrow\; x = \frac{5}{6} \approx 0.8333 \]
+            <h4>Check</h4>
+            <p>\(\tfrac{5}{12} + \tfrac{4}{12} = \tfrac{9}{12} = \tfrac{3}{4}\). ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>The variable must be \(x\). Both sides must be polynomials; equations with \(x\) in a denominator, under a root or inside a function are not linear and are rejected.</li>
-            <li>If \(x^2\) or higher powers remain after simplifying, use the <a href="../quadratic-equation-solver/">quadratic equation solver</a>.</li>
-            <li>All arithmetic uses exact fractions, so answers such as \(\tfrac{5}{6}\) are never rounded in the solution.</li>
+            <li><strong>Costs:</strong> a fixed fee plus a rate per unit, solved for the number of units.</li>
+            <li><strong>Temperature conversion:</strong> \(F = \tfrac{9}{5}C + 32\) solved for \(C\).</li>
+            <li><strong>Uniform motion:</strong> distance = speed × time, for meeting and catching-up problems.</li>
+            <li><strong>Linear calibration:</strong> reading a quantity from a sensor with a straight-line response.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Distributing only to the first term.</strong> \(2(x - 3) = 2x - 6\), not \(2x - 3\).</li>
+            <li><strong>Changing the side without changing the sign.</strong> Moving \(+5x\) across gives \(-5x\).</li>
+            <li><strong>Doing something to one side only.</strong> Every operation must be done to both sides.</li>
+            <li><strong>Multiplying only some terms by the LCD.</strong> Every term, on both sides, is multiplied.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The equation uses the variable \(x\) and must reduce to a linear one; higher powers must cancel.</li>
+            <li>Fractions and decimals are handled exactly; the answer is a fraction, with a decimal when it terminates.</li>
+            <li>For \(x\) in a denominator, use the <a href="../radical-rational-equations/">rational equation solver</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I solve a linear equation?</summary>
+            <div class="faq-answer"><p>Expand brackets, clear fractions, collect x-terms on one side and numbers on the other, then divide by the coefficient of x.</p></div>
+          </details>
+          <details>
+            <summary>When does a linear equation have no solution?</summary>
+            <div class="faq-answer"><p>When the x-terms cancel and leave a false statement such as 2 = 5. The two sides are parallel lines.</p></div>
+          </details>
+          <details>
+            <summary>What does infinitely many solutions mean?</summary>
+            <div class="faq-answer"><p>Both sides simplify to the same expression, so every value of x makes the equation true.</p></div>
+          </details>
+          <details>
+            <summary>How do I check my answer?</summary>
+            <div class="faq-answer"><p>Substitute it into the original equation. Both sides must give the same number.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../systems-of-linear-equations/">Systems of linear equations</a>.</li>
+            <li><a href="../inequality-solver/">Linear inequalities</a>.</li>
+            <li><a href="../quadratic-equation-solver/">Quadratic equations</a>.</li>
           </ul>
         </section>

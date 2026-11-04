@@ -1,45 +1,156 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the inequality solver does</h2>
-          <p>An <strong>inequality</strong> asks where an expression is greater or less than another. Move everything to one side, find where it equals zero (the boundary points), then check the sign in between.</p>
-          <p>For a linear inequality there is one boundary. For a quadratic there can be two, one or none; the direction the parabola opens tells you where it is positive or negative.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Dividing or multiplying both sides by a negative number reverses the inequality sign.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is an inequality?</h2>
+          <p>An <strong>inequality</strong> compares two expressions with \(\lt\), \(\le\), \(\gt\) or \(\ge\). Its solution is usually a whole interval of numbers, not a single value. A <strong>linear</strong> inequality like \(-3x + 4 \ge 10\) is solved almost like an equation; a <strong>quadratic</strong> one like \(x^2 - 5x \lt -6\) is solved by finding where a parabola is above or below the x-axis.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Solve \(-3x \lt 6\). Dividing by \(-3\) reverses the sign: \(x \gt -2\). Test \(x = 0\): \(0 \lt 6\) ✓.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ ax + b &lt; 0 \qquad ax^2 + bx + c &lt; 0 \]\[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\(a,\ b,\ c\)</td><td>Coefficients after moving everything to one side</td></tr>
-              <tr><td>\(\lt,\ \le,\ \gt,\ \ge\)</td><td>Strict (open dot) or inclusive (filled dot) inequalities</td></tr>
-            </tbody>
-          </table>
-          <p>An upward parabola (a &gt; 0) is negative between its roots and positive outside them.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Solves linear and quadratic inequalities in \(x\), with both sides typed as expressions.</li>
+            <li>Finds exact boundary points (in simplest radical form when needed).</li>
+            <li>Gives the solution in inequality notation, interval notation and on a number line.</li>
+            <li>Checks the answer with a test point in each interval.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Solve x² − 5x &lt; −6</h3>
-            <h4>Step 1 — One side</h4>
-            \[ x^2 - 5x + 6 &lt; 0 \]
-            <h4>Step 2 — Boundary points</h4>
-            \[ (x - 2)(x - 3) = 0 \Rightarrow x = 2,\ 3 \]
-            <h4>Step 3 — Sign</h4>
-            <p>The parabola opens upward, so it is negative between the roots:</p>\[ 2 &lt; x &lt; 3,\quad \text{i.e. } (2,\ 3) \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>Move everything to one side so the question becomes "where is this expression positive (or negative)?" A polynomial can only change sign where it equals 0, so its roots split the number line into intervals with a constant sign in each.</p>
+          <p>For a quadratic \(ax^2 + bx + c\) with two roots:</p>
+          <ul>
+            <li>if \(a \gt 0\) (opens upward), it is negative between the roots and positive outside;</li>
+            <li>if \(a \lt 0\) (opens downward), the opposite.</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Reversing the sign</p>
+            <p>Multiplying or dividing both sides by a negative number flips the inequality: \(2 \lt 3\), but \(-2 \gt -3\).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Inequality (\(a \gt 0\), roots \(r_1 \lt r_2\))</th><th scope="col">Solution</th></tr></thead>
+            <tbody>
+              <tr><td>\(a(x - r_1)(x - r_2) \lt 0\)</td><td>\(r_1 \lt x \lt r_2\)</td></tr>
+              <tr><td>\(a(x - r_1)(x - r_2) \gt 0\)</td><td>\(x \lt r_1\) or \(x \gt r_2\)</td></tr>
+              <tr><td>No real roots, \(\gt 0\)</td><td>All real numbers</td></tr>
+              <tr><td>No real roots, \(\lt 0\)</td><td>No solution</td></tr>
+            </tbody>
+          </table>
+          <p>Use square brackets for \(\le\) and \(\ge\) (boundary included) and round brackets for \(\lt\) and \(\gt\).</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Term</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Boundary point</td><td>A value where the two sides are equal.</td></tr>
+              <tr><td>Test point</td><td>A value inside an interval used to find its sign.</td></tr>
+              <tr><td>\((a, b)\), \([a, b]\)</td><td>Open and closed intervals.</td></tr>
+              <tr><td>\(\cup\)</td><td>Union: "or", joining two intervals.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">The sign-chart method</h2>
+          <ol>
+            <li>Move every term to one side: \(f(x) \lt 0\) (or another sign).</li>
+            <li>Find the roots of \(f(x) = 0\); they are the boundary points.</li>
+            <li>Pick a test point in each interval and find the sign of \(f\) there.</li>
+            <li>Keep the intervals with the required sign, and include the boundaries for \(\le\) or \(\ge\).</li>
+          </ol>
+          <p>This works because a polynomial is continuous: it cannot change sign without passing through 0.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(x^2 - 5x \lt -6\).</p>
+            <h4>Step 1: One side</h4>
+            \[ x^2 - 5x + 6 \lt 0 \]
+            <h4>Step 2: Boundary points</h4>
+            \[ (x - 2)(x - 3) = 0 \;\Rightarrow\; x = 2,\ x = 3 \]
+            <h4>Step 3: Sign</h4>
+            <p>The parabola opens upward, so it is negative between the roots.</p>
+            \[ 2 \lt x \lt 3, \qquad (2, 3) \]
+            <h4>Check</h4>
+            <p>\(x = 2.5\): \(6.25 - 12.5 + 6 = -0.25 \lt 0\) ✓. \(x = 4\): \(16 - 20 + 6 = 2\), not negative ✓.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a linear inequality</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(-3x + 4 \ge 10\).</p>
+            <h4>Step 1: Subtract 4</h4>
+            \[ -3x \ge 6 \]
+            <h4>Step 2: Divide by −3 and reverse the sign</h4>
+            \[ x \le -2, \qquad (-\infty, -2] \]
+            <h4>Check</h4>
+            <p>\(x = -3\): \(9 + 4 = 13 \ge 10\) ✓. \(x = 0\): \(4 \ge 10\) is false ✓.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Linear and quadratic expressions in x only (degree ≤ 2 after moving terms).</li>
-            <li>Coefficients may be fractions; boundaries are exact (fractions or simplest radicals).</li>
+            <li><strong>Design limits:</strong> stresses, deflections or temperatures that must stay below an allowable value.</li>
+            <li><strong>Budgets:</strong> how many units can be bought for at most a given amount.</li>
+            <li><strong>Projectiles:</strong> the time interval during which an object is above a certain height.</li>
+            <li><strong>Profit:</strong> the production range where revenue exceeds cost.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Not reversing the sign</strong> after multiplying or dividing by a negative number.</li>
+            <li><strong>Taking square roots of both sides.</strong> \(x^2 \lt 9\) means \(-3 \lt x \lt 3\), not just \(x \lt 3\).</li>
+            <li><strong>Wrong brackets.</strong> \(\le\) includes the endpoint: use \([\ ]\).</li>
+            <li><strong>Choosing the wrong region.</strong> Always test a point.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Forgetting to reverse the sign when dividing by a negative number.</li>
-            <li>Writing x &lt; 2 and x &gt; 3 for “outside the roots” — it must be “or”.</li>
+            <li>Both sides are polynomials in \(x\) of degree at most 2.</li>
+            <li>Boundary points are exact; decimals are shown for irrational ones.</li>
+            <li>For absolute values, use the <a href="../absolute-value-equations/">absolute value calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>When do I flip the inequality sign?</summary>
+            <div class="faq-answer"><p>When you multiply or divide both sides by a negative number.</p></div>
+          </details>
+          <details>
+            <summary>How do I solve a quadratic inequality?</summary>
+            <div class="faq-answer"><p>Move everything to one side, find the roots, then use the direction the parabola opens (or test points) to decide which intervals work.</p></div>
+          </details>
+          <details>
+            <summary>What is interval notation?</summary>
+            <div class="faq-answer"><p>A way to write a set of numbers: (2, 3) means between 2 and 3, excluding both; [2, 3] includes both; ∞ always gets a round bracket.</p></div>
+          </details>
+          <details>
+            <summary>What if the quadratic has no real roots?</summary>
+            <div class="faq-answer"><p>It never changes sign, so the inequality is true for every x or for none, depending on which way the parabola opens.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../absolute-value-equations/">Absolute value inequalities</a>.</li>
+            <li><a href="../quadratic-equation-solver/">Quadratic equations</a>.</li>
+            <li><a href="../linear-equation-solver/">Linear equations</a>.</li>
           </ul>
         </section>

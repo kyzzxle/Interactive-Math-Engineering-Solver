@@ -2,6 +2,8 @@
 import { validator, fmt } from '../lib/calc-kit.js';
 import { eliminate, readSystem, systemTex, equationText, VARS } from '../lib/linsys.js';
 import { plot, windowAround } from '../lib/plot.js';
+import { systemsExplore, systemsPractice } from '../explore/algebra-practice.js';
+import { withNotes } from '../lib/step-notes.js';
 
 const row = (i) => ['x', 'y', 'z'].map((vn) => ({
   name: `e${i}${vn}`, label: `${vn}`, type: 'number', placeholder: '0', row: `r${i}`,
@@ -11,6 +13,8 @@ const row = (i) => ['x', 'y', 'z'].map((vn) => ({
 
 export const calculator = {
   id: 'systems-of-linear-equations',
+  explore: systemsExplore,
+  practice: systemsPractice,
   fields: [
     { name: 'n', label: 'Number of unknowns', type: 'radio', options: [['2', 'Two (x, y)'], ['3', 'Three (x, y, z)']] },
     ...row(1), ...row(2), ...row(3),
@@ -55,3 +59,13 @@ export const calculator = {
     };
   },
 };
+
+// Explanations for each step.
+withNotes(calculator, {
+  'Write the system': 'Line up the variables in the same order in every equation.',
+  'Write the augmented matrix': 'Each row is one equation; the last column holds the right-hand sides.',
+  'Row operation': (s) => (/Swap/.test(s.title) ? 'Swapping two equations does not change the solutions; it brings a non-zero number into the pivot position.' : /Divide/.test(s.title) ? 'Dividing a whole equation by a non-zero number keeps the same solutions and makes the pivot 1.' : 'Subtracting a multiple of one equation from another eliminates a variable: this is the elimination method.'),
+  'Read the solution': 'Each row now reads "variable = number".',
+  'Read off the result': 'A row of zeros on the left means the equations depend on each other: infinitely many solutions if the right side is 0, none otherwise.',
+  'Check in every original equation': 'The values satisfy every equation of the system.',
+});

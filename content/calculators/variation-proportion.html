@@ -1,0 +1,157 @@
+        <section id="about" aria-labelledby="about-h">
+          <h2 id="about-h" style="margin-top:0">What is variation?</h2>
+          <p><strong>Variation</strong> describes how one quantity changes with others. If \(y\) varies <strong>directly</strong> as \(x\), then \(y = kx\): doubling \(x\) doubles \(y\). If \(y\) varies <strong>inversely</strong> as \(x\), then \(y = \tfrac{k}{x}\): doubling \(x\) halves \(y\). The number \(k\) is the <strong>constant of variation</strong>, and one known pair of values is enough to find it.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Choose "direct" with power 2. Then tripling \(x\) multiplies \(y\) by \(3^2 = 9\), whatever the value of \(k\).</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Variation:</strong> direct \(y = kx^n\), inverse \(y = \tfrac{k}{x^n}\), joint \(y = kx^nw^m\) and combined \(y = \tfrac{kx^n}{w^m}\), with powers 1, 2, 3 or ½. From one known set of values it finds \(k\), then the new \(y\), and checks it with ratios.</li>
+            <li><strong>Proportion:</strong> the fourth, mean and third proportional.</li>
+            <li><strong>Divide in a ratio:</strong> shares a total in the ratio \(r_1 : r_2\) or \(r_1 : r_2 : r_3\).</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>Every variation statement translates into an equation with one unknown constant:</p>
+          <ul>
+            <li>"\(y\) varies directly as the square of \(x\)" → \(y = kx^2\).</li>
+            <li>"\(y\) varies inversely as \(x\)" → \(y = \tfrac{k}{x}\), so \(xy = k\) stays constant.</li>
+            <li>"\(z\) varies jointly as \(x\) and \(y\)" → \(z = kxy\).</li>
+            <li>"\(z\) varies directly as \(x\) and inversely as \(y^2\)" → \(z = \tfrac{kx}{y^2}\).</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">The ratio shortcut</p>
+            <p>Dividing two instances of the same law cancels \(k\): for \(y = kx^2\), \(\tfrac{y_2}{y_1} = \left(\tfrac{x_2}{x_1}\right)^2\). This is often the quickest route.</p>
+          </div>
+        </section>
+
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Statement</th><th scope="col">Equation</th><th scope="col">Ratio form</th></tr></thead>
+            <tbody>
+              <tr><td>Direct</td><td>\(y = kx^n\)</td><td>\(\tfrac{y_2}{y_1} = \left(\tfrac{x_2}{x_1}\right)^n\)</td></tr>
+              <tr><td>Inverse</td><td>\(y = \tfrac{k}{x^n}\)</td><td>\(\tfrac{y_2}{y_1} = \left(\tfrac{x_1}{x_2}\right)^n\)</td></tr>
+              <tr><td>Joint</td><td>\(y = kx^nw^m\)</td><td>\(\tfrac{y_2}{y_1} = \left(\tfrac{x_2}{x_1}\right)^n\left(\tfrac{w_2}{w_1}\right)^m\)</td></tr>
+              <tr><td>Combined</td><td>\(y = \tfrac{kx^n}{w^m}\)</td><td>\(\tfrac{y_2}{y_1} = \left(\tfrac{x_2}{x_1}\right)^n\left(\tfrac{w_1}{w_2}\right)^m\)</td></tr>
+              <tr><td>Proportions</td><td>\(a : b = c : x \Rightarrow x = \tfrac{bc}{a}\)</td><td>mean \(\sqrt{ab}\), third \(\tfrac{b^2}{a}\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(y\)</td><td>The quantity that varies.</td></tr>
+              <tr><td>\(x, w\)</td><td>The quantities it depends on.</td></tr>
+              <tr><td>\(n, m\)</td><td>Powers: 1 for "as x", 2 for "as the square of x", ½ for "as the square root of x".</td></tr>
+              <tr><td>\(k\)</td><td>The constant of variation, the same for every set of values.</td></tr>
+              <tr><td>\(x_1, y_1\)</td><td>The known set; \(x_2, y_2\) the new set.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">The method</h2>
+          <ol>
+            <li>Translate the statement into an equation with \(k\).</li>
+            <li>Substitute the known set of values and solve for \(k\).</li>
+            <li>Write the equation with that value of \(k\).</li>
+            <li>Substitute the new values to find the unknown.</li>
+          </ol>
+          <p>For a proportion \(a : b = c : x\), write it as \(\tfrac{a}{b} = \tfrac{c}{x}\) and cross-multiply: \(ax = bc\). For the mean proportional, \(a : x = x : b\) gives \(x^2 = ab\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>\(y\) varies directly as the square of \(x\), and \(y = 12\) when \(x = 2\). Find \(y\) when \(x = 5\).</p>
+            <h4>Step 1: Equation</h4>
+            \[ y = kx^2 \]
+            <h4>Step 2: Find k</h4>
+            \[ 12 = k(2)^2 \;\Rightarrow\; k = 3 \]
+            <h4>Step 3: New value</h4>
+            \[ y = 3(5)^2 = 75 \]
+            <h4>Check with the ratio</h4>
+            <p>\(\tfrac{y_2}{12} = \left(\tfrac{5}{2}\right)^2 = 6.25\), so \(y_2 = 75\). ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: combined variation</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>The safe load \(L\) of a beam varies directly as its width \(x\) and inversely as the square of its length \(w\). \(L = 9\) kN when \(x = 6\) cm and \(w = 2\) m. Find \(L\) when \(x = 10\) cm and \(w = 5\) m.</p>
+            <h4>Step 1: Equation and k</h4>
+            \[ L = \frac{kx}{w^2} \;\Rightarrow\; 9 = \frac{k(6)}{2^2} \;\Rightarrow\; k = 6 \]
+            <h4>Step 2: New load</h4>
+            \[ L = \frac{6(10)}{5^2} = \frac{60}{25} = 2.4 \text{ kN} \]
+            <h4>Check</h4>
+            <p>Width × \(\tfrac{10}{6}\) and length × \(\tfrac{5}{2}\): \(9 \times \tfrac{10}{6} \div \left(\tfrac{5}{2}\right)^2 = 2.4\). ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Physics:</strong> gravity and light intensity vary inversely as the square of the distance; kinetic energy jointly as mass and the square of speed.</li>
+            <li><strong>Structures:</strong> beam deflection and load capacity depend on powers of the span and depth.</li>
+            <li><strong>Electricity:</strong> wire resistance varies directly as length and inversely as cross-sectional area.</li>
+            <li><strong>Gas laws:</strong> Boyle's law \(PV = k\) is inverse variation.</li>
+            <li><strong>Sharing costs and profits</strong> in a ratio.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Forgetting the power.</strong> "As the square of x" means \(x^2\), not \(x\).</li>
+            <li><strong>Mixing up direct and inverse.</strong> Inverse means \(k\) divided by the variable.</li>
+            <li><strong>Using a different k for the new values.</strong> k is found once and stays fixed.</li>
+            <li><strong>Mixing units.</strong> Keep each quantity in the same unit in both sets.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Powers are 1, 2, 3 or ½. Answers are exact fractions for whole-number powers.</li>
+            <li>A quantity in a denominator cannot be 0, and the known value of y cannot be 0.</li>
+            <li>Ratio parts must be positive.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the constant of variation?</summary>
+            <div class="faq-answer"><p>Write the variation as an equation, substitute one known set of values, and solve for k.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between direct and inverse variation?</summary>
+            <div class="faq-answer"><p>In direct variation y and x increase together (y = kx). In inverse variation one increases as the other decreases, and their product stays constant (xy = k).</p></div>
+          </details>
+          <details>
+            <summary>What is joint variation?</summary>
+            <div class="faq-answer"><p>One quantity varies as the product of two or more others, z = kxy.</p></div>
+          </details>
+          <details>
+            <summary>What is the mean proportional of two numbers?</summary>
+            <div class="faq-answer"><p>The number x with a : x = x : b, which is √(ab). For 4 and 9 it is 6.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../work-mixture-clock/">Work, mixture and clock problems</a>.</li>
+            <li><a href="../linear-equation-solver/">Linear equations</a>.</li>
+            <li><a href="../exponent-and-radical-simplifier/">Exponents and radicals</a>.</li>
+          </ul>
+        </section>

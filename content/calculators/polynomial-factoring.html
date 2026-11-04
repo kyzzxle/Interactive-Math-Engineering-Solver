@@ -1,38 +1,153 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Factoring polynomials</h2>
-          <p><strong>Factoring</strong> rewrites a polynomial as a product of simpler polynomials, which reveals its roots and makes expressions easier to simplify. This tool factors polynomials in \(x\) of degree 2 to 6 completely over the rational numbers, showing the greatest common factor, the rational root theorem, the division that removes each root, and a final check by multiplying back.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Compare \(x^4 - 4\) and \(x^4 + 4\). The first splits as \((x^2 - 2)(x^2 + 2)\); the second has no rational roots but still factors into two quadratics, \((x^2 + 2x + 2)(x^2 - 2x + 2)\).</p></div>
+          <h2 id="about-h" style="margin-top:0">What does it mean to factor a polynomial?</h2>
+          <p><strong>Factoring</strong> writes a polynomial as a product of simpler polynomials. It is the reverse of expanding. For example:</p>
+          \[ x^3 - 6x^2 + 11x - 6 = (x - 1)(x - 2)(x - 3) \]
+          <p>A factored form shows the <strong>roots</strong> at a glance: the polynomial is 0 exactly when one of its factors is 0.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter \(x^4 + 4\). It has no real roots, yet it still factors into two quadratics: \((x^2 - 2x + 2)(x^2 + 2x + 2)\).</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Supported methods</h2>
-          <ol>
-            <li><strong>Greatest common factor</strong>, including powers of \(x\): \(2x^4 - 32 = 2(x^4 - 16)\).</li>
-            <li><strong>Rational root theorem</strong>: if \(\frac{p}{q}\) (in lowest terms) is a root of a polynomial with integer coefficients, then \(p\) divides the constant term and \(q\) divides the leading coefficient, and \((qx - p)\) is a factor.</li>
-            <li><strong>Synthetic division</strong> removes each factor found, leaving a polynomial of lower degree.</li>
-            <li><strong>Higher-degree factors</strong>: a remainder of degree 4 to 6 without rational roots is tested for quadratic and cubic factors with integer coefficients.</li>
-          </ol>
-          <p>These steps cover the standard patterns automatically: difference of squares \(a^2 - b^2 = (a - b)(a + b)\), perfect square trinomials \(a^2 \pm 2ab + b^2 = (a \pm b)^2\), sum and difference of cubes \(a^3 \pm b^3 = (a \pm b)(a^2 \mp ab + b^2)\), and trinomials \(ax^2 + bx + c\) with rational roots.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Factors polynomials of degree 2 to 6 with rational coefficients, completely over the rationals.</li>
+            <li>Takes out the greatest common factor, finds every rational root with the rational root theorem, and divides each one out.</li>
+            <li>Finds remaining quadratic or cubic factors, and recognises patterns such as a difference of squares or a sum of cubes.</li>
+            <li>Checks the result by multiplying the factors back out.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Factor \(x^3 - 6x^2 + 11x - 6\)</h3>
-            <h4>Step 1 — Candidates</h4>
-            <p>Possible rational roots are the divisors of 6: \(\pm 1, \pm 2, \pm 3, \pm 6\).</p>
-            <h4>Step 2 — Test</h4>
-            \[ f(1) = 1 - 6 + 11 - 6 = 0 \quad\Rightarrow\quad (x - 1) \text{ is a factor} \]
-            <h4>Step 3 — Divide and repeat</h4>
-            \[ x^3 - 6x^2 + 11x - 6 = (x - 1)(x^2 - 5x + 6) = (x - 1)(x - 2)(x - 3) \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>The <strong>factor theorem</strong> links roots and factors: \(P(r) = 0\) exactly when \((x - r)\) is a factor of \(P(x)\). So finding a root gives a factor, and dividing it out leaves a polynomial of lower degree to work on.</p>
+          <p>The <strong>rational root theorem</strong> says where to look: any rational root \(\tfrac{p}{q}\) in lowest terms has \(p\) dividing the constant term and \(q\) dividing the leading coefficient. That turns an infinite search into a short list.</p>
+          <div class="callout">
+            <p class="callout-title">Standard patterns</p>
+            <p>\(a^2 - b^2 = (a - b)(a + b)\), \(a^3 \pm b^3 = (a \pm b)(a^2 \mp ab + b^2)\), and \(a^2 \pm 2ab + b^2 = (a \pm b)^2\).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Step</th><th scope="col">Tool</th></tr></thead>
+            <tbody>
+              <tr><td>Common factor</td><td>\(ax^{k+2} + bx^{k+1} + \dots = x^k(\dots)\), and the gcd of the coefficients</td></tr>
+              <tr><td>Candidate roots</td><td>\(\pm\tfrac{\text{divisors of } a_0}{\text{divisors of } a_n}\)</td></tr>
+              <tr><td>Factor theorem</td><td>\(P(r) = 0 \iff (x - r) \mid P(x)\)</td></tr>
+              <tr><td>Synthetic division</td><td>Divide by \((x - r)\) to lower the degree</td></tr>
+              <tr><td>Quadratic left over</td><td>Factor it, or it is irreducible if \(b^2 - 4ac\) is not a perfect square</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(P(x)\)</td><td>The polynomial.</td></tr>
+              <tr><td>\(a_n, a_0\)</td><td>The leading coefficient and the constant term.</td></tr>
+              <tr><td>\(r = \tfrac{p}{q}\)</td><td>A rational root.</td></tr>
+              <tr><td>Multiplicity</td><td>How many times a factor repeats: \((x - 1)^2\) has root 1 with multiplicity 2.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Why the rational root theorem works</h2>
+          <p>Suppose \(\tfrac{p}{q}\) in lowest terms is a root of \(a_nx^n + \dots + a_1x + a_0\). Substitute and multiply by \(q^n\):</p>
+          \[ a_np^n + a_{n-1}p^{n-1}q + \dots + a_1pq^{n-1} + a_0q^n = 0. \]
+          <p>Every term except the last contains \(p\), so \(p\) divides \(a_0q^n\); since \(p\) and \(q\) share no factor, \(p\) divides \(a_0\). In the same way, every term except the first contains \(q\), so \(q\) divides \(a_n\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Factor \(x^3 - 6x^2 + 11x - 6\).</p>
+            <h4>Step 1: Candidates</h4>
+            <p>The leading coefficient is 1, so any rational root divides \(-6\): \(\pm 1, \pm 2, \pm 3, \pm 6\).</p>
+            <h4>Step 2: Test</h4>
+            \[ P(1) = 1 - 6 + 11 - 6 = 0 \]
+            <h4>Step 3: Divide out (x − 1)</h4>
+            \[ x^3 - 6x^2 + 11x - 6 = (x - 1)(x^2 - 5x + 6) \]
+            <h4>Step 4: Factor the quadratic</h4>
+            \[ x^2 - 5x + 6 = (x - 2)(x - 3) \;\Rightarrow\; (x - 1)(x - 2)(x - 3) \]
+            <h4>Check</h4>
+            <p>Multiply the factors back out, two at a time:</p>
+            \[ (x - 1)(x - 2) = x^2 - 3x + 2 \]
+            \[ (x^2 - 3x + 2)(x - 3) = x^3 - 6x^2 + 11x - 6\ \checkmark \]
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: GCF and patterns</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Factor \(2x^4 - 32\) completely.</p>
+            <h4>Step 1: Greatest common factor</h4>
+            \[ 2x^4 - 32 = 2(x^4 - 16) \]
+            <h4>Step 2: Difference of squares, twice</h4>
+            \[ x^4 - 16 = (x^2 - 4)(x^2 + 4) = (x - 2)(x + 2)(x^2 + 4) \]
+            <h4>Result</h4>
+            \[ 2x^4 - 32 = 2(x - 2)(x + 2)(x^2 + 4) \]
+            <p>\(x^2 + 4\) has no real roots, so it does not factor further over the rationals (or the reals).</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Polynomials in \(x\) only, degree 2 to 6, with rational coefficients (integers, decimals or fractions).</li>
-            <li>Factoring is over the <strong>rational numbers</strong>: a factor such as \(x^2 - 2\) is left as it is, even though it equals \((x - \sqrt{2})(x + \sqrt{2})\) over the reals. The tool says so when this happens.</li>
-            <li>Every answer is verified by multiplying the factors back out exactly; if the check ever failed, no result would be shown.</li>
+            <li><strong>Solving equations:</strong> set each factor to 0.</li>
+            <li><strong>Simplifying rational expressions</strong> and finding <a href="../partial-fractions/">partial fractions</a>.</li>
+            <li><strong>Control systems:</strong> the roots of a characteristic polynomial decide stability.</li>
+            <li><strong>Sketching graphs:</strong> roots and multiplicities show where and how a graph meets the x-axis.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Forgetting the common factor.</strong> Take it out first; otherwise the factored form is not complete.</li>
+            <li><strong>Sign of the root.</strong> A root \(r = 3\) gives the factor \((x - 3)\), not \((x + 3)\).</li>
+            <li><strong>"Factoring" a sum of squares.</strong> \(x^2 + 4\) does not factor over the reals.</li>
+            <li><strong>Stopping too early.</strong> \(x^2 - 4\) inside a product still factors.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Degree 2 to 6, rational coefficients. Factoring is over the rationals: factors with irrational roots, such as \(x^2 - 2\), are left as they are.</li>
+            <li>All arithmetic is exact.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I factor a cubic polynomial?</summary>
+            <div class="faq-answer"><p>Find one root by testing the rational root candidates, divide out its factor with synthetic division, then factor the quadratic that remains.</p></div>
+          </details>
+          <details>
+            <summary>What is the rational root theorem?</summary>
+            <div class="faq-answer"><p>Any rational root p/q has p dividing the constant term and q dividing the leading coefficient.</p></div>
+          </details>
+          <details>
+            <summary>What is the factor theorem?</summary>
+            <div class="faq-answer"><p>P(r) = 0 if and only if (x − r) is a factor of P(x).</p></div>
+          </details>
+          <details>
+            <summary>Can every polynomial be factored?</summary>
+            <div class="faq-answer"><p>Over the complex numbers, every polynomial splits into linear factors. Over the rationals, some polynomials, like x² − 2, are irreducible.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../polynomial-long-division/">Polynomial long division</a>.</li>
+            <li><a href="../quadratic-equation-solver/">Quadratic equations</a>.</li>
+            <li><a href="../rational-expression-simplifier/">Rational expressions</a>.</li>
           </ul>
         </section>

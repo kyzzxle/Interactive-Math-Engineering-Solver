@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/arithmetic-geometric-sequences/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I tell if a sequence is arithmetic or geometric?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Subtract neighbouring terms: a constant difference means arithmetic. Divide them: a constant ratio means geometric."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the formula for the nth term?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Arithmetic: aₙ = a₁ + (n − 1)d. Geometric: aₙ = a₁·rⁿ⁻¹."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When does an infinite geometric series have a sum?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When the ratio is between −1 and 1. The sum is then a₁ / (1 − r)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the sum of an arithmetic sequence?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Multiply the number of terms by the average of the first and last terms: Sₙ = n(a₁ + aₙ)/2."
+          }
+        }
+      ]
     }
   ]
 }
@@ -240,10 +278,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the sequence calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What are arithmetic and geometric sequences?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The ideas behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the geometric sum</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a geometric series</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -251,49 +298,151 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the sequence calculator does</h2>
-          <p>An <strong>arithmetic sequence</strong> adds the same difference d each time (3, 7, 11, …). A <strong>geometric sequence</strong> multiplies by the same ratio r each time (5, 10, 20, …).</p>
-          <p>Their sums have neat formulas. A geometric series with |r| &lt; 1 even has a finite sum when infinitely many terms are added, because the terms shrink fast enough.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, try r = 0.5: the running total levels off at 2a₁. Try r = −0.8: it zig-zags towards its limit.</p></div>
+          <h2 id="about-h" style="margin-top:0">What are arithmetic and geometric sequences?</h2>
+          <p>A <strong>sequence</strong> is an ordered list of numbers. In an <strong>arithmetic</strong> sequence you add the same <strong>common difference</strong> <span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span> each time: 3, 7, 11, 15, … (<span class="math" data-tex="d = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>). In a <strong>geometric</strong> sequence you multiply by the same <strong>common ratio</strong> <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>: 3, 1.5, 0.75, … (<span class="math" data-tex="r = \tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>). Both have simple formulas for the <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th term and for the sum of the first <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> terms, and a geometric series with <span class="math" data-tex="|r| \lt 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>r</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mn>1</mn></mrow></semantics></math></span></span> even has a finite infinite sum.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the ratio <span class="math" data-tex="r = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span> instead of <span class="math" data-tex="\tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>. The terms grow without limit and the infinite sum no longer exists.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Gives the <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th term and the sum of <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> terms for arithmetic or geometric sequences, exactly.</li>
+            <li>Gives the infinite sum of a geometric series when <span class="math" data-tex="|r| \lt 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>r</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mn>1</mn></mrow></semantics></math></span></span>.</li>
+            <li>Lists the first terms and charts the terms and the running total.</li>
+            <li>Checks the sum with a second formula.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The ideas behind it</h2>
+          <p>Reaching the <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span>th term takes <span class="math" data-tex="n - 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span> steps from the first, so <span class="math" data-tex="a_n = a_1 + (n - 1)d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi>d</mi></mrow></semantics></math></span></span> or <span class="math" data-tex="a_n = a_1r^{n - 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><msup><mi>r</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow></semantics></math></span></span>.</p>
+          <p><strong>Arithmetic sums.</strong> Pair the first and last terms, the second and second-to-last, and so on: every pair adds to <span class="math" data-tex="a_1 + a_n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub></mrow></semantics></math></span></span>, and there are <span class="math" data-tex="\tfrac{n}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>n</mi><mn>2</mn></mfrac></mrow></semantics></math></span></span> pairs.</p>
+          <p><strong>Geometric sums.</strong> Multiply the sum by <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> and subtract it from the original: everything cancels except the first and last pieces.</p>
+          <div class="callout">
+            <p class="callout-title">Infinite sums</p>
+            <p>When <span class="math" data-tex="|r| \lt 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>r</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mn>1</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="r^n \to 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mi>n</mi></msup><mo>→</mo><mn>0</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="S_n \to \tfrac{a_1}{1 - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>→</mo><mfrac><msub><mi>a</mi><mn>1</mn></msub><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac></mrow></semantics></math></span></span>. For <span class="math" data-tex="3 + 1.5 + 0.75 + \dots"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>+</mo><mn>1.5</mn><mo>+</mo><mn>0.75</mn><mo>+</mo><mo>…</mo></mrow></semantics></math></span></span> the total is <span class="math" data-tex="\tfrac{3}{1 - 0.5} = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>3</mn><mrow><mn>1</mn><mo>−</mo><mn>0.5</mn></mrow></mfrac><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span>.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="a_n = a_1 + (n - 1)d \qquad S_n = \frac{n(a_1 + a_n)}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi>d</mi><mspace width="2em"/><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><mi>n</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow><mn>2</mn></mfrac></mrow></semantics></math></span></span><span class="math-display" data-tex="a_n = a_1 r^{\,n-1} \qquad S_n = \frac{a_1(1 - r^n)}{1 - r} \qquad S_\infty = \frac{a_1}{1 - r}\ (|r| &lt; 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><msup><mi>r</mi><mrow><mtext> </mtext><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mspace width="2em"/><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac><mspace width="2em"/><msub><mi>S</mi><mi mathvariant="normal">∞</mi></msub><mo>=</mo><mfrac><msub><mi>a</mi><mn>1</mn></msub><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac><mtext> </mtext><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><mi>r</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Arithmetic</th><th scope="col">Geometric</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="a_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub></mrow></semantics></math></span></span></td><td>First term</td></tr>
-              <tr><td><span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span></td><td>Common difference</td></tr>
-              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Common ratio</td></tr>
-              <tr><td><span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span></td><td>Number of terms</td></tr>
+              <tr><td>nth term</td><td><span class="math" data-tex="a_n = a_1 + (n - 1)d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi>d</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="a_n = a_1r^{n - 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><msup><mi>r</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Sum of n terms</td><td><span class="math" data-tex="S_n = \tfrac{n}{2}(a_1 + a_n)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mo stretchy="false">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="S_n = \tfrac{a_1(1 - r^n)}{1 - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac></mrow></semantics></math></span></span>, <span class="math" data-tex="r \ne 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo mathvariant="normal">≠</mo><mn>1</mn></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Other sum form</td><td><span class="math" data-tex="S_n = \tfrac{n}{2}\left[2a_1 + (n - 1)d\right]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mi>n</mi><mn>2</mn></mfrac><mrow><mo fence="true">[</mo><mn>2</mn><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi>d</mi><mo fence="true">]</mo></mrow></mrow></semantics></math></span></span></td><td><span class="math" data-tex="S_n = \tfrac{a_1 - a_nr}{1 - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mi>r</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Infinite sum</td><td>Does not exist (unless every term is 0)</td><td><span class="math" data-tex="S_\infty = \tfrac{a_1}{1 - r}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi mathvariant="normal">∞</mi></msub><mo>=</mo><mfrac><msub><mi>a</mi><mn>1</mn></msub><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac></mrow></semantics></math></span></span>, <span class="math" data-tex="|r| \lt 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>r</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mn>1</mn></mrow></semantics></math></span></span></td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="a_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub></mrow></semantics></math></span></span></td><td>The first term.</td></tr>
+              <tr><td><span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span></td><td>Common difference: <span class="math" data-tex="a_{n+1} - a_n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Common ratio: <span class="math" data-tex="\tfrac{a_{n+1}}{a_n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>a</mi><mi>n</mi></msub></mfrac></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span></td><td>Number of terms.</td></tr>
+              <tr><td><span class="math" data-tex="a_n, S_n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo separator="true">,</mo><msub><mi>S</mi><mi>n</mi></msub></mrow></semantics></math></span></span></td><td>The nth term and the sum of the first n terms.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the geometric sum</h2>
+          <p>Write <span class="math" data-tex="S_n = a_1 + a_1r + \dots + a_1r^{n - 1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><mi>r</mi><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><msup><mi>r</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow></semantics></math></span></span> and multiply by <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="rS_n = a_1r + a_1r^2 + \dots + a_1r^n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mi>r</mi><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><msup><mi>r</mi><mn>2</mn></msup><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><msup><mi>r</mi><mi>n</mi></msup></mrow></semantics></math></span></span>. Subtract:</p>
+          <span class="math-display" data-tex="S_n - rS_n = a_1 - a_1r^n \;\Rightarrow\; S_n = \frac{a_1(1 - r^n)}{1 - r}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>S</mi><mi>n</mi></msub><mo>−</mo><mi>r</mi><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>−</mo><msub><mi>a</mi><mn>1</mn></msub><msup><mi>r</mi><mi>n</mi></msup><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>The arithmetic sum comes from writing the series forwards and backwards and adding: each of the <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> columns adds to <span class="math" data-tex="a_1 + a_n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub></mrow></semantics></math></span></span>, so <span class="math" data-tex="2S_n = n(a_1 + a_n)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msub><mi>S</mi><mi>n</mi></msub><mo>=</mo><mi>n</mi><mo stretchy="false">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Sum of the first 20 terms of 3, 7, 11, …</h3>
-            <h4>Step 1 — Difference</h4>
-            <span class="math-display" data-tex="d = 7 - 3 = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mn>7</mn><mo>−</mo><mn>3</mn><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — 20th term</h4>
-            <span class="math-display" data-tex="a_{20} = 3 + 19(4) = 79"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mn>20</mn></msub><mo>=</mo><mn>3</mn><mo>+</mo><mn>19</mn><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>79</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Sum</h4>
-            <span class="math-display" data-tex="S_{20} = \frac{20(3 + 79)}{2} = 820"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>S</mi><mn>20</mn></msub><mo>=</mo><mfrac><mrow><mn>20</mn><mo stretchy="false">(</mo><mn>3</mn><mo>+</mo><mn>79</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></mfrac><mo>=</mo><mn>820</mn></mrow></semantics></math></span></span>
+            <h3>Problem</h3>
+            <p>For the arithmetic sequence 3, 7, 11, …, find the 10th term and the sum of the first 10 terms.</p>
+            <h4>Step 1: Identify</h4>
+            <p><span class="math" data-tex="a_1 = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="d = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="n = 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>10</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: 10th term</h4>
+            <span class="math-display" data-tex="a_{10} = 3 + 9(4) = 39"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mn>10</mn></msub><mo>=</mo><mn>3</mn><mo>+</mo><mn>9</mn><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>39</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Sum</h4>
+            <span class="math-display" data-tex="S_{10} = \frac{10(3 + 39)}{2} = 210"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>S</mi><mn>10</mn></msub><mo>=</mo><mfrac><mrow><mn>10</mn><mo stretchy="false">(</mo><mn>3</mn><mo>+</mo><mn>39</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></mfrac><mo>=</mo><mn>210</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="\tfrac{10}{2}\left[2(3) + 9(4)\right] = 5(42) = 210"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>10</mn><mn>2</mn></mfrac><mrow><mo fence="true">[</mo><mn>2</mn><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>9</mn><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo fence="true">]</mo></mrow><mo>=</mo><mn>5</mn><mo stretchy="false">(</mo><mn>42</mn><mo stretchy="false">)</mo><mo>=</mo><mn>210</mn></mrow></semantics></math></span></span>. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a geometric series</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>For <span class="math" data-tex="3, \tfrac{3}{2}, \tfrac{3}{4}, \dots"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo separator="true">,</mo><mfrac><mn>3</mn><mn>2</mn></mfrac><mo separator="true">,</mo><mfrac><mn>3</mn><mn>4</mn></mfrac><mo separator="true">,</mo><mo>…</mo></mrow></semantics></math></span></span>, find the 6th term, the sum of 6 terms and the infinite sum.</p>
+            <h4>Step 1: Identify</h4>
+            <p><span class="math" data-tex="a_1 = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="r = \tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: 6th term and sum</h4>
+            <span class="math-display" data-tex="a_6 = 3\left(\tfrac{1}{2}\right)^5 = \tfrac{3}{32}, \qquad S_6 = \frac{3\left(1 - \tfrac{1}{64}\right)}{1 - \tfrac{1}{2}} = \frac{189}{32} \approx 5.906"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mn>6</mn></msub><mo>=</mo><mn>3</mn><msup><mrow><mo fence="true">(</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mn>5</mn></msup><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>3</mn><mn>32</mn></mfrac></mstyle><mo separator="true">,</mo><mspace width="2em"/><msub><mi>S</mi><mn>6</mn></msub><mo>=</mo><mfrac><mrow><mn>3</mn><mrow><mo fence="true">(</mo><mn>1</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>64</mn></mfrac></mstyle><mo fence="true">)</mo></mrow></mrow><mrow><mn>1</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle></mrow></mfrac><mo>=</mo><mfrac><mn>189</mn><mn>32</mn></mfrac><mo>≈</mo><mn>5.906</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Infinite sum</h4>
+            <span class="math-display" data-tex="S_\infty = \frac{3}{1 - \tfrac{1}{2}} = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>S</mi><mi mathvariant="normal">∞</mi></msub><mo>=</mo><mfrac><mn>3</mn><mrow><mn>1</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle></mrow></mfrac><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span>
+            <p>The partial sums creep up towards 6 but never pass it.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>n is a whole number from 1 to 100,000. Fractions are kept exact while the numbers stay manageable.</li>
-            <li>For r = 1 the sum is n·a₁; the infinite sum exists only when |r| &lt; 1.</li>
+            <li><strong>Finance:</strong> simple interest and straight-line depreciation are arithmetic; compound interest and annuities are geometric (see the <a href="../annuity/">annuity calculator</a>).</li>
+            <li><strong>Construction:</strong> seats in rows that each have a few more than the last.</li>
+            <li><strong>Physics:</strong> a bouncing ball that rises to a fixed fraction of its previous height travels a geometric total distance.</li>
+            <li><strong>Population and decay:</strong> growth or decay by a constant factor each period.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using <span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> instead of <span class="math" data-tex="n - 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span></strong> in the nth-term formula.</li>
+            <li><strong>Mixing up d and r.</strong> Check whether the terms differ by a fixed amount or a fixed factor.</li>
+            <li><strong>Using the infinite-sum formula when <span class="math" data-tex="|r| \ge 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>r</mi><mi mathvariant="normal">∣</mi><mo>≥</mo><mn>1</mn></mrow></semantics></math></span></span>.</strong> The series then has no finite sum.</li>
+            <li><strong>Sign of a negative ratio.</strong> With <span class="math" data-tex="r = -\tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span> the terms alternate in sign.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using n instead of n − 1 in the nth-term formula.</li>
-            <li>Applying S∞ when |r| ≥ 1, where the series diverges.</li>
+            <li><span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span> is a whole number from 1 to 100,000. Terms and sums are exact fractions when they are not too long, otherwise decimals.</li>
+            <li>For other kinds of sequences, see <a href="../recurrence-relations/">recurrence relations</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I tell if a sequence is arithmetic or geometric?</summary>
+            <div class="faq-answer"><p>Subtract neighbouring terms: a constant difference means arithmetic. Divide them: a constant ratio means geometric.</p></div>
+          </details>
+          <details>
+            <summary>What is the formula for the nth term?</summary>
+            <div class="faq-answer"><p>Arithmetic: aₙ = a₁ + (n − 1)d. Geometric: aₙ = a₁·rⁿ⁻¹.</p></div>
+          </details>
+          <details>
+            <summary>When does an infinite geometric series have a sum?</summary>
+            <div class="faq-answer"><p>When the ratio is between −1 and 1. The sum is then a₁ / (1 − r).</p></div>
+          </details>
+          <details>
+            <summary>How do I find the sum of an arithmetic sequence?</summary>
+            <div class="faq-answer"><p>Multiply the number of terms by the average of the first and last terms: Sₙ = n(a₁ + aₙ)/2.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../recurrence-relations/">Recurrence relations</a>.</li>
+            <li><a href="../compound-interest/">Compound interest</a>.</li>
+            <li><a href="../binomial-theorem-expansion/">Binomial theorem</a>.</li>
           </ul>
         </section>
 

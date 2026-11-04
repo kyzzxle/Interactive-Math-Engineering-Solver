@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/polynomial-factoring/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I factor a cubic polynomial?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Find one root by testing the rational root candidates, divide out its factor with synthetic division, then factor the quadratic that remains."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the rational root theorem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Any rational root p/q has p dividing the constant term and q dividing the leading coefficient."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the factor theorem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "P(r) = 0 if and only if (x − r) is a factor of P(x)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can every polynomial be factored?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Over the complex numbers, every polynomial splits into linear factors. Over the rationals, some polynomials, like x² − 2, are irreducible."
+          }
+        }
+      ]
     }
   ]
 }
@@ -198,6 +236,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Build a polynomial from its roots</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Factor a cubic</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -205,10 +258,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Factoring polynomials</a></li>
-            <li><a href="#formula-h">Supported methods</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What does it mean to factor a polynomial?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Why the rational root theorem works</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: GCF and patterns</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -216,41 +278,156 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Factoring polynomials</h2>
-          <p><strong>Factoring</strong> rewrites a polynomial as a product of simpler polynomials, which reveals its roots and makes expressions easier to simplify. This tool factors polynomials in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> of degree 2 to 6 completely over the rational numbers, showing the greatest common factor, the rational root theorem, the division that removes each root, and a final check by multiplying back.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Compare <span class="math" data-tex="x^4 - 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>4</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x^4 + 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>+</mo><mn>4</mn></mrow></semantics></math></span></span>. The first splits as <span class="math" data-tex="(x^2 - 2)(x^2 + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>; the second has no rational roots but still factors into two quadratics, <span class="math" data-tex="(x^2 + 2x + 2)(x^2 - 2x + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p></div>
+          <h2 id="about-h" style="margin-top:0">What does it mean to factor a polynomial?</h2>
+          <p><strong>Factoring</strong> writes a polynomial as a product of simpler polynomials. It is the reverse of expanding. For example:</p>
+          <span class="math-display" data-tex="x^3 - 6x^2 + 11x - 6 = (x - 1)(x - 2)(x - 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>11</mn><mi>x</mi><mo>−</mo><mn>6</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+          <p>A factored form shows the <strong>roots</strong> at a glance: the polynomial is 0 exactly when one of its factors is 0.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter <span class="math" data-tex="x^4 + 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>+</mo><mn>4</mn></mrow></semantics></math></span></span>. It has no real roots, yet it still factors into two quadratics: <span class="math" data-tex="(x^2 - 2x + 2)(x^2 + 2x + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Supported methods</h2>
-          <ol>
-            <li><strong>Greatest common factor</strong>, including powers of <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="2x^4 - 32 = 2(x^4 - 16)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>32</mn><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>16</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</li>
-            <li><strong>Rational root theorem</strong>: if <span class="math" data-tex="\frac{p}{q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>p</mi><mi>q</mi></mfrac></mrow></semantics></math></span></span> (in lowest terms) is a root of a polynomial with integer coefficients, then <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> divides the constant term and <span class="math" data-tex="q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow></semantics></math></span></span> divides the leading coefficient, and <span class="math" data-tex="(qx - p)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>q</mi><mi>x</mi><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is a factor.</li>
-            <li><strong>Synthetic division</strong> removes each factor found, leaving a polynomial of lower degree.</li>
-            <li><strong>Higher-degree factors</strong>: a remainder of degree 4 to 6 without rational roots is tested for quadratic and cubic factors with integer coefficients.</li>
-          </ol>
-          <p>These steps cover the standard patterns automatically: difference of squares <span class="math" data-tex="a^2 - b^2 = (a - b)(a + b)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><mo stretchy="false">(</mo><mi>a</mi><mo>−</mo><mi>b</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>a</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, perfect square trinomials <span class="math" data-tex="a^2 \pm 2ab + b^2 = (a \pm b)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>±</mo><mn>2</mn><mi>a</mi><mi>b</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><mo stretchy="false">(</mo><mi>a</mi><mo>±</mo><mi>b</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>, sum and difference of cubes <span class="math" data-tex="a^3 \pm b^3 = (a \pm b)(a^2 \mp ab + b^2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>3</mn></msup><mo>±</mo><msup><mi>b</mi><mn>3</mn></msup><mo>=</mo><mo stretchy="false">(</mo><mi>a</mi><mo>±</mo><mi>b</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>a</mi><mn>2</mn></msup><mo>∓</mo><mi>a</mi><mi>b</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, and trinomials <span class="math" data-tex="ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span> with rational roots.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Factors polynomials of degree 2 to 6 with rational coefficients, completely over the rationals.</li>
+            <li>Takes out the greatest common factor, finds every rational root with the rational root theorem, and divides each one out.</li>
+            <li>Finds remaining quadratic or cubic factors, and recognises patterns such as a difference of squares or a sum of cubes.</li>
+            <li>Checks the result by multiplying the factors back out.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Factor <span class="math" data-tex="x^3 - 6x^2 + 11x - 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>11</mn><mi>x</mi><mo>−</mo><mn>6</mn></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Candidates</h4>
-            <p>Possible rational roots are the divisors of 6: <span class="math" data-tex="\pm 1, \pm 2, \pm 3, \pm 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1</mn><mo separator="true">,</mo><mo>±</mo><mn>2</mn><mo separator="true">,</mo><mo>±</mo><mn>3</mn><mo separator="true">,</mo><mo>±</mo><mn>6</mn></mrow></semantics></math></span></span>.</p>
-            <h4>Step 2 — Test</h4>
-            <span class="math-display" data-tex="f(1) = 1 - 6 + 11 - 6 = 0 \quad\Rightarrow\quad (x - 1) \text{ is a factor}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mn>6</mn><mo>+</mo><mn>11</mn><mo>−</mo><mn>6</mn><mo>=</mo><mn>0</mn><mspace width="1em"/><mo>⇒</mo><mspace width="1em"/><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mtext> is a factor</mtext></mrow></semantics></math></span></span>
-            <h4>Step 3 — Divide and repeat</h4>
-            <span class="math-display" data-tex="x^3 - 6x^2 + 11x - 6 = (x - 1)(x^2 - 5x + 6) = (x - 1)(x - 2)(x - 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>11</mn><mi>x</mi><mo>−</mo><mn>6</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn><mi>x</mi><mo>+</mo><mn>6</mn><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>The <strong>factor theorem</strong> links roots and factors: <span class="math" data-tex="P(r) = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> exactly when <span class="math" data-tex="(x - r)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is a factor of <span class="math" data-tex="P(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. So finding a root gives a factor, and dividing it out leaves a polynomial of lower degree to work on.</p>
+          <p>The <strong>rational root theorem</strong> says where to look: any rational root <span class="math" data-tex="\tfrac{p}{q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>p</mi><mi>q</mi></mfrac></mrow></semantics></math></span></span> in lowest terms has <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> dividing the constant term and <span class="math" data-tex="q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow></semantics></math></span></span> dividing the leading coefficient. That turns an infinite search into a short list.</p>
+          <div class="callout">
+            <p class="callout-title">Standard patterns</p>
+            <p><span class="math" data-tex="a^2 - b^2 = (a - b)(a + b)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><mo stretchy="false">(</mo><mi>a</mi><mo>−</mo><mi>b</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>a</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="a^3 \pm b^3 = (a \pm b)(a^2 \mp ab + b^2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>3</mn></msup><mo>±</mo><msup><mi>b</mi><mn>3</mn></msup><mo>=</mo><mo stretchy="false">(</mo><mi>a</mi><mo>±</mo><mi>b</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>a</mi><mn>2</mn></msup><mo>∓</mo><mi>a</mi><mi>b</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, and <span class="math" data-tex="a^2 \pm 2ab + b^2 = (a \pm b)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>±</mo><mn>2</mn><mi>a</mi><mi>b</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><mo stretchy="false">(</mo><mi>a</mi><mo>±</mo><mi>b</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Step</th><th scope="col">Tool</th></tr></thead>
+            <tbody>
+              <tr><td>Common factor</td><td><span class="math" data-tex="ax^{k+2} + bx^{k+1} + \dots = x^k(\dots)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><msup><mi>x</mi><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msup><mo>+</mo><mi>b</mi><msup><mi>x</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>+</mo><mo>⋯</mo><mo>=</mo><msup><mi>x</mi><mi>k</mi></msup><mo stretchy="false">(</mo><mo>…</mo><mtext> </mtext><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, and the gcd of the coefficients</td></tr>
+              <tr><td>Candidate roots</td><td><span class="math" data-tex="\pm\tfrac{\text{divisors of } a_0}{\text{divisors of } a_n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mfrac><mrow><mtext>divisors of </mtext><msub><mi>a</mi><mn>0</mn></msub></mrow><mrow><mtext>divisors of </mtext><msub><mi>a</mi><mi>n</mi></msub></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Factor theorem</td><td><span class="math" data-tex="P(r) = 0 \iff (x - r) \mid P(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mtext>  </mtext><mo>⟺</mo><mtext>  </mtext><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo><mo>∣</mo><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Synthetic division</td><td>Divide by <span class="math" data-tex="(x - r)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> to lower the degree</td></tr>
+              <tr><td>Quadratic left over</td><td>Factor it, or it is irreducible if <span class="math" data-tex="b^2 - 4ac"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></semantics></math></span></span> is not a perfect square</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="P(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The polynomial.</td></tr>
+              <tr><td><span class="math" data-tex="a_n, a_0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>0</mn></msub></mrow></semantics></math></span></span></td><td>The leading coefficient and the constant term.</td></tr>
+              <tr><td><span class="math" data-tex="r = \tfrac{p}{q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mfrac><mi>p</mi><mi>q</mi></mfrac></mrow></semantics></math></span></span></td><td>A rational root.</td></tr>
+              <tr><td>Multiplicity</td><td>How many times a factor repeats: <span class="math" data-tex="(x - 1)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span> has root 1 with multiplicity 2.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Why the rational root theorem works</h2>
+          <p>Suppose <span class="math" data-tex="\tfrac{p}{q}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>p</mi><mi>q</mi></mfrac></mrow></semantics></math></span></span> in lowest terms is a root of <span class="math" data-tex="a_nx^n + \dots + a_1x + a_0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>a</mi><mn>0</mn></msub></mrow></semantics></math></span></span>. Substitute and multiply by <span class="math" data-tex="q^n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mi>n</mi></msup></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="a_np^n + a_{n-1}p^{n-1}q + \dots + a_1pq^{n-1} + a_0q^n = 0."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub><msup><mi>p</mi><mi>n</mi></msup><mo>+</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub><msup><mi>p</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mi>q</mi><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>a</mi><mn>1</mn></msub><mi>p</mi><msup><mi>q</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><msub><mi>a</mi><mn>0</mn></msub><msup><mi>q</mi><mi>n</mi></msup><mo>=</mo><mn>0.</mn></mrow></semantics></math></span></span>
+          <p>Every term except the last contains <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> divides <span class="math" data-tex="a_0q^n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub><msup><mi>q</mi><mi>n</mi></msup></mrow></semantics></math></span></span>; since <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow></semantics></math></span></span> share no factor, <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> divides <span class="math" data-tex="a_0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>0</mn></msub></mrow></semantics></math></span></span>. In the same way, every term except the first contains <span class="math" data-tex="q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow></semantics></math></span></span>, so <span class="math" data-tex="q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow></semantics></math></span></span> divides <span class="math" data-tex="a_n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>n</mi></msub></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Factor <span class="math" data-tex="x^3 - 6x^2 + 11x - 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>11</mn><mi>x</mi><mo>−</mo><mn>6</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Candidates</h4>
+            <p>The leading coefficient is 1, so any rational root divides <span class="math" data-tex="-6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>6</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="\pm 1, \pm 2, \pm 3, \pm 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1</mn><mo separator="true">,</mo><mo>±</mo><mn>2</mn><mo separator="true">,</mo><mo>±</mo><mn>3</mn><mo separator="true">,</mo><mo>±</mo><mn>6</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: Test</h4>
+            <span class="math-display" data-tex="P(1) = 1 - 6 + 11 - 6 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mn>6</mn><mo>+</mo><mn>11</mn><mo>−</mo><mn>6</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Divide out (x − 1)</h4>
+            <span class="math-display" data-tex="x^3 - 6x^2 + 11x - 6 = (x - 1)(x^2 - 5x + 6)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>11</mn><mi>x</mi><mo>−</mo><mn>6</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn><mi>x</mi><mo>+</mo><mn>6</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 4: Factor the quadratic</h4>
+            <span class="math-display" data-tex="x^2 - 5x + 6 = (x - 2)(x - 3) \;\Rightarrow\; (x - 1)(x - 2)(x - 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>5</mn><mi>x</mi><mo>+</mo><mn>6</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>Multiply the factors back out, two at a time:</p>
+            <span class="math-display" data-tex="(x - 1)(x - 2) = x^2 - 3x + 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>3</mn><mi>x</mi><mo>+</mo><mn>2</mn></mrow></semantics></math></span></span>
+            <span class="math-display" data-tex="(x^2 - 3x + 2)(x - 3) = x^3 - 6x^2 + 11x - 6\ \checkmark"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>3</mn><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>6</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>11</mn><mi>x</mi><mo>−</mo><mn>6</mn><mtext> </mtext><mi mathvariant="normal">✓</mi></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: GCF and patterns</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Factor <span class="math" data-tex="2x^4 - 32"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>32</mn></mrow></semantics></math></span></span> completely.</p>
+            <h4>Step 1: Greatest common factor</h4>
+            <span class="math-display" data-tex="2x^4 - 32 = 2(x^4 - 16)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>32</mn><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>16</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 2: Difference of squares, twice</h4>
+            <span class="math-display" data-tex="x^4 - 16 = (x^2 - 4)(x^2 + 4) = (x - 2)(x + 2)(x^2 + 4)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>16</mn><mo>=</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Result</h4>
+            <span class="math-display" data-tex="2x^4 - 32 = 2(x - 2)(x + 2)(x^2 + 4)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>32</mn><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <p><span class="math" data-tex="x^2 + 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn></mrow></semantics></math></span></span> has no real roots, so it does not factor further over the rationals (or the reals).</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Polynomials in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> only, degree 2 to 6, with rational coefficients (integers, decimals or fractions).</li>
-            <li>Factoring is over the <strong>rational numbers</strong>: a factor such as <span class="math" data-tex="x^2 - 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span> is left as it is, even though it equals <span class="math" data-tex="(x - \sqrt{2})(x + \sqrt{2})"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msqrt><mn>2</mn></msqrt><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><msqrt><mn>2</mn></msqrt><mo stretchy="false">)</mo></mrow></semantics></math></span></span> over the reals. The tool says so when this happens.</li>
-            <li>Every answer is verified by multiplying the factors back out exactly; if the check ever failed, no result would be shown.</li>
+            <li><strong>Solving equations:</strong> set each factor to 0.</li>
+            <li><strong>Simplifying rational expressions</strong> and finding <a href="../partial-fractions/">partial fractions</a>.</li>
+            <li><strong>Control systems:</strong> the roots of a characteristic polynomial decide stability.</li>
+            <li><strong>Sketching graphs:</strong> roots and multiplicities show where and how a graph meets the x-axis.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Forgetting the common factor.</strong> Take it out first; otherwise the factored form is not complete.</li>
+            <li><strong>Sign of the root.</strong> A root <span class="math" data-tex="r = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span> gives the factor <span class="math" data-tex="(x - 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, not <span class="math" data-tex="(x + 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</li>
+            <li><strong>"Factoring" a sum of squares.</strong> <span class="math" data-tex="x^2 + 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn></mrow></semantics></math></span></span> does not factor over the reals.</li>
+            <li><strong>Stopping too early.</strong> <span class="math" data-tex="x^2 - 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn></mrow></semantics></math></span></span> inside a product still factors.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Degree 2 to 6, rational coefficients. Factoring is over the rationals: factors with irrational roots, such as <span class="math" data-tex="x^2 - 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span>, are left as they are.</li>
+            <li>All arithmetic is exact.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I factor a cubic polynomial?</summary>
+            <div class="faq-answer"><p>Find one root by testing the rational root candidates, divide out its factor with synthetic division, then factor the quadratic that remains.</p></div>
+          </details>
+          <details>
+            <summary>What is the rational root theorem?</summary>
+            <div class="faq-answer"><p>Any rational root p/q has p dividing the constant term and q dividing the leading coefficient.</p></div>
+          </details>
+          <details>
+            <summary>What is the factor theorem?</summary>
+            <div class="faq-answer"><p>P(r) = 0 if and only if (x − r) is a factor of P(x).</p></div>
+          </details>
+          <details>
+            <summary>Can every polynomial be factored?</summary>
+            <div class="faq-answer"><p>Over the complex numbers, every polynomial splits into linear factors. Over the rationals, some polynomials, like x² − 2, are irreducible.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../polynomial-long-division/">Polynomial long division</a>.</li>
+            <li><a href="../quadratic-equation-solver/">Quadratic equations</a>.</li>
+            <li><a href="../rational-expression-simplifier/">Rational expressions</a>.</li>
           </ul>
         </section>
 

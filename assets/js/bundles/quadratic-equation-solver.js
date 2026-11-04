@@ -2997,6 +2997,39 @@ const derivativePractice = {
 
 return { quadraticExplore, quadraticPractice, unitCircleExplore, rightTriangleExplore, unitCirclePractice, tangentExplore, riemannExplore, derivativePractice };
 })();
+__m["lib/step-notes.js"] = (function () {
+/**
+ * Adds explanations to solution steps after a calculator has solved a problem.
+ *
+ *   withNotes(calculator, notes, extra)
+ *
+ * notes: { 'Title prefix': 'explanation' | (step, values, result) => 'explanation' }.
+ *        The first prefix that matches a step's title is used; steps that already have a note
+ *        keep it.
+ * extra: optional (result, values) => void, for appending extra steps such as a final check.
+ */
+function withNotes(calculator, notes, extra) {
+  const solve = calculator.solve.bind(calculator);
+  calculator.solve = (values) => {
+    const r = solve(values);
+    if (!r || !r.ok || !Array.isArray(r.steps)) return r;
+    for (const s of r.steps) {
+      if (s.note) continue;
+      const key = Object.keys(notes).find((k) => s.title.startsWith(k));
+      if (!key) continue;
+      const n = typeof notes[key] === 'function' ? notes[key](s, values, r) : notes[key];
+      if (n) s.note = n;
+    }
+    if (extra) {
+      try { extra(r, values); } catch (e) { /* a check that cannot be built is left out */ }
+    }
+    return r;
+  };
+  return calculator;
+}
+
+return { withNotes };
+})();
 __m["calculators/quadratic-equation-solver.js"] = (function () {
 /**
  * ax² + bx + c = 0 with exact coefficients. Discriminant D = b² − 4ac decides the roots:
@@ -3010,6 +3043,7 @@ const { plot } = __m["lib/plot.js"];
 const { texOf, polyToNode } = __m["lib/expr.js"];
 
 const { quadraticExplore, quadraticPractice } = __m["explore/functions.js"];
+const { withNotes } = __m["lib/step-notes.js"];
 /** √|D| as (a√b)/d with integers. */
 function sqrtParts(D) {
   const A = D.abs();
@@ -3133,6 +3167,17 @@ const calculator = {
     };
   },
 };
+
+// Explanations for each step.
+withNotes(calculator, {
+  'Identify a, b and c': 'Write the equation as ax² + bx + c = 0 first; each coefficient keeps its sign.',
+  'Compute the discriminant': 'The discriminant is the expression under the square root in the quadratic formula.',
+  'Interpret the discriminant': 'Positive: two real roots. Zero: one repeated root. Negative: two complex roots.',
+  'Apply the quadratic formula': 'The formula comes from completing the square on ax² + bx + c = 0.',
+  'Evaluate the two roots': 'Use the + sign for one root and the − sign for the other.',
+  'Factored form': 'Each root r gives a factor (x − r), multiplied by the leading coefficient a.',
+  'Write the complex roots': 'The square root of a negative number is imaginary: √(−n) = i√n.',
+});
 
 return { calculator };
 })();

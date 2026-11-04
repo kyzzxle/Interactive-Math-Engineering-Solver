@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/polynomial-long-division/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I divide polynomials?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Repeat: divide the leading terms, multiply the divisor by the result, subtract. Stop when the remainder has a lower degree than the divisor."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the remainder theorem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The remainder when P(x) is divided by x − c equals P(c)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When can I use synthetic division?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When the divisor is linear with leading coefficient 1, of the form x − c."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does a remainder of 0 mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The divisor is a factor of the dividend: P(x) = D(x)·Q(x) exactly."
+          }
+        }
+      ]
     }
   ]
 }
@@ -205,8 +243,12 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Then test yourself on a fresh problem — use a hint if you get stuck.</p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">The remainder theorem</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
         <div class="panel learn-panel" id="practice">
           <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Divide by (x − c)</h3></div></div>
           <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
@@ -221,10 +263,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the polynomial long division calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is polynomial long division?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Synthetic division and the remainder theorem</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: synthetic division</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -232,51 +283,161 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the polynomial long division calculator does</h2>
-          <p><strong>Polynomial long division</strong> works like long division of numbers: divide the leading terms, multiply back, subtract, and repeat until the remainder’s degree is less than the divisor’s.</p>
-          <p>It is used to simplify improper rational functions, find slant asymptotes, factor polynomials once a root is known, and prepare for partial fractions.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Compare the graph of P(x)/D(x) with its quotient: far from the origin they almost coincide.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is polynomial long division?</h2>
+          <p><strong>Polynomial long division</strong> divides one polynomial by another, just as long division divides numbers. The result is a <strong>quotient</strong> <span class="math" data-tex="Q(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and a <strong>remainder</strong> <span class="math" data-tex="R(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> whose degree is lower than the divisor's, so that <span class="math" data-tex="P(x) = D(x)\,Q(x) + R(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>R</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. When the remainder is 0, the divisor is a factor.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Divide <span class="math" data-tex="x^4 - 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span> by <span class="math" data-tex="x^2 + 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span>. The remainder is 0, so <span class="math" data-tex="x^4 - 1 = (x^2 + 1)(x^2 - 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>1</mn><mo>=</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Divides polynomials up to degree 8, showing each divide–multiply–subtract cycle and a table of the steps.</li>
+            <li>Gives the quotient, the remainder and whether the division is exact.</li>
+            <li>For a divisor <span class="math" data-tex="x - c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>c</mi></mrow></semantics></math></span></span>, confirms the remainder theorem <span class="math" data-tex="R = P(c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</li>
+            <li>Checks that <span class="math" data-tex="D(x)Q(x) + R(x) = P(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>R</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>Each cycle removes the highest power of what is left:</p>
+          <ol>
+            <li><strong>Divide</strong> the leading term of the current remainder by the leading term of the divisor: that is the next term of the quotient.</li>
+            <li><strong>Multiply</strong> the whole divisor by that term.</li>
+            <li><strong>Subtract</strong> the product. The leading terms cancel, so the degree drops.</li>
+          </ol>
+          <p>Stop when the remainder's degree is less than the divisor's.</p>
+          <div class="callout">
+            <p class="callout-title">The remainder theorem</p>
+            <p>Dividing by <span class="math" data-tex="x - c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>c</mi></mrow></semantics></math></span></span> leaves the remainder <span class="math" data-tex="P(c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. So <span class="math" data-tex="x - c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>c</mi></mrow></semantics></math></span></span> is a factor exactly when <span class="math" data-tex="P(c) = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="P(x) = D(x)\,Q(x) + R(x),\quad \deg R &lt; \deg D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>R</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="1em"/><mi>deg</mi><mo>⁡</mo><mi>R</mi><mo>&lt;</mo><mi>deg</mi><mo>⁡</mo><mi>D</mi></mrow></semantics></math></span></span><span class="math-display" data-tex="\text{Remainder theorem: } P(x) \div (x - c) \text{ leaves } R = P(c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Remainder theorem: </mtext><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>÷</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>c</mi><mo stretchy="false">)</mo><mtext> leaves </mtext><mi>R</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="P(x) = D(x)\,Q(x) + R(x), \qquad \deg R \lt \deg D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>R</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><mi>deg</mi><mo>⁡</mo><mi>R</mi><mo>&lt;</mo><mi>deg</mi><mo>⁡</mo><mi>D</mi></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Idea</th><th scope="col">Statement</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span></td><td>Dividend</td></tr>
-              <tr><td><span class="math" data-tex="D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow></semantics></math></span></span></td><td>Divisor</td></tr>
-              <tr><td><span class="math" data-tex="Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow></semantics></math></span></span></td><td>Quotient</td></tr>
-              <tr><td><span class="math" data-tex="R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow></semantics></math></span></span></td><td>Remainder</td></tr>
+              <tr><td>Fraction form</td><td><span class="math" data-tex="\tfrac{P(x)}{D(x)} = Q(x) + \tfrac{R(x)}{D(x)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mfrac><mrow><mi>R</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Remainder theorem</td><td><span class="math" data-tex="P(x) \div (x - c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>÷</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> leaves <span class="math" data-tex="P(c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Factor theorem</td><td><span class="math" data-tex="P(c) = 0 \iff (x - c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mtext>  </mtext><mo>⟺</mo><mtext>  </mtext><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is a factor</td></tr>
+              <tr><td>Degrees</td><td><span class="math" data-tex="\deg Q = \deg P - \deg D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>deg</mi><mo>⁡</mo><mi>Q</mi><mo>=</mo><mi>deg</mi><mo>⁡</mo><mi>P</mi><mo>−</mo><mi>deg</mi><mo>⁡</mo><mi>D</mi></mrow></semantics></math></span></span></td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="P(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The dividend.</td></tr>
+              <tr><td><span class="math" data-tex="D(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The divisor.</td></tr>
+              <tr><td><span class="math" data-tex="Q(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The quotient.</td></tr>
+              <tr><td><span class="math" data-tex="R(x)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The remainder, of lower degree than <span class="math" data-tex="D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow></semantics></math></span></span>.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Synthetic division and the remainder theorem</h2>
+          <p>For a divisor <span class="math" data-tex="x - c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>c</mi></mrow></semantics></math></span></span>, long division can be shortened to <strong>synthetic division</strong>: bring down the leading coefficient, multiply by <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span>, add to the next coefficient, and repeat. The last number is the remainder.</p>
+          <p>Why does it equal <span class="math" data-tex="P(c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>? Substitute <span class="math" data-tex="x = c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>c</mi></mrow></semantics></math></span></span> into <span class="math" data-tex="P(x) = (x - c)Q(x) + R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>c</mi><mo stretchy="false">)</mo><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>R</mi></mrow></semantics></math></span></span>: the first term vanishes, leaving <span class="math" data-tex="P(c) = R"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mi>R</mi></mrow></semantics></math></span></span>.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Divide 2x³ − 3x² + 4x − 5 by x − 2</h3>
+            <h3>Problem</h3>
+            <p>Divide <span class="math" data-tex="2x^3 - 3x^2 + 4x - 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>x</mi><mo>−</mo><mn>5</mn></mrow></semantics></math></span></span> by <span class="math" data-tex="x - 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span>.</p>
             <h4>Step 1</h4>
-            <span class="math-display" data-tex="2x^3 \div x = 2x^2;\quad 2x^2(x - 2) = 2x^3 - 4x^2;\quad \text{remainder } x^2 + 4x - 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><mo>÷</mo><mi>x</mi><mo>=</mo><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup><mo separator="true">;</mo><mspace width="1em"/><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>4</mn><msup><mi>x</mi><mn>2</mn></msup><mo separator="true">;</mo><mspace width="1em"/><mtext>remainder </mtext><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>x</mi><mo>−</mo><mn>5</mn></mrow></semantics></math></span></span>
+            <p><span class="math" data-tex="\tfrac{2x^3}{x} = 2x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup></mrow><mi>x</mi></mfrac><mo>=</mo><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. Multiply: <span class="math" data-tex="2x^3 - 4x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>4</mn><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. Subtract: <span class="math" data-tex="x^2 + 4x - 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>x</mi><mo>−</mo><mn>5</mn></mrow></semantics></math></span></span>.</p>
             <h4>Step 2</h4>
-            <span class="math-display" data-tex="x^2 \div x = x;\quad x(x - 2) = x^2 - 2x;\quad \text{remainder } 6x - 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>÷</mo><mi>x</mi><mo>=</mo><mi>x</mi><mo separator="true">;</mo><mspace width="1em"/><mi>x</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mi>x</mi><mo separator="true">;</mo><mspace width="1em"/><mtext>remainder </mtext><mn>6</mn><mi>x</mi><mo>−</mo><mn>5</mn></mrow></semantics></math></span></span>
+            <p><span class="math" data-tex="\tfrac{x^2}{x} = x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>x</mi><mn>2</mn></msup><mi>x</mi></mfrac><mo>=</mo><mi>x</mi></mrow></semantics></math></span></span>. Multiply: <span class="math" data-tex="x^2 - 2x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mi>x</mi></mrow></semantics></math></span></span>. Subtract: <span class="math" data-tex="6x - 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>x</mi><mo>−</mo><mn>5</mn></mrow></semantics></math></span></span>.</p>
             <h4>Step 3</h4>
-            <span class="math-display" data-tex="6x \div x = 6;\quad 6(x - 2) = 6x - 12;\quad \text{remainder } 7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>6</mn><mi>x</mi><mo>÷</mo><mi>x</mi><mo>=</mo><mn>6</mn><mo separator="true">;</mo><mspace width="1em"/><mn>6</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>6</mn><mi>x</mi><mo>−</mo><mn>12</mn><mo separator="true">;</mo><mspace width="1em"/><mtext>remainder </mtext><mn>7</mn></mrow></semantics></math></span></span>
+            <p><span class="math" data-tex="\tfrac{6x}{x} = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>6</mn><mi>x</mi></mrow><mi>x</mi></mfrac><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span>. Multiply: <span class="math" data-tex="6x - 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi>x</mi><mo>−</mo><mn>12</mn></mrow></semantics></math></span></span>. Subtract: <span class="math" data-tex="7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn></mrow></semantics></math></span></span>.</p>
             <h4>Result</h4>
-            <span class="math-display" data-tex="2x^3 - 3x^2 + 4x - 5 = (x - 2)(2x^2 + x + 6) + 7,\qquad P(2) = 7\ \checkmark"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>x</mi><mo>−</mo><mn>5</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>+</mo><mn>6</mn><mo stretchy="false">)</mo><mo>+</mo><mn>7</mn><mo separator="true">,</mo><mspace width="2em"/><mi>P</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>7</mn><mtext> </mtext><mi mathvariant="normal">✓</mi></mrow></semantics></math></span></span>
+            <span class="math-display" data-tex="Q(x) = 2x^2 + x + 6, \qquad R = 7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>+</mo><mn>6</mn><mo separator="true">,</mo><mspace width="2em"/><mi>R</mi><mo>=</mo><mn>7</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>Remainder theorem: <span class="math" data-tex="P(2) = 16 - 12 + 8 - 5 = 7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>16</mn><mo>−</mo><mn>12</mn><mo>+</mo><mn>8</mn><mo>−</mo><mn>5</mn><mo>=</mo><mn>7</mn></mrow></semantics></math></span></span>. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: synthetic division</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Is <span class="math" data-tex="x + 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span> a factor of <span class="math" data-tex="x^3 + 4x^2 + x - 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mn>4</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>6</mn></mrow></semantics></math></span></span>?</p>
+            <h4>Step 1: Synthetic division with c = −3</h4>
+            <table>
+              <thead><tr><th scope="col"></th><th scope="col">1</th><th scope="col">4</th><th scope="col">1</th><th scope="col">−6</th></tr></thead>
+              <tbody>
+                <tr><td>× (−3), add</td><td>1</td><td>1</td><td>−2</td><td>0</td></tr>
+              </tbody>
+            </table>
+            <h4>Result</h4>
+            <p>The remainder is 0, so <span class="math" data-tex="x + 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span> is a factor:</p>
+            <span class="math-display" data-tex="x^3 + 4x^2 + x - 6 = (x + 3)(x^2 + x - 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mn>4</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>6</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>x</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="P(-3) = -27 + 36 - 3 - 6 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mn>27</mn><mo>+</mo><mn>36</mn><mo>−</mo><mn>3</mn><mo>−</mo><mn>6</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Polynomials up to degree 8; coefficients may be fractions.</li>
-            <li>The divisor cannot be the zero polynomial.</li>
+            <li><strong>Factoring:</strong> once one root is known, division gives the remaining factor.</li>
+            <li><strong>Improper fractions:</strong> splitting off the polynomial part before <a href="../partial-fractions/">partial fractions</a> or integration.</li>
+            <li><strong>Slant asymptotes:</strong> the quotient of a rational function shows its long-run behaviour.</li>
+            <li><strong>Error-detecting codes:</strong> cyclic redundancy checks use polynomial division.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Missing zero terms.</strong> Write <span class="math" data-tex="x^4 - 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span> as <span class="math" data-tex="x^4 + 0x^3 + 0x^2 + 0x - 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>4</mn></msup><mo>+</mo><mn>0</mn><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mn>0</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>0</mn><mi>x</mi><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Subtracting only the first term.</strong> Subtract the whole product; change every sign.</li>
+            <li><strong>Wrong sign in synthetic division.</strong> For <span class="math" data-tex="x + 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span>, use <span class="math" data-tex="c = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Stopping too early or too late.</strong> Stop exactly when the remainder's degree is lower than the divisor's.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Leaving out zero terms (write x⁴ − 1 as x⁴ + 0x³ + 0x² + 0x − 1 when working by hand).</li>
-            <li>Subtracting only the first term of the product instead of the whole product.</li>
+            <li>Polynomials in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> up to degree 8 with rational coefficients; the working is exact.</li>
+            <li>The divisor cannot be 0.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I divide polynomials?</summary>
+            <div class="faq-answer"><p>Repeat: divide the leading terms, multiply the divisor by the result, subtract. Stop when the remainder has a lower degree than the divisor.</p></div>
+          </details>
+          <details>
+            <summary>What is the remainder theorem?</summary>
+            <div class="faq-answer"><p>The remainder when P(x) is divided by x − c equals P(c).</p></div>
+          </details>
+          <details>
+            <summary>When can I use synthetic division?</summary>
+            <div class="faq-answer"><p>When the divisor is linear with leading coefficient 1, of the form x − c.</p></div>
+          </details>
+          <details>
+            <summary>What does a remainder of 0 mean?</summary>
+            <div class="faq-answer"><p>The divisor is a factor of the dividend: P(x) = D(x)·Q(x) exactly.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../polynomial-factoring/">Polynomial factoring</a>.</li>
+            <li><a href="../partial-fractions/">Partial fractions</a>.</li>
+            <li><a href="../rational-expression-simplifier/">Rational expressions</a>.</li>
           </ul>
         </section>
 

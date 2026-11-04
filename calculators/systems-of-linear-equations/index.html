@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/systems-of-linear-equations/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I solve a system of two equations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Eliminate one variable by adding a multiple of one equation to the other, solve for the remaining variable, then substitute back."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I tell if a system has no solution?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Elimination produces a false statement like 0 = 5. For two equations, the lines are parallel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Gauss–Jordan elimination?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Elimination done on the augmented matrix until each row has a single leading 1, so the solution can be read off directly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which method is best?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Substitution is quick when a variable has coefficient 1; elimination is more systematic and works for any size."
+          }
+        }
+      ]
     }
   ]
 }
@@ -249,6 +287,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Two equations, two lines</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Solve a 2 × 2 system</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -256,10 +309,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Systems of linear equations</a></li>
-            <li><a href="#formula-h">Method</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is a system of linear equations?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The idea behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Why elimination works</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: three unknowns</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -267,43 +329,152 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Systems of linear equations</h2>
-          <p>A <strong>system of linear equations</strong> is a set of equations that must all be true at once. With two unknowns, each equation is a line and the solution is where the lines meet; with three unknowns each equation is a plane. This solver handles systems of two equations in <span class="math" data-tex="x, y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi></mrow></semantics></math></span></span> or three in <span class="math" data-tex="x, y, z"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi></mrow></semantics></math></span></span>, using the <strong>elimination method</strong> written as row operations, with exact fractions throughout.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second equation a multiple of the first (for example double every number). The two lines become one, and the solver reports infinitely many solutions in terms of a parameter <span class="math" data-tex="t"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow></semantics></math></span></span>.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a system of linear equations?</h2>
+          <p>A <strong>system of linear equations</strong> is a set of equations that must all be true at once, such as <span class="math" data-tex="2x + 3y = 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>12</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x - y = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>. Its solution is the set of values that satisfies every equation. With two unknowns, each equation is a line, and the solution is where the lines meet. With three unknowns, each equation is a plane.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second equation a multiple of the first, such as <span class="math" data-tex="x + 2y = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="2x + 4y = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>4</mn><mi>y</mi><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span>. They describe the same line, so there are infinitely many solutions.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Solves 2 × 2 and 3 × 3 systems by elimination (Gauss–Jordan), showing each row operation.</li>
+            <li>Works with exact fractions throughout.</li>
+            <li>Detects systems with no solution or infinitely many.</li>
+            <li>Checks the solution in every original equation and graphs a 2 × 2 system.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>Three operations never change the solutions of a system:</p>
+          <ol>
+            <li>swapping two equations;</li>
+            <li>multiplying an equation by a non-zero number;</li>
+            <li>adding a multiple of one equation to another.</li>
+          </ol>
+          <p><strong>Elimination</strong> uses them to remove one variable at a time until each equation contains a single unknown. Written in a grid of coefficients (the augmented matrix), this is Gauss–Jordan elimination.</p>
+          <div class="callout">
+            <p class="callout-title">Three possible outcomes</p>
+            <p>Exactly one solution (lines or planes meeting at a point), no solution (parallel lines), or infinitely many (the same line, or planes meeting in a line).</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Method</h2>
-          <p>Write the coefficients as an augmented matrix and use three operations that never change the solutions:</p>
-          <ol>
-            <li>Swap two equations: <span class="math" data-tex="R_i \leftrightarrow R_j"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>↔</mo><msub><mi>R</mi><mi>j</mi></msub></mrow></semantics></math></span></span>.</li>
-            <li>Multiply an equation by a non-zero number: <span class="math" data-tex="R_i \to kR_i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>→</mo><mi>k</mi><msub><mi>R</mi><mi>i</mi></msub></mrow></semantics></math></span></span>.</li>
-            <li>Add a multiple of one equation to another: <span class="math" data-tex="R_i \to R_i + kR_j"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>→</mo><msub><mi>R</mi><mi>i</mi></msub><mo>+</mo><mi>k</mi><msub><mi>R</mi><mi>j</mi></msub></mrow></semantics></math></span></span> (this is "elimination").</li>
-          </ol>
-          <div class="formula-box"><span class="math-display" data-tex="\left[\begin{array}{cc|c} a_1 &amp; b_1 &amp; c_1 \\ a_2 &amp; b_2 &amp; c_2 \end{array}\right] \;\longrightarrow\; \left[\begin{array}{cc|c} 1 &amp; 0 &amp; x \\ 0 &amp; 1 &amp; y \end{array}\right]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center center" columnlines="none solid" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>a</mi><mn>1</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>b</mi><mn>1</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>c</mi><mn>1</mn></msub></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>a</mi><mn>2</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>b</mi><mn>2</mn></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>c</mi><mn>2</mn></msub></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mtext>  </mtext><mo>⟶</mo><mtext>  </mtext><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center center center" columnlines="none solid" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>x</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>y</mi></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow></semantics></math></span></span></div>
-          <p>The outcome is one of three cases: a <strong>unique</strong> solution, <strong>no</strong> solution (a row reads <span class="math" data-tex="0 = k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>=</mo><mi>k</mi></mrow></semantics></math></span></span> with <span class="math" data-tex="k \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span>), or <strong>infinitely many</strong> solutions (a free variable remains).</p>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Method</th><th scope="col">Idea</th></tr></thead>
+            <tbody>
+              <tr><td>Substitution</td><td>Solve one equation for a variable and substitute it into the others</td></tr>
+              <tr><td>Elimination</td><td>Add multiples of equations to cancel a variable</td></tr>
+              <tr><td>Cramer's rule (2 × 2)</td><td><span class="math" data-tex="x = \tfrac{c_1b_2 - c_2b_1}{a_1b_2 - a_2b_1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><msub><mi>c</mi><mn>1</mn></msub><msub><mi>b</mi><mn>2</mn></msub><mo>−</mo><msub><mi>c</mi><mn>2</mn></msub><msub><mi>b</mi><mn>1</mn></msub></mrow><mrow><msub><mi>a</mi><mn>1</mn></msub><msub><mi>b</mi><mn>2</mn></msub><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub><msub><mi>b</mi><mn>1</mn></msub></mrow></mfrac></mrow></semantics></math></span></span>, <span class="math" data-tex="y = \tfrac{a_1c_2 - a_2c_1}{a_1b_2 - a_2b_1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mfrac><mrow><msub><mi>a</mi><mn>1</mn></msub><msub><mi>c</mi><mn>2</mn></msub><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub><msub><mi>c</mi><mn>1</mn></msub></mrow><mrow><msub><mi>a</mi><mn>1</mn></msub><msub><mi>b</mi><mn>2</mn></msub><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub><msub><mi>b</mi><mn>1</mn></msub></mrow></mfrac></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Determinant test</td><td><span class="math" data-tex="\det A \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>det</mi><mo>⁡</mo><mi>A</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span>: exactly one solution</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="x, y, z"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi></mrow></semantics></math></span></span></td><td>The unknowns.</td></tr>
+              <tr><td><span class="math" data-tex="a_i, b_i, c_i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>b</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>c</mi><mi>i</mi></msub></mrow></semantics></math></span></span></td><td>Coefficients of each equation.</td></tr>
+              <tr><td><span class="math" data-tex="[A \mid b]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>A</mi><mo>∣</mo><mi>b</mi><mo stretchy="false">]</mo></mrow></semantics></math></span></span></td><td>The augmented matrix: coefficients and right-hand sides.</td></tr>
+              <tr><td>Pivot</td><td>The leading entry used to eliminate a variable from the other rows.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Why elimination works</h2>
+          <p>If <span class="math" data-tex="(x, y)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> satisfies <span class="math" data-tex="E_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="E_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>2</mn></msub></mrow></semantics></math></span></span>, it also satisfies <span class="math" data-tex="E_1 + kE_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mn>1</mn></msub><mo>+</mo><mi>k</mi><msub><mi>E</mi><mn>2</mn></msub></mrow></semantics></math></span></span>: adding true equations gives a true equation. The step is reversible (subtract <span class="math" data-tex="kE_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><msub><mi>E</mi><mn>2</mn></msub></mrow></semantics></math></span></span> again), so no solutions are gained or lost. Choosing <span class="math" data-tex="k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow></semantics></math></span></span> to cancel a variable reduces the number of unknowns.</p>
+          <p>For a 2 × 2 system, eliminating <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> from <span class="math" data-tex="a_1x + b_1y = c_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>b</mi><mn>1</mn></msub><mi>y</mi><mo>=</mo><msub><mi>c</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="a_2x + b_2y = c_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub><mi>x</mi><mo>+</mo><msub><mi>b</mi><mn>2</mn></msub><mi>y</mi><mo>=</mo><msub><mi>c</mi><mn>2</mn></msub></mrow></semantics></math></span></span> gives <span class="math" data-tex="(a_1b_2 - a_2b_1)x = c_1b_2 - c_2b_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>a</mi><mn>1</mn></msub><msub><mi>b</mi><mn>2</mn></msub><mo>−</mo><msub><mi>a</mi><mn>2</mn></msub><msub><mi>b</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>x</mi><mo>=</mo><msub><mi>c</mi><mn>1</mn></msub><msub><mi>b</mi><mn>2</mn></msub><mo>−</mo><msub><mi>c</mi><mn>2</mn></msub><msub><mi>b</mi><mn>1</mn></msub></mrow></semantics></math></span></span>, which is Cramer's rule.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Solve <span class="math" data-tex="2x + 3y = 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>12</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x - y = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Eliminate x</h4>
-            <p>Multiply the second equation by 2 and subtract it from the first:</p>
-            <span class="math-display" data-tex="(2x + 3y) - (2x - 2y) = 12 - 2 \;\Rightarrow\; 5y = 10 \;\Rightarrow\; y = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>2</mn><mi>x</mi><mo>−</mo><mn>2</mn><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mn>12</mn><mo>−</mo><mn>2</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mn>5</mn><mi>y</mi><mo>=</mo><mn>10</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>y</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Back-substitute</h4>
-            <span class="math-display" data-tex="x - 2 = 1 \;\Rightarrow\; x = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>−</mo><mn>2</mn><mo>=</mo><mn>1</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>x</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Check</h4>
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="2x + 3y = 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>12</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x - y = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Eliminate y</h4>
+            <p>Multiply the second equation by 3 and add: <span class="math" data-tex="2x + 3y + 3x - 3y = 12 + 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>+</mo><mn>3</mn><mi>x</mi><mo>−</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>12</mn><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="5x = 15"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mi>x</mi><mo>=</mo><mn>15</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: Back-substitute</h4>
+            <span class="math-display" data-tex="3 - y = 1 \;\Rightarrow\; y = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>3</mn><mo>−</mo><mi>y</mi><mo>=</mo><mn>1</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>y</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
             <p><span class="math" data-tex="2(3) + 3(2) = 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>3</mn><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>12</mn></mrow></semantics></math></span></span> ✓ and <span class="math" data-tex="3 - 2 = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>−</mo><mn>2</mn><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span> ✓.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: three unknowns</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve <span class="math" data-tex="x + y + z = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>+</mo><mi>z</mi><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="2x - y + z = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mi>z</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="x + 2y - z = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi><mo>−</mo><mi>z</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Eliminate z</h4>
+            <p>Add the first and third equations: <span class="math" data-tex="2x + 3y = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span>. Subtract the first from the second: <span class="math" data-tex="x - 2y = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mn>2</mn><mi>y</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: Solve the 2 × 2 system</h4>
+            <p>From <span class="math" data-tex="x = 2y - 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>2</mn><mi>y</mi><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>: <span class="math" data-tex="2(2y - 3) + 3y = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>2</mn><mi>y</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="7y = 14"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mi>y</mi><mo>=</mo><mn>14</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="y = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 3: Back-substitute</h4>
+            <span class="math-display" data-tex="1 + 2 + z = 6 \;\Rightarrow\; z = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mi>z</mi><mo>=</mo><mn>6</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>z</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="2 - 2 + 3 = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>−</mo><mn>2</mn><mo>+</mo><mn>3</mn><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span> ✓ and <span class="math" data-tex="1 + 4 - 3 = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>4</mn><mo>−</mo><mn>3</mn><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span> ✓.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Two equations in two unknowns or three equations in three unknowns. Type 0 for a missing term.</li>
-            <li>Coefficients can be integers, decimals or fractions; results are exact fractions.</li>
-            <li>For larger systems, or to use Cramer's rule or the inverse matrix, use the <a href="../matrix-method-linear-systems/">matrix methods calculator</a>.</li>
+            <li><strong>Circuits:</strong> Kirchhoff's laws give a linear system for the loop currents.</li>
+            <li><strong>Statics:</strong> force and moment balances for the reactions of a truss or beam.</li>
+            <li><strong>Mixtures and blending:</strong> amounts of ingredients that meet several targets.</li>
+            <li><strong>Curve fitting:</strong> the parabola through three points.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Multiplying only one side of an equation.</strong> Every term must be multiplied.</li>
+            <li><strong>Sign errors when subtracting equations.</strong> Subtract every term, including the right side.</li>
+            <li><strong>Stopping after one variable.</strong> Substitute back to find the others.</li>
+            <li><strong>Treating "0 = 0" as an error.</strong> It means a dependent system with infinitely many solutions.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Two or three unknowns; coefficients may be fractions or decimals, handled exactly.</li>
+            <li>For larger systems, use the <a href="../matrix-method-linear-systems/">matrix method</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I solve a system of two equations?</summary>
+            <div class="faq-answer"><p>Eliminate one variable by adding a multiple of one equation to the other, solve for the remaining variable, then substitute back.</p></div>
+          </details>
+          <details>
+            <summary>How can I tell if a system has no solution?</summary>
+            <div class="faq-answer"><p>Elimination produces a false statement like 0 = 5. For two equations, the lines are parallel.</p></div>
+          </details>
+          <details>
+            <summary>What is Gauss–Jordan elimination?</summary>
+            <div class="faq-answer"><p>Elimination done on the augmented matrix until each row has a single leading 1, so the solution can be read off directly.</p></div>
+          </details>
+          <details>
+            <summary>Which method is best?</summary>
+            <div class="faq-answer"><p>Substitution is quick when a variable has coefficient 1; elimination is more systematic and works for any size.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../matrix-method-linear-systems/">Matrix method for linear systems</a>.</li>
+            <li><a href="../intersection-of-two-lines/">Intersection of two lines</a>.</li>
+            <li><a href="../matrix-calculator/">Matrices and determinants</a>.</li>
           </ul>
         </section>
 

@@ -1,44 +1,144 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the rational expression simplifier does</h2>
-          <p>A <strong>rational expression</strong> is a fraction of two polynomials, \(P(x)/Q(x)\). It is simplified by cancelling their common factors, just as \(\tfrac{6}{8} = \tfrac{3}{4}\) cancels a common factor 2.</p>
-          <p>The calculator finds the greatest common divisor of the polynomials exactly (Euclid’s algorithm), shows both in factored form, and keeps track of the values of x where the original expression is not defined — cancelling a factor does not make those values allowed.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Look at the graph: a cancelled factor leaves a hole, while a factor that stays in the denominator gives a vertical asymptote.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a rational expression?</h2>
+          <p>A <strong>rational expression</strong> is a fraction whose numerator and denominator are polynomials, such as \(\tfrac{x^2 - 9}{x^2 + x - 6}\). It is simplified exactly like a numerical fraction: factor the top and the bottom and cancel the common factors. The one new idea is that the expression is not defined where the denominator is 0, and those <strong>excluded values</strong> stay excluded even after cancelling.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter \(\tfrac{x + 1}{x^2 + 1}\). The top and bottom share no factor, so it is already in lowest terms, and \(x^2 + 1\) is never 0, so nothing is excluded.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Factors the numerator and denominator over the rationals.</li>
+            <li>Finds their greatest common factor with Euclid's algorithm and cancels it.</li>
+            <li>Lists the excluded values, the holes (cancelled zeros) and the vertical asymptotes.</li>
+            <li>Checks the simplification at sample points and graphs the result.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>\(\tfrac{AC}{BC} = \tfrac{A}{B}\) whenever \(C \ne 0\): dividing the top and the bottom by the same non-zero factor does not change the value. But only <strong>factors</strong> cancel. In \(\tfrac{x + 3}{x + 5}\) the \(x\) is part of a sum and cannot be cancelled.</p>
+          <p>A cancelled factor \((x - a)\) leaves a <strong>hole</strong> in the graph at \(x = a\): the simplified formula has a value there, but the original expression does not. A factor that stays in the denominator gives a <strong>vertical asymptote</strong>.</p>
+          <div class="callout">
+            <p class="callout-title">Equal, except at the holes</p>
+            <p>\(\tfrac{x^2 - 9}{x + 3}\) and \(x - 3\) agree for every \(x\) except \(x = -3\), where the first is not defined.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ \frac{P(x)}{Q(x)} = \frac{P(x)/G(x)}{Q(x)/G(x)},\quad G = \gcd(P, Q),\quad Q(x) \ne 0 \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box">\[ \frac{P(x)}{Q(x)} = \frac{P(x) / G(x)}{Q(x) / G(x)}, \qquad G = \gcd(P, Q) \]</div>
+          <table>
+            <thead><tr><th scope="col">Feature</th><th scope="col">Where</th></tr></thead>
             <tbody>
-              <tr><td>\(P,\ Q\)</td><td>Numerator and denominator polynomials</td></tr>
-              <tr><td>\(G\)</td><td>Greatest common divisor (the common factor)</td></tr>
+              <tr><td>Excluded values</td><td>Zeros of the original denominator \(Q\)</td></tr>
+              <tr><td>Holes</td><td>Zeros of the common factor \(G\)</td></tr>
+              <tr><td>Vertical asymptotes</td><td>Zeros of the simplified denominator</td></tr>
+              <tr><td>x-intercepts</td><td>Zeros of the simplified numerator</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(P, Q\)</td><td>Numerator and denominator polynomials.</td></tr>
+              <tr><td>\(G\)</td><td>Their greatest common factor (gcd).</td></tr>
+              <tr><td>Hole</td><td>A single missing point in the graph.</td></tr>
+              <tr><td>Asymptote</td><td>A vertical line the graph approaches but never reaches.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Euclid's algorithm for polynomials</h2>
+          <p>To find \(\gcd(P, Q)\) without factoring, divide \(P\) by \(Q\) and keep the remainder \(R\). Then \(\gcd(P, Q) = \gcd(Q, R)\), because any common factor of \(P\) and \(Q\) also divides \(R = P - \text{(quotient)}\,Q\). Repeat until the remainder is 0; the last non-zero remainder is the gcd. This always works, even when the factors have irrational roots.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Simplify (x² − 9)/(x² + x − 6)</h3>
-            <h4>Step 1 — Factor</h4>
+            <h3>Problem</h3>
+            <p>Simplify \(\dfrac{x^2 - 9}{x^2 + x - 6}\) and describe its graph.</p>
+            <h4>Step 1: Factor</h4>
             \[ \frac{(x - 3)(x + 3)}{(x + 3)(x - 2)} \]
-            <h4>Step 2 — Cancel (x + 3)</h4>
-            \[ = \frac{x - 3}{x - 2} \]
-            <h4>Step 3 — Excluded values</h4>
-            <p>The original denominator is zero at \(x = -3\) and \(x = 2\), so \(x \ne -3, 2\). At \(x = -3\) the graph has a hole; at \(x = 2\) a vertical asymptote.</p>
+            <h4>Step 2: Cancel the common factor</h4>
+            \[ \frac{x - 3}{x - 2}, \qquad x \ne -3,\ x \ne 2 \]
+            <h4>Step 3: Features</h4>
+            <p>Hole at \(x = -3\), at height \(\tfrac{-6}{-5} = \tfrac{6}{5}\). Vertical asymptote \(x = 2\). x-intercept at \(x = 3\).</p>
+            <h4>Check</h4>
+            <p>At \(x = 0\): original \(\tfrac{-9}{-6} = 1.5\), simplified \(\tfrac{-3}{-2} = 1.5\). ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a cubic over a quadratic</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Simplify \(\dfrac{x^3 - 1}{x^2 - 1}\).</p>
+            <h4>Step 1: Factor (difference of cubes and of squares)</h4>
+            \[ \frac{(x - 1)(x^2 + x + 1)}{(x - 1)(x + 1)} \]
+            <h4>Step 2: Cancel</h4>
+            \[ \frac{x^2 + x + 1}{x + 1}, \qquad x \ne 1,\ x \ne -1 \]
+            <h4>Step 3: Features</h4>
+            <p>Hole at \(x = 1\), at height \(\tfrac{3}{2}\). Vertical asymptote \(x = -1\). The factor \(x^2 + x + 1\) has no real roots, so there are no x-intercepts.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Polynomials in x up to degree 6 with rational coefficients.</li>
-            <li>Factors are over the rationals: quadratics with irrational roots are left as they are.</li>
+            <li><strong>Transfer functions:</strong> in control engineering, cancelling factors shows the poles and zeros of a system.</li>
+            <li><strong>Average cost:</strong> total cost divided by quantity is a rational function.</li>
+            <li><strong>Optics and circuits:</strong> lens and parallel-resistance formulas simplify to rational expressions.</li>
+            <li><strong>Calculus:</strong> simplifying before taking a limit removes a 0/0 form.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Cancelling terms instead of factors.</strong> \(\tfrac{x + 3}{x + 5} \ne \tfrac{3}{5}\).</li>
+            <li><strong>Dropping the excluded values.</strong> They come from the original denominator, before cancelling.</li>
+            <li><strong>Confusing holes with asymptotes.</strong> A cancelled factor gives a hole; a remaining one gives an asymptote.</li>
+            <li><strong>Sign slips with \((a - x)\).</strong> \(a - x = -(x - a)\), so it cancels with \((x - a)\) leaving \(-1\).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Cancelling terms instead of factors: (x + 3)/(x + 5) cannot be “simplified” to 3/5.</li>
-            <li>Dropping the excluded values after cancelling.</li>
+            <li>Numerator and denominator are polynomials in \(x\) of degree up to 6, with rational coefficients.</li>
+            <li>Factoring is over the rationals; irrational zeros are found numerically and marked as rounded.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I simplify a rational expression?</summary>
+            <div class="faq-answer"><p>Factor the numerator and the denominator completely, then cancel the factors they have in common.</p></div>
+          </details>
+          <details>
+            <summary>What are excluded values?</summary>
+            <div class="faq-answer"><p>Values of x that make the original denominator 0. The expression is not defined there.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between a hole and a vertical asymptote?</summary>
+            <div class="faq-answer"><p>A hole comes from a factor that cancels; the graph is missing one point. An asymptote comes from a factor left in the denominator; the graph shoots off to infinity.</p></div>
+          </details>
+          <details>
+            <summary>Can I cancel x in (x + 2)/x?</summary>
+            <div class="faq-answer"><p>No. The x on top is part of the sum x + 2, not a factor of the whole numerator.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../polynomial-factoring/">Polynomial factoring</a>.</li>
+            <li><a href="../partial-fractions/">Partial fractions</a>.</li>
+            <li><a href="../radical-rational-equations/">Rational equations</a>.</li>
           </ul>
         </section>

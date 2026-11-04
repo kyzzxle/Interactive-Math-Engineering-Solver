@@ -1,41 +1,152 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Logarithms</h2>
-          <p>A <strong>logarithm</strong> answers the question "what power?": \(\log_b x\) is the exponent you put on the base \(b\) to get \(x\). This calculator evaluates logarithms in any valid base — exactly when the answer is a fraction such as \(\log_4 8 = \tfrac{3}{2}\) — and solves two common equation types: logarithmic equations \(\log_b(ax + c) = d\) and exponential equations \(b^{ax + c} = k\).</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Evaluate \(\log_2 x\) for \(x = 2, 4, 8, 16\): each doubling of \(x\) adds exactly 1 to the logarithm. Logarithms turn multiplication into addition.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a logarithm?</h2>
+          <p>A <strong>logarithm</strong> answers the question "to what power must the base be raised to give this number?" Because \(2^5 = 32\), \(\log_2 32 = 5\). Logarithms are the inverse of exponential functions, which makes them the tool for solving equations where the unknown is in an exponent.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Try \(\log_{10} 1000\) and then \(\log_{10} 50\). The first is exactly 3; the second lies between 1 and 2, because 50 is between \(10^1\) and \(10^2\).</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>Evaluate</strong> \(\log_b x\) for any base, exactly when \(x\) is a power of the base, otherwise with the change-of-base formula.</li>
+            <li><strong>Solve</strong> \(\log_b(ax + c) = d\), with the domain check.</li>
+            <li><strong>Solve</strong> exponential equations \(b^{ax + c} = k\).</li>
+          </ul>
+          <p>Each answer is checked by raising the base to the result.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The idea behind it</h2>
+          <p>The definition is a two-way translation:</p>
+          \[ \log_b x = y \iff b^y = x \qquad (b \gt 0,\ b \ne 1,\ x \gt 0). \]
+          <p>Since \(b^y\) is always positive, the logarithm of 0 or a negative number is not defined. The graph of \(y = \log_b x\) is the graph of \(y = b^x\) reflected in the line \(y = x\); every logarithm graph passes through \((1, 0)\) and \((b, 1)\).</p>
+          <div class="callout">
+            <p class="callout-title">Common and natural logarithms</p>
+            <p>\(\log x\) usually means base 10 and \(\ln x\) means base \(e \approx 2.71828\). Any other base can be computed from either one.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and rules</h2>
-          <div class="formula-box">\[ \log_b x = y \iff b^y = x \qquad \log_b x = \frac{\ln x}{\ln b} \]</div>
-          <div class="formula-box">\[ \log_b(MN) = \log_b M + \log_b N \qquad \log_b\frac{M}{N} = \log_b M - \log_b N \qquad \log_b(M^k) = k\log_b M \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Rule</th><th scope="col">Formula</th></tr></thead>
             <tbody>
-              <tr><td>\(b\)</td><td>Base: positive and not equal to 1. Base 10 is the common log; base \(e \approx 2.71828\) is the natural log \(\ln\).</td></tr>
-              <tr><td>\(x\)</td><td>Argument: must be positive.</td></tr>
+              <tr><td>Product</td><td>\(\log_b(MN) = \log_b M + \log_b N\)</td></tr>
+              <tr><td>Quotient</td><td>\(\log_b \tfrac{M}{N} = \log_b M - \log_b N\)</td></tr>
+              <tr><td>Power</td><td>\(\log_b M^p = p\log_b M\)</td></tr>
+              <tr><td>Change of base</td><td>\(\log_b x = \tfrac{\ln x}{\ln b} = \tfrac{\log x}{\log b}\)</td></tr>
+              <tr><td>Special values</td><td>\(\log_b 1 = 0,\ \log_b b = 1,\ \log_b b^k = k\)</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(b\)</td><td>The base: positive and not 1.</td></tr>
+              <tr><td>\(x\)</td><td>The argument: must be positive.</td></tr>
+              <tr><td>\(a, c\)</td><td>Coefficients of the linear expression \(ax + c\).</td></tr>
+              <tr><td>\(d, k\)</td><td>The right side of the log or exponential equation.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the change-of-base formula</h2>
+          <p>Let \(y = \log_b x\), so \(b^y = x\). Take the natural logarithm of both sides and use the power rule:</p>
+          \[ y \ln b = \ln x \;\Rightarrow\; y = \frac{\ln x}{\ln b}. \]
+          <h3>Solving exponential equations</h3>
+          <p>For \(b^{ax + c} = k\), take \(\log_b\) of both sides: \(ax + c = \log_b k\), then solve the linear equation for \(x\).</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Solve \(5^{x - 1} = 200\)</h3>
-            <h4>Step 1 — Take \(\log_5\) of both sides</h4>
-            \[ x - 1 = \log_5 200 \]
-            <h4>Step 2 — Change of base</h4>
-            \[ \log_5 200 = \frac{\ln 200}{\ln 5} \approx \frac{5.298317}{1.609438} \approx 3.292030 \]
-            <h4>Step 3 — Solve</h4>
-            \[ x \approx 3.292030 + 1 = 4.292030 \]
+            <h3>Problem</h3>
+            <p>Solve \(\log_3(2x + 1) = 4\).</p>
+            <h4>Step 1: Domain</h4>
+            <p>The argument must be positive: \(2x + 1 \gt 0\), so \(x \gt -\tfrac{1}{2}\).</p>
+            <h4>Step 2: Exponential form</h4>
+            \[ 2x + 1 = 3^4 = 81 \]
+            <h4>Step 3: Solve</h4>
+            \[ 2x = 80 \;\Rightarrow\; x = 40 \]
+            <h4>Check</h4>
+            <p>\(2(40) + 1 = 81 \gt 0\) and \(\log_3 81 = 4\) because \(3^4 = 81\). ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: an exponential equation</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Solve \(5^{x - 1} = 200\).</p>
+            <h4>Step 1: Take log base 5 of both sides</h4>
+            \[ x - 1 = \log_5 200 \]
+            <h4>Step 2: Change of base</h4>
+            \[ \log_5 200 = \frac{\ln 200}{\ln 5} \approx \frac{5.298317}{1.609438} \approx 3.292030 \]
+            <h4>Step 3: Solve</h4>
+            \[ x \approx 4.292030 \]
+            <h4>Check</h4>
+            <p>\(5^{3.292030} \approx 200\). ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Only real logarithms are used: the base must be positive and not 1, and every logarithm's argument must be positive.</li>
-            <li>An exponential equation \(b^{ax + c} = k\) has a solution only when \(k &gt; 0\).</li>
-            <li>Supported equation types are exactly the two listed above; other forms (such as sums of logarithms) are not solved here.</li>
-            <li>Type <code>e</code> as the base for natural logarithms. Results are rounded to 6 decimal places unless exact.</li>
+            <li><strong>Decibels:</strong> sound level \(10\log_{10}\tfrac{I}{I_0}\); a tenfold increase in intensity adds 10 dB.</li>
+            <li><strong>pH:</strong> \(\text{pH} = -\log_{10}[\text{H}^+]\).</li>
+            <li><strong>Earthquakes:</strong> magnitude scales are logarithmic.</li>
+            <li><strong>Finance:</strong> the time to double money at interest rate \(r\) is \(\tfrac{\ln 2}{\ln(1 + r)}\).</li>
+            <li><strong>Radioactive decay and cooling:</strong> solving for time in exponential models.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Splitting a log of a sum.</strong> \(\log(M + N) \ne \log M + \log N\).</li>
+            <li><strong>Ignoring the domain.</strong> A solution that makes the argument 0 or negative must be rejected.</li>
+            <li><strong>Dividing the arguments.</strong> \(\tfrac{\ln 200}{\ln 5}\) is not \(\ln 40\).</li>
+            <li><strong>Using the wrong base on a calculator.</strong> "log" is base 10, "ln" is base \(e\).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The base is positive and not 1; type <code>e</code> for the natural logarithm.</li>
+            <li>The argument of a logarithm must be positive; solutions are checked against this.</li>
+            <li>Decimal results are rounded to 6 places; exact answers are given when the value is a rational power.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is a logarithm in simple terms?</summary>
+            <div class="faq-answer"><p>The exponent you need: log_b x is the power you raise b to in order to get x.</p></div>
+          </details>
+          <details>
+            <summary>How do I calculate a log with a different base?</summary>
+            <div class="faq-answer"><p>Use the change-of-base formula: log_b x = ln x / ln b.</p></div>
+          </details>
+          <details>
+            <summary>Why can't I take the log of a negative number?</summary>
+            <div class="faq-answer"><p>A positive base raised to any real power is positive, so no real exponent gives a negative number or 0.</p></div>
+          </details>
+          <details>
+            <summary>How do I solve an equation with x in the exponent?</summary>
+            <div class="faq-answer"><p>Isolate the power, take a logarithm of both sides, and solve the resulting linear equation.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../exponent-and-radical-simplifier/">Exponents and radicals</a>.</li>
+            <li><a href="../function-operations/">Inverse functions</a>.</li>
+            <li><a href="../compound-interest/">Compound interest</a>.</li>
           </ul>
         </section>
