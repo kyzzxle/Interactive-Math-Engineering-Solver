@@ -9,6 +9,8 @@ import { validator, answer, sqrtFrac, fracAnswer, tx, fmt } from '../lib/calc-ki
 import { simplifySqrt } from '../lib/exact.js';
 import { plot } from '../lib/plot.js';
 import { linearTex } from '../lib/lines.js';
+import { Frac } from '../lib/fraction.js';
+import { ellipsePractice } from '../explore/analytic-practice.js';
 
 const shift = (v, h) => (h.isZero() ? v : `${v} ${h.sign() > 0 ? '-' : '+'} ${h.abs().toTex()}`);
 /** "h ± c" as TeX with an exact radical c. */
@@ -16,6 +18,7 @@ const pm = (h, c) => (h.isZero() ? `\\pm ${c.tex}` : `${h.toTex()} \\pm ${c.tex}
 
 export const calculator = {
   id: 'ellipse',
+  practice: ellipsePractice,
   explore: {
     title: 'Draw an ellipse with two pins',
     intro: 'Move P around the ellipse. The distances to the two foci change, but their sum always equals the major-axis length 2a — that is the definition of an ellipse.',
@@ -76,23 +79,35 @@ export const calculator = {
     const std = `${term(sq('x', h), a2)} + ${term(sq('y', k), b2)} = 1`;
     const axisVar = horiz ? 'x' : 'y', c0 = horiz ? h : k, other = horiz ? k : h;
     const ptTex = (main, side) => (horiz ? `\\left(${main},\\ ${side}\\right)` : `\\left(${side},\\ ${main}\\right)`);
+    /** "(h ± d, k)" plus, when d is rational, the two points written out. */
+    const pair = (d, dTex) => {
+      const base = ptTex(d === null ? pm(c0, c) : `${c0.toTex()} \\pm ${dTex}`, other.toTex());
+      if (d === null) return base;
+      return `${base} = ${ptTex(c0.sub(d).toTex(), other.toTex())},\\ ${ptTex(c0.add(d).toTex(), other.toTex())}`;
+    };
+    const cFrac = c.exact && !c2.isZero() ? Frac.of(c.text) : null;
     const steps = [
-      { title: 'Known values', tex: `(h, k) = (${h.toTex()},\\ ${k.toTex()}),\\quad a = ${a.toTex()},\\quad b = ${b.toTex()}` },
-      { title: 'Standard form', tex: std },
-      { title: circle ? 'Equal semi-axes: a circle' : `Major axis is ${horiz ? 'horizontal (a > b)' : 'vertical (b > a)'}`, text: circle ? 'With a = b the ellipse is a circle: both foci are at the centre.' : `The major semi-axis is ${horiz ? 'a' : 'b'} = ${p}, the minor semi-axis is ${horiz ? 'b' : 'a'} = ${q}.` },
-      { title: 'Focal distance', texLines: [`c^2 = ${horiz ? 'a^2 - b^2' : 'b^2 - a^2'} = ${p.pow(2).toTex()} - ${q.pow(2).toTex()} = ${c2.toTex()}`, `c = ${c.tex}${c.exact ? '' : ` \\approx ${fmt(c.value)}`}`] },
-      { title: 'Vertices, co-vertices and foci', texLines: [`\\text{Vertices: } ${ptTex(`${c0.toTex()} \\pm ${p.toTex()}`, other.toTex())}`, `\\text{Co-vertices: } ${horiz ? `\\left(${h.toTex()},\\ ${k.toTex()} \\pm ${q.toTex()}\\right)` : `\\left(${h.toTex()} \\pm ${q.toTex()},\\ ${k.toTex()}\\right)`}`, `\\text{Foci: } ${ptTex(pm(c0, c), other.toTex())}`] },
-      { title: 'Eccentricity and latus rectum', texLines: [`e = \\frac{c}{${horiz ? 'a' : 'b'}} = ${e.tex}${e.exact ? '' : ` \\approx ${fmt(e.value)}`}`, `\\text{latus rectum} = \\frac{2${horiz ? 'b' : 'a'}^2}{${horiz ? 'a' : 'b'}} = ${lr.toTex()}`] },
-      { title: 'General form (multiply out and collect terms)', tex: general },
+      { title: 'Known values', tex: `(h, k) = (${h.toTex()},\\ ${k.toTex()}),\\quad a = ${a.toTex()},\\quad b = ${b.toTex()}`, note: 'Here a is the horizontal semi-axis (half the width) and b is the vertical one (half the height).' },
+      { title: 'Standard form', tex: std, note: `The denominators are a² = ${a2} and b² = ${b2}, and the numbers subtracted from x and y are the centre coordinates.` },
+      { title: circle ? 'Equal semi-axes: a circle' : `Major axis is ${horiz ? 'horizontal (a > b)' : 'vertical (b > a)'}`, text: circle ? 'With a = b the ellipse is a circle: both foci are at the centre.' : `The major semi-axis is ${horiz ? 'a' : 'b'} = ${p}, the minor semi-axis is ${horiz ? 'b' : 'a'} = ${q}.`, note: circle ? undefined : 'The foci always lie on the longer (major) axis.' },
+      { title: 'Focal distance', texLines: [`c^2 = ${horiz ? 'a^2 - b^2' : 'b^2 - a^2'} = ${p.pow(2).toTex()} - ${q.pow(2).toTex()} = ${c2.toTex()}`, `c = ${c.tex}${c.exact ? '' : ` \\approx ${fmt(c.value)}`}`], note: 'From the end of the minor axis, the distance to each focus is the major semi-axis, so the major semi-axis, the minor semi-axis and c form a right triangle. Subtract (not add) for an ellipse.' },
+      { title: 'Vertices, co-vertices and foci', texLines: [`\\text{Vertices: } ${pair(p, p.toTex())}`, `\\text{Co-vertices: } ${horiz ? `\\left(${h.toTex()},\\ ${k.toTex()} \\pm ${q.toTex()}\\right)` : `\\left(${h.toTex()} \\pm ${q.toTex()},\\ ${k.toTex()}\\right)`}`, `\\text{Foci: } ${cFrac ? pair(cFrac, cFrac.toTex()) : ptTex(pm(c0, c), other.toTex())}`], note: 'Vertices are the ends of the major axis, co-vertices the ends of the minor axis; the foci are c units from the centre along the major axis.' },
+      { title: 'Eccentricity and latus rectum', texLines: [`e = \\frac{c}{${horiz ? 'a' : 'b'}} = \\frac{${c.tex}}{${p.toTex()}}${`\\frac{${c.tex}}{${p.toTex()}}` === e.tex ? '' : ` = ${e.tex}`}${e.exact ? '' : ` \\approx ${fmt(e.value)}`}`, `\\text{latus rectum} = \\frac{2${horiz ? 'b' : 'a'}^2}{${horiz ? 'a' : 'b'}} = \\frac{2(${q.pow(2).toTex()})}{${p.toTex()}} = ${lr.toTex()}`], note: 'e = 0 is a circle; the closer e is to 1, the flatter the ellipse. The latus rectum is the chord through a focus perpendicular to the major axis.' },
+      { title: 'General form (multiply out and collect terms)', texLines: [`${b2.isOne() ? '' : b2.toTex()}${sq('x', h)} + ${a2.isOne() ? '' : a2.toTex()}${sq('y', k)} = ${a2.mul(b2).toTex()}`, general], note: 'Multiply both sides by a²b², expand the squares and move everything to the left.' },
     ];
-    if (!circle) steps.push({ title: 'Directrices', tex: `${axisVar} = ${c0.toTex()} \\pm \\frac{${p.pow(2).toTex()}}{c} ${c.exact ? `= ${c0.toTex()} \\pm ${p.pow(2).toNumber() / c.value}` : `\\approx ${fmt(c0.toNumber())} \\pm ${fmt(p.pow(2).toNumber() / c.value, 4)}`}` });
+    if (!circle) {
+      const dd = cFrac ? p.pow(2).div(cFrac) : null;
+      steps.push({ title: 'Directrices', texLines: [`${axisVar} = ${c0.toTex()} \\pm \\frac{${horiz ? 'a' : 'b'}^2}{c} = ${c0.toTex()} \\pm \\frac{${p.pow(2).toTex()}}{${c.tex}}`, dd ? `${axisVar} = ${c0.sub(dd).toTex()} \\quad\\text{and}\\quad ${axisVar} = ${c0.add(dd).toTex()}` : `${axisVar} \\approx ${fmt(c0.toNumber() - p.pow(2).toNumber() / c.value, 4)} \\quad\\text{and}\\quad ${axisVar} \\approx ${fmt(c0.toNumber() + p.pow(2).toNumber() / c.value, 4)}`], note: 'For every point of the ellipse, its distance to a focus is e times its distance to the matching directrix.' });
+      const cv = horiz ? [h, k.add(q)] : [h.add(q), k];
+      steps.push({ title: 'Check: the focal distances add up to the major axis', texLines: [`\\text{Co-vertex } \\left(${cv[0].toTex()},\\ ${cv[1].toTex()}\\right) \\text{ to each focus: } \\sqrt{${q.pow(2).toTex()} + ${c2.toTex()}} = \\sqrt{${p.pow(2).toTex()}} = ${p.toTex()}`, `${p.toTex()} + ${p.toTex()} = ${p.mul(2).toTex()} = \\text{length of the major axis}\\ \\checkmark`], note: `Every point P on the ellipse has PF₁ + PF₂ = ${p.mul(2)}. At a co-vertex the two distances are equal, so each is ${p}.` });
+    }
     const an = a.toNumber(), bn = b.toNumber(), hn = h.toNumber(), kn = k.toNumber(), cn = c.value;
     const R = Math.max(an, bn) * 1.25;
     const foci = horiz ? [[hn - cn, kn], [hn + cn, kn]] : [[hn, kn - cn], [hn, kn + cn]];
     const ram = Math.PI * (3 * (an + bn) - Math.sqrt((3 * an + bn) * (an + 3 * bn)));
     return {
       ok: true,
-      final: { texLines: [std, circle ? `\\text{A circle of radius } ${a.toTex()}\\text{: both foci at the centre, } e = 0` : `\\text{Foci: } ${ptTex(pm(c0, c), other.toTex())},\\quad e = ${e.tex}`] },
+      final: { texLines: [std, circle ? `\\text{A circle of radius } ${a.toTex()}\\text{: both foci at the centre, } e = 0` : `\\text{Foci: } ${cFrac ? `${ptTex(c0.sub(cFrac).toTex(), other.toTex())},\\ ${ptTex(c0.add(cFrac).toTex(), other.toTex())}` : ptTex(pm(c0, c), other.toTex())},\\quad e = ${e.tex}`] },
       answers: [
         { label: 'Standard form', valueTex: std, copy: '' },
         answer('c (centre to focus)', cn, { exactTex: c.exact ? undefined : c.tex, irrational: !c.exact }),

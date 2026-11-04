@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/point-to-plane-distance/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the formula for the distance from a point to a plane?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "d = |Ax₀ + By₀ + Cz₀ + D| / √(A² + B² + C²), with the plane written as Ax + By + Cz + D = 0."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does a distance of zero mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The point satisfies the plane equation, so it lies on the plane."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the closest point on the plane?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Move from P along the normal: F = P − t(A, B, C) with t = (Ax₀ + By₀ + Cz₀ + D)/(A² + B² + C²)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the distance between two parallel planes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pick any point on one plane and find its distance to the other, or use |D₂ − D₁|/√(A² + B² + C²) once both have the same A, B and C."
+          }
+        }
+      ]
     }
   ]
 }
@@ -223,6 +261,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Drop a perpendicular onto a plane</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Distance from a point to a plane</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -230,10 +283,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the point-to-plane distance calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is the distance from a point to a plane?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formula</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a radical answer and parallel planes</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -241,48 +303,157 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the point-to-plane distance calculator does</h2>
-          <p>The <strong>distance from a point to a plane</strong> is the length of the shortest segment between them, which is always perpendicular to the plane — that is, parallel to the plane’s <strong>normal vector</strong> <span class="math" data-tex="(A, B, C)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
-          <p>The formula projects the vector from the plane to the point onto the unit normal. The calculator keeps everything exact, so answers appear in simplest radical form, and it also finds the foot of the perpendicular.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Put a point that satisfies the plane’s equation: the numerator is 0, so the distance is 0.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is the distance from a point to a plane?</h2>
+          <p>The distance from a point <span class="math" data-tex="P(x_0, y_0, z_0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>z</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> to a plane is the length of the <strong>shortest</strong> segment from <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span> to any point of the plane. That shortest segment is always <strong>perpendicular</strong> to the plane, so it runs along the plane's normal vector and meets the plane at the <strong>foot of the perpendicular</strong> <span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span>.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Multiply every coefficient of the plane by 2, for example <span class="math" data-tex="4x - 2y + 4z - 6 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>x</mi><mo>−</mo><mn>2</mn><mi>y</mi><mo>+</mo><mn>4</mn><mi>z</mi><mo>−</mo><mn>6</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> instead of <span class="math" data-tex="2x - y + 2z - 3 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>2</mn><mi>z</mi><mo>−</mo><mn>3</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. The plane is the same, and so is the distance: the numerator and the denominator both double.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Takes a plane <span class="math" data-tex="Ax + By + Cz + D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mi>z</mi><mo>+</mo><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and a point <span class="math" data-tex="P(x_0, y_0, z_0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>z</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</li>
+            <li>Finds the perpendicular distance, exactly (in simplest radical form) and as a decimal.</li>
+            <li>Finds the foot of the perpendicular <span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span>, the closest point of the plane to <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span>.</li>
+            <li>Tells you which side of the plane the point is on, and sketches the plane, point and perpendicular.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>The vector <span class="math" data-tex="\vec{n} = (A, B, C)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is <strong>normal</strong> (perpendicular) to the plane. Take any point <span class="math" data-tex="Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow></semantics></math></span></span> on the plane. The distance from <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span> to the plane is the length of the projection of <span class="math" data-tex="\vec{QP}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>Q</mi><mi>P</mi></mrow><mo>⃗</mo></mover></mrow></semantics></math></span></span> onto <span class="math" data-tex="\vec{n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>n</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span>: the part of <span class="math" data-tex="\vec{QP}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>Q</mi><mi>P</mi></mrow><mo>⃗</mo></mover></mrow></semantics></math></span></span> that points straight out of the plane.</p>
+          <p>Substituting <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span> into the left side of the plane equation measures exactly that, scaled by <span class="math" data-tex="|\vec{n}|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span>. Its sign tells you the side: positive on the side <span class="math" data-tex="\vec{n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>n</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span> points to, negative on the other side, zero on the plane.</p>
+          <div class="callout">
+            <p class="callout-title">Same idea in 2D</p>
+            <p>This is the three-dimensional version of the <a href="../distance-from-point-to-line/">distance from a point to a line</a>, <span class="math" data-tex="d = \tfrac{|Ax_0 + By_0 + C|}{\sqrt{A^2 + B^2}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mi>A</mi><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>C</mi><mi mathvariant="normal">∣</mi></mrow><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup></mrow></msqrt></mfrac></mrow></semantics></math></span></span>.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="d = \frac{\lvert A x_0 + B y_0 + C z_0 + D \rvert}{\sqrt{A^2 + B^2 + C^2}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">∣</mo><mi>A</mi><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>0</mn></msub><mo>+</mo><mi>D</mi><mo stretchy="false">∣</mo></mrow><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></msqrt></mfrac></mrow></semantics></math></span></span><span class="math-display" data-tex="F = (x_0, y_0, z_0) - t\,(A, B, C),\quad t = \frac{A x_0 + B y_0 + C z_0 + D}{A^2 + B^2 + C^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>z</mi><mn>0</mn></msub><mo stretchy="false">)</mo><mo>−</mo><mi>t</mi><mtext> </mtext><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="1em"/><mi>t</mi><mo>=</mo><mfrac><mrow><mi>A</mi><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>0</mn></msub><mo>+</mo><mi>D</mi></mrow><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></mfrac></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="d = \frac{\lvert A x_0 + B y_0 + C z_0 + D \rvert}{\sqrt{A^2 + B^2 + C^2}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">∣</mo><mi>A</mi><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>0</mn></msub><mo>+</mo><mi>D</mi><mo stretchy="false">∣</mo></mrow><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></msqrt></mfrac></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="A,\ B,\ C,\ D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mtext> </mtext><mi>B</mi><mo separator="true">,</mo><mtext> </mtext><mi>C</mi><mo separator="true">,</mo><mtext> </mtext><mi>D</mi></mrow></semantics></math></span></span></td><td>Coefficients of the plane Ax + By + Cz + D = 0</td></tr>
-              <tr><td><span class="math" data-tex="(x_0, y_0, z_0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>z</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The point</td></tr>
-              <tr><td><span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span></td><td>Foot of the perpendicular (nearest point on the plane)</td></tr>
+              <tr><td>Signed value</td><td><span class="math" data-tex="N = A x_0 + B y_0 + C z_0 + D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mi>A</mi><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>0</mn></msub><mo>+</mo><mi>D</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Length of the normal</td><td><span class="math" data-tex="|\vec{n}| = \sqrt{A^2 + B^2 + C^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi><mo>=</mo><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Foot of the perpendicular</td><td><span class="math" data-tex="F = P - t\,(A, B, C),\ \ t = \dfrac{N}{A^2 + B^2 + C^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mi>P</mi><mo>−</mo><mi>t</mi><mtext> </mtext><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext>  </mtext><mi>t</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mi>N</mi><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></mfrac></mstyle></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Parallel planes <span class="math" data-tex="Ax + By + Cz + D_1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mi>z</mi><mo>+</mo><msub><mi>D</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="+ D_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><msub><mi>D</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></td><td><span class="math" data-tex="\dfrac{|D_2 - D_1|}{\sqrt{A^2 + B^2 + C^2}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mi mathvariant="normal">∣</mi><msub><mi>D</mi><mn>2</mn></msub><mo>−</mo><msub><mi>D</mi><mn>1</mn></msub><mi mathvariant="normal">∣</mi></mrow><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></msqrt></mfrac></mstyle></mrow></semantics></math></span></span></td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="A, B, C, D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>D</mi></mrow></semantics></math></span></span></td><td>Coefficients of the plane <span class="math" data-tex="Ax + By + Cz + D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mi>z</mi><mo>+</mo><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="\vec{n} = (A, B, C)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Normal vector of the plane.</td></tr>
+              <tr><td><span class="math" data-tex="P(x_0, y_0, z_0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>z</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The given point.</td></tr>
+              <tr><td><span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span></td><td>Foot of the perpendicular from <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span></td><td>The perpendicular distance.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formula</h2>
+          <p>Let <span class="math" data-tex="Q(x_1, y_1, z_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>z</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> be any point on the plane, so <span class="math" data-tex="Ax_1 + By_1 + Cz_1 = -D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>1</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>1</mn></msub><mo>=</mo><mo>−</mo><mi>D</mi></mrow></semantics></math></span></span>. The distance is the length of the projection of <span class="math" data-tex="\vec{QP}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>Q</mi><mi>P</mi></mrow><mo>⃗</mo></mover></mrow></semantics></math></span></span> onto the unit normal:</p>
+          <span class="math-display" data-tex="d = \frac{|\vec{QP}\cdot\vec{n}|}{|\vec{n}|} = \frac{|A(x_0 - x_1) + B(y_0 - y_1) + C(z_0 - z_1)|}{\sqrt{A^2 + B^2 + C^2}}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mrow><mi>Q</mi><mi>P</mi></mrow><mo>⃗</mo></mover><mo>⋅</mo><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi></mrow><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mi>A</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>B</mi><mo stretchy="false">(</mo><msub><mi>y</mi><mn>0</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>C</mi><mo stretchy="false">(</mo><msub><mi>z</mi><mn>0</mn></msub><mo>−</mo><msub><mi>z</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi></mrow><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></msqrt></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Expand the numerator:</p>
+          <span class="math-display" data-tex="Ax_0 + By_0 + Cz_0 - (Ax_1 + By_1 + Cz_1) = Ax_0 + By_0 + Cz_0 + D."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>0</mn></msub><mo>−</mo><mo stretchy="false">(</mo><mi>A</mi><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>1</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mi>A</mi><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>B</mi><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>C</mi><msub><mi>z</mi><mn>0</mn></msub><mo>+</mo><mi>D</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>The point <span class="math" data-tex="Q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow></semantics></math></span></span> drops out, which gives the formula.</p>
+          <p>For the foot, move from <span class="math" data-tex="P"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow></semantics></math></span></span> along the normal: <span class="math" data-tex="F = P - t\vec{n}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mi>P</mi><mo>−</mo><mi>t</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span>. Requiring <span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span> to satisfy the plane equation gives <span class="math" data-tex="N - t|\vec{n}|^2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mi>t</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="t = \tfrac{N}{|\vec{n}|^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mfrac><mi>N</mi><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><msup><mi mathvariant="normal">∣</mi><mn>2</mn></msup></mrow></mfrac></mrow></semantics></math></span></span>.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Point P(1, 4, 5) and plane 2x − y + 2z − 3 = 0</h3>
-            <h4>Step 1 — Substitute</h4>
-            <span class="math-display" data-tex="2(1) - 4 + 2(5) - 3 = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>−</mo><mn>4</mn><mo>+</mo><mn>2</mn><mo stretchy="false">(</mo><mn>5</mn><mo stretchy="false">)</mo><mo>−</mo><mn>3</mn><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Length of the normal</h4>
-            <span class="math-display" data-tex="\sqrt{2^2 + (-1)^2 + 2^2} = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msqrt><mrow><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><msup><mn>2</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Distance</h4>
-            <span class="math-display" data-tex="d = \frac{|5|}{3} = \frac{5}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mn>5</mn><mi mathvariant="normal">∣</mi></mrow><mn>3</mn></mfrac><mo>=</mo><mfrac><mn>5</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>
+            <h3>Problem</h3>
+            <p>Find the distance from <span class="math" data-tex="P(1, 4, 5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> to the plane <span class="math" data-tex="2x - y + 2z - 3 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>2</mn><mi>z</mi><mo>−</mo><mn>3</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, and the foot of the perpendicular.</p>
+            <h4>Step 1: Substitute the point</h4>
+            <span class="math-display" data-tex="N = 2(1) - 4 + 2(5) - 3 = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>−</mo><mn>4</mn><mo>+</mo><mn>2</mn><mo stretchy="false">(</mo><mn>5</mn><mo stretchy="false">)</mo><mo>−</mo><mn>3</mn><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Length of the normal</h4>
+            <span class="math-display" data-tex="|\vec{n}| = \sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{9} = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi><mo>=</mo><msqrt><mrow><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><msup><mn>2</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mn>9</mn></msqrt><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Distance</h4>
+            <span class="math-display" data-tex="d = \frac{|5|}{3} = \frac{5}{3} \approx 1.6667"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mn>5</mn><mi mathvariant="normal">∣</mi></mrow><mn>3</mn></mfrac><mo>=</mo><mfrac><mn>5</mn><mn>3</mn></mfrac><mo>≈</mo><mn>1.6667</mn></mrow></semantics></math></span></span>
+            <h4>Step 4: Foot of the perpendicular</h4>
+            <span class="math-display" data-tex="t = \frac{5}{9}, \qquad F = \left(1 - \tfrac{10}{9},\ 4 + \tfrac{5}{9},\ 5 - \tfrac{10}{9}\right) = \left(-\tfrac{1}{9},\ \tfrac{41}{9},\ \tfrac{35}{9}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>t</mi><mo>=</mo><mfrac><mn>5</mn><mn>9</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>F</mi><mo>=</mo><mrow><mo fence="true">(</mo><mn>1</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>10</mn><mn>9</mn></mfrac></mstyle><mo separator="true">,</mo><mtext> </mtext><mn>4</mn><mo>+</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>5</mn><mn>9</mn></mfrac></mstyle><mo separator="true">,</mo><mtext> </mtext><mn>5</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>10</mn><mn>9</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true">(</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>9</mn></mfrac></mstyle><mo separator="true">,</mo><mtext> </mtext><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>41</mn><mn>9</mn></mfrac></mstyle><mo separator="true">,</mo><mtext> </mtext><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>35</mn><mn>9</mn></mfrac></mstyle><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <span class="math-display" data-tex="2\left(-\tfrac{1}{9}\right) - \tfrac{41}{9} + 2\left(\tfrac{35}{9}\right) - 3 = \tfrac{-2 - 41 + 70 - 27}{9} = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mrow><mo fence="true">(</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>9</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>41</mn><mn>9</mn></mfrac></mstyle><mo>+</mo><mn>2</mn><mrow><mo fence="true">(</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>35</mn><mn>9</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo>−</mo><mn>3</mn><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mrow><mo>−</mo><mn>2</mn><mo>−</mo><mn>41</mn><mo>+</mo><mn>70</mn><mo>−</mo><mn>27</mn></mrow><mn>9</mn></mfrac></mstyle><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <p>So <span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span> is on the plane. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a radical answer and parallel planes</h2>
+          <div class="worked-example">
+            <h3>Part 1: From the origin</h3>
+            <p>How far is the origin from <span class="math" data-tex="x + y + z = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>+</mo><mi>z</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>? First write the plane as <span class="math" data-tex="x + y + z - 1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>+</mo><mi>z</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="D = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>.</p>
+            <span class="math-display" data-tex="d = \frac{|0 + 0 + 0 - 1|}{\sqrt{1 + 1 + 1}} = \frac{1}{\sqrt{3}} = \frac{\sqrt{3}}{3} \approx 0.5774"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mn>0</mn><mo>+</mo><mn>0</mn><mo>+</mo><mn>0</mn><mo>−</mo><mn>1</mn><mi mathvariant="normal">∣</mi></mrow><msqrt><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>1</mn></mrow></msqrt></mfrac><mo>=</mo><mfrac><mn>1</mn><msqrt><mn>3</mn></msqrt></mfrac><mo>=</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>3</mn></mfrac><mo>≈</mo><mn>0.5774</mn></mrow></semantics></math></span></span>
+            <h3>Part 2: Two parallel planes</h3>
+            <p>Find the distance between <span class="math" data-tex="2x - y + 2z - 3 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>2</mn><mi>z</mi><mo>−</mo><mn>3</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="2x - y + 2z + 6 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>2</mn><mi>z</mi><mo>+</mo><mn>6</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. The point <span class="math" data-tex="(0, -3, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mo>−</mo><mn>3</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> lies on the first plane. Its distance to the second is</p>
+            <span class="math-display" data-tex="d = \frac{|0 + 3 + 0 + 6|}{3} = 3."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mn>0</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>0</mn><mo>+</mo><mn>6</mn><mi mathvariant="normal">∣</mi></mrow><mn>3</mn></mfrac><mo>=</mo><mn>3.</mn></mrow></semantics></math></span></span>
+            <p>The shortcut <span class="math" data-tex="\tfrac{|D_2 - D_1|}{|\vec{n}|} = \tfrac{|6 - (-3)|}{3} = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∣</mi><msub><mi>D</mi><mn>2</mn></msub><mo>−</mo><msub><mi>D</mi><mn>1</mn></msub><mi mathvariant="normal">∣</mi></mrow><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi mathvariant="normal">∣</mi><mn>6</mn><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi></mrow><mn>3</mn></mfrac><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span> agrees. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>A, B and C cannot all be 0.</li>
-            <li>Fractions are allowed and kept exact; the result is in simplest radical form.</li>
+            <li><strong>Clearances:</strong> how far a point on a pipe or beam sits from a wall, floor or sloping roof.</li>
+            <li><strong>Geology and mining:</strong> the depth of a borehole point below a tilted rock layer.</li>
+            <li><strong>Computer graphics:</strong> which side of a surface a point is on, and how far, for clipping and collision.</li>
+            <li><strong>Machine learning:</strong> the margin of a point from a separating hyperplane.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Not moving everything to one side.</strong> For <span class="math" data-tex="x + y + z = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>+</mo><mi>z</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="D = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>, not 1.</li>
+            <li><strong>Forgetting the absolute value.</strong> Distance is never negative; the sign only tells you the side.</li>
+            <li><strong>Including D under the square root.</strong> The denominator is <span class="math" data-tex="\sqrt{A^2 + B^2 + C^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><msup><mi>A</mi><mn>2</mn></msup><mo>+</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msup><mi>C</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span> only.</li>
+            <li><strong>Parallel planes with different scaling.</strong> Make the normals identical before using <span class="math" data-tex="|D_2 - D_1|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><msub><mi>D</mi><mn>2</mn></msub><mo>−</mo><msub><mi>D</mi><mn>1</mn></msub><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span>.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Forgetting to move everything to one side (= 0) before reading D.</li>
-            <li>Dropping the absolute value, giving a negative distance.</li>
+            <li>The plane is entered in general form; <span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow></semantics></math></span></span> cannot all be 0.</li>
+            <li>Inputs may be fractions; all arithmetic is exact, with the distance in simplest radical form.</li>
+            <li>The sketch is a fixed-angle view to show the idea; it is not to scale along every axis.</li>
+            <li>For planes through three points, or angles between planes, use the <a href="../lines-planes-3d/">lines and planes in space calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the formula for the distance from a point to a plane?</summary>
+            <div class="faq-answer"><p>d = |Ax₀ + By₀ + Cz₀ + D| / √(A² + B² + C²), with the plane written as Ax + By + Cz + D = 0.</p></div>
+          </details>
+          <details>
+            <summary>What does a distance of zero mean?</summary>
+            <div class="faq-answer"><p>The point satisfies the plane equation, so it lies on the plane.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the closest point on the plane?</summary>
+            <div class="faq-answer"><p>Move from P along the normal: F = P − t(A, B, C) with t = (Ax₀ + By₀ + Cz₀ + D)/(A² + B² + C²).</p></div>
+          </details>
+          <details>
+            <summary>How do I find the distance between two parallel planes?</summary>
+            <div class="faq-answer"><p>Pick any point on one plane and find its distance to the other, or use |D₂ − D₁|/√(A² + B² + C²) once both have the same A, B and C.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../distance-from-point-to-line/">Distance from a point to a line</a> in the plane.</li>
+            <li><a href="../lines-planes-3d/">Lines and planes in space</a>.</li>
+            <li><a href="../vector-resultant/">Vectors and resultants</a>.</li>
           </ul>
         </section>
 

@@ -11,11 +11,13 @@ import { solveLinear } from '../lib/linalg.js';
 import { plot } from '../lib/plot.js';
 
 import { circleExplore } from '../explore/geometry.js';
+import { circlePractice } from '../explore/analytic-practice.js';
 const shifted = (v, h) => (h.isZero() ? `${v}^2` : `\\left(${v} ${h.sign() < 0 ? '+' : '-'} ${h.abs().toTex()}\\right)^2`);
 const shiftedText = (v, h) => (h.isZero() ? `${v}²` : `(${v} ${h.sign() < 0 ? '+' : '−'} ${h.abs().toString()})²`);
 
 export const calculator = {
   id: 'circle-equation',
+  practice: circlePractice,
   explore: circleExplore,
   fields: [
     { name: 'mode', label: 'What do you know?', type: 'select', options: [['cr', 'Centre and radius'], ['cp', 'Centre and a point on the circle'], ['gen', 'General form x² + y² + Dx + Ey + F = 0'], ['three', 'Three points on the circle']] },
@@ -47,13 +49,13 @@ export const calculator = {
         if (!v.ok()) return v.result();
         if (r.sign() <= 0) return { ok: false, errors: [{ field: 'r', message: 'The radius must be greater than 0.' }] };
         r2 = r.pow(2);
-        steps.push({ title: 'Identify the centre and radius', tex: `(h, k) = ${pointTex(h, k)}, \\quad r = ${r.toTex()}` });
+        steps.push({ title: 'Identify the centre and radius', tex: `(h, k) = ${pointTex(h, k)}, \\quad r = ${r.toTex()} \\;\\Rightarrow\\; r^2 = ${r2.toTex()}`, note: 'A circle is fixed completely by its centre and its radius.' });
       } else {
         const px = v.frac('px', 'the point’s x'), py = v.frac('py', 'the point’s y');
         if (!v.ok()) return v.result();
         r2 = px.sub(h).pow(2).add(py.sub(k).pow(2));
         if (r2.isZero()) return { ok: false, errors: [{ field: ['px', 'py'], message: 'The point is the centre itself, which gives a radius of 0. Enter a different point.' }] };
-        steps.push({ title: 'The radius is the distance from the centre to the point', texLines: ['r^2 = (x - h)^2 + (y - k)^2', `r^2 = \\left(${px.toTex()} - ${fp(h)}\\right)^2 + \\left(${py.toTex()} - ${fp(k)}\\right)^2 = ${r2.toTex()}`] });
+        steps.push({ title: 'The radius is the distance from the centre to the point', texLines: ['r^2 = (x - h)^2 + (y - k)^2', `r^2 = \\left(${px.toTex()} - ${fp(h)}\\right)^2 + \\left(${py.toTex()} - ${fp(k)}\\right)^2 = ${px.sub(h).pow(2).toTex()} + ${py.sub(k).pow(2).toTex()} = ${r2.toTex()}`], note: 'The given point is on the circle, so its distance from the centre is the radius. Keep r² for the equation; there is no need to take the square root yet.' });
       }
     } else if (mode === 'gen') {
       const D = v.frac('D', 'D'), E = v.frac('E', 'E'), F = v.frac('F', 'F');
@@ -61,7 +63,7 @@ export const calculator = {
       h = D.div(-2); k = E.div(-2);
       r2 = D.pow(2).div(4).add(E.pow(2).div(4)).sub(F);
       const one = new Frac(1n), hd = D.div(2).pow(2), he = E.div(2).pow(2);
-      steps.push({ title: 'Start from the general form', tex: `${linearTex([[one, 'x^2'], [one, 'y^2'], [D, 'x'], [E, 'y'], [F, '']])} = 0` });
+      steps.push({ title: 'Start from the general form', tex: `${linearTex([[one, 'x^2'], [one, 'y^2'], [D, 'x'], [E, 'y'], [F, '']])} = 0`, note: 'Group the x-terms and the y-terms. Completing the square in each turns the equation back into standard form.' });
       steps.push({ title: 'Complete the square in x and in y', text: 'Move F to the right, then add (D/2)² and (E/2)² to both sides.', texLines: [`\\left(${linearTex([[one, 'x^2'], [D, 'x'], [hd, '']])}\\right) + \\left(${linearTex([[one, 'y^2'], [E, 'y'], [he, '']])}\\right) = ${linearTex([[F.neg(), ''], [hd, ''], [he, '']])}`, `${shifted('x', h)} + ${shifted('y', k)} = ${r2.toTex()}`] });
       if (r2.sign() <= 0) {
         return { ok: false, errors: [{ field: ['D', 'E', 'F'], message: r2.isZero() ? `This equation describes a single point (${h}, ${k}), not a circle: the right-hand side after completing the square is 0.` : `No real circle has this equation: after completing the square the right-hand side is ${r2}, which is negative, so r² would be negative.` }] };
@@ -84,9 +86,9 @@ export const calculator = {
       const [D, E, F] = sol.x;
       h = D.div(-2); k = E.div(-2);
       r2 = D.pow(2).div(4).add(E.pow(2).div(4)).sub(F);
-      steps.push({ title: 'Substitute each point into x² + y² + Dx + Ey + F = 0', texLines: P.map(([x, y]) => `${linearTex([[x, 'D'], [y, 'E'], [new Frac(1n), 'F']])} = ${x.pow(2).add(y.pow(2)).neg().toTex()}`) });
-      steps.push({ title: 'Solve the three linear equations', tex: `D = ${D.toTex()}, \\quad E = ${E.toTex()}, \\quad F = ${F.toTex()}` });
-      steps.push({ title: 'Centre and radius from D, E, F', texLines: [`(h, k) = \\left(-\\frac{D}{2}, -\\frac{E}{2}\\right) = ${pointTex(h, k)}`, `r^2 = \\frac{D^2 + E^2}{4} - F = ${r2.toTex()}`] });
+      steps.push({ title: 'Substitute each point into x² + y² + Dx + Ey + F = 0', texLines: P.map(([x, y]) => `${linearTex([[x, 'D'], [y, 'E'], [new Frac(1n), 'F']])} = ${x.pow(2).add(y.pow(2)).neg().toTex()}`), note: 'Each point on the circle must satisfy its equation. With x and y known, x² + y² moves to the right and the equation becomes linear in the unknowns D, E and F.' });
+      steps.push({ title: 'Solve the three linear equations', tex: `D = ${D.toTex()}, \\quad E = ${E.toTex()}, \\quad F = ${F.toTex()}`, note: 'Three equations in three unknowns have one solution as long as the points are not on one line.' });
+      steps.push({ title: 'Centre and radius from D, E, F', texLines: [`(h, k) = \\left(-\\frac{D}{2}, -\\frac{E}{2}\\right) = ${pointTex(h, k)}`, `r^2 = \\frac{D^2 + E^2}{4} - F = \\frac{${D.pow(2).toTex()} + ${E.pow(2).toTex()}}{4} - ${fp(F)} = ${r2.toTex()}`], note: 'These come from completing the square in the general form.' });
     }
     const r = sqrtFrac(r2, simplifySqrt);
     const D = h.mul(-2), E = k.mul(-2), F = h.pow(2).add(k.pow(2)).sub(r2);
@@ -94,8 +96,16 @@ export const calculator = {
     const one = new Frac(1n);
     const genTerms = [[one, 'x^2'], [one, 'y^2'], [D, 'x'], [E, 'y'], [F, '']];
     const gen = `${linearTex(genTerms)} = 0`;
-    steps.push({ title: 'Standard form', texLines: ['(x - h)^2 + (y - k)^2 = r^2', std] });
-    steps.push({ title: 'Expand to general form', text: 'Expand the squares and move everything to the left side.', tex: gen });
+    steps.push({ title: 'Standard form', texLines: ['(x - h)^2 + (y - k)^2 = r^2', std], note: `Every point (x, y) on the circle is ${r.exact ? r.text : `√${r2}`} from the centre (${h}, ${k}); this is the distance formula, squared. The right-hand side is r², not r.` });
+    steps.push({ title: 'Expand to general form', text: 'Expand the squares and move everything to the left side.', texLines: [`D = -2h = ${D.toTex()}, \\quad E = -2k = ${E.toTex()}, \\quad F = h^2 + k^2 - r^2 = ${h.pow(2).toTex()} + ${k.pow(2).toTex()} - ${r2.toTex()} = ${F.toTex()}`, gen], note: 'In the general form the x² and y² coefficients are equal and there is no xy term: that is how a circle is recognised.' });
+    const checkPts = mode === 'three' ? (values.pts || '').trim().split(/\n+/).map((row) => row.split(/[\s,;]+/).filter(Boolean).map((t) => Frac.of(t)))
+      : mode === 'cp' ? [[Frac.of(values.px), Frac.of(values.py)]]
+      : r.exact && r2.isInt() && Number.isInteger(Math.sqrt(r2.toNumber())) ? [[h.add(Frac.of(String(Math.sqrt(r2.toNumber())))), k]] : [];
+    if (checkPts.length) {
+      const val = ([x, y]) => x.pow(2).add(y.pow(2)).add(D.mul(x)).add(E.mul(y)).add(F);
+      const term = (c, body) => (c.isZero() ? '' : ` ${c.sign() < 0 ? '-' : '+'} ${c.abs().toTex()}${body}`);
+      steps.push({ title: 'Check', texLines: checkPts.map(([x, y]) => `${x.isInt() && x.sign() >= 0 ? x.toTex() : `\\left(${x.toTex()}\\right)`}^2 + ${y.isInt() && y.sign() >= 0 ? y.toTex() : `\\left(${y.toTex()}\\right)`}^2${term(D, `\\left(${x.toTex()}\\right)`)}${term(E, `\\left(${y.toTex()}\\right)`)}${term(F, '')} = ${val([x, y]).toTex()}${val([x, y]).isZero() ? '\\ \\checkmark' : ''}`), note: mode === 'three' ? 'All three given points satisfy the equation, so the circle passes through them.' : mode === 'cp' ? 'The given point satisfies the equation, so it lies on the circle.' : `The point (${h.add(Frac.of(String(Math.sqrt(r2.toNumber()))))}, ${k}), one radius to the right of the centre, satisfies the general form.` });
+    }
     const hn = h.toNumber(), kn = k.toNumber(), rn = r.value;
     const svg = plot({
       x: [hn - rn * 1.5, hn + rn * 1.5], y: [kn - rn * 1.5, kn + rn * 1.5], equal: true,

@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/angle-between-lines/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the formula for the angle between two lines?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "tan θ = |(m₂ − m₁)/(1 + m₁m₂)| for slopes, or cos θ = |u·v|/(|u||v|) for direction vectors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know if two lines are perpendicular?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Their slopes multiply to −1, or their direction vectors have a dot product of 0."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the acute angle used?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Crossing lines make two different angles that add to 180°. The acute one is the standard choice; the calculator also shows the other."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does C in Ax + By + C = 0 change the angle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. C only shifts the line; the direction depends on A and B."
+          }
+        }
+      ]
     }
   ]
 }
@@ -237,11 +275,15 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Change the values and watch the picture respond. </p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
         <div class="panel learn-panel" id="explore">
           <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Turn two lines and watch the angle</h3></div></div>
           <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Angle between two lines</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
         </div>
       </div>
     </section>
@@ -253,10 +295,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the angle between two lines calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is the angle between two lines?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the slope formula</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: lines in space</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -264,49 +315,153 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the angle between two lines calculator does</h2>
-          <p>Two intersecting lines make two pairs of equal angles that add up to 180°. By convention the <strong>angle between the lines</strong> is the acute one, θ; the other is 180° − θ.</p>
-          <p>With slopes, the tangent formula gives θ directly. With direction vectors (in 2D or 3D) the dot product gives <span class="math" data-tex="\cos\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>cos</mi><mo>⁡</mo><mi>θ</mi></mrow></semantics></math></span></span>. For lines given as <span class="math" data-tex="Ax + By + C = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, the normals <span class="math" data-tex="(A, B)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> make the same angle as the lines.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Make m₁·m₂ = −1 in the explorer: the lines become perpendicular and the tan formula’s denominator is 0.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is the angle between two lines?</h2>
+          <p>Two lines that cross form two pairs of equal angles: an acute angle <span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span> and its supplement <span class="math" data-tex="180^\circ - \theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup><mo>−</mo><mi>θ</mi></mrow></semantics></math></span></span>. By convention, "the angle between the lines" means the <strong>acute</strong> one, between 0° and 90°. It depends only on the <strong>directions</strong> of the lines, not on where they are, so it can be found from slopes, from general-form coefficients or from direction vectors in space.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter slopes 2 and <span class="math" data-tex="-\tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>. Their product is <span class="math" data-tex="-1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>, the denominator <span class="math" data-tex="1 + m_1m_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub></mrow></semantics></math></span></span> becomes 0, and the lines are perpendicular.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="\tan\theta = \left\lvert \frac{m_2 - m_1}{1 + m_1 m_2} \right\rvert"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mrow><mo fence="true">∣</mo><mfrac><mrow><msub><mi>m</mi><mn>2</mn></msub><mo>−</mo><msub><mi>m</mi><mn>1</mn></msub></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub></mrow></mfrac><mo fence="true">∣</mo></mrow></mrow></semantics></math></span></span><span class="math-display" data-tex="\cos\theta = \frac{\lvert u \cdot v \rvert}{\lVert u \rVert\,\lVert v \rVert}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>cos</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">∣</mo><mi>u</mi><mo>⋅</mo><mi>v</mi><mo stretchy="false">∣</mo></mrow><mrow><mo stretchy="false">∥</mo><mi>u</mi><mo stretchy="false">∥</mo><mtext> </mtext><mo stretchy="false">∥</mo><mi>v</mi><mo stretchy="false">∥</mo></mrow></mfrac></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="m_1,\ m_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>1</mn></msub><mo separator="true">,</mo><mtext> </mtext><msub><mi>m</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Slopes of the two lines</td></tr>
-              <tr><td><span class="math" data-tex="u,\ v"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo separator="true">,</mo><mtext> </mtext><mi>v</mi></mrow></semantics></math></span></span></td><td>Direction vectors (2D or 3D)</td></tr>
-              <tr><td><span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span></td><td>Acute angle between the lines</td></tr>
-            </tbody>
-          </table>
-          <p>Equal slopes mean parallel lines (θ = 0°); m₁m₂ = −1 means perpendicular lines (θ = 90°).</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li><strong>From slopes</strong> <span class="math" data-tex="m_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="m_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>2</mn></msub></mrow></semantics></math></span></span>, with the tangent formula.</li>
+            <li><strong>From general form</strong> <span class="math" data-tex="A_1x + B_1y + C_1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><mi>y</mi><mo>+</mo><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="A_2x + B_2y + C_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>2</mn></msub><mi>y</mi><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, using the normal vectors.</li>
+            <li><strong>From 3D direction vectors</strong>, with the dot product.</li>
+          </ul>
+          <p>It gives the acute angle in degrees and radians, its supplement, and flags parallel and perpendicular lines.</p>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Lines with slopes 2 and −1/3</h3>
-            <h4>Step 1 — Substitute</h4>
-            <span class="math-display" data-tex="\tan\theta = \left| \frac{-\tfrac{1}{3} - 2}{1 + 2(-\tfrac{1}{3})} \right| = \left| \frac{-7/3}{1/3} \right| = 7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mrow><mo fence="true">∣</mo><mfrac><mrow><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mo>−</mo><mn>2</mn></mrow><mrow><mn>1</mn><mo>+</mo><mn>2</mn><mo stretchy="false">(</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mo stretchy="false">)</mo></mrow></mfrac><mo fence="true">∣</mo></mrow><mo>=</mo><mrow><mo fence="true">∣</mo><mfrac><mrow><mo>−</mo><mn>7</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow></mfrac><mo fence="true">∣</mo></mrow><mo>=</mo><mn>7</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Inverse tangent</h4>
-            <span class="math-display" data-tex="\theta = \tan^{-1} 7 \approx 81.87^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>θ</mi><mo>=</mo><msup><mrow><mi>tan</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mn>7</mn><mo>≈</mo><mn>81.8</mn><msup><mn>7</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>
-            <h4>Step 3 — The other angle</h4>
-            <span class="math-display" data-tex="180^\circ - 81.87^\circ = 98.13^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup><mo>−</mo><mn>81.8</mn><msup><mn>7</mn><mo>∘</mo></msup><mo>=</mo><mn>98.1</mn><msup><mn>3</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>A line with slope <span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span> makes an angle <span class="math" data-tex="\alpha"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow></semantics></math></span></span> with the x-axis where <span class="math" data-tex="\tan\alpha = m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>α</mi><mo>=</mo><mi>m</mi></mrow></semantics></math></span></span>. Two lines with inclinations <span class="math" data-tex="\alpha_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="\alpha_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>2</mn></msub></mrow></semantics></math></span></span> meet at the angle <span class="math" data-tex="\alpha_2 - \alpha_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>2</mn></msub><mo>−</mo><msub><mi>α</mi><mn>1</mn></msub></mrow></semantics></math></span></span> (or its supplement), and the tangent subtraction formula turns that into slopes.</p>
+          <p>With vectors, the dot product gives the angle directly: <span class="math" data-tex="\vec{u}\cdot\vec{v} = |\vec{u}||\vec{v}|\cos\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mo>⋅</mo><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo>=</mo><mi mathvariant="normal">∣</mi><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi><mi>cos</mi><mo>⁡</mo><mi>θ</mi></mrow></semantics></math></span></span>. Taking the absolute value of the dot product picks the acute angle, because a line has no preferred direction: <span class="math" data-tex="\vec{u}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>u</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span> and <span class="math" data-tex="-\vec{u}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mover accent="true"><mi>u</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span> describe the same line.</p>
+          <div class="callout">
+            <p class="callout-title">Special cases</p>
+            <p>Parallel: <span class="math" data-tex="m_1 = m_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>1</mn></msub><mo>=</mo><msub><mi>m</mi><mn>2</mn></msub></mrow></semantics></math></span></span>, or <span class="math" data-tex="\vec{u}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>u</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span> a multiple of <span class="math" data-tex="\vec{v}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>v</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span>. Perpendicular: <span class="math" data-tex="m_1m_2 = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>, or <span class="math" data-tex="\vec{u}\cdot\vec{v} = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mo>⋅</mo><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Given</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Slopes</td><td><span class="math" data-tex="\tan\theta = \left\lvert \dfrac{m_2 - m_1}{1 + m_1m_2} \right\rvert"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mrow><mo fence="true">∣</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><msub><mi>m</mi><mn>2</mn></msub><mo>−</mo><msub><mi>m</mi><mn>1</mn></msub></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub></mrow></mfrac></mstyle><mo fence="true">∣</mo></mrow></mrow></semantics></math></span></span></td></tr>
+              <tr><td>General form</td><td><span class="math" data-tex="\cos\theta = \dfrac{|A_1A_2 + B_1B_2|}{\sqrt{A_1^2 + B_1^2}\sqrt{A_2^2 + B_2^2}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>cos</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mi mathvariant="normal">∣</mi><msub><mi>A</mi><mn>1</mn></msub><msub><mi>A</mi><mn>2</mn></msub><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mi mathvariant="normal">∣</mi></mrow><mrow><msqrt><mrow><msubsup><mi>A</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>B</mi><mn>1</mn><mn>2</mn></msubsup></mrow></msqrt><msqrt><mrow><msubsup><mi>A</mi><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>B</mi><mn>2</mn><mn>2</mn></msubsup></mrow></msqrt></mrow></mfrac></mstyle></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Direction vectors</td><td><span class="math" data-tex="\cos\theta = \dfrac{|\vec{u}\cdot\vec{v}|}{|\vec{u}||\vec{v}|}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>cos</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mo>⋅</mo><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi></mrow><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi></mrow></mfrac></mstyle></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Other angle</td><td><span class="math" data-tex="180^\circ - \theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup><mo>−</mo><mi>θ</mi></mrow></semantics></math></span></span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="m_1, m_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>m</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Slopes of the two lines.</td></tr>
+              <tr><td><span class="math" data-tex="(A_1, B_1), (A_2, B_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>A</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Normal vectors of lines in general form. <span class="math" data-tex="C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow></semantics></math></span></span> does not affect the angle.</td></tr>
+              <tr><td><span class="math" data-tex="\vec{u}, \vec{v}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>v</mi><mo>⃗</mo></mover></mrow></semantics></math></span></span></td><td>Direction vectors of the lines.</td></tr>
+              <tr><td><span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span></td><td>The acute angle between the lines.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the slope formula</h2>
+          <p>Let <span class="math" data-tex="\tan\alpha_1 = m_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><msub><mi>α</mi><mn>1</mn></msub><mo>=</mo><msub><mi>m</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="\tan\alpha_2 = m_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><msub><mi>α</mi><mn>2</mn></msub><mo>=</mo><msub><mi>m</mi><mn>2</mn></msub></mrow></semantics></math></span></span>. The angle between the lines is <span class="math" data-tex="\alpha_2 - \alpha_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>2</mn></msub><mo>−</mo><msub><mi>α</mi><mn>1</mn></msub></mrow></semantics></math></span></span>, and by the tangent subtraction identity</p>
+          <span class="math-display" data-tex="\tan(\alpha_2 - \alpha_1) = \frac{\tan\alpha_2 - \tan\alpha_1}{1 + \tan\alpha_1\tan\alpha_2} = \frac{m_2 - m_1}{1 + m_1m_2}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mi>α</mi><mn>2</mn></msub><mo>−</mo><msub><mi>α</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>tan</mi><mo>⁡</mo><msub><mi>α</mi><mn>2</mn></msub><mo>−</mo><mi>tan</mi><mo>⁡</mo><msub><mi>α</mi><mn>1</mn></msub></mrow><mrow><mn>1</mn><mo>+</mo><mi>tan</mi><mo>⁡</mo><msub><mi>α</mi><mn>1</mn></msub><mi>tan</mi><mo>⁡</mo><msub><mi>α</mi><mn>2</mn></msub></mrow></mfrac><mo>=</mo><mfrac><mrow><msub><mi>m</mi><mn>2</mn></msub><mo>−</mo><msub><mi>m</mi><mn>1</mn></msub></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub></mrow></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>The absolute value gives the acute angle. If <span class="math" data-tex="1 + m_1m_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> the tangent is undefined, which means <span class="math" data-tex="\theta = 90^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mn>9</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>.</p>
+          <h3>Why normals work too</h3>
+          <p>The normal of each line is perpendicular to it, so rotating both lines by 90° turns them into their normals without changing the angle between them.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the angle between lines with slopes <span class="math" data-tex="m_1 = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>1</mn></msub><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="m_2 = -\tfrac{1}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>2</mn></msub><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Numerator and denominator</h4>
+            <span class="math-display" data-tex="m_2 - m_1 = -\tfrac{1}{3} - 2 = -\tfrac{7}{3}, \qquad 1 + m_1m_2 = 1 - \tfrac{2}{3} = \tfrac{1}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>m</mi><mn>2</mn></msub><mo>−</mo><msub><mi>m</mi><mn>1</mn></msub><mo>=</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mo>−</mo><mn>2</mn><mo>=</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>7</mn><mn>3</mn></mfrac></mstyle><mo separator="true">,</mo><mspace width="2em"/><mn>1</mn><mo>+</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub><mo>=</mo><mn>1</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+            <h4>Step 2: Tangent</h4>
+            <span class="math-display" data-tex="\tan\theta = \left\lvert \frac{-7/3}{1/3} \right\rvert = 7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mrow><mo fence="true">∣</mo><mfrac><mrow><mo>−</mo><mn>7</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow></mfrac><mo fence="true">∣</mo></mrow><mo>=</mo><mn>7</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Angle</h4>
+            <span class="math-display" data-tex="\theta = \tan^{-1} 7 \approx 81.87^\circ, \qquad 180^\circ - \theta \approx 98.13^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>θ</mi><mo>=</mo><msup><mrow><mi>tan</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mn>7</mn><mo>≈</mo><mn>81.8</mn><msup><mn>7</mn><mo>∘</mo></msup><mo separator="true">,</mo><mspace width="2em"/><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup><mo>−</mo><mi>θ</mi><mo>≈</mo><mn>98.1</mn><msup><mn>3</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>The inclinations are <span class="math" data-tex="\tan^{-1} 2 \approx 63.43^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mi>tan</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mn>2</mn><mo>≈</mo><mn>63.4</mn><msup><mn>3</mn><mo>∘</mo></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="180^\circ - \tan^{-1}\tfrac{1}{3} \approx 161.57^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup><mo>−</mo><msup><mrow><mi>tan</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mfrac><mn>1</mn><mn>3</mn></mfrac><mo>≈</mo><mn>161.5</mn><msup><mn>7</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>. Their difference is <span class="math" data-tex="98.13^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>98.1</mn><msup><mn>3</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>, whose supplement is <span class="math" data-tex="81.87^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>81.8</mn><msup><mn>7</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: lines in space</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Two lines have directions <span class="math" data-tex="\vec{u} = (1, 2, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="\vec{v} = (2, -1, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. Find the angle between them.</p>
+            <h4>Step 1: Dot product</h4>
+            <span class="math-display" data-tex="\vec{u}\cdot\vec{v} = (1)(2) + (2)(-1) + (2)(2) = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mo>⋅</mo><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Lengths</h4>
+            <span class="math-display" data-tex="|\vec{u}| = \sqrt{1 + 4 + 4} = 3, \qquad |\vec{v}| = \sqrt{4 + 1 + 4} = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">∣</mi><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi><mo>=</mo><msqrt><mrow><mn>1</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>4</mn></mrow></msqrt><mo>=</mo><mn>3</mn><mo separator="true">,</mo><mspace width="2em"/><mi mathvariant="normal">∣</mi><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mi mathvariant="normal">∣</mi><mo>=</mo><msqrt><mrow><mn>4</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>4</mn></mrow></msqrt><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Angle</h4>
+            <span class="math-display" data-tex="\cos\theta = \frac{4}{9} \;\Rightarrow\; \theta = \cos^{-1}\tfrac{4}{9} \approx 63.61^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>cos</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mfrac><mn>4</mn><mn>9</mn></mfrac><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>θ</mi><mo>=</mo><msup><mrow><mi>cos</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>9</mn></mfrac></mstyle><mo>≈</mo><mn>63.6</mn><msup><mn>1</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>
+            <p>The lines need not meet: for skew lines this is the angle between their directions.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Vertical lines have no slope: use the general-form or vector mode instead.</li>
-            <li>In 3D, skew lines (which never meet) still have an angle: that of their directions.</li>
+            <li><strong>Road junctions:</strong> the angle at which two straight roads meet.</li>
+            <li><strong>Trusses and frames:</strong> the angles between members, needed to resolve forces.</li>
+            <li><strong>Optics:</strong> angles of incidence and reflection measured from a normal line.</li>
+            <li><strong>Crystallography:</strong> angles between directions in a crystal lattice.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Dropping the absolute value.</strong> Without it you may get the obtuse angle or a negative angle.</li>
+            <li><strong>Calculator in radian mode.</strong> <span class="math" data-tex="\tan^{-1} 7"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mi>tan</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mn>7</mn></mrow></semantics></math></span></span> is about 1.4289 rad, which is 81.87°.</li>
+            <li><strong>Using the coefficients as slopes.</strong> The slope of <span class="math" data-tex="Ax + By + C = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> is <span class="math" data-tex="-\tfrac{A}{B}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>A</mi><mi>B</mi></mfrac></mrow></semantics></math></span></span>.</li>
+            <li><strong>Treating <span class="math" data-tex="1 + m_1m_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mi>m</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> as an error.</strong> It means the lines are perpendicular.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Forgetting the absolute value and getting a negative angle.</li>
-            <li>Using the coefficients (A, B) as a direction in 2D: they are the normal; the direction is (B, −A). Both give the same angle.</li>
+            <li>Slopes and coefficients may be fractions; the working is exact up to the inverse trig step.</li>
+            <li>Angles are shown to 4 decimal places.</li>
+            <li>Vertical lines have no slope: enter them in general form or as direction vectors.</li>
+            <li>Direction vectors cannot be the zero vector.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the formula for the angle between two lines?</summary>
+            <div class="faq-answer"><p>tan θ = |(m₂ − m₁)/(1 + m₁m₂)| for slopes, or cos θ = |u·v|/(|u||v|) for direction vectors.</p></div>
+          </details>
+          <details>
+            <summary>How do I know if two lines are perpendicular?</summary>
+            <div class="faq-answer"><p>Their slopes multiply to −1, or their direction vectors have a dot product of 0.</p></div>
+          </details>
+          <details>
+            <summary>Why is the acute angle used?</summary>
+            <div class="faq-answer"><p>Crossing lines make two different angles that add to 180°. The acute one is the standard choice; the calculator also shows the other.</p></div>
+          </details>
+          <details>
+            <summary>Does C in Ax + By + C = 0 change the angle?</summary>
+            <div class="faq-answer"><p>No. C only shifts the line; the direction depends on A and B.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../intersection-of-two-lines/">Intersection of two lines</a>.</li>
+            <li><a href="../lines-planes-3d/">Lines and planes in space</a>: angles between planes and between a line and a plane.</li>
+            <li><a href="../sum-difference-identities/">Sum and difference identities</a>: the tangent formula used here.</li>
           </ul>
         </section>
 

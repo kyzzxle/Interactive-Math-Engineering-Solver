@@ -1,44 +1,168 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Slope and the equation of a line</h2>
-          <p>The <strong>slope</strong> of a line measures its steepness: how much \(y\) changes for every one-unit increase in \(x\). Once you know the slope and one point, the whole line is determined. This calculator accepts two points or a point and a slope and returns the slope, the point–slope form, the slope–intercept form, the general form with whole-number coefficients, both intercepts and the angle of inclination.</p>
+          <h2 id="about-h" style="margin-top:0">What are the slope and the equation of a line?</h2>
+          <p>The <strong>slope</strong> of a line measures its steepness: how much \(y\) changes for every one-unit increase in \(x\). Once you know the slope and one point, the whole line is fixed, and it can be written as an <strong>equation</strong> that every point on the line satisfies.</p>
           <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the two x-values equal and the slope becomes undefined: the line is vertical and its equation is simply \(x = \text{constant}\).</p></div>
         </section>
 
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter <strong>two points</strong>, or <strong>one point and the slope</strong>. The calculator returns:</p>
+          <ul>
+            <li>the slope \(m\) as an exact fraction;</li>
+            <li>the point–slope, slope–intercept and general forms of the equation;</li>
+            <li>the x- and y-intercepts and the angle of inclination;</li>
+            <li>a graph of the line through the given point or points.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Between any two points of a line, the ratio of the vertical change (the <strong>rise</strong>) to the horizontal change (the <strong>run</strong>) is the same. That constant ratio is the slope. It is also the tangent of the angle \(\theta\) the line makes with the positive x-axis.</p>
+          <ul>
+            <li>\(m > 0\): the line rises to the right.</li>
+            <li>\(m \lt 0\): it falls to the right.</li>
+            <li>\(m = 0\): it is horizontal.</li>
+            <li>No slope: it is vertical (the run is zero).</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Parallel and perpendicular lines</p>
+            <p>Parallel lines have equal slopes. Perpendicular lines have slopes whose product is \(-1\), so each slope is the negative reciprocal of the other: \(m_2 = -\tfrac{1}{m_1}\).</p>
+          </div>
+        </section>
+
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ m = \frac{y_2 - y_1}{x_2 - x_1} \qquad y - y_1 = m(x - x_1) \qquad y = mx + b \qquad Ax + By + C = 0 \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Form</th><th scope="col">Equation</th><th scope="col">Best used when</th></tr></thead>
             <tbody>
-              <tr><td>\(m\)</td><td>Slope: rise over run. Positive lines rise to the right, negative lines fall.</td></tr>
-              <tr><td>\(b\)</td><td>y-intercept: where the line crosses the y-axis, \(b = y_1 - m x_1\).</td></tr>
-              <tr><td>\(A, B, C\)</td><td>Whole-number coefficients of the general form.</td></tr>
-              <tr><td>\(\theta\)</td><td>Angle of inclination, \(\tan\theta = m\), measured from the positive x-axis (0° to 180°).</td></tr>
+              <tr><td>Slope</td><td>\(m = \dfrac{y_2 - y_1}{x_2 - x_1}\)</td><td>You know two points</td></tr>
+              <tr><td>Point–slope</td><td>\(y - y_1 = m(x - x_1)\)</td><td>You know a point and the slope</td></tr>
+              <tr><td>Slope–intercept</td><td>\(y = mx + b\)</td><td>Graphing, or reading the y-intercept</td></tr>
+              <tr><td>General</td><td>\(Ax + By + C = 0\)</td><td>Distance, intersection and angle formulas</td></tr>
+              <tr><td>Intercept</td><td>\(\dfrac{x}{a} + \dfrac{y}{b} = 1\)</td><td>You know where the line crosses both axes</td></tr>
+              <tr><td>Inclination</td><td>\(\tan\theta = m,\ 0^\circ \le \theta \lt 180^\circ\)</td><td>Angles and directions</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((x_1, y_1), (x_2, y_2)\)</td><td>Points on the line.</td></tr>
+              <tr><td>\(m\)</td><td>Slope: rise over run.</td></tr>
+              <tr><td>\(b\)</td><td>y-intercept: where the line crosses the y-axis, \(b = y_1 - m x_1\).</td></tr>
+              <tr><td>\(A, B, C\)</td><td>Whole-number coefficients of the general form.</td></tr>
+              <tr><td>\(\theta\)</td><td>Angle of inclination, measured counter-clockwise from the positive x-axis.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the forms</h2>
+          <h3>Point–slope form</h3>
+          <p>Let \((x, y)\) be any other point on the line. Its slope from \((x_1, y_1)\) must equal \(m\):</p>
+          \[ \frac{y - y_1}{x - x_1} = m \;\Rightarrow\; y - y_1 = m(x - x_1). \]
+          <h3>Slope–intercept form</h3>
+          <p>Expand and solve for \(y\): \(y = mx + (y_1 - m x_1)\). The constant \(b = y_1 - m x_1\) is the value of \(y\) when \(x = 0\), the y-intercept.</p>
+          <h3>General form</h3>
+          <p>Move every term to one side and multiply by the common denominator so that \(A\), \(B\) and \(C\) are whole numbers. A slope of \(-\tfrac{A}{B}\) can be read straight back from it.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>The line through \((1, 3)\) and \((4, 9)\)</h3>
-            <h4>Step 1 — Slope</h4>
+            <h3>Problem</h3>
+            <p>Find the equation of the line through \((1, 3)\) and \((4, 9)\).</p>
+            <h4>Step 1: Slope</h4>
             \[ m = \frac{9 - 3}{4 - 1} = \frac{6}{3} = 2 \]
-            <h4>Step 2 — Point–slope form</h4>
+            <h4>Step 2: Point–slope form</h4>
             \[ y - 3 = 2(x - 1) \]
-            <h4>Step 3 — Slope–intercept form</h4>
+            <h4>Step 3: Slope–intercept form</h4>
             \[ b = 3 - 2(1) = 1 \quad\Rightarrow\quad y = 2x + 1 \]
-            <h4>Step 4 — General form</h4>
-            \[ 2x - y + 1 = 0 \]
+            <h4>Step 4: General form and intercepts</h4>
+            \[ 2x - y + 1 = 0, \qquad \text{y-intercept } 1, \qquad \text{x-intercept } -\tfrac{1}{2} \]
+            <h4>Check</h4>
+            <p>Substitute the second point: \(2(4) + 1 = 9\). ✓ The angle of inclination is \(\tan^{-1} 2 \approx 63.43^\circ\).</p>
           </div>
         </section>
 
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a point and a fractional slope</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the line through \((-2, 5)\) with slope \(-\tfrac{3}{4}\), and the line through the same point perpendicular to it.</p>
+            <h4>Step 1: Point–slope form</h4>
+            \[ y - 5 = -\tfrac{3}{4}(x + 2) \]
+            <h4>Step 2: The y-intercept</h4>
+            \[ b = 5 - \left(-\tfrac{3}{4}\right)(-2) = 5 - \tfrac{3}{2} = \tfrac{7}{2} \quad\Rightarrow\quad y = -\tfrac{3}{4}x + \tfrac{7}{2} \]
+            <h4>Step 3: General form</h4>
+            <p>Multiply by 4 and move everything to the left: \(3x + 4y - 14 = 0\). The x-intercept is \(\tfrac{14}{3}\).</p>
+            <h4>Step 4: The perpendicular line</h4>
+            <p>Its slope is the negative reciprocal, \(\tfrac{4}{3}\):</p>
+            \[ y - 5 = \tfrac{4}{3}(x + 2) \;\Rightarrow\; y = \tfrac{4}{3}x + \tfrac{23}{3} \;\Rightarrow\; 4x - 3y + 23 = 0 \]
+            <h4>Check</h4>
+            <p>\(\left(-\tfrac{3}{4}\right)\left(\tfrac{4}{3}\right) = -1\), so the lines are perpendicular. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Road and ramp design:</strong> grade is slope written as a percentage; a 1 : 12 ramp has slope \(\tfrac{1}{12} \approx 8.3\%\).</li>
+            <li><strong>Roof pitch:</strong> a 6/12 pitch rises 6 units for every 12 across.</li>
+            <li><strong>Linear models:</strong> cost, depreciation and calibration lines have a rate (the slope) and a starting value (the intercept).</li>
+            <li><strong>Drainage and pipes:</strong> the fall per metre of a sewer line.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Run over rise.</strong> Slope is the change in \(y\) divided by the change in \(x\), not the other way round.</li>
+            <li><strong>Mixed order.</strong> Subtract in the same order on top and bottom: \(\tfrac{y_2 - y_1}{x_2 - x_1}\), not \(\tfrac{y_2 - y_1}{x_1 - x_2}\).</li>
+            <li><strong>Zero versus undefined.</strong> A horizontal line has slope 0; a vertical line has no slope at all.</li>
+            <li><strong>Reading the slope from the general form.</strong> For \(Ax + By + C = 0\) the slope is \(-\tfrac{A}{B}\), not \(A\).</li>
+          </ol>
+        </section>
+
         <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
             <li>Two different points are required; one point alone does not determine a line.</li>
             <li>Slopes and intercepts are computed exactly as fractions; decimals are shown alongside.</li>
             <li>Vertical lines have an undefined slope and no slope–intercept form; horizontal lines have slope 0 and no x-intercept (unless they are the x-axis).</li>
             <li>The angle of inclination is rounded to 4 decimal places.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the slope from two points?</summary>
+            <div class="faq-answer"><p>Divide the change in y by the change in x: m = (y₂ − y₁)/(x₂ − x₁). Keep the subtraction in the same order on top and bottom.</p></div>
+          </details>
+          <details>
+            <summary>How do I convert y = mx + b to general form?</summary>
+            <div class="faq-answer"><p>Move every term to one side, for example mx − y + b = 0, then multiply by a common denominator so the coefficients are whole numbers.</p></div>
+          </details>
+          <details>
+            <summary>What is the slope of a perpendicular line?</summary>
+            <div class="faq-answer"><p>The negative reciprocal. If one line has slope 2, a perpendicular line has slope −1/2, because the product of the slopes is −1.</p></div>
+          </details>
+          <details>
+            <summary>Why is the slope of a vertical line undefined?</summary>
+            <div class="faq-answer"><p>Every point on a vertical line has the same x-coordinate, so the run is 0 and the slope would require dividing by zero.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../intersection-of-two-lines/">Intersection of two lines</a>.</li>
+            <li><a href="../angle-between-lines/">Angle between two lines</a> from their slopes.</li>
+            <li><a href="../distance-from-point-to-line/">Distance from a point to a line</a>, using the general form.</li>
+            <li><a href="../linear-regression/">Linear regression</a>: the best-fit line through data.</li>
           </ul>
         </section>

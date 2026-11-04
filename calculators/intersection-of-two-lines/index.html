@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/intersection-of-two-lines/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find where two lines intersect?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Solve the two equations together, by substitution, elimination or Cramer's rule. The solution (x, y) is the intersection point."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I tell if two lines are parallel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Their slopes are equal, which in general form means A₁B₂ − A₂B₁ = 0. If the equations are not multiples of each other, the lines never meet."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does it mean if the lines coincide?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The two equations describe the same line, so every point on it is shared and there are infinitely many intersection points."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Cramer's rule?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A formula that solves a linear system with determinants. For two lines, x = (B₁C₂ − B₂C₁)/D and y = (A₂C₁ − A₁C₂)/D with D = A₁B₂ − A₂B₁."
+          }
+        }
+      ]
     }
   ]
 }
@@ -221,11 +259,15 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Change the values and watch the picture respond. </p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
         <div class="panel learn-panel" id="explore">
           <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Move two lines</h3></div></div>
           <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Where two lines cross</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
         </div>
       </div>
     </section>
@@ -237,10 +279,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Where do two lines meet?</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is the intersection of two lines?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: substitution and a parallel pair</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -248,45 +299,157 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Where do two lines meet?</h2>
-          <p>Two different lines in a plane either cross at exactly one point, never meet (they are parallel), or are actually the same line. Finding the <strong>point of intersection</strong> means solving the two equations simultaneously. This calculator uses Cramer's rule with exact fractions, checks the answer in both equations, reports the angle between the lines and graphs them.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second line's A and B proportional to the first line's (for example double them). The determinant becomes 0 and the lines are parallel — or identical if C is scaled the same way.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is the intersection of two lines?</h2>
+          <p>Two lines in a plane either cross at exactly <strong>one point</strong>, never meet because they are <strong>parallel</strong>, or are the <strong>same line</strong>. The intersection point is the one pair <span class="math" data-tex="(x, y)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> that satisfies both equations at once, so finding it means solving a system of two linear equations.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second line a multiple of the first, for example <span class="math" data-tex="2x + 4y - 8 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>4</mn><mi>y</mi><mo>−</mo><mn>8</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x + 2y - 4 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi><mo>−</mo><mn>4</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. The determinant becomes 0 and the calculator reports that the lines coincide.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <p>For <span class="math" data-tex="A_1x + B_1y + C_1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><mi>y</mi><mo>+</mo><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="A_2x + B_2y + C_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>2</mn></msub><mi>y</mi><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>:</p>
-          <div class="formula-box"><span class="math-display" data-tex="D = A_1B_2 - A_2B_1, \qquad x = \frac{B_1C_2 - B_2C_1}{D}, \qquad y = \frac{A_2C_1 - A_1C_2}{D}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>D</mi><mo>=</mo><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub><mo separator="true">,</mo><mspace width="2em"/><mi>x</mi><mo>=</mo><mfrac><mrow><msub><mi>B</mi><mn>1</mn></msub><msub><mi>C</mi><mn>2</mn></msub><mo>−</mo><msub><mi>B</mi><mn>2</mn></msub><msub><mi>C</mi><mn>1</mn></msub></mrow><mi>D</mi></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>y</mi><mo>=</mo><mfrac><mrow><msub><mi>A</mi><mn>2</mn></msub><msub><mi>C</mi><mn>1</mn></msub><mo>−</mo><msub><mi>A</mi><mn>1</mn></msub><msub><mi>C</mi><mn>2</mn></msub></mrow><mi>D</mi></mfrac></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Case</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="D \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>The lines have different slopes and meet at exactly one point.</td></tr>
-              <tr><td><span class="math" data-tex="D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, different lines</td><td>Parallel: no solution.</td></tr>
-              <tr><td><span class="math" data-tex="D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, proportional equations</td><td>The same line: infinitely many solutions.</td></tr>
-            </tbody>
-          </table>
-          <p>The angle <span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span> between the lines satisfies <span class="math" data-tex="\tan\theta = \left|\dfrac{A_1B_2 - A_2B_1}{A_1A_2 + B_1B_2}\right|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mrow><mo fence="true">∣</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub></mrow><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>A</mi><mn>2</mn></msub><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub></mrow></mfrac></mstyle><mo fence="true">∣</mo></mrow></mrow></semantics></math></span></span>; the lines are perpendicular when <span class="math" data-tex="A_1A_2 + B_1B_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>A</mi><mn>2</mn></msub><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Takes two lines in general form <span class="math" data-tex="A_1x + B_1y + C_1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><mi>y</mi><mo>+</mo><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="A_2x + B_2y + C_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>2</mn></msub><mi>y</mi><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</li>
+            <li>Finds the intersection point exactly with Cramer's rule, and checks it in both equations.</li>
+            <li>Detects parallel and coincident lines.</li>
+            <li>Gives the acute angle between the lines and draws both of them.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3><span class="math" data-tex="2x + 3y - 12 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>−</mo><mn>12</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x - y - 1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Determinant</h4>
-            <span class="math-display" data-tex="D = (2)(-1) - (1)(3) = -5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>D</mi><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mn>5</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Coordinates</h4>
-            <span class="math-display" data-tex="x = \frac{(3)(-1) - (-1)(-12)}{-5} = \frac{-15}{-5} = 3, \qquad y = \frac{(1)(-12) - (2)(-1)}{-5} = \frac{-10}{-5} = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>12</mn><mo stretchy="false">)</mo></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mfrac><mrow><mo>−</mo><mn>15</mn></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mn>3</mn><mo separator="true">,</mo><mspace width="2em"/><mi>y</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>12</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mfrac><mrow><mo>−</mo><mn>10</mn></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Check</h4>
-            <span class="math-display" data-tex="2(3) + 3(2) - 12 = 0 \checkmark \qquad 3 - 2 - 1 = 0 \checkmark"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>3</mn><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>−</mo><mn>12</mn><mo>=</mo><mn>0</mn><mi mathvariant="normal">✓</mi><mspace width="2em"/><mn>3</mn><mo>−</mo><mn>2</mn><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn><mi mathvariant="normal">✓</mi></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Each equation describes every point of one line. A point on both lines must satisfy both equations, so the intersection is the solution of the system. Whether such a point exists depends only on the directions of the lines:</p>
+          <ul>
+            <li><strong>Different slopes:</strong> exactly one solution.</li>
+            <li><strong>Equal slopes, different positions:</strong> no solution (parallel lines).</li>
+            <li><strong>One equation a multiple of the other:</strong> infinitely many solutions (the same line).</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">The determinant test</p>
+            <p><span class="math" data-tex="D = A_1B_2 - A_2B_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub></mrow></semantics></math></span></span> is zero exactly when the slopes <span class="math" data-tex="-A_1/B_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msub><mi>A</mi><mn>1</mn></msub><mi mathvariant="normal">/</mi><msub><mi>B</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="-A_2/B_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><mi mathvariant="normal">/</mi><msub><mi>B</mi><mn>2</mn></msub></mrow></semantics></math></span></span> are equal. So <span class="math" data-tex="D \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span> means one intersection point.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="D = A_1B_2 - A_2B_1, \qquad x = \frac{B_1C_2 - B_2C_1}{D}, \qquad y = \frac{A_2C_1 - A_1C_2}{D}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>D</mi><mo>=</mo><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub><mo separator="true">,</mo><mspace width="2em"/><mi>x</mi><mo>=</mo><mfrac><mrow><msub><mi>B</mi><mn>1</mn></msub><msub><mi>C</mi><mn>2</mn></msub><mo>−</mo><msub><mi>B</mi><mn>2</mn></msub><msub><mi>C</mi><mn>1</mn></msub></mrow><mi>D</mi></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>y</mi><mo>=</mo><mfrac><mrow><msub><mi>A</mi><mn>2</mn></msub><msub><mi>C</mi><mn>1</mn></msub><mo>−</mo><msub><mi>A</mi><mn>1</mn></msub><msub><mi>C</mi><mn>2</mn></msub></mrow><mi>D</mi></mfrac></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Case</th><th scope="col">Condition</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><td>Intersecting</td><td><span class="math" data-tex="D \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>One point, from the formulas above</td></tr>
+              <tr><td>Parallel</td><td><span class="math" data-tex="D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, equations not multiples</td><td>No intersection</td></tr>
+              <tr><td>Coincident</td><td><span class="math" data-tex="D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, equations multiples</td><td>Every point of the line</td></tr>
+              <tr><td>Perpendicular</td><td><span class="math" data-tex="A_1A_2 + B_1B_2 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>A</mi><mn>2</mn></msub><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>The lines meet at 90°</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="A_1, B_1, C_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>C</mi><mn>1</mn></msub></mrow></semantics></math></span></span></td><td>Coefficients of the first line.</td></tr>
+              <tr><td><span class="math" data-tex="A_2, B_2, C_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>C</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td><td>Coefficients of the second line.</td></tr>
+              <tr><td><span class="math" data-tex="D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow></semantics></math></span></span></td><td>Determinant of the coefficients of <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="(x, y)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The intersection point.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Write the system as <span class="math" data-tex="A_1x + B_1y = -C_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>1</mn></msub><mi>y</mi><mo>=</mo><mo>−</mo><msub><mi>C</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="A_2x + B_2y = -C_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mi>x</mi><mo>+</mo><msub><mi>B</mi><mn>2</mn></msub><mi>y</mi><mo>=</mo><mo>−</mo><msub><mi>C</mi><mn>2</mn></msub></mrow></semantics></math></span></span>. To eliminate <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span>, multiply the first equation by <span class="math" data-tex="B_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mn>2</mn></msub></mrow></semantics></math></span></span>, the second by <span class="math" data-tex="B_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mn>1</mn></msub></mrow></semantics></math></span></span>, and subtract:</p>
+          <span class="math-display" data-tex="(A_1B_2 - A_2B_1)\,x = -C_1B_2 + C_2B_1 \;\Rightarrow\; x = \frac{B_1C_2 - B_2C_1}{A_1B_2 - A_2B_1}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mtext> </mtext><mi>x</mi><mo>=</mo><mo>−</mo><msub><mi>C</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>x</mi><mo>=</mo><mfrac><mrow><msub><mi>B</mi><mn>1</mn></msub><msub><mi>C</mi><mn>2</mn></msub><mo>−</mo><msub><mi>B</mi><mn>2</mn></msub><msub><mi>C</mi><mn>1</mn></msub></mrow><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub></mrow></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Eliminating <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> the same way gives <span class="math" data-tex="y = \dfrac{A_2C_1 - A_1C_2}{A_1B_2 - A_2B_1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><msub><mi>A</mi><mn>2</mn></msub><msub><mi>C</mi><mn>1</mn></msub><mo>−</mo><msub><mi>A</mi><mn>1</mn></msub><msub><mi>C</mi><mn>2</mn></msub></mrow><mrow><msub><mi>A</mi><mn>1</mn></msub><msub><mi>B</mi><mn>2</mn></msub><mo>−</mo><msub><mi>A</mi><mn>2</mn></msub><msub><mi>B</mi><mn>1</mn></msub></mrow></mfrac></mstyle></mrow></semantics></math></span></span>. The shared denominator is the determinant <span class="math" data-tex="D"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow></semantics></math></span></span>; this is Cramer's rule for a 2 × 2 system.</p>
+          <p>The same answer comes from <strong>substitution</strong> (solve one equation for <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> and substitute) or from <strong>elimination</strong> by hand. Cramer's rule simply packages elimination into one formula.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find where <span class="math" data-tex="2x + 3y - 12 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>−</mo><mn>12</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> meets <span class="math" data-tex="x - y - 1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>y</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Determinant</h4>
+            <span class="math-display" data-tex="D = (2)(-1) - (1)(3) = -5 \ne 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>D</mi><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mn>5</mn><mo mathvariant="normal">≠</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <p>The determinant is not zero, so there is exactly one intersection point.</p>
+            <h4>Step 2: Cramer's rule</h4>
+            <span class="math-display" data-tex="x = \frac{(3)(-1) - (-1)(-12)}{-5} = \frac{-15}{-5} = 3, \qquad y = \frac{(1)(-12) - (2)(-1)}{-5} = \frac{-10}{-5} = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>12</mn><mo stretchy="false">)</mo></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mfrac><mrow><mo>−</mo><mn>15</mn></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mn>3</mn><mo separator="true">,</mo><mspace width="2em"/><mi>y</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>12</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mfrac><mrow><mo>−</mo><mn>10</mn></mrow><mrow><mo>−</mo><mn>5</mn></mrow></mfrac><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Check in both equations</h4>
+            <span class="math-display" data-tex="2(3) + 3(2) - 12 = 0 \ \checkmark \qquad 3 - 2 - 1 = 0 \ \checkmark"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo>+</mo><mn>3</mn><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>−</mo><mn>12</mn><mo>=</mo><mn>0</mn><mtext> </mtext><mi mathvariant="normal">✓</mi><mspace width="2em"/><mn>3</mn><mo>−</mo><mn>2</mn><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn><mtext> </mtext><mi mathvariant="normal">✓</mi></mrow></semantics></math></span></span>
+            <p>The lines meet at <span class="math" data-tex="(3, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. Their slopes are <span class="math" data-tex="-\tfrac{2}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span> and <span class="math" data-tex="1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow></semantics></math></span></span>, so the acute angle between them is <span class="math" data-tex="\tan^{-1} 5 \approx 78.69^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mi>tan</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mn>5</mn><mo>≈</mo><mn>78.6</mn><msup><mn>9</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: substitution and a parallel pair</h2>
+          <div class="worked-example">
+            <h3>Part 1: Lines in slope–intercept form</h3>
+            <p>Find where <span class="math" data-tex="y = 2x - 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>2</mn><mi>x</mi><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span> meets <span class="math" data-tex="y = -x + 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo>−</mo><mi>x</mi><mo>+</mo><mn>5</mn></mrow></semantics></math></span></span>.</p>
+            <p>Both expressions equal <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span>, so set them equal: <span class="math" data-tex="2x - 1 = -x + 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mn>1</mn><mo>=</mo><mo>−</mo><mi>x</mi><mo>+</mo><mn>5</mn></mrow></semantics></math></span></span>, giving <span class="math" data-tex="3x = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>x</mi><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>. Then <span class="math" data-tex="y = 2(2) - 1 = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>. The intersection is <span class="math" data-tex="(2, 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+            <p>In general form these are <span class="math" data-tex="2x - y - 1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>−</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="x + y - 5 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>−</mo><mn>5</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, and Cramer's rule gives the same point: <span class="math" data-tex="D = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="x = \tfrac{6}{3} = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mn>6</mn><mn>3</mn></mfrac><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="y = \tfrac{9}{3} = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mfrac><mn>9</mn><mn>3</mn></mfrac><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>.</p>
+            <h3>Part 2: A pair with no solution</h3>
+            <p>For <span class="math" data-tex="x + 2y - 4 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mn>2</mn><mi>y</mi><mo>−</mo><mn>4</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="2x + 4y + 3 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>4</mn><mi>y</mi><mo>+</mo><mn>3</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>:</p>
+            <span class="math-display" data-tex="D = (1)(4) - (2)(2) = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>D</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <p>Both lines have slope <span class="math" data-tex="-\tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>, but doubling the first equation gives <span class="math" data-tex="2x + 4y - 8 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>4</mn><mi>y</mi><mo>−</mo><mn>8</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, not <span class="math" data-tex="+3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span>. They are parallel and never meet.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Each line must be written in general form; A and B cannot both be zero.</li>
-            <li>To convert <span class="math" data-tex="y = mx + b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>m</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow></semantics></math></span></span>, use <span class="math" data-tex="A = m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mi>m</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="B = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="C = b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>b</mi></mrow></semantics></math></span></span>.</li>
-            <li>Coordinates are exact fractions; decimals are rounded to 6 places and the angle to 4.</li>
+            <li><strong>Break-even analysis:</strong> where a cost line meets a revenue line (see the <a href="../break-even/">break-even calculator</a>).</li>
+            <li><strong>Surveying:</strong> locating a point from two bearings drawn from known stations.</li>
+            <li><strong>Road layout:</strong> where two straight alignments cross.</li>
+            <li><strong>Computer graphics:</strong> clipping and collision tests between line segments.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Forgetting to move C.</strong> Read <span class="math" data-tex="C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow></semantics></math></span></span> from the form <span class="math" data-tex="Ax + By + C = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. For <span class="math" data-tex="2x + 3y = 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mn>12</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="C = -12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo>−</mo><mn>12</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Mixing up the numerators.</strong> The order of the products matters; a slip changes the sign of <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> or <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span>.</li>
+            <li><strong>Dividing by a zero determinant.</strong> If <span class="math" data-tex="D = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, stop: the lines are parallel or the same.</li>
+            <li><strong>Skipping the check.</strong> Substituting the answer into both equations catches almost every arithmetic slip.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Both lines are entered in general form; <span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span> cannot both be 0 in the same line.</li>
+            <li>Coordinates are exact fractions; decimals are shown rounded to 6 places.</li>
+            <li>For three or more equations, use the <a href="../systems-of-linear-equations/">systems of linear equations solver</a>.</li>
+            <li>Lines in space may be skew (not parallel, yet never meeting); this calculator covers lines in a plane.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find where two lines intersect?</summary>
+            <div class="faq-answer"><p>Solve the two equations together, by substitution, elimination or Cramer's rule. The solution (x, y) is the intersection point.</p></div>
+          </details>
+          <details>
+            <summary>How can I tell if two lines are parallel?</summary>
+            <div class="faq-answer"><p>Their slopes are equal, which in general form means A₁B₂ − A₂B₁ = 0. If the equations are not multiples of each other, the lines never meet.</p></div>
+          </details>
+          <details>
+            <summary>What does it mean if the lines coincide?</summary>
+            <div class="faq-answer"><p>The two equations describe the same line, so every point on it is shared and there are infinitely many intersection points.</p></div>
+          </details>
+          <details>
+            <summary>What is Cramer's rule?</summary>
+            <div class="faq-answer"><p>A formula that solves a linear system with determinants. For two lines, x = (B₁C₂ − B₂C₁)/D and y = (A₂C₁ − A₁C₂)/D with D = A₁B₂ − A₂B₁.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../angle-between-lines/">Angle between two lines</a>.</li>
+            <li><a href="../line-circle-intersection/">Line–circle intersection</a>.</li>
+            <li><a href="../matrix-method-linear-systems/">Matrix method for linear systems</a>.</li>
+            <li><a href="../slope-and-equation-of-a-line/">Slope and equation of a line</a>.</li>
           </ul>
         </section>
 

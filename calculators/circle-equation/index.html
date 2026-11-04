@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/circle-equation/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find the centre and radius from the general form?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The centre is (−D/2, −E/2) and r² = (D² + E²)/4 − F. Completing the square gives the same result step by step."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find a circle through three points?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Substitute each point into x² + y² + Dx + Ey + F = 0 and solve the three linear equations for D, E and F."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When does the general form not describe a circle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When (D² + E²)/4 − F is 0 (a single point) or negative (no real points)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the equation of a circle centred at the origin?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "x² + y² = r². The centre (0, 0) makes h and k zero."
+          }
+        }
+      ]
     }
   ]
 }
@@ -243,11 +281,15 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Change the values and watch the picture respond. </p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
         <div class="panel learn-panel" id="explore">
           <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Move and resize a circle</h3></div></div>
           <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Centre and radius from the general form</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
         </div>
       </div>
     </section>
@@ -259,10 +301,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Equation of a circle</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is the equation of a circle?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">From general form to standard form</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: the circle through three points</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -270,46 +321,163 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Equation of a circle</h2>
-          <p>A circle is the set of points at a fixed distance <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span> (the radius) from a fixed point <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> (the centre). Its equation can be written in <strong>standard form</strong>, which shows the centre and radius directly, or in <strong>general form</strong>, which is what you get after expanding. This calculator converts between them, finds a circle from its centre and one point, and finds the unique circle through three points.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>In general form, make F larger: the right-hand side after completing the square shrinks, the circle gets smaller, and eventually there is no real circle at all.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is the equation of a circle?</h2>
+          <p>A <strong>circle</strong> is the set of all points at the same distance, the <strong>radius</strong> <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>, from a fixed point, the <strong>centre</strong> <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. Writing that condition with the distance formula gives the equation of the circle. It comes in two forms: the <strong>standard form</strong>, which shows the centre and radius at a glance, and the expanded <strong>general form</strong>.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>In the general-form mode, make <span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span> large and positive, for example <span class="math" data-tex="x^2 + y^2 - 4x + 6y + 20 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>6</mn><mi>y</mi><mo>+</mo><mn>20</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. Completing the square gives a negative <span class="math" data-tex="r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span>, so no real circle exists.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose what you know:</p>
+          <ul>
+            <li><strong>Centre and radius:</strong> writes both forms of the equation.</li>
+            <li><strong>Centre and a point on the circle:</strong> finds the radius first.</li>
+            <li><strong>General form:</strong> completes the square to find the centre and radius.</li>
+            <li><strong>Three points:</strong> finds the one circle through all three.</li>
+          </ul>
+          <p>It also gives the circumference and area, and draws the circle.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>A point <span class="math" data-tex="(x, y)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is on the circle exactly when its distance from the centre is <span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="\sqrt{(x - h)^2 + (y - k)^2} = r."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msqrt><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mi>r</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Squaring both sides gives the standard form. Expanding it gives an equation whose <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="y^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span> terms have the <strong>same coefficient</strong> and which has <strong>no <span class="math" data-tex="xy"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi>y</mi></mrow></semantics></math></span></span> term</strong>. That is how you recognise a circle in general form.</p>
+          <div class="callout">
+            <p class="callout-title">Three points fix a circle</p>
+            <p>Any three points that are not on one line lie on exactly one circle. Its centre is where the perpendicular bisectors of the sides of the triangle meet.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <div class="formula-box"><span class="math-display" data-tex="(x - h)^2 + (y - k)^2 = r^2 \qquad x^2 + y^2 + Dx + Ey + F = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><msup><mi>r</mi><mn>2</mn></msup><mspace width="2em"/><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>D</mi><mi>x</mi><mo>+</mo><mi>E</mi><mi>y</mi><mo>+</mo><mi>F</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></div>
-          <div class="formula-box"><span class="math-display" data-tex="h = -\frac{D}{2}, \qquad k = -\frac{E}{2}, \qquad r^2 = \frac{D^2 + E^2}{4} - F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>h</mi><mo>=</mo><mo>−</mo><mfrac><mi>D</mi><mn>2</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><mi>k</mi><mo>=</mo><mo>−</mo><mfrac><mi>E</mi><mn>2</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><msup><mi>r</mi><mn>2</mn></msup><mo>=</mo><mfrac><mrow><msup><mi>D</mi><mn>2</mn></msup><mo>+</mo><msup><mi>E</mi><mn>2</mn></msup></mrow><mn>4</mn></mfrac><mo>−</mo><mi>F</mi></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <table>
+            <thead><tr><th scope="col">From</th><th scope="col">To</th><th scope="col">Rule</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Centre of the circle.</td></tr>
-              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Radius (must be positive).</td></tr>
-              <tr><td><span class="math" data-tex="D, E, F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo separator="true">,</mo><mi>E</mi><mo separator="true">,</mo><mi>F</mi></mrow></semantics></math></span></span></td><td>Coefficients of the general form (coefficients of <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="y^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span> are both 1).</td></tr>
+              <tr><td>Standard</td><td>General</td><td><span class="math" data-tex="D = -2h,\ E = -2k,\ F = h^2 + k^2 - r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo>−</mo><mn>2</mn><mi>h</mi><mo separator="true">,</mo><mtext> </mtext><mi>E</mi><mo>=</mo><mo>−</mo><mn>2</mn><mi>k</mi><mo separator="true">,</mo><mtext> </mtext><mi>F</mi><mo>=</mo><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><msup><mi>k</mi><mn>2</mn></msup><mo>−</mo><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>General</td><td>Centre</td><td><span class="math" data-tex="(h, k) = \left(-\tfrac{D}{2}, -\tfrac{E}{2}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><mi>D</mi><mn>2</mn></mfrac><mo separator="true">,</mo><mo>−</mo><mfrac><mi>E</mi><mn>2</mn></mfrac><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span></td></tr>
+              <tr><td>General</td><td>Radius</td><td><span class="math" data-tex="r^2 = \tfrac{D^2 + E^2}{4} - F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>=</mo><mfrac><mrow><msup><mi>D</mi><mn>2</mn></msup><mo>+</mo><msup><mi>E</mi><mn>2</mn></msup></mrow><mn>4</mn></mfrac><mo>−</mo><mi>F</mi></mrow></semantics></math></span></span> (must be positive)</td></tr>
+              <tr><td>Centre and point</td><td>Radius</td><td><span class="math" data-tex="r^2 = (x_1 - h)^2 + (y_1 - k)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mn>1</mn></msub><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Circle</td><td>Size</td><td><span class="math" data-tex="C = 2\pi r,\ A = \pi r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>r</mi><mo separator="true">,</mo><mtext> </mtext><mi>A</mi><mo>=</mo><mi>π</mi><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Centre of the circle.</td></tr>
+              <tr><td><span class="math" data-tex="r"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow></semantics></math></span></span></td><td>Radius, which must be positive.</td></tr>
+              <tr><td><span class="math" data-tex="D, E, F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo separator="true">,</mo><mi>E</mi><mo separator="true">,</mo><mi>F</mi></mrow></semantics></math></span></span></td><td>Coefficients of the general form.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">From general form to standard form</h2>
+          <p>Completing the square reverses the expansion. Take <span class="math" data-tex="x^2 + y^2 + 6x - 8y + 9 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mn>6</mn><mi>x</mi><mo>−</mo><mn>8</mn><mi>y</mi><mo>+</mo><mn>9</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>:</p>
+          <ol>
+            <li>Group the terms and move <span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="(x^2 + 6x) + (y^2 - 8y) = -9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>6</mn><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>8</mn><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mn>9</mn></mrow></semantics></math></span></span>.</li>
+            <li>Add half of each linear coefficient, squared, to both sides: <span class="math" data-tex="\left(\tfrac{6}{2}\right)^2 = 9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mfrac><mn>6</mn><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>9</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="\left(\tfrac{-8}{2}\right)^2 = 16"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mfrac><mrow><mo>−</mo><mn>8</mn></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>16</mn></mrow></semantics></math></span></span>.</li>
+            <li>Both brackets are now perfect squares:
+              <span class="math-display" data-tex="(x^2 + 6x + 9) + (y^2 - 8y + 16) = -9 + 9 + 16 \;\Rightarrow\; (x + 3)^2 + (y - 4)^2 = 16."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>6</mn><mi>x</mi><mo>+</mo><mn>9</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>8</mn><mi>y</mi><mo>+</mo><mn>16</mn><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mn>9</mn><mo>+</mo><mn>9</mn><mo>+</mo><mn>16</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>16.</mn></mrow></semantics></math></span></span>
+            </li>
+          </ol>
+          <p>The centre is <span class="math" data-tex="(-3, 4)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and the radius is 4. If the right-hand side had come out as 0, the "circle" would be a single point; if negative, there would be no real points at all.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Convert <span class="math" data-tex="x^2 + y^2 - 4x + 6y - 12 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>6</mn><mi>y</mi><mo>−</mo><mn>12</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> to standard form</h3>
-            <h4>Step 1 — Group and move the constant</h4>
-            <span class="math-display" data-tex="(x^2 - 4x) + (y^2 + 6y) = 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mn>6</mn><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mn>12</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Complete each square</h4>
-            <span class="math-display" data-tex="(x^2 - 4x + 4) + (y^2 + 6y + 9) = 12 + 4 + 9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>4</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mn>6</mn><mi>y</mi><mo>+</mo><mn>9</mn><mo stretchy="false">)</mo><mo>=</mo><mn>12</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>9</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Standard form</h4>
+            <h3>Problem</h3>
+            <p>Write the equation of the circle with centre <span class="math" data-tex="(2, -3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and radius 5 in standard and general form.</p>
+            <h4>Step 1: Standard form</h4>
             <span class="math-display" data-tex="(x - 2)^2 + (y + 3)^2 = 25"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>25</mn></mrow></semantics></math></span></span>
-            <p>The centre is <span class="math" data-tex="(2, -3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and the radius is <span class="math" data-tex="\sqrt{25} = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>25</mn></msqrt><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: Expand</h4>
+            <span class="math-display" data-tex="x^2 - 4x + 4 + y^2 + 6y + 9 = 25"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>4</mn><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mn>6</mn><mi>y</mi><mo>+</mo><mn>9</mn><mo>=</mo><mn>25</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: General form</h4>
+            <span class="math-display" data-tex="x^2 + y^2 - 4x + 6y - 12 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>6</mn><mi>y</mi><mo>−</mo><mn>12</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="D = -2(2) = -4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo>−</mo><mn>2</mn><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mn>4</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="E = -2(-3) = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo>−</mo><mn>2</mn><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="F = 4 + 9 - 25 = -12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mn>4</mn><mo>+</mo><mn>9</mn><mo>−</mo><mn>25</mn><mo>=</mo><mo>−</mo><mn>12</mn></mrow></semantics></math></span></span>. ✓ The circumference is <span class="math" data-tex="10\pi \approx 31.42"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>π</mi><mo>≈</mo><mn>31.42</mn></mrow></semantics></math></span></span> and the area is <span class="math" data-tex="25\pi \approx 78.54"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>25</mn><mi>π</mi><mo>≈</mo><mn>78.54</mn></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: the circle through three points</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the circle through <span class="math" data-tex="(0, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="(4, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="(0, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Substitute each point into <span class="math" data-tex="x^2 + y^2 + Dx + Ey + F = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>D</mi><mi>x</mi><mo>+</mo><mi>E</mi><mi>y</mi><mo>+</mo><mi>F</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></h4>
+            <span class="math-display" data-tex="(0, 0):\ F = 0 \qquad (4, 0):\ 16 + 4D + F = 0 \qquad (0, 2):\ 4 + 2E + F = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo><mo>:</mo><mtext> </mtext><mi>F</mi><mo>=</mo><mn>0</mn><mspace width="2em"/><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo><mo>:</mo><mtext> </mtext><mn>16</mn><mo>+</mo><mn>4</mn><mi>D</mi><mo>+</mo><mi>F</mi><mo>=</mo><mn>0</mn><mspace width="2em"/><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo>:</mo><mtext> </mtext><mn>4</mn><mo>+</mo><mn>2</mn><mi>E</mi><mo>+</mo><mi>F</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Solve</h4>
+            <p><span class="math" data-tex="F = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="D = -4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mo>−</mo><mn>4</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="E = -2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo>−</mo><mn>2</mn></mrow></semantics></math></span></span>. The equation is <span class="math" data-tex="x^2 + y^2 - 4x - 2y = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>−</mo><mn>2</mn><mi>y</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 3: Centre and radius</h4>
+            <span class="math-display" data-tex="(h, k) = (2, 1), \qquad r^2 = \frac{16 + 4}{4} - 0 = 5, \qquad r = \sqrt{5} \approx 2.236"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><msup><mi>r</mi><mn>2</mn></msup><mo>=</mo><mfrac><mrow><mn>16</mn><mo>+</mo><mn>4</mn></mrow><mn>4</mn></mfrac><mo>−</mo><mn>0</mn><mo>=</mo><mn>5</mn><mo separator="true">,</mo><mspace width="2em"/><mi>r</mi><mo>=</mo><msqrt><mn>5</mn></msqrt><mo>≈</mo><mn>2.236</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>The angle at <span class="math" data-tex="(0, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is a right angle, so the side from <span class="math" data-tex="(4, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> to <span class="math" data-tex="(0, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> must be a diameter. Its midpoint is <span class="math" data-tex="(2, 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and its length is <span class="math" data-tex="\sqrt{20} = 2\sqrt{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>20</mn></msqrt><mo>=</mo><mn>2</mn><msqrt><mn>5</mn></msqrt></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>General-form input assumes the coefficients of <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="y^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span> are 1. Divide the whole equation first if they are another equal number.</li>
-            <li>If <span class="math" data-tex="r^2 \le 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mn>2</mn></msup><mo>≤</mo><mn>0</mn></mrow></semantics></math></span></span> after completing the square there is no real circle (or only a single point), and no result is shown.</li>
-            <li>Three points must not lie on one straight line.</li>
-            <li>All work uses exact fractions; radii are given in simplest radical form, and circumference and area are rounded.</li>
+            <li><strong>Surveying and road design:</strong> laying out circular curves from their centre and radius.</li>
+            <li><strong>Machining and CNC:</strong> circular interpolation and bolt-hole circles.</li>
+            <li><strong>Locating a source:</strong> three equal-time measurements around an event lie on a circle whose centre is the source.</li>
+            <li><strong>Coverage areas:</strong> the region within a set range of a tower or sensor.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Sign of the centre.</strong> <span class="math" data-tex="(x + 3)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span> means <span class="math" data-tex="h = -3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mo>−</mo><mn>3</mn></mrow></semantics></math></span></span>, not <span class="math" data-tex="+3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Radius versus radius squared.</strong> The right side of the standard form is <span class="math" data-tex="r^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>r</mi><mn>2</mn></msup></mrow></semantics></math></span></span>; for <span class="math" data-tex="= 16"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>16</mn></mrow></semantics></math></span></span>, the radius is 4.</li>
+            <li><strong>Completing the square on one side only.</strong> Whatever you add on the left must also be added on the right.</li>
+            <li><strong>Unequal <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="y^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span> coefficients.</strong> Divide through first; if they still differ, the curve is an ellipse, not a circle.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The general form is entered with the <span class="math" data-tex="x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and <span class="math" data-tex="y^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mn>2</mn></msup></mrow></semantics></math></span></span> coefficients equal to 1. Divide through first if they are not.</li>
+            <li>All arithmetic is exact; the radius is given in simplest radical form when it is not a whole number.</li>
+            <li>The three points must be different and not on one line.</li>
+            <li>For equations with an <span class="math" data-tex="xy"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi>y</mi></mrow></semantics></math></span></span> term or unequal squared terms, use the <a href="../general-conic/">general conic calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the centre and radius from the general form?</summary>
+            <div class="faq-answer"><p>The centre is (−D/2, −E/2) and r² = (D² + E²)/4 − F. Completing the square gives the same result step by step.</p></div>
+          </details>
+          <details>
+            <summary>How do I find a circle through three points?</summary>
+            <div class="faq-answer"><p>Substitute each point into x² + y² + Dx + Ey + F = 0 and solve the three linear equations for D, E and F.</p></div>
+          </details>
+          <details>
+            <summary>When does the general form not describe a circle?</summary>
+            <div class="faq-answer"><p>When (D² + E²)/4 − F is 0 (a single point) or negative (no real points).</p></div>
+          </details>
+          <details>
+            <summary>What is the equation of a circle centred at the origin?</summary>
+            <div class="faq-answer"><p>x² + y² = r². The centre (0, 0) makes h and k zero.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../line-circle-intersection/">Line–circle intersection</a>.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal to a circle</a>.</li>
+            <li><a href="../ellipse/">Ellipse</a>: the circle stretched in one direction.</li>
+            <li><a href="../midpoint-and-distance/">Midpoint and distance</a>.</li>
           </ul>
         </section>
 

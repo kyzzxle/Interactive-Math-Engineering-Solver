@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/ellipse/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find the foci of an ellipse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Compute c² = (larger semi-axis)² − (smaller semi-axis)². The foci are c units from the centre along the major axis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the eccentricity of an ellipse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "e = c divided by the major semi-axis. It is 0 for a circle and approaches 1 as the ellipse gets flatter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the area of an ellipse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "πab, where a and b are the two semi-axes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a circle an ellipse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes: a circle is an ellipse with equal semi-axes, so both foci are at the centre and e = 0."
+          }
+        }
+      ]
     }
   ]
 }
@@ -213,11 +251,15 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Change the values and watch the picture respond. </p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
         <div class="panel learn-panel" id="explore">
           <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Draw an ellipse with two pins</h3></div></div>
           <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Foci and eccentricity of an ellipse</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
         </div>
       </div>
     </section>
@@ -229,10 +271,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the ellipse calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is an ellipse?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the equation</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: from general form</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -240,50 +291,168 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the ellipse calculator does</h2>
-          <p>An <strong>ellipse</strong> is the set of points whose distances to two fixed points, the <strong>foci</strong>, add up to a constant — the length of the major axis. Pin a loop of string at the foci and trace around with a pencil, and you draw an ellipse.</p>
-          <p>In standard form the centre is <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, the horizontal semi-axis is <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and the vertical one <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span>. The longer of the two is the major semi-axis; the foci lie on that axis at distance <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span> from the centre.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, make a = b: the foci merge at the centre and the ellipse becomes a circle (e = 0).</p></div>
+          <h2 id="about-h" style="margin-top:0">What is an ellipse?</h2>
+          <p>An <strong>ellipse</strong> is the set of all points whose distances to two fixed points, the <strong>foci</strong>, add up to the same constant. Tie a loop of string around two pins and pull it tight with a pencil: the curve you trace is an ellipse. It looks like a stretched circle, with a long <strong>major axis</strong> and a short <strong>minor axis</strong> crossing at its centre.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span> equal. The foci move to the centre, the eccentricity becomes 0 and the ellipse is a circle.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="\frac{(x - h)^2}{a^2} + \frac{(y - k)^2}{b^2} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>a</mi><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>b</mi><mn>2</mn></msup></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span><span class="math-display" data-tex="c^2 = |a^2 - b^2| \qquad e = \frac{c}{\max(a, b)} \qquad \text{latus rectum} = \frac{2\min(a,b)^2}{\max(a,b)}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><mi mathvariant="normal">∣</mi><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup><mi mathvariant="normal">∣</mi><mspace width="2em"/><mi>e</mi><mo>=</mo><mfrac><mi>c</mi><mrow><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></mfrac><mspace width="2em"/><mtext>latus rectum</mtext><mo>=</mo><mfrac><mrow><mn>2</mn><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mrow><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Centre</td></tr>
-              <tr><td><span class="math" data-tex="a,\ b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mtext> </mtext><mi>b</mi></mrow></semantics></math></span></span></td><td>Horizontal and vertical semi-axes</td></tr>
-              <tr><td><span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span></td><td>Centre-to-focus distance</td></tr>
-              <tr><td><span class="math" data-tex="e"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span></td><td>Eccentricity, 0 ≤ e &lt; 1</td></tr>
-            </tbody>
-          </table>
-          <p>The area is πab. The perimeter has no elementary formula; Ramanujan’s approximation is very accurate.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter the centre <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, the horizontal semi-axis <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and the vertical semi-axis <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span>. The calculator returns:</p>
+          <ul>
+            <li>the standard and general forms of the equation;</li>
+            <li>the vertices, co-vertices and foci, with the focal distance <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span>;</li>
+            <li>the eccentricity, the latus rectum and the directrices;</li>
+            <li>the area and a very accurate approximation of the perimeter;</li>
+            <li>a graph showing the major axis and the foci.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Centre (2, −1), a = 5, b = 3</h3>
-            <h4>Step 1 — Equation</h4>
-            <span class="math-display" data-tex="\frac{(x - 2)^2}{25} + \frac{(y + 1)^2}{9} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>25</mn></mfrac><mo>+</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>9</mn></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Focal distance</h4>
-            <span class="math-display" data-tex="c^2 = 25 - 9 = 16,\quad c = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><mn>25</mn><mo>−</mo><mn>9</mn><mo>=</mo><mn>16</mn><mo separator="true">,</mo><mspace width="1em"/><mi>c</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Foci and eccentricity</h4>
-            <span class="math-display" data-tex="(2 \pm 4,\ -1) = (-2, -1),\ (6, -1),\qquad e = \tfrac{4}{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo>±</mo><mn>4</mn><mo separator="true">,</mo><mtext> </mtext><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext> </mtext><mo stretchy="false">(</mo><mn>6</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><mi>e</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>5</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Call the longer semi-axis <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> and the shorter one <span class="math" data-tex="q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow></semantics></math></span></span>. At the end of the minor axis, a point is the same distance from each focus, and the two distances add to <span class="math" data-tex="2p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>p</mi></mrow></semantics></math></span></span>, so each is <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span>. That makes a right triangle with legs <span class="math" data-tex="q"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span> and hypotenuse <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="c^2 = p^2 - q^2."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>p</mi><mn>2</mn></msup><mo>−</mo><msup><mi>q</mi><mn>2</mn></msup><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>The <strong>eccentricity</strong> <span class="math" data-tex="e = c/p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mi>c</mi><mi mathvariant="normal">/</mi><mi>p</mi></mrow></semantics></math></span></span> measures how stretched the ellipse is: 0 for a circle, approaching 1 for a very flat ellipse.</p>
+          <div class="callout">
+            <p class="callout-title">Orbits</p>
+            <p>Planets move in ellipses with the Sun at one focus (Kepler's first law). Earth's orbit has <span class="math" data-tex="e \approx 0.017"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≈</mo><mn>0.017</mn></mrow></semantics></math></span></span>, so it is almost a circle.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="\frac{(x - h)^2}{a^2} + \frac{(y - k)^2}{b^2} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>a</mi><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>b</mi><mn>2</mn></msup></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Major axis horizontal (<span class="math" data-tex="a &gt; b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>b</mi></mrow></semantics></math></span></span>)</th><th scope="col">Major axis vertical (<span class="math" data-tex="b &gt; a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><mi>a</mi></mrow></semantics></math></span></span>)</th></tr></thead>
+            <tbody>
+              <tr><td>Focal distance</td><td><span class="math" data-tex="c^2 = a^2 - b^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td><td><span class="math" data-tex="c^2 = b^2 - a^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Vertices</td><td><span class="math" data-tex="(h \pm a, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo>±</mo><mi>a</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h, k \pm b)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo>±</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Foci</td><td><span class="math" data-tex="(h \pm c, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo>±</mo><mi>c</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h, k \pm c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo>±</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Eccentricity</td><td><span class="math" data-tex="e = c/a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mi>c</mi><mi mathvariant="normal">/</mi><mi>a</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="e = c/b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mi>c</mi><mi mathvariant="normal">/</mi><mi>b</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Latus rectum</td><td><span class="math" data-tex="2b^2/a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>b</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mi>a</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="2a^2/b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>a</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mi>b</mi></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Directrices</td><td><span class="math" data-tex="x = h \pm a^2/c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>h</mi><mo>±</mo><msup><mi>a</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mi>c</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="y = k \pm b^2/c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>k</mi><mo>±</mo><msup><mi>b</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mi>c</mi></mrow></semantics></math></span></span></td></tr>
+            </tbody>
+          </table>
+          <p>Area: <span class="math" data-tex="\pi ab"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mi>a</mi><mi>b</mi></mrow></semantics></math></span></span>. Perimeter (Ramanujan): <span class="math" data-tex="P \approx \pi\left[3(a + b) - \sqrt{(3a + b)(a + 3b)}\right]"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>≈</mo><mi>π</mi><mrow><mo fence="true">[</mo><mn>3</mn><mo stretchy="false">(</mo><mi>a</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo><mo>−</mo><msqrt><mrow><mo stretchy="false">(</mo><mn>3</mn><mi>a</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>a</mi><mo>+</mo><mn>3</mn><mi>b</mi><mo stretchy="false">)</mo></mrow></msqrt><mo fence="true">]</mo></mrow></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Centre of the ellipse.</td></tr>
+              <tr><td><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span></td><td>Horizontal semi-axis: half the width.</td></tr>
+              <tr><td><span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span></td><td>Vertical semi-axis: half the height.</td></tr>
+              <tr><td><span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span></td><td>Distance from the centre to each focus.</td></tr>
+              <tr><td><span class="math" data-tex="e"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span></td><td>Eccentricity, between 0 and 1.</td></tr>
+            </tbody>
+          </table>
+          <p>Many textbooks always call the major semi-axis <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span>. This calculator keeps <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> horizontal and <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span> vertical, and works out which one is the major axis for you.</p>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the equation</h2>
+          <p>Place the foci at <span class="math" data-tex="(\pm c, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>±</mo><mi>c</mi><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and let the distances add to <span class="math" data-tex="2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="\sqrt{(x + c)^2 + y^2} + \sqrt{(x - c)^2 + y^2} = 2a."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msqrt><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>c</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><msqrt><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>c</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>2</mn><mi>a</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Move one root across, square, simplify, and square again. The result is <span class="math" data-tex="(a^2 - c^2)x^2 + a^2y^2 = a^2(a^2 - c^2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>c</mi><mn>2</mn></msup><mo stretchy="false">)</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>a</mi><mn>2</mn></msup><msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo stretchy="false">(</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>c</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. Writing <span class="math" data-tex="b^2 = a^2 - c^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>c</mi><mn>2</mn></msup></mrow></semantics></math></span></span> and dividing by <span class="math" data-tex="a^2b^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><msup><mi>b</mi><mn>2</mn></msup></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><msup><mi>x</mi><mn>2</mn></msup><msup><mi>a</mi><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><msup><mi>y</mi><mn>2</mn></msup><msup><mi>b</mi><mn>2</mn></msup></mfrac><mo>=</mo><mn>1.</mn></mrow></semantics></math></span></span>
+          <p>Shifting the centre to <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> replaces <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> by <span class="math" data-tex="x - h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>−</mo><mi>h</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> by <span class="math" data-tex="y - k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><mi>k</mi></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>An ellipse has centre <span class="math" data-tex="(2, -1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, horizontal semi-axis 5 and vertical semi-axis 3. Find its equation, foci and eccentricity.</p>
+            <h4>Step 1: Standard form</h4>
+            <span class="math-display" data-tex="\frac{(x - 2)^2}{25} + \frac{(y + 1)^2}{9} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>25</mn></mfrac><mo>+</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>9</mn></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Focal distance</h4>
+            <p><span class="math" data-tex="a &gt; b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>b</mi></mrow></semantics></math></span></span>, so the major axis is horizontal: <span class="math" data-tex="c^2 = 25 - 9 = 16"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><mn>25</mn><mo>−</mo><mn>9</mn><mo>=</mo><mn>16</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="c = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 3: Key points</h4>
+            <span class="math-display" data-tex="\text{vertices } (-3, -1),\ (7, -1) \qquad \text{co-vertices } (2, 2),\ (2, -4) \qquad \text{foci } (-2, -1),\ (6, -1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>vertices </mtext><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext> </mtext><mo stretchy="false">(</mo><mn>7</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mspace width="2em"/><mtext>co-vertices </mtext><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext> </mtext><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>4</mn><mo stretchy="false">)</mo><mspace width="2em"/><mtext>foci </mtext><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext> </mtext><mo stretchy="false">(</mo><mn>6</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 4: Shape</h4>
+            <span class="math-display" data-tex="e = \tfrac{4}{5} = 0.8, \qquad \text{latus rectum } \tfrac{2(9)}{5} = \tfrac{18}{5}, \qquad \text{directrices } x = 2 \pm \tfrac{25}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>e</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>5</mn></mfrac></mstyle><mo>=</mo><mn>0.8</mn><mo separator="true">,</mo><mspace width="2em"/><mtext>latus rectum </mtext><mstyle displaystyle="false" scriptlevel="0"><mfrac><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>9</mn><mo stretchy="false">)</mo></mrow><mn>5</mn></mfrac></mstyle><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>18</mn><mn>5</mn></mfrac></mstyle><mo separator="true">,</mo><mspace width="2em"/><mtext>directrices </mtext><mi>x</mi><mo>=</mo><mn>2</mn><mo>±</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>25</mn><mn>4</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+            <h4>Step 5: General form</h4>
+            <p>Multiply by 225 and expand: <span class="math" data-tex="9x^2 + 25y^2 - 36x + 50y - 164 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>25</mn><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>36</mn><mi>x</mi><mo>+</mo><mn>50</mn><mi>y</mi><mo>−</mo><mn>164</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. The area is <span class="math" data-tex="15\pi \approx 47.12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn><mi>π</mi><mo>≈</mo><mn>47.12</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Check</h4>
+            <p>The co-vertex <span class="math" data-tex="(2, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is <span class="math" data-tex="\sqrt{16 + 9} = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>16</mn><mo>+</mo><mn>9</mn></mrow></msqrt><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span> from each focus, and <span class="math" data-tex="5 + 5 = 10 = 2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>+</mo><mn>5</mn><mo>=</mo><mn>10</mn><mo>=</mo><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: from general form</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Identify the ellipse <span class="math" data-tex="4x^2 + 9y^2 - 16x + 18y - 11 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>9</mn><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>16</mn><mi>x</mi><mo>+</mo><mn>18</mn><mi>y</mi><mo>−</mo><mn>11</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Group and factor</h4>
+            <span class="math-display" data-tex="4(x^2 - 4x) + 9(y^2 + 2y) = 11"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>4</mn><mo stretchy="false">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mn>9</mn><mo stretchy="false">(</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mn>11</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Complete the squares</h4>
+            <span class="math-display" data-tex="4(x - 2)^2 - 16 + 9(y + 1)^2 - 9 = 11 \;\Rightarrow\; 4(x - 2)^2 + 9(y + 1)^2 = 36"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>4</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>−</mo><mn>16</mn><mo>+</mo><mn>9</mn><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>−</mo><mn>9</mn><mo>=</mo><mn>11</mn><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mn>4</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mn>9</mn><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>36</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Divide by 36</h4>
+            <span class="math-display" data-tex="\frac{(x - 2)^2}{9} + \frac{(y + 1)^2}{4} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>9</mn></mfrac><mo>+</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>4</mn></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>
+            <p>So <span class="math" data-tex="h = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="k = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="a = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>, <span class="math" data-tex="b = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>: enter these in the calculator.</p>
+            <h4>Step 4: Foci</h4>
+            <span class="math-display" data-tex="c = \sqrt{9 - 4} = \sqrt{5}, \qquad \text{foci } \left(2 \pm \sqrt{5},\ -1\right), \qquad e = \tfrac{\sqrt{5}}{3} \approx 0.745"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>c</mi><mo>=</mo><msqrt><mrow><mn>9</mn><mo>−</mo><mn>4</mn></mrow></msqrt><mo>=</mo><msqrt><mn>5</mn></msqrt><mo separator="true">,</mo><mspace width="2em"/><mtext>foci </mtext><mrow><mo fence="true">(</mo><mn>2</mn><mo>±</mo><msqrt><mn>5</mn></msqrt><mo separator="true">,</mo><mtext> </mtext><mo>−</mo><mn>1</mn><mo fence="true">)</mo></mrow><mo separator="true">,</mo><mspace width="2em"/><mi>e</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><msqrt><mn>5</mn></msqrt><mn>3</mn></mfrac></mstyle><mo>≈</mo><mn>0.745</mn></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>a and b must be positive. If a = b the ellipse is a circle.</li>
-            <li>Only axis-aligned ellipses (no rotation, no xy term) are supported.</li>
+            <li><strong>Orbits:</strong> planets, moons and satellites follow ellipses.</li>
+            <li><strong>Whispering galleries and lithotripsy:</strong> sound or shock waves from one focus reflect to the other.</li>
+            <li><strong>Arches and bridges:</strong> semi-elliptical arches give wide, low openings.</li>
+            <li><strong>Gears and cams:</strong> elliptical profiles give a varying speed ratio.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using <span class="math" data-tex="c^2 = a^2 + b^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></semantics></math></span></span>.</strong> That is the hyperbola. For an ellipse, subtract the smaller square from the larger.</li>
+            <li><strong>Reading <span class="math" data-tex="a^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup></mrow></semantics></math></span></span> as <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span>.</strong> In <span class="math" data-tex="\tfrac{x^2}{25}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>x</mi><mn>2</mn></msup><mn>25</mn></mfrac></mrow></semantics></math></span></span>, the semi-axis is 5.</li>
+            <li><strong>Putting the foci on the minor axis.</strong> The foci always lie on the longer axis.</li>
+            <li><strong>Expecting an exact perimeter.</strong> There is no simple exact formula; Ramanujan's approximation is used.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using c² = a² + b² (that is the hyperbola).</li>
-            <li>Assuming a is always the major semi-axis: here a is horizontal, so check which is larger.</li>
+            <li>The axes of the ellipse are parallel to the coordinate axes. For tilted ellipses, use the <a href="../general-conic/">general conic calculator</a>.</li>
+            <li>Both semi-axes must be positive. Fractions are allowed and the results are exact.</li>
+            <li>The perimeter is an approximation (error below 0.001% unless the ellipse is very flat, and never more than about 0.4%).</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the foci of an ellipse?</summary>
+            <div class="faq-answer"><p>Compute c² = (larger semi-axis)² − (smaller semi-axis)². The foci are c units from the centre along the major axis.</p></div>
+          </details>
+          <details>
+            <summary>What is the eccentricity of an ellipse?</summary>
+            <div class="faq-answer"><p>e = c divided by the major semi-axis. It is 0 for a circle and approaches 1 as the ellipse gets flatter.</p></div>
+          </details>
+          <details>
+            <summary>What is the area of an ellipse?</summary>
+            <div class="faq-answer"><p>πab, where a and b are the two semi-axes.</p></div>
+          </details>
+          <details>
+            <summary>Is a circle an ellipse?</summary>
+            <div class="faq-answer"><p>Yes: a circle is an ellipse with equal semi-axes, so both foci are at the centre and e = 0.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../hyperbola/">Hyperbola</a>: the difference of the focal distances is constant instead.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal lines to an ellipse</a>.</li>
+            <li><a href="../general-conic/">General conic and rotation of axes</a>.</li>
+            <li><a href="../ellipsoid/">Ellipsoid</a>: the ellipse in three dimensions.</li>
           </ul>
         </section>
 

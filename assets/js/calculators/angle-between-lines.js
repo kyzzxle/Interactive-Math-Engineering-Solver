@@ -4,9 +4,10 @@
  *   vectors: cos θ = |u·v| / (|u||v|)
  * The acute angle and its supplement (the obtuse angle) are both reported.
  */
-import { validator, answer, fmt, tx } from '../lib/calc-kit.js';
+import { validator, answer, fmt, tx, fp } from '../lib/calc-kit.js';
 import { plot } from '../lib/plot.js';
 import { twoLinesExplore } from '../explore/geometry.js';
+import { anglePractice } from '../explore/analytic-practice.js';
 
 const deg = (r) => (r * 180) / Math.PI;
 const niceDeg = (x) => (Math.abs(x - Math.round(x)) < 1e-9 ? String(Math.round(x)) : tx(x, 4));
@@ -25,6 +26,7 @@ function angleSketch(theta) {
 
 export const calculator = {
   id: 'angle-between-lines',
+  practice: anglePractice,
   explore: { ...twoLinesExplore, title: 'Turn two lines and watch the angle' },
   fields: [
     { name: 'mode', label: 'Lines given as', type: 'radio', options: [['slopes', 'Slopes'], ['general', 'Ax + By + C = 0'], ['vectors', '3D direction vectors']] },
@@ -64,9 +66,11 @@ export const calculator = {
         return finish(90, steps, 'm₁m₂ = −1, so the lines are perpendicular.');
       }
       const t = top.div(bot).abs();
-      steps.push({ title: 'Substitute', tex: `\\tan\\theta = \\left\\lvert \\frac{${top.toTex()}}{${bot.toTex()}} \\right\\rvert = ${t.toTex()}` });
+      steps.push({ title: 'Substitute', texLines: [`\\tan\\theta = \\left\\lvert \\frac{${m2.toTex()} - ${fp(m1)}}{1 + ${fp(m1)}${fp(m2)}} \\right\\rvert`, `\\tan\\theta = \\left\\lvert \\frac{${top.toTex()}}{${bot.toTex()}} \\right\\rvert = ${t.toTex()}`], note: 'The absolute value makes the tangent positive, which picks out the acute angle between the lines.' });
       const th = deg(Math.atan(t.toNumber()));
-      steps.push({ title: 'Take the inverse tangent', tex: `\\theta = \\tan^{-1}\\left(${t.toTex()}\\right) \\approx ${niceDeg(th)}^\\circ` });
+      steps.push({ title: 'Take the inverse tangent', tex: `\\theta = \\tan^{-1}\\left(${t.toTex()}\\right) \\approx ${niceDeg(th)}^\\circ`, note: 'Make sure the calculator is in degree mode.' });
+      const i1 = (deg(Math.atan(m1.toNumber())) + 180) % 180, i2 = (deg(Math.atan(m2.toNumber())) + 180) % 180, diff = Math.abs(i1 - i2);
+      steps.push({ title: 'Check with the angles of inclination', texLines: [`\\alpha_1 = \\tan^{-1}(${m1.toTex()}) \\approx ${niceDeg(i1)}^\\circ, \\quad \\alpha_2 = \\tan^{-1}(${m2.toTex()}) \\approx ${niceDeg(i2)}^\\circ`, `|\\alpha_1 - \\alpha_2| \\approx ${niceDeg(diff)}^\\circ${diff > 90 ? ` \\;\\Rightarrow\\; 180^\\circ - ${niceDeg(diff)}^\\circ \\approx ${niceDeg(180 - diff)}^\\circ` : ''}\\ \\checkmark`], note: 'Each line makes an angle with the x-axis (measured from 0° to 180°). Their difference, or its supplement if it is obtuse, is the angle between the lines.' });
       return finish(th, steps);
     }
     if (mode === 'general') {
@@ -93,12 +97,12 @@ export const calculator = {
     }
     const dot = u.reduce((s, x, i) => s.add(x.mul(w[i])), u[0].mul(0));
     const nu = u.reduce((s, x) => s.add(x.pow(2)), u[0].mul(0)), nw = w.reduce((s, x) => s.add(x.pow(2)), w[0].mul(0));
-    steps.push({ title: 'Formula', tex: '\\cos\\theta = \\frac{\\lvert u \\cdot v \\rvert}{\\lVert u \\rVert\\, \\lVert v \\rVert}' });
-    steps.push({ title: 'Dot product and lengths', texLines: [`u \\cdot v = ${u.map((x, i) => `(${x.toTex()})(${w[i].toTex()})`).join(' + ')} = ${dot.toTex()}`, `\\lVert u \\rVert = \\sqrt{${nu.toTex()}},\\quad \\lVert v \\rVert = \\sqrt{${nw.toTex()}}`] });
+    steps.push({ title: 'Formula', tex: '\\cos\\theta = \\frac{\\lvert u \\cdot v \\rvert}{\\lVert u \\rVert\\, \\lVert v \\rVert}', note: 'This comes from u·v = |u||v| cos θ. The absolute value is used because a line has no preferred direction: u and −u describe the same line.' });
+    steps.push({ title: 'Dot product and lengths', texLines: [`u \\cdot v = ${u.map((x, i) => `(${x.toTex()})(${w[i].toTex()})`).join(' + ')} = ${dot.toTex()}`, `\\lVert u \\rVert = \\sqrt{${u.map((x) => `(${x.toTex()})^2`).join(' + ')}} = \\sqrt{${nu.toTex()}},\\quad \\lVert v \\rVert = \\sqrt{${w.map((x) => `(${x.toTex()})^2`).join(' + ')}} = \\sqrt{${nw.toTex()}}`], note: dot.isZero() ? 'The dot product is 0, so the directions are perpendicular.' : 'Multiply matching components and add them for the dot product; square, add and take the root for each length.' });
     const c = Math.min(1, Math.abs(dot.toNumber()) / Math.sqrt(nu.toNumber() * nw.toNumber()));
-    steps.push({ title: 'Substitute', tex: `\\cos\\theta = \\frac{${dot.abs().toTex()}}{\\sqrt{${nu.toTex()}}\\sqrt{${nw.toTex()}}} \\approx ${tx(c, 6)}` });
+    steps.push({ title: 'Substitute', tex: `\\cos\\theta = \\frac{${dot.abs().toTex()}}{\\sqrt{${nu.toTex()}}\\sqrt{${nw.toTex()}}} = \\frac{${dot.abs().toTex()}}{\\sqrt{${nu.mul(nw).toTex()}}} \\approx ${tx(c, 6)}` });
     const th = deg(Math.acos(c));
-    steps.push({ title: 'Take the inverse cosine', tex: `\\theta = \\cos^{-1}(${tx(c, 6)}) \\approx ${niceDeg(th)}^\\circ` });
+    steps.push({ title: 'Take the inverse cosine', tex: `\\theta = \\cos^{-1}(${tx(c, 6)}) \\approx ${niceDeg(th)}^\\circ`, note: `The other angle where the lines cross is 180° − θ ≈ ${niceDeg(180 - th)}°.` });
     return finish(th, steps, dot.isZero() ? 'The dot product is 0, so the lines are perpendicular.' : c > 1 - 1e-15 ? 'The directions are parallel: the angle is 0°.' : '');
 
     function finish(theta, st, msg) {

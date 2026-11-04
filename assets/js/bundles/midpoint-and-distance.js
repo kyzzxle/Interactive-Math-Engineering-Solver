@@ -1711,12 +1711,14 @@ const calculator = {
     const d2 = dx.pow(2).add(dy.pow(2));
     const d = sqrtFrac(d2, simplifySqrt);
     const same = d2.isZero();
+    const half = sqrtFrac(d2.div(4), simplifySqrt);
     const steps = [
-      { title: 'Identify the two points', tex: `P_1 = ${pointTex(x1, y1)}, \\quad P_2 = ${pointTex(x2, y2)}` },
-      { title: 'Midpoint: average the coordinates', texLines: ['M = \\left(\\frac{x_1 + x_2}{2},\\ \\frac{y_1 + y_2}{2}\\right)', `M = \\left(\\frac{${x1.toTex()} + ${fp(x2)}}{2},\\ \\frac{${y1.toTex()} + ${fp(y2)}}{2}\\right)`, `M = ${pointTex(mx, my)}`] },
-      { title: 'Horizontal and vertical changes', texLines: [`\\Delta x = x_2 - x_1 = ${x2.toTex()} - ${fp(x1)} = ${dx.toTex()}`, `\\Delta y = y_2 - y_1 = ${y2.toTex()} - ${fp(y1)} = ${dy.toTex()}`] },
-      { title: 'Distance (Pythagorean theorem)', texLines: ['d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2}', `d = \\sqrt{${fp(dx)}^2 + ${fp(dy)}^2} = \\sqrt{${d2.toTex()}}`, `d = ${d.tex}${d.exact ? '' : ` \\approx ${tx(d.value)}`}`] },
+      { title: 'Identify the two points', tex: `P_1 = ${pointTex(x1, y1)}, \\quad P_2 = ${pointTex(x2, y2)}`, note: 'Label the points first so that x₁ is always paired with x₂ and y₁ with y₂. The order of the points does not change either answer.' },
+      { title: 'Midpoint: average the coordinates', texLines: ['M = \\left(\\frac{x_1 + x_2}{2},\\ \\frac{y_1 + y_2}{2}\\right)', `M = \\left(\\frac{${x1.toTex()} + ${fp(x2)}}{2},\\ \\frac{${y1.toTex()} + ${fp(y2)}}{2}\\right) = \\left(\\frac{${x1.add(x2).toTex()}}{2},\\ \\frac{${y1.add(y2).toTex()}}{2}\\right)`, `M = ${pointTex(mx, my)}`], note: 'Halfway along the segment you have gone half of the way across and half of the way up, so each coordinate is the average of the two ends.' },
+      { title: 'Horizontal and vertical changes', texLines: [`\\Delta x = x_2 - x_1 = ${x2.toTex()} - ${fp(x1)} = ${dx.toTex()}`, `\\Delta y = y_2 - y_1 = ${y2.toTex()} - ${fp(y1)} = ${dy.toTex()}`], note: 'These are the legs of a right triangle whose hypotenuse is the segment P₁P₂. A negative change only means moving left or down.' },
+      { title: 'Distance (Pythagorean theorem)', texLines: ['d = \\sqrt{(\\Delta x)^2 + (\\Delta y)^2}', `d = \\sqrt{${fp(dx)}^2 + ${fp(dy)}^2} = \\sqrt{${dx.pow(2).toTex()} + ${dy.pow(2).toTex()}} = \\sqrt{${d2.toTex()}}`, `d = ${d.tex}${d.exact ? '' : ` \\approx ${tx(d.value)}`}`], note: d.exact ? 'The sum under the root is a perfect square, so the distance is exact.' : 'The sum under the root is not a perfect square, so the distance is left in simplest radical form, with a decimal alongside.' },
     ];
+    if (!same) steps.push({ title: 'Check: the midpoint is halfway', texLines: [`MP_1 = \\sqrt{\\left(${mx.sub(x1).toTex()}\\right)^2 + \\left(${my.sub(y1).toTex()}\\right)^2} = ${half.tex}`, `\\tfrac{1}{2}d = \\tfrac{1}{2}\\left(${d.tex}\\right) = ${half.tex}\\ \\checkmark`], note: 'The distance from either end to the midpoint must be exactly half the length of the segment.' });
     const answers = [
       { label: 'Distance d', value: fmt(d.value), approx: !d.exact, primary: true, exactTex: d.exact ? undefined : d.tex, copy: `Distance: ${d.text}${d.exact ? '' : ` ≈ ${fmt(d.value)}`}` },
       { label: 'Midpoint M', value: `(${fmt(mx.toNumber())}, ${fmt(my.toNumber())})`, approx: !(mx.toDecimal() && my.toDecimal()), primary: true, exactTex: mx.isInt() && my.isInt() ? undefined : pointTex(mx, my), copy: `Midpoint: (${mx}, ${my})` },

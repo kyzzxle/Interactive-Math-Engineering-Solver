@@ -7,6 +7,7 @@
 import { validator, answer, sqrtFrac, fp, pointTex, fracAnswer } from '../lib/calc-kit.js';
 import { simplifySqrt } from '../lib/exact.js';
 import { linearTex } from '../lib/lines.js';
+import { planePractice, planeDistanceExplore } from '../explore/analytic-practice.js';
 
 /** Axonometric sketch: the plane as a shaded patch around F, the point P and the perpendicular PF. */
 function sketch(P, Fp, n) {
@@ -34,6 +35,8 @@ function sketch(P, Fp, n) {
 
 export const calculator = {
   id: 'point-to-plane-distance',
+  practice: planePractice,
+  explore: planeDistanceExplore,
   fields: [
     { name: 'A', label: 'A', type: 'text', placeholder: 'e.g. 2', row: 'plane', hint: 'Plane Ax + By + Cz + D = 0. Numbers or fractions such as 1/2.' },
     { name: 'B', label: 'B', type: 'text', placeholder: 'e.g. -1', row: 'plane' },
@@ -62,13 +65,16 @@ export const calculator = {
     const F = [x0.sub(t.mul(A)), y0.sub(t.mul(B)), z0.sub(t.mul(C))];
     const nrm = sqrtFrac(n2, simplifySqrt);
     const plane = `${linearTex([[A, 'x'], [B, 'y'], [C, 'z'], [D, '']])} = 0`;
+    const p3 = (q) => `\\left(${q.map((f) => f.toTex()).join(',\\ ')}\\right)`;
+    const onPlane = A.mul(F[0]).add(B.mul(F[1])).add(C.mul(F[2])).add(D);
     const steps = [
-      { title: 'Known values', texLines: [`\\text{Plane: } ${plane}`, `P = \\left(${x0.toTex()},\\ ${y0.toTex()},\\ ${z0.toTex()}\\right)`] },
-      { title: 'Formula', tex: 'd = \\frac{\\lvert A x_0 + B y_0 + C z_0 + D \\rvert}{\\sqrt{A^2 + B^2 + C^2}}' },
-      { title: 'Substitute the point into the plane’s left side', tex: `A x_0 + B y_0 + C z_0 + D = ${fp(A)}${fp(x0)} + ${fp(B)}${fp(y0)} + ${fp(C)}${fp(z0)} + ${fp(D)} = ${N.toTex()}` },
-      { title: 'Length of the normal vector (A, B, C)', tex: `\\sqrt{A^2 + B^2 + C^2} = \\sqrt{${n2.toTex()}} ${nrm.exact ? '=' : '='} ${nrm.tex}` },
-      { title: 'Divide', tex: `d = \\frac{${N.abs().toTex()}}{${nrm.tex}} = ${dist.tex}${dist.exact ? '' : ` \\approx ${dist.value.toFixed(6).replace(/\.?0+$/, '')}`}` },
-      { title: 'Foot of the perpendicular', texLines: [`t = \\frac{${N.toTex()}}{${n2.toTex()}} = ${t.toTex()}`, `F = P - t\\,(A, B, C) = ${pointTex(F[0], F[1]).replace('\\right)', `,\\ ${F[2].toTex()}\\right)`)}`] },
+      { title: 'Known values', texLines: [`\\text{Plane: } ${plane}`, `P = ${p3([x0, y0, z0])}`, `\\vec{n} = (A, B, C) = ${p3([A, B, C])}`], note: 'Read A, B, C and D with every term of the plane on one side and 0 on the other. (A, B, C) is the normal vector: it points straight out of the plane.' },
+      { title: 'Formula', tex: 'd = \\frac{\\lvert A x_0 + B y_0 + C z_0 + D \\rvert}{\\sqrt{A^2 + B^2 + C^2}}', note: 'The shortest path from P to the plane runs along the normal, so the distance is the component of P’s offset in the normal direction.' },
+      { title: 'Substitute the point into the plane’s left side', tex: `A x_0 + B y_0 + C z_0 + D = ${fp(A)}${fp(x0)} + ${fp(B)}${fp(y0)} + ${fp(C)}${fp(z0)} + ${fp(D)} = ${N.toTex()}`, note: N.isZero() ? 'The result is 0, so P satisfies the plane equation: it is on the plane.' : `The result is ${N.sign() > 0 ? 'positive' : 'negative'}, so P is on the side of the plane that the normal points ${N.sign() > 0 ? 'towards' : 'away from'}.` },
+      { title: 'Length of the normal vector (A, B, C)', tex: `\\sqrt{A^2 + B^2 + C^2} = \\sqrt{${A.pow(2).toTex()} + ${B.pow(2).toTex()} + ${C.pow(2).toTex()}} = \\sqrt{${n2.toTex()}} = ${nrm.tex}`, note: 'Dividing by this length turns the value from the last step into an actual distance, so scaling the plane equation does not change the answer.' },
+      { title: 'Divide', tex: `d = \\frac{|${N.toTex()}|}{${nrm.tex}} = ${dist.tex}${dist.exact ? '' : ` \\approx ${dist.value.toFixed(6).replace(/\.?0+$/, '')}`}`, note: dist.exact ? undefined : 'The exact answer is written in simplest radical form with a rational denominator.' },
+      { title: 'Foot of the perpendicular', texLines: [`t = \\frac{A x_0 + B y_0 + C z_0 + D}{A^2 + B^2 + C^2} = \\frac{${N.toTex()}}{${n2.toTex()}} = ${t.toTex()}`, `F = P - t\\,(A, B, C) = ${p3([x0, y0, z0])} - ${fp(t)}${p3([A, B, C])} = ${p3(F)}`], note: 'Move from P along the normal by t normal-lengths; F is where that path meets the plane.' },
+      { title: 'Check', texLines: [`${fp(A)}${fp(F[0])} + ${fp(B)}${fp(F[1])} + ${fp(C)}${fp(F[2])} + ${fp(D)} = ${onPlane.toTex()}\\ \\checkmark`, `|PF| = |t|\\,\\lVert\\vec{n}\\rVert = ${t.abs().toTex()} \\cdot ${nrm.tex} = ${dist.tex}\\ \\checkmark`], note: 'F satisfies the plane equation, and its distance from P equals d.' },
     ];
     const Pn = [x0, y0, z0].map((f) => f.toNumber()), Fn = F.map((f) => f.toNumber());
     return {

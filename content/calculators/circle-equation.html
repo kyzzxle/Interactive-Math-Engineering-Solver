@@ -1,43 +1,160 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Equation of a circle</h2>
-          <p>A circle is the set of points at a fixed distance \(r\) (the radius) from a fixed point \((h, k)\) (the centre). Its equation can be written in <strong>standard form</strong>, which shows the centre and radius directly, or in <strong>general form</strong>, which is what you get after expanding. This calculator converts between them, finds a circle from its centre and one point, and finds the unique circle through three points.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>In general form, make F larger: the right-hand side after completing the square shrinks, the circle gets smaller, and eventually there is no real circle at all.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is the equation of a circle?</h2>
+          <p>A <strong>circle</strong> is the set of all points at the same distance, the <strong>radius</strong> \(r\), from a fixed point, the <strong>centre</strong> \((h, k)\). Writing that condition with the distance formula gives the equation of the circle. It comes in two forms: the <strong>standard form</strong>, which shows the centre and radius at a glance, and the expanded <strong>general form</strong>.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>In the general-form mode, make \(F\) large and positive, for example \(x^2 + y^2 - 4x + 6y + 20 = 0\). Completing the square gives a negative \(r^2\), so no real circle exists.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose what you know:</p>
+          <ul>
+            <li><strong>Centre and radius:</strong> writes both forms of the equation.</li>
+            <li><strong>Centre and a point on the circle:</strong> finds the radius first.</li>
+            <li><strong>General form:</strong> completes the square to find the centre and radius.</li>
+            <li><strong>Three points:</strong> finds the one circle through all three.</li>
+          </ul>
+          <p>It also gives the circumference and area, and draws the circle.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>A point \((x, y)\) is on the circle exactly when its distance from the centre is \(r\):</p>
+          \[ \sqrt{(x - h)^2 + (y - k)^2} = r. \]
+          <p>Squaring both sides gives the standard form. Expanding it gives an equation whose \(x^2\) and \(y^2\) terms have the <strong>same coefficient</strong> and which has <strong>no \(xy\) term</strong>. That is how you recognise a circle in general form.</p>
+          <div class="callout">
+            <p class="callout-title">Three points fix a circle</p>
+            <p>Any three points that are not on one line lie on exactly one circle. Its centre is where the perpendicular bisectors of the sides of the triangle meet.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <div class="formula-box">\[ (x - h)^2 + (y - k)^2 = r^2 \qquad x^2 + y^2 + Dx + Ey + F = 0 \]</div>
-          <div class="formula-box">\[ h = -\frac{D}{2}, \qquad k = -\frac{E}{2}, \qquad r^2 = \frac{D^2 + E^2}{4} - F \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <table>
+            <thead><tr><th scope="col">From</th><th scope="col">To</th><th scope="col">Rule</th></tr></thead>
             <tbody>
-              <tr><td>\((h, k)\)</td><td>Centre of the circle.</td></tr>
-              <tr><td>\(r\)</td><td>Radius (must be positive).</td></tr>
-              <tr><td>\(D, E, F\)</td><td>Coefficients of the general form (coefficients of \(x^2\) and \(y^2\) are both 1).</td></tr>
+              <tr><td>Standard</td><td>General</td><td>\(D = -2h,\ E = -2k,\ F = h^2 + k^2 - r^2\)</td></tr>
+              <tr><td>General</td><td>Centre</td><td>\((h, k) = \left(-\tfrac{D}{2}, -\tfrac{E}{2}\right)\)</td></tr>
+              <tr><td>General</td><td>Radius</td><td>\(r^2 = \tfrac{D^2 + E^2}{4} - F\) (must be positive)</td></tr>
+              <tr><td>Centre and point</td><td>Radius</td><td>\(r^2 = (x_1 - h)^2 + (y_1 - k)^2\)</td></tr>
+              <tr><td>Circle</td><td>Size</td><td>\(C = 2\pi r,\ A = \pi r^2\)</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((h, k)\)</td><td>Centre of the circle.</td></tr>
+              <tr><td>\(r\)</td><td>Radius, which must be positive.</td></tr>
+              <tr><td>\(D, E, F\)</td><td>Coefficients of the general form.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">From general form to standard form</h2>
+          <p>Completing the square reverses the expansion. Take \(x^2 + y^2 + 6x - 8y + 9 = 0\):</p>
+          <ol>
+            <li>Group the terms and move \(F\): \((x^2 + 6x) + (y^2 - 8y) = -9\).</li>
+            <li>Add half of each linear coefficient, squared, to both sides: \(\left(\tfrac{6}{2}\right)^2 = 9\) and \(\left(\tfrac{-8}{2}\right)^2 = 16\).</li>
+            <li>Both brackets are now perfect squares:
+              \[ (x^2 + 6x + 9) + (y^2 - 8y + 16) = -9 + 9 + 16 \;\Rightarrow\; (x + 3)^2 + (y - 4)^2 = 16. \]
+            </li>
+          </ol>
+          <p>The centre is \((-3, 4)\) and the radius is 4. If the right-hand side had come out as 0, the "circle" would be a single point; if negative, there would be no real points at all.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Convert \(x^2 + y^2 - 4x + 6y - 12 = 0\) to standard form</h3>
-            <h4>Step 1 — Group and move the constant</h4>
-            \[ (x^2 - 4x) + (y^2 + 6y) = 12 \]
-            <h4>Step 2 — Complete each square</h4>
-            \[ (x^2 - 4x + 4) + (y^2 + 6y + 9) = 12 + 4 + 9 \]
-            <h4>Step 3 — Standard form</h4>
+            <h3>Problem</h3>
+            <p>Write the equation of the circle with centre \((2, -3)\) and radius 5 in standard and general form.</p>
+            <h4>Step 1: Standard form</h4>
             \[ (x - 2)^2 + (y + 3)^2 = 25 \]
-            <p>The centre is \((2, -3)\) and the radius is \(\sqrt{25} = 5\).</p>
+            <h4>Step 2: Expand</h4>
+            \[ x^2 - 4x + 4 + y^2 + 6y + 9 = 25 \]
+            <h4>Step 3: General form</h4>
+            \[ x^2 + y^2 - 4x + 6y - 12 = 0 \]
+            <h4>Check</h4>
+            <p>\(D = -2(2) = -4\), \(E = -2(-3) = 6\) and \(F = 4 + 9 - 25 = -12\). ✓ The circumference is \(10\pi \approx 31.42\) and the area is \(25\pi \approx 78.54\).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: the circle through three points</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the circle through \((0, 0)\), \((4, 0)\) and \((0, 2)\).</p>
+            <h4>Step 1: Substitute each point into \(x^2 + y^2 + Dx + Ey + F = 0\)</h4>
+            \[ (0, 0):\ F = 0 \qquad (4, 0):\ 16 + 4D + F = 0 \qquad (0, 2):\ 4 + 2E + F = 0 \]
+            <h4>Step 2: Solve</h4>
+            <p>\(F = 0\), so \(D = -4\) and \(E = -2\). The equation is \(x^2 + y^2 - 4x - 2y = 0\).</p>
+            <h4>Step 3: Centre and radius</h4>
+            \[ (h, k) = (2, 1), \qquad r^2 = \frac{16 + 4}{4} - 0 = 5, \qquad r = \sqrt{5} \approx 2.236 \]
+            <h4>Check</h4>
+            <p>The angle at \((0, 0)\) is a right angle, so the side from \((4, 0)\) to \((0, 2)\) must be a diameter. Its midpoint is \((2, 1)\) and its length is \(\sqrt{20} = 2\sqrt{5}\). ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>General-form input assumes the coefficients of \(x^2\) and \(y^2\) are 1. Divide the whole equation first if they are another equal number.</li>
-            <li>If \(r^2 \le 0\) after completing the square there is no real circle (or only a single point), and no result is shown.</li>
-            <li>Three points must not lie on one straight line.</li>
-            <li>All work uses exact fractions; radii are given in simplest radical form, and circumference and area are rounded.</li>
+            <li><strong>Surveying and road design:</strong> laying out circular curves from their centre and radius.</li>
+            <li><strong>Machining and CNC:</strong> circular interpolation and bolt-hole circles.</li>
+            <li><strong>Locating a source:</strong> three equal-time measurements around an event lie on a circle whose centre is the source.</li>
+            <li><strong>Coverage areas:</strong> the region within a set range of a tower or sensor.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Sign of the centre.</strong> \((x + 3)^2\) means \(h = -3\), not \(+3\).</li>
+            <li><strong>Radius versus radius squared.</strong> The right side of the standard form is \(r^2\); for \(= 16\), the radius is 4.</li>
+            <li><strong>Completing the square on one side only.</strong> Whatever you add on the left must also be added on the right.</li>
+            <li><strong>Unequal \(x^2\) and \(y^2\) coefficients.</strong> Divide through first; if they still differ, the curve is an ellipse, not a circle.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The general form is entered with the \(x^2\) and \(y^2\) coefficients equal to 1. Divide through first if they are not.</li>
+            <li>All arithmetic is exact; the radius is given in simplest radical form when it is not a whole number.</li>
+            <li>The three points must be different and not on one line.</li>
+            <li>For equations with an \(xy\) term or unequal squared terms, use the <a href="../general-conic/">general conic calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the centre and radius from the general form?</summary>
+            <div class="faq-answer"><p>The centre is (−D/2, −E/2) and r² = (D² + E²)/4 − F. Completing the square gives the same result step by step.</p></div>
+          </details>
+          <details>
+            <summary>How do I find a circle through three points?</summary>
+            <div class="faq-answer"><p>Substitute each point into x² + y² + Dx + Ey + F = 0 and solve the three linear equations for D, E and F.</p></div>
+          </details>
+          <details>
+            <summary>When does the general form not describe a circle?</summary>
+            <div class="faq-answer"><p>When (D² + E²)/4 − F is 0 (a single point) or negative (no real points).</p></div>
+          </details>
+          <details>
+            <summary>What is the equation of a circle centred at the origin?</summary>
+            <div class="faq-answer"><p>x² + y² = r². The centre (0, 0) makes h and k zero.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../line-circle-intersection/">Line–circle intersection</a>.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal to a circle</a>.</li>
+            <li><a href="../ellipse/">Ellipse</a>: the circle stretched in one direction.</li>
+            <li><a href="../midpoint-and-distance/">Midpoint and distance</a>.</li>
           </ul>
         </section>

@@ -7,11 +7,13 @@ import { validator, fmt, tx, txp, eq, isExact } from '../lib/calc-kit.js';
 import { plot } from '../lib/plot.js';
 
 import { lineCircleExplore } from '../explore/geometry.js';
+import { lineCirclePractice } from '../explore/analytic-practice.js';
 const rel2 = (p) => (isExact(p[0]) && isExact(p[1]) ? '=' : '\\approx');
 const ptTex = (p) => `(${tx(p[0])},\\ ${tx(p[1])})`;
 
 export const calculator = {
   id: 'line-circle-intersection',
+  practice: lineCirclePractice,
   explore: lineCircleExplore,
   fields: [
     { name: 'A', label: 'Line: A', type: 'number', placeholder: 'e.g. 1', row: 'l' },
@@ -35,12 +37,15 @@ export const calculator = {
     const n2 = A * A + B * B, n = Math.sqrt(n2);
     const N = A * h + B * k + C;
     const d = Math.abs(N) / n;
-    const F = [h - (A * N) / n2, k - (B * N) / n2];
+    // Floating-point noise (e.g. 4.4e-16 instead of 0) is snapped to the nearest whole number.
+    const scale = Math.max(1, Math.abs(h), Math.abs(k), r);
+    const snap = (x) => (Math.abs(x - Math.round(x)) < 1e-9 * scale ? Math.round(x) + 0 : x);
+    const F = [snap(h - (A * N) / n2), snap(k - (B * N) / n2)];
     const u = [-B / n, A / n];
     const tol = 1e-12 * Math.max(1, r);
     const steps = [
-      { title: 'Identify the line and the circle', texLines: [`${tx(A)}x + ${txp(B)}y + ${txp(C)} = 0`, `(x - ${txp(h)})^2 + (y - ${txp(k)})^2 = ${txp(r)}^2`] },
-      { title: 'Distance from the centre to the line', texLines: ['d = \\frac{|Ah + Bk + C|}{\\sqrt{A^2 + B^2}}', `d = \\frac{|${txp(A)}${txp(h)} + ${txp(B)}${txp(k)} + ${txp(C)}|}{\\sqrt{${txp(A)}^2 + ${txp(B)}^2}} ${eq(d)}`] },
+      { title: 'Identify the line and the circle', texLines: [`${tx(A)}x + ${txp(B)}y + ${txp(C)} = 0`, `(x - ${txp(h)})^2 + (y - ${txp(k)})^2 = ${txp(r)}^2`], note: `The centre is (${fmt(h)}, ${fmt(k)}) and the radius is ${fmt(r)}. Everything depends on how far the line passes from the centre.` },
+      { title: 'Distance from the centre to the line', texLines: ['d = \\frac{|Ah + Bk + C|}{\\sqrt{A^2 + B^2}}', `d = \\frac{|${txp(A)}${txp(h)} + ${txp(B)}${txp(k)} + ${txp(C)}|}{\\sqrt{${txp(A)}^2 + ${txp(B)}^2}} = \\frac{${tx(Math.abs(N))}}{\\sqrt{${tx(n2)}}} ${eq(d)}`], note: 'This is the length of the perpendicular from the centre to the line: the shortest distance between them.' },
     ];
     let points = [], final, kind;
     if (d > r + tol) {
@@ -48,7 +53,7 @@ export const calculator = {
       steps.push({ title: 'Compare d with the radius', tex: `d ${eq(d)} > r = ${tx(r)}`, text: 'The line passes outside the circle, so they do not meet.' });
       final = { text: 'No intersection: the line misses the circle.' };
     } else {
-      steps.push({ title: 'Closest point of the line to the centre (foot of the perpendicular)', texLines: ['F = \\left(h - \\frac{A(Ah + Bk + C)}{A^2 + B^2},\\ k - \\frac{B(Ah + Bk + C)}{A^2 + B^2}\\right)', `F ${rel2(F)} ${ptTex(F)}`] });
+      steps.push({ title: 'Closest point of the line to the centre (foot of the perpendicular)', texLines: ['F = \\left(h - \\frac{A(Ah + Bk + C)}{A^2 + B^2},\\ k - \\frac{B(Ah + Bk + C)}{A^2 + B^2}\\right)', `F ${rel2(F)} ${ptTex(F)}`], note: 'Start at the centre and move along the normal vector (A, B) until you reach the line. Any intersection points are placed symmetrically about F.' });
       if (Math.abs(d - r) <= tol) {
         kind = 'tangent';
         points = [F];
@@ -57,10 +62,12 @@ export const calculator = {
       } else {
         kind = 'secant';
         const t = Math.sqrt((r - d) * (r + d));
-        points = [[F[0] - t * u[0], F[1] - t * u[1]], [F[0] + t * u[0], F[1] + t * u[1]]].sort((p, q) => p[0] - q[0] || p[1] - q[1]);
-        steps.push({ title: 'Half the chord length (Pythagorean theorem)', texLines: ['t = \\sqrt{r^2 - d^2}', `t = \\sqrt{${tx(r)}^2 - ${tx(d)}^2} ${eq(t)}`] });
-        steps.push({ title: 'Move t units each way along the line from F', text: 'The unit direction of the line is (−B, A)/√(A² + B²).', texLines: [`u ${rel2(u)} ${ptTex(u)}`, `P_1 ${rel2(points[0])} ${ptTex(points[0])}`, `P_2 ${rel2(points[1])} ${ptTex(points[1])}`] });
-        steps.push({ title: 'Check', text: `Both points satisfy the line equation and are ${fmt(r)} units from the centre (chord length ${fmt(2 * t)}).` });
+        points = [[F[0] - t * u[0], F[1] - t * u[1]], [F[0] + t * u[0], F[1] + t * u[1]]].map((q) => q.map(snap)).sort((p, q) => p[0] - q[0] || p[1] - q[1]);
+        steps.push({ title: 'Compare d with the radius', tex: `d ${eq(d)} < r = ${tx(r)}`, text: 'The closest point of the line is inside the circle, so the line cuts the circle twice (a secant).' });
+        steps.push({ title: 'Half the chord length (Pythagorean theorem)', texLines: ['t = \\sqrt{r^2 - d^2}', `t = \\sqrt{${tx(r)}^2 - ${tx(d)}^2} = \\sqrt{${tx(r * r - d * d)}} ${eq(t)}`], note: 'The centre, the foot F and an intersection point form a right triangle with hypotenuse r and legs d and t.' });
+        steps.push({ title: 'Move t units each way along the line from F', text: 'The unit direction of the line is (−B, A)/√(A² + B²).', texLines: [`u ${rel2(u)} ${ptTex(u)}`, `P_1 = F - t\\,u ${rel2(points[0])} ${ptTex(points[0])}`, `P_2 = F + t\\,u ${rel2(points[1])} ${ptTex(points[1])}`] });
+        const onLine = points.map((p) => A * p[0] + B * p[1] + C), onCircle = points.map((p) => Math.hypot(p[0] - h, p[1] - k));
+        steps.push({ title: 'Check', texLines: points.map((p, i) => `P_${i + 1}:\\ A x + B y + C ${Math.abs(onLine[i]) < 1e-9 * Math.max(1, Math.abs(A * p[0]) + Math.abs(B * p[1]) + Math.abs(C)) ? '= 0' : `\\approx ${tx(onLine[i])}`},\\quad \\text{distance to centre} ${eq(onCircle[i])}`), note: `Both points lie on the line and are ${fmt(r)} units from the centre. The chord between them is 2t ${isExact(2 * t) ? '=' : '≈'} ${fmt(2 * t)} long.` });
         final = { texLines: points.map((p, i) => `P_${i + 1} ${rel2(p)} ${ptTex(p)}`) };
       }
     }

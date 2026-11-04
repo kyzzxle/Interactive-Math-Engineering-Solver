@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/midpoint-and-distance/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the distance formula?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "d = √((x₂ − x₁)² + (y₂ − y₁)²). It is the Pythagorean theorem applied to the right triangle with legs Δx and Δy."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the midpoint of a segment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Average the x-coordinates and average the y-coordinates: M = ((x₁ + x₂)/2, (y₁ + y₂)/2)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find an endpoint when I know the midpoint?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Double the midpoint and subtract the known endpoint: x₂ = 2x_M − x₁ and y₂ = 2y_M − y₁. For example, with M(3, −1) and A(−1, 4), the other end is (7, −6)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the order of the points matter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The differences are squared in the distance formula and added in the midpoint formula, so swapping the points gives the same answers."
+          }
+        }
+      ]
     }
   ]
 }
@@ -233,10 +271,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Midpoint and distance between two points</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What are the midpoint and the distance between two points?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: classifying a triangle</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -244,46 +291,164 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Midpoint and distance between two points</h2>
-          <p>Given two points <span class="math" data-tex="P_1(x_1, y_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="P_2(x_2, y_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> in the coordinate plane, the <strong>midpoint</strong> is the point exactly halfway between them and the <strong>distance</strong> is the length of the segment joining them. Both are among the first tools of analytic geometry: the midpoint finds centres and bisectors, the distance formula measures lengths, radii and perimeters.</p>
+          <h2 id="about-h" style="margin-top:0">What are the midpoint and the distance between two points?</h2>
+          <p>Given two points <span class="math" data-tex="P_1(x_1, y_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="P_2(x_2, y_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> in the coordinate plane, the <strong>midpoint</strong> is the point exactly halfway between them and the <strong>distance</strong> is the length of the segment joining them. They are among the first tools of analytic geometry: the midpoint finds centres and bisectors, and the distance formula measures lengths, radii and perimeters.</p>
           <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Move one point and watch the midpoint move half as far in the same direction. Swapping the two points changes nothing: both formulas are symmetric.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="M = \left(\frac{x_1 + x_2}{2},\ \frac{y_1 + y_2}{2}\right) \qquad d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo fence="true">(</mo><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo separator="true">,</mo><mtext> </mtext><mfrac><mrow><msub><mi>y</mi><mn>1</mn></msub><mo>+</mo><msub><mi>y</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mspace width="2em"/><mi>d</mi><mo>=</mo><msqrt><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="(x_1, y_1), (x_2, y_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The two given points (decimals and fractions are allowed).</td></tr>
-              <tr><td><span class="math" data-tex="\Delta x, \Delta y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi><mo separator="true">,</mo><mi mathvariant="normal">Δ</mi><mi>y</mi></mrow></semantics></math></span></span></td><td>Horizontal and vertical changes, <span class="math" data-tex="x_2 - x_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="y_2 - y_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow></semantics></math></span></span>.</td></tr>
-              <tr><td><span class="math" data-tex="M"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow></semantics></math></span></span></td><td>Midpoint: the average of the coordinates.</td></tr>
-              <tr><td><span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span></td><td>Distance: the hypotenuse of a right triangle with legs <span class="math" data-tex="|\Delta x|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="normal">Δ</mi><mi>x</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="|\Delta y|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="normal">Δ</mi><mi>y</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span>.</td></tr>
-            </tbody>
-          </table>
-          <p>The distance formula is the Pythagorean theorem in disguise: the horizontal and vertical changes are the legs of a right triangle whose hypotenuse is the segment <span class="math" data-tex="P_1P_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><msub><mi>P</mi><mn>2</mn></msub></mrow></semantics></math></span></span>.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Finds the <strong>midpoint</strong> <span class="math" data-tex="M"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow></semantics></math></span></span> of the segment <span class="math" data-tex="P_1P_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><msub><mi>P</mi><mn>2</mn></msub></mrow></semantics></math></span></span>.</li>
+            <li>Finds the <strong>distance</strong> <span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span> between the points, in simplest radical form (such as <span class="math" data-tex="2\sqrt{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>5</mn></msqrt></mrow></semantics></math></span></span>) and as a decimal.</li>
+            <li>Shows the horizontal and vertical changes <span class="math" data-tex="\Delta x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="\Delta y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>y</mi></mrow></semantics></math></span></span> and the slope of the segment.</li>
+            <li>Draws the two points, the segment and its midpoint.</li>
+          </ul>
+          <p>Coordinates can be whole numbers, decimals or fractions such as <span class="math" data-tex="5/2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow></semantics></math></span></span>; all arithmetic is exact.</p>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Points <span class="math" data-tex="(-2, 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="(4, 9)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>9</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Midpoint</h4>
-            <span class="math-display" data-tex="M = \left(\frac{-2 + 4}{2},\ \frac{1 + 9}{2}\right) = (1,\ 5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mo>−</mo><mn>2</mn><mo>+</mo><mn>4</mn></mrow><mn>2</mn></mfrac><mo separator="true">,</mo><mtext> </mtext><mfrac><mrow><mn>1</mn><mo>+</mo><mn>9</mn></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><mn>5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
-            <h4>Step 2 — Changes in x and y</h4>
-            <span class="math-display" data-tex="\Delta x = 4 - (-2) = 6, \qquad \Delta y = 9 - 1 = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi><mo>=</mo><mn>4</mn><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>6</mn><mo separator="true">,</mo><mspace width="2em"/><mi mathvariant="normal">Δ</mi><mi>y</mi><mo>=</mo><mn>9</mn><mo>−</mo><mn>1</mn><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Distance</h4>
-            <span class="math-display" data-tex="d = \sqrt{6^2 + 8^2} = \sqrt{100} = 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><msqrt><mrow><msup><mn>6</mn><mn>2</mn></msup><mo>+</mo><msup><mn>8</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mn>100</mn></msqrt><mo>=</mo><mn>10</mn></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Draw a horizontal line through <span class="math" data-tex="P_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub></mrow></semantics></math></span></span> and a vertical line through <span class="math" data-tex="P_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub></mrow></semantics></math></span></span>. They meet at a right angle, making a right triangle whose legs are <span class="math" data-tex="|\Delta x|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="normal">Δ</mi><mi>x</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="|\Delta y|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="normal">Δ</mi><mi>y</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span> and whose hypotenuse is the segment <span class="math" data-tex="P_1P_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><msub><mi>P</mi><mn>2</mn></msub></mrow></semantics></math></span></span>. The distance formula is the <strong>Pythagorean theorem</strong> applied to that triangle.</p>
+          <p>The midpoint is simpler still: halfway along the segment you have gone half of <span class="math" data-tex="\Delta x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi></mrow></semantics></math></span></span> across and half of <span class="math" data-tex="\Delta y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>y</mi></mrow></semantics></math></span></span> up, so each coordinate of <span class="math" data-tex="M"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow></semantics></math></span></span> is the <strong>average</strong> of the matching coordinates.</p>
+          <div class="callout">
+            <p class="callout-title">Why squaring removes the sign</p>
+            <p><span class="math" data-tex="\Delta x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="\Delta y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>y</mi></mrow></semantics></math></span></span> can be negative, but they are squared, so the order of the points does not matter: <span class="math" data-tex="(x_2 - x_1)^2 = (x_1 - x_2)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><msub><mi>x</mi><mn>2</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="M = \left(\frac{x_1 + x_2}{2},\ \frac{y_1 + y_2}{2}\right) \qquad d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo fence="true">(</mo><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo separator="true">,</mo><mtext> </mtext><mfrac><mrow><msub><mi>y</mi><mn>1</mn></msub><mo>+</mo><msub><mi>y</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mspace width="2em"/><mi>d</mi><mo>=</mo><msqrt><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>Changes</td><td><span class="math" data-tex="\Delta x = x_2 - x_1,\ \Delta y = y_2 - y_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><mtext> </mtext><mi mathvariant="normal">Δ</mi><mi>y</mi><mo>=</mo><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow></semantics></math></span></span></td><td>The legs of the right triangle</td></tr>
+              <tr><td>Distance</td><td><span class="math" data-tex="d = \sqrt{\Delta x^2 + \Delta y^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><msqrt><mrow><mi mathvariant="normal">Δ</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi mathvariant="normal">Δ</mi><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td><td>The hypotenuse</td></tr>
+              <tr><td>Midpoint</td><td><span class="math" data-tex="M = \left(\tfrac{x_1 + x_2}{2}, \tfrac{y_1 + y_2}{2}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo fence="true">(</mo><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo separator="true">,</mo><mfrac><mrow><msub><mi>y</mi><mn>1</mn></msub><mo>+</mo><msub><mi>y</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span></td><td>Average of the coordinates</td></tr>
+              <tr><td>Missing endpoint</td><td><span class="math" data-tex="P_2 = (2x_M - x_1,\ 2y_M - y_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><msub><mi>x</mi><mi>M</mi></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><mtext> </mtext><mn>2</mn><msub><mi>y</mi><mi>M</mi></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The midpoint formula solved for <span class="math" data-tex="P_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub></mrow></semantics></math></span></span></td></tr>
+              <tr><td>3D distance</td><td><span class="math" data-tex="d = \sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>=</mo><msqrt><mrow><mi mathvariant="normal">Δ</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi mathvariant="normal">Δ</mi><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi mathvariant="normal">Δ</mi><msup><mi>z</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span></td><td>The same idea with a third coordinate</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="(x_1, y_1), (x_2, y_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The two given points.</td></tr>
+              <tr><td><span class="math" data-tex="\Delta x, \Delta y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi><mo separator="true">,</mo><mi mathvariant="normal">Δ</mi><mi>y</mi></mrow></semantics></math></span></span></td><td>Horizontal and vertical changes from <span class="math" data-tex="P_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub></mrow></semantics></math></span></span> to <span class="math" data-tex="P_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="M"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow></semantics></math></span></span></td><td>Midpoint of the segment.</td></tr>
+              <tr><td><span class="math" data-tex="d"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi></mrow></semantics></math></span></span></td><td>Distance between the points, always 0 or positive.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>Distance</h3>
+          <p>The corner of the right triangle is <span class="math" data-tex="Q(x_2, y_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. Then <span class="math" data-tex="P_1Q = |x_2 - x_1|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mi>Q</mi><mo>=</mo><mi mathvariant="normal">∣</mi><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="QP_2 = |y_2 - y_1|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><msub><mi>P</mi><mn>2</mn></msub><mo>=</mo><mi mathvariant="normal">∣</mi><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span>. By Pythagoras,</p>
+          <span class="math-display" data-tex="d^2 = (x_2 - x_1)^2 + (y_2 - y_1)^2 \;\Rightarrow\; d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>d</mi><mn>2</mn></msup><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>d</mi><mo>=</mo><msqrt><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Midpoint</h3>
+          <p>A point a fraction <span class="math" data-tex="t"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow></semantics></math></span></span> of the way from <span class="math" data-tex="P_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub></mrow></semantics></math></span></span> to <span class="math" data-tex="P_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>2</mn></msub></mrow></semantics></math></span></span> is <span class="math" data-tex="P_1 + t(P_2 - P_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mn>1</mn></msub><mo>+</mo><mi>t</mi><mo stretchy="false">(</mo><msub><mi>P</mi><mn>2</mn></msub><mo>−</mo><msub><mi>P</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. Halfway means <span class="math" data-tex="t = \tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="x_M = x_1 + \tfrac{1}{2}(x_2 - x_1) = \frac{x_1 + x_2}{2}, \qquad y_M = \frac{y_1 + y_2}{2}."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mi>M</mi></msub><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><msub><mi>y</mi><mi>M</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>y</mi><mn>1</mn></msub><mo>+</mo><msub><mi>y</mi><mn>2</mn></msub></mrow><mn>2</mn></mfrac><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Other fractions give the <a href="../division-of-line-segment/">section formula</a> for dividing a segment in any ratio.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the midpoint and the distance between <span class="math" data-tex="(-2, 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="(4, 9)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>9</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Midpoint</h4>
+            <span class="math-display" data-tex="M = \left(\frac{-2 + 4}{2},\ \frac{1 + 9}{2}\right) = (1,\ 5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mo>−</mo><mn>2</mn><mo>+</mo><mn>4</mn></mrow><mn>2</mn></mfrac><mo separator="true">,</mo><mtext> </mtext><mfrac><mrow><mn>1</mn><mo>+</mo><mn>9</mn></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><mn>5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 2: Changes in x and y</h4>
+            <span class="math-display" data-tex="\Delta x = 4 - (-2) = 6, \qquad \Delta y = 9 - 1 = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>x</mi><mo>=</mo><mn>4</mn><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>6</mn><mo separator="true">,</mo><mspace width="2em"/><mi mathvariant="normal">Δ</mi><mi>y</mi><mo>=</mo><mn>9</mn><mo>−</mo><mn>1</mn><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Distance</h4>
+            <span class="math-display" data-tex="d = \sqrt{6^2 + 8^2} = \sqrt{36 + 64} = \sqrt{100} = 10"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>d</mi><mo>=</mo><msqrt><mrow><msup><mn>6</mn><mn>2</mn></msup><mo>+</mo><msup><mn>8</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mrow><mn>36</mn><mo>+</mo><mn>64</mn></mrow></msqrt><mo>=</mo><msqrt><mn>100</mn></msqrt><mo>=</mo><mn>10</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>The midpoint should be half the distance from each end: from <span class="math" data-tex="(-2, 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> to <span class="math" data-tex="(1, 5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is <span class="math" data-tex="\sqrt{9 + 16} = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>9</mn><mo>+</mo><mn>16</mn></mrow></msqrt><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: classifying a triangle</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Show that <span class="math" data-tex="A(1, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="B(4, 6)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>6</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="C(8, 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false">(</mo><mn>8</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> form a right isosceles triangle, and find the centre of the circle through all three points.</p>
+            <h4>Step 1: The three side lengths</h4>
+            <span class="math-display" data-tex="AB = \sqrt{3^2 + 4^2} = 5, \qquad BC = \sqrt{4^2 + (-3)^2} = 5, \qquad AC = \sqrt{7^2 + 1^2} = \sqrt{50} = 5\sqrt{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mi>B</mi><mo>=</mo><msqrt><mrow><msup><mn>3</mn><mn>2</mn></msup><mo>+</mo><msup><mn>4</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>5</mn><mo separator="true">,</mo><mspace width="2em"/><mi>B</mi><mi>C</mi><mo>=</mo><msqrt><mrow><msup><mn>4</mn><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mo>−</mo><mn>3</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mn>5</mn><mo separator="true">,</mo><mspace width="2em"/><mi>A</mi><mi>C</mi><mo>=</mo><msqrt><mrow><msup><mn>7</mn><mn>2</mn></msup><mo>+</mo><msup><mn>1</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mn>50</mn></msqrt><mo>=</mo><mn>5</mn><msqrt><mn>2</mn></msqrt></mrow></semantics></math></span></span>
+            <h4>Step 2: Test Pythagoras</h4>
+            <span class="math-display" data-tex="AB^2 + BC^2 = 25 + 25 = 50 = AC^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><mi>B</mi><msup><mi>C</mi><mn>2</mn></msup><mo>=</mo><mn>25</mn><mo>+</mo><mn>25</mn><mo>=</mo><mn>50</mn><mo>=</mo><mi>A</mi><msup><mi>C</mi><mn>2</mn></msup></mrow></semantics></math></span></span>
+            <p>So the angle at <span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span> is 90°, and <span class="math" data-tex="AB = BC"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi><mo>=</mo><mi>B</mi><mi>C</mi></mrow></semantics></math></span></span>: the triangle is right and isosceles.</p>
+            <h4>Step 3: Circumcentre</h4>
+            <p>In a right triangle the hypotenuse is a diameter of the circumscribed circle, so the centre is the midpoint of <span class="math" data-tex="AC"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>C</mi></mrow></semantics></math></span></span>:</p>
+            <span class="math-display" data-tex="M = \left(\frac{1 + 8}{2},\ \frac{2 + 3}{2}\right) = (4.5,\ 2.5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo fence="true">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mn>8</mn></mrow><mn>2</mn></mfrac><mo separator="true">,</mo><mtext> </mtext><mfrac><mrow><mn>2</mn><mo>+</mo><mn>3</mn></mrow><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mo stretchy="false">(</mo><mn>4.5</mn><mo separator="true">,</mo><mtext> </mtext><mn>2.5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <span class="math-display" data-tex="MB = \sqrt{(-0.5)^2 + 3.5^2} = \sqrt{12.5} = \tfrac{5\sqrt{2}}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>M</mi><mi>B</mi><mo>=</mo><msqrt><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>0.5</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mn>3.</mn><msup><mn>5</mn><mn>2</mn></msup></mrow></msqrt><mo>=</mo><msqrt><mn>12.5</mn></msqrt><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mrow><mn>5</mn><msqrt><mn>2</mn></msqrt></mrow><mn>2</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+            <p>That is half of <span class="math" data-tex="AC"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>C</mi></mrow></semantics></math></span></span>, as it should be. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Surveying:</strong> the straight-line distance between two stations from their grid coordinates.</li>
+            <li><strong>Structural drawings:</strong> member lengths in a truss from the coordinates of its joints.</li>
+            <li><strong>Navigation and maps:</strong> distances on a local flat grid, and halfway meeting points.</li>
+            <li><strong>Geometry proofs:</strong> showing that sides are equal, that diagonals bisect each other, or that a triangle is right-angled.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Subtracting in the midpoint formula.</strong> The midpoint adds the coordinates and halves them; the distance subtracts them.</li>
+            <li><strong>Sign errors with negatives.</strong> <span class="math" data-tex="4 - (-2) = 6"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>−</mo><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>6</mn></mrow></semantics></math></span></span>, not 2. Put negative numbers in brackets.</li>
+            <li><strong>Taking the square root term by term.</strong> <span class="math" data-tex="\sqrt{6^2 + 8^2} \ne 6 + 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><msup><mn>6</mn><mn>2</mn></msup><mo>+</mo><msup><mn>8</mn><mn>2</mn></msup></mrow></msqrt><mo mathvariant="normal">≠</mo><mn>6</mn><mo>+</mo><mn>8</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Mixing x and y.</strong> Pair <span class="math" data-tex="x_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow></semantics></math></span></span> with <span class="math" data-tex="x_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="y_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>1</mn></msub></mrow></semantics></math></span></span> with <span class="math" data-tex="y_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>2</mn></msub></mrow></semantics></math></span></span>, never <span class="math" data-tex="x_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow></semantics></math></span></span> with <span class="math" data-tex="y_2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mn>2</mn></msub></mrow></semantics></math></span></span>.</li>
+          </ol>
+        </section>
+
         <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
             <li>Works in the two-dimensional Cartesian plane with the same units on both axes.</li>
             <li>Inputs may be integers, decimals or fractions such as 3/4; all arithmetic is exact.</li>
-            <li>Distances are given in simplest radical form (for example <span class="math" data-tex="2\sqrt{5}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msqrt><mn>5</mn></msqrt></mrow></semantics></math></span></span>) together with a decimal rounded to 6 places.</li>
+            <li>Distances are given in simplest radical form together with a decimal rounded to 6 places.</li>
             <li>If both points are the same, the distance is 0 and the midpoint is that point.</li>
+            <li>For points in space, use the <a href="../lines-planes-3d/">lines and planes in space calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the distance formula?</summary>
+            <div class="faq-answer"><p>d = √((x₂ − x₁)² + (y₂ − y₁)²). It is the Pythagorean theorem applied to the right triangle with legs Δx and Δy.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the midpoint of a segment?</summary>
+            <div class="faq-answer"><p>Average the x-coordinates and average the y-coordinates: M = ((x₁ + x₂)/2, (y₁ + y₂)/2).</p></div>
+          </details>
+          <details>
+            <summary>How do I find an endpoint when I know the midpoint?</summary>
+            <div class="faq-answer"><p>Double the midpoint and subtract the known endpoint: x₂ = 2x_M − x₁ and y₂ = 2y_M − y₁. For example, with M(3, −1) and A(−1, 4), the other end is (7, −6).</p></div>
+          </details>
+          <details>
+            <summary>Does the order of the points matter?</summary>
+            <div class="faq-answer"><p>No. The differences are squared in the distance formula and added in the midpoint formula, so swapping the points gives the same answers.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../division-of-line-segment/">Division of a line segment</a>: points that divide a segment in any ratio.</li>
+            <li><a href="../slope-and-equation-of-a-line/">Slope and equation of a line</a> through the same two points.</li>
+            <li><a href="../distance-from-point-to-line/">Distance from a point to a line</a>.</li>
+            <li><a href="../circle-equation/">Circle equation</a>: the distance formula with a fixed radius.</li>
           </ul>
         </section>
 

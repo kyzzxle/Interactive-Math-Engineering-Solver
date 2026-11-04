@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/slope-and-equation-of-a-line/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find the slope from two points?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Divide the change in y by the change in x: m = (y₂ − y₁)/(x₂ − x₁). Keep the subtraction in the same order on top and bottom."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert y = mx + b to general form?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Move every term to one side, for example mx − y + b = 0, then multiply by a common denominator so the coefficients are whole numbers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the slope of a perpendicular line?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The negative reciprocal. If one line has slope 2, a perpendicular line has slope −1/2, because the product of the slopes is −1."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the slope of a vertical line undefined?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every point on a vertical line has the same x-coordinate, so the run is 0 and the slope would require dividing by zero."
+          }
+        }
+      ]
     }
   ]
 }
@@ -223,11 +261,15 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Change the values and watch the picture respond. </p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
         <div class="panel learn-panel" id="explore">
           <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Drag a line through two points</h3></div></div>
           <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Slope and y-intercept</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
         </div>
       </div>
     </section>
@@ -239,10 +281,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Slope and the equation of a line</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What are the slope and the equation of a line?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the forms</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a point and a fractional slope</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -250,47 +301,171 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Slope and the equation of a line</h2>
-          <p>The <strong>slope</strong> of a line measures its steepness: how much <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> changes for every one-unit increase in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>. Once you know the slope and one point, the whole line is determined. This calculator accepts two points or a point and a slope and returns the slope, the point–slope form, the slope–intercept form, the general form with whole-number coefficients, both intercepts and the angle of inclination.</p>
+          <h2 id="about-h" style="margin-top:0">What are the slope and the equation of a line?</h2>
+          <p>The <strong>slope</strong> of a line measures its steepness: how much <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> changes for every one-unit increase in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>. Once you know the slope and one point, the whole line is fixed, and it can be written as an <strong>equation</strong> that every point on the line satisfies.</p>
           <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the two x-values equal and the slope becomes undefined: the line is vertical and its equation is simply <span class="math" data-tex="x = \text{constant}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mtext>constant</mtext></mrow></semantics></math></span></span>.</p></div>
         </section>
 
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter <strong>two points</strong>, or <strong>one point and the slope</strong>. The calculator returns:</p>
+          <ul>
+            <li>the slope <span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span> as an exact fraction;</li>
+            <li>the point–slope, slope–intercept and general forms of the equation;</li>
+            <li>the x- and y-intercepts and the angle of inclination;</li>
+            <li>a graph of the line through the given point or points.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Between any two points of a line, the ratio of the vertical change (the <strong>rise</strong>) to the horizontal change (the <strong>run</strong>) is the same. That constant ratio is the slope. It is also the tangent of the angle <span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span> the line makes with the positive x-axis.</p>
+          <ul>
+            <li><span class="math" data-tex="m &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>: the line rises to the right.</li>
+            <li><span class="math" data-tex="m \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span>: it falls to the right.</li>
+            <li><span class="math" data-tex="m = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>: it is horizontal.</li>
+            <li>No slope: it is vertical (the run is zero).</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">Parallel and perpendicular lines</p>
+            <p>Parallel lines have equal slopes. Perpendicular lines have slopes whose product is <span class="math" data-tex="-1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>, so each slope is the negative reciprocal of the other: <span class="math" data-tex="m_2 = -\tfrac{1}{m_1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>2</mn></msub><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><msub><mi>m</mi><mn>1</mn></msub></mfrac></mrow></semantics></math></span></span>.</p>
+          </div>
+        </section>
+
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="m = \frac{y_2 - y_1}{x_2 - x_1} \qquad y - y_1 = m(x - x_1) \qquad y = mx + b \qquad Ax + By + C = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>m</mi><mo>=</mo><mfrac><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac><mspace width="2em"/><mi>y</mi><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo>=</mo><mi>m</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mspace width="2em"/><mi>y</mi><mo>=</mo><mi>m</mi><mi>x</mi><mo>+</mo><mi>b</mi><mspace width="2em"/><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Form</th><th scope="col">Equation</th><th scope="col">Best used when</th></tr></thead>
             <tbody>
-              <tr><td><span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span></td><td>Slope: rise over run. Positive lines rise to the right, negative lines fall.</td></tr>
-              <tr><td><span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span></td><td>y-intercept: where the line crosses the y-axis, <span class="math" data-tex="b = y_1 - m x_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><msub><mi>y</mi><mn>1</mn></msub><mo>−</mo><mi>m</mi><msub><mi>x</mi><mn>1</mn></msub></mrow></semantics></math></span></span>.</td></tr>
-              <tr><td><span class="math" data-tex="A, B, C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi></mrow></semantics></math></span></span></td><td>Whole-number coefficients of the general form.</td></tr>
-              <tr><td><span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span></td><td>Angle of inclination, <span class="math" data-tex="\tan\theta = m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mi>m</mi></mrow></semantics></math></span></span>, measured from the positive x-axis (0° to 180°).</td></tr>
+              <tr><td>Slope</td><td><span class="math" data-tex="m = \dfrac{y_2 - y_1}{x_2 - x_1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac></mstyle></mrow></semantics></math></span></span></td><td>You know two points</td></tr>
+              <tr><td>Point–slope</td><td><span class="math" data-tex="y - y_1 = m(x - x_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo>=</mo><mi>m</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>You know a point and the slope</td></tr>
+              <tr><td>Slope–intercept</td><td><span class="math" data-tex="y = mx + b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>m</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow></semantics></math></span></span></td><td>Graphing, or reading the y-intercept</td></tr>
+              <tr><td>General</td><td><span class="math" data-tex="Ax + By + C = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></td><td>Distance, intersection and angle formulas</td></tr>
+              <tr><td>Intercept</td><td><span class="math" data-tex="\dfrac{x}{a} + \dfrac{y}{b} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mi>x</mi><mi>a</mi></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mi>y</mi><mi>b</mi></mfrac></mstyle><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span></td><td>You know where the line crosses both axes</td></tr>
+              <tr><td>Inclination</td><td><span class="math" data-tex="\tan\theta = m,\ 0^\circ \le \theta \lt 180^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mi>m</mi><mo separator="true">,</mo><mtext> </mtext><msup><mn>0</mn><mo>∘</mo></msup><mo>≤</mo><mi>θ</mi><mo>&lt;</mo><mn>18</mn><msup><mn>0</mn><mo>∘</mo></msup></mrow></semantics></math></span></span></td><td>Angles and directions</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="(x_1, y_1), (x_2, y_2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Points on the line.</td></tr>
+              <tr><td><span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span></td><td>Slope: rise over run.</td></tr>
+              <tr><td><span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span></td><td>y-intercept: where the line crosses the y-axis, <span class="math" data-tex="b = y_1 - m x_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><msub><mi>y</mi><mn>1</mn></msub><mo>−</mo><mi>m</mi><msub><mi>x</mi><mn>1</mn></msub></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="A, B, C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi></mrow></semantics></math></span></span></td><td>Whole-number coefficients of the general form.</td></tr>
+              <tr><td><span class="math" data-tex="\theta"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow></semantics></math></span></span></td><td>Angle of inclination, measured counter-clockwise from the positive x-axis.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the forms</h2>
+          <h3>Point–slope form</h3>
+          <p>Let <span class="math" data-tex="(x, y)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> be any other point on the line. Its slope from <span class="math" data-tex="(x_1, y_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> must equal <span class="math" data-tex="m"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="\frac{y - y_1}{x - x_1} = m \;\Rightarrow\; y - y_1 = m(x - x_1)."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>y</mi><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac><mo>=</mo><mi>m</mi><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>y</mi><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo>=</mo><mi>m</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <h3>Slope–intercept form</h3>
+          <p>Expand and solve for <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="y = mx + (y_1 - m x_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>m</mi><mi>x</mi><mo>+</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mn>1</mn></msub><mo>−</mo><mi>m</mi><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. The constant <span class="math" data-tex="b = y_1 - m x_1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><msub><mi>y</mi><mn>1</mn></msub><mo>−</mo><mi>m</mi><msub><mi>x</mi><mn>1</mn></msub></mrow></semantics></math></span></span> is the value of <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> when <span class="math" data-tex="x = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>, the y-intercept.</p>
+          <h3>General form</h3>
+          <p>Move every term to one side and multiply by the common denominator so that <span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span>, <span class="math" data-tex="B"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="C"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow></semantics></math></span></span> are whole numbers. A slope of <span class="math" data-tex="-\tfrac{A}{B}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>A</mi><mi>B</mi></mfrac></mrow></semantics></math></span></span> can be read straight back from it.</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>The line through <span class="math" data-tex="(1, 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="(4, 9)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>9</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Slope</h4>
+            <h3>Problem</h3>
+            <p>Find the equation of the line through <span class="math" data-tex="(1, 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="(4, 9)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>9</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Slope</h4>
             <span class="math-display" data-tex="m = \frac{9 - 3}{4 - 1} = \frac{6}{3} = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>m</mi><mo>=</mo><mfrac><mrow><mn>9</mn><mo>−</mo><mn>3</mn></mrow><mrow><mn>4</mn><mo>−</mo><mn>1</mn></mrow></mfrac><mo>=</mo><mfrac><mn>6</mn><mn>3</mn></mfrac><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Point–slope form</h4>
+            <h4>Step 2: Point–slope form</h4>
             <span class="math-display" data-tex="y - 3 = 2(x - 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>−</mo><mn>3</mn><mo>=</mo><mn>2</mn><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
-            <h4>Step 3 — Slope–intercept form</h4>
+            <h4>Step 3: Slope–intercept form</h4>
             <span class="math-display" data-tex="b = 3 - 2(1) = 1 \quad\Rightarrow\quad y = 2x + 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>b</mi><mo>=</mo><mn>3</mn><mo>−</mo><mn>2</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mspace width="1em"/><mo>⇒</mo><mspace width="1em"/><mi>y</mi><mo>=</mo><mn>2</mn><mi>x</mi><mo>+</mo><mn>1</mn></mrow></semantics></math></span></span>
-            <h4>Step 4 — General form</h4>
-            <span class="math-display" data-tex="2x - y + 1 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Step 4: General form and intercepts</h4>
+            <span class="math-display" data-tex="2x - y + 1 = 0, \qquad \text{y-intercept } 1, \qquad \text{x-intercept } -\tfrac{1}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>2</mn><mi>x</mi><mo>−</mo><mi>y</mi><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mspace width="2em"/><mtext>y-intercept </mtext><mn>1</mn><mo separator="true">,</mo><mspace width="2em"/><mtext>x-intercept </mtext><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>Substitute the second point: <span class="math" data-tex="2(4) + 1 = 9"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mo>=</mo><mn>9</mn></mrow></semantics></math></span></span>. ✓ The angle of inclination is <span class="math" data-tex="\tan^{-1} 2 \approx 63.43^\circ"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mi>tan</mi><mo>⁡</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mn>2</mn><mo>≈</mo><mn>63.4</mn><msup><mn>3</mn><mo>∘</mo></msup></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a point and a fractional slope</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the line through <span class="math" data-tex="(-2, 5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> with slope <span class="math" data-tex="-\tfrac{3}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></mrow></semantics></math></span></span>, and the line through the same point perpendicular to it.</p>
+            <h4>Step 1: Point–slope form</h4>
+            <span class="math-display" data-tex="y - 5 = -\tfrac{3}{4}(x + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>−</mo><mn>5</mn><mo>=</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>3</mn><mn>4</mn></mfrac></mstyle><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 2: The y-intercept</h4>
+            <span class="math-display" data-tex="b = 5 - \left(-\tfrac{3}{4}\right)(-2) = 5 - \tfrac{3}{2} = \tfrac{7}{2} \quad\Rightarrow\quad y = -\tfrac{3}{4}x + \tfrac{7}{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>b</mi><mo>=</mo><mn>5</mn><mo>−</mo><mrow><mo fence="true">(</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>3</mn><mn>4</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>5</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>3</mn><mn>2</mn></mfrac></mstyle><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>7</mn><mn>2</mn></mfrac></mstyle><mspace width="1em"/><mo>⇒</mo><mspace width="1em"/><mi>y</mi><mo>=</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>3</mn><mn>4</mn></mfrac></mstyle><mi>x</mi><mo>+</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>7</mn><mn>2</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+            <h4>Step 3: General form</h4>
+            <p>Multiply by 4 and move everything to the left: <span class="math" data-tex="3x + 4y - 14 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>x</mi><mo>+</mo><mn>4</mn><mi>y</mi><mo>−</mo><mn>14</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>. The x-intercept is <span class="math" data-tex="\tfrac{14}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>14</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>.</p>
+            <h4>Step 4: The perpendicular line</h4>
+            <p>Its slope is the negative reciprocal, <span class="math" data-tex="\tfrac{4}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>4</mn><mn>3</mn></mfrac></mrow></semantics></math></span></span>:</p>
+            <span class="math-display" data-tex="y - 5 = \tfrac{4}{3}(x + 2) \;\Rightarrow\; y = \tfrac{4}{3}x + \tfrac{23}{3} \;\Rightarrow\; 4x - 3y + 23 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>−</mo><mn>5</mn><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>3</mn></mfrac></mstyle><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>y</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>3</mn></mfrac></mstyle><mi>x</mi><mo>+</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>23</mn><mn>3</mn></mfrac></mstyle><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mn>4</mn><mi>x</mi><mo>−</mo><mn>3</mn><mi>y</mi><mo>+</mo><mn>23</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p><span class="math" data-tex="\left(-\tfrac{3}{4}\right)\left(\tfrac{4}{3}\right) = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><mn>3</mn><mn>4</mn></mfrac><mo fence="true">)</mo></mrow><mrow><mo fence="true">(</mo><mfrac><mn>4</mn><mn>3</mn></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>, so the lines are perpendicular. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
+          <ul>
+            <li><strong>Road and ramp design:</strong> grade is slope written as a percentage; a 1 : 12 ramp has slope <span class="math" data-tex="\tfrac{1}{12} \approx 8.3\%"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>12</mn></mfrac><mo>≈</mo><mn>8.3</mn><mi mathvariant="normal">%</mi></mrow></semantics></math></span></span>.</li>
+            <li><strong>Roof pitch:</strong> a 6/12 pitch rises 6 units for every 12 across.</li>
+            <li><strong>Linear models:</strong> cost, depreciation and calibration lines have a rate (the slope) and a starting value (the intercept).</li>
+            <li><strong>Drainage and pipes:</strong> the fall per metre of a sewer line.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Run over rise.</strong> Slope is the change in <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> divided by the change in <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span>, not the other way round.</li>
+            <li><strong>Mixed order.</strong> Subtract in the same order on top and bottom: <span class="math" data-tex="\tfrac{y_2 - y_1}{x_2 - x_1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac></mrow></semantics></math></span></span>, not <span class="math" data-tex="\tfrac{y_2 - y_1}{x_1 - x_2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub></mrow><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><msub><mi>x</mi><mn>2</mn></msub></mrow></mfrac></mrow></semantics></math></span></span>.</li>
+            <li><strong>Zero versus undefined.</strong> A horizontal line has slope 0; a vertical line has no slope at all.</li>
+            <li><strong>Reading the slope from the general form.</strong> For <span class="math" data-tex="Ax + By + C = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> the slope is <span class="math" data-tex="-\tfrac{A}{B}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>A</mi><mi>B</mi></mfrac></mrow></semantics></math></span></span>, not <span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span>.</li>
+          </ol>
+        </section>
+
         <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
             <li>Two different points are required; one point alone does not determine a line.</li>
             <li>Slopes and intercepts are computed exactly as fractions; decimals are shown alongside.</li>
             <li>Vertical lines have an undefined slope and no slope–intercept form; horizontal lines have slope 0 and no x-intercept (unless they are the x-axis).</li>
             <li>The angle of inclination is rounded to 4 decimal places.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the slope from two points?</summary>
+            <div class="faq-answer"><p>Divide the change in y by the change in x: m = (y₂ − y₁)/(x₂ − x₁). Keep the subtraction in the same order on top and bottom.</p></div>
+          </details>
+          <details>
+            <summary>How do I convert y = mx + b to general form?</summary>
+            <div class="faq-answer"><p>Move every term to one side, for example mx − y + b = 0, then multiply by a common denominator so the coefficients are whole numbers.</p></div>
+          </details>
+          <details>
+            <summary>What is the slope of a perpendicular line?</summary>
+            <div class="faq-answer"><p>The negative reciprocal. If one line has slope 2, a perpendicular line has slope −1/2, because the product of the slopes is −1.</p></div>
+          </details>
+          <details>
+            <summary>Why is the slope of a vertical line undefined?</summary>
+            <div class="faq-answer"><p>Every point on a vertical line has the same x-coordinate, so the run is 0 and the slope would require dividing by zero.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../intersection-of-two-lines/">Intersection of two lines</a>.</li>
+            <li><a href="../angle-between-lines/">Angle between two lines</a> from their slopes.</li>
+            <li><a href="../distance-from-point-to-line/">Distance from a point to a line</a>, using the general form.</li>
+            <li><a href="../linear-regression/">Linear regression</a>: the best-fit line through data.</li>
           </ul>
         </section>
 

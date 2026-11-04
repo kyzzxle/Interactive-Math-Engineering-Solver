@@ -7,6 +7,7 @@ import { generalTex } from '../lib/lines.js';
 import { plot, windowAround } from '../lib/plot.js';
 
 import { twoLinesExplore } from '../explore/geometry.js';
+import { intersectionPractice } from '../explore/analytic-practice.js';
 const line = (n) => [
   { name: `A${n}`, label: `A${n === 1 ? '₁' : '₂'}`, type: 'number', placeholder: n === 1 ? 'e.g. 2' : 'e.g. 1', row: `l${n}` },
   { name: `B${n}`, label: `B${n === 1 ? '₁' : '₂'}`, type: 'number', placeholder: n === 1 ? 'e.g. 3' : 'e.g. -1', row: `l${n}` },
@@ -15,6 +16,7 @@ const line = (n) => [
 
 export const calculator = {
   id: 'intersection-of-two-lines',
+  practice: intersectionPractice,
   explore: twoLinesExplore,
   fields: [...line(1), ...line(2)],
   examples: [
@@ -34,8 +36,8 @@ export const calculator = {
     const Dx = B1.mul(C2).sub(B2.mul(C1));
     const Dy = A2.mul(C1).sub(A1.mul(C2));
     const steps = [
-      { title: 'Write both lines in general form', texLines: [`L_1:\\ ${generalTex(A1, B1, C1)}`, `L_2:\\ ${generalTex(A2, B2, C2)}`] },
-      { title: 'Determinant of the coefficients', text: 'If this determinant is zero the lines have the same slope (parallel or identical).', texLines: ['D = A_1 B_2 - A_2 B_1', `D = ${fp(A1)}${fp(B2)} - ${fp(A2)}${fp(B1)} = ${D.toTex()}`] },
+      { title: 'Write both lines in general form', texLines: [`L_1:\\ ${generalTex(A1, B1, C1)}`, `L_2:\\ ${generalTex(A2, B2, C2)}`], note: 'The intersection point is the one pair (x, y) that makes both equations true at the same time, so we solve them as a system.' },
+      { title: 'Determinant of the coefficients', text: 'If this determinant is zero the lines have the same slope (parallel or identical).', texLines: ['D = A_1 B_2 - A_2 B_1', `D = ${fp(A1)}${fp(B2)} - ${fp(A2)}${fp(B1)} = ${A1.mul(B2).toTex()} - ${fp(A2.mul(B1))} = ${D.toTex()}`], note: D.isZero() ? 'D = 0, so the slopes are equal and there is no single intersection point.' : 'D is not zero, so the slopes differ and the lines cross at exactly one point.' },
     ];
     const f = (A, B, C) => (x) => (B.isZero() ? NaN : -(A.toNumber() * x + C.toNumber()) / B.toNumber());
     const vline = (A, B, C, cls) => (B.isZero() ? [{ x: -C.toNumber() / A.toNumber(), cls }] : []);
@@ -44,10 +46,12 @@ export const calculator = {
     if (!D.isZero()) {
       const x = Dx.div(D), y = Dy.div(D);
       pt = [x.toNumber(), y.toNumber()];
-      steps.push({ title: "Solve with Cramer's rule", texLines: ['x = \\frac{B_1 C_2 - B_2 C_1}{D}, \\qquad y = \\frac{A_2 C_1 - A_1 C_2}{D}', `x = \\frac{${fp(B1)}${fp(C2)} - ${fp(B2)}${fp(C1)}}{${D.toTex()}} = \\frac{${Dx.toTex()}}{${D.toTex()}} = ${x.toTex()}`, `y = \\frac{${fp(A2)}${fp(C1)} - ${fp(A1)}${fp(C2)}}{${D.toTex()}} = \\frac{${Dy.toTex()}}{${D.toTex()}} = ${y.toTex()}`] });
-      steps.push({ title: 'Check in both equations', texLines: [`${fp(A1)}${fp(x)} + ${fp(B1)}${fp(y)} + ${fp(C1)} = ${A1.mul(x).add(B1.mul(y)).add(C1).toTex()}`, `${fp(A2)}${fp(x)} + ${fp(B2)}${fp(y)} + ${fp(C2)} = ${A2.mul(x).add(B2.mul(y)).add(C2).toTex()}`] });
+      steps.push({ title: "Solve with Cramer's rule", texLines: ['x = \\frac{B_1 C_2 - B_2 C_1}{D}, \\qquad y = \\frac{A_2 C_1 - A_1 C_2}{D}', `x = \\frac{${fp(B1)}${fp(C2)} - ${fp(B2)}${fp(C1)}}{${D.toTex()}} = \\frac{${Dx.toTex()}}{${D.toTex()}} = ${x.toTex()}`, `y = \\frac{${fp(A2)}${fp(C1)} - ${fp(A1)}${fp(C2)}}{${D.toTex()}} = \\frac{${Dy.toTex()}}{${D.toTex()}} = ${y.toTex()}`], note: "Cramer's rule is elimination written as one formula: multiplying the equations by B₂ and B₁ and subtracting removes y and leaves D·x on the left." });
+      steps.push({ title: 'Check in both equations', texLines: [`${fp(A1)}${fp(x)} + ${fp(B1)}${fp(y)} + ${fp(C1)} = ${A1.mul(x).add(B1.mul(y)).add(C1).toTex()}\\ \\checkmark`, `${fp(A2)}${fp(x)} + ${fp(B2)}${fp(y)} + ${fp(C2)} = ${A2.mul(x).add(B2.mul(y)).add(C2).toTex()}\\ \\checkmark`], note: 'Both left-hand sides are 0, so the point lies on both lines.' });
       const ang = Math.abs(Math.atan2(A1.toNumber() * B2.toNumber() - A2.toNumber() * B1.toNumber(), A1.toNumber() * A2.toNumber() + B1.toNumber() * B2.toNumber())) * 180 / Math.PI;
       const acute = ang > 90 ? 180 - ang : ang;
+      const nd = A1.mul(A2).add(B1.mul(B2));
+      steps.push({ title: 'Angle between the lines', texLines: ['\\cos\\theta = \\frac{|A_1A_2 + B_1B_2|}{\\sqrt{A_1^2 + B_1^2}\\,\\sqrt{A_2^2 + B_2^2}}', `\\cos\\theta = \\frac{|${nd.toTex()}|}{\\sqrt{${A1.pow(2).add(B1.pow(2)).toTex()}}\\,\\sqrt{${A2.pow(2).add(B2.pow(2)).toTex()}}} \\;\\Rightarrow\\; \\theta ${Math.abs(acute - Math.round(acute)) < 1e-9 ? '=' : '\\approx'} ${fmt(acute, 4)}^\\circ`], note: nd.isZero() ? 'A₁A₂ + B₁B₂ = 0, so the normals are perpendicular and so are the lines.' : 'The angle between the lines equals the angle between their normal vectors (A₁, B₁) and (A₂, B₂). The acute angle is reported.' });
       final = { tex: `(x, y) = ${pointTex(x, y)}` };
       answers = [
         { label: 'Intersection point', value: `(${fmt(pt[0])}, ${fmt(pt[1])})`, primary: true, approx: !(x.toDecimal() && y.toDecimal()), exactTex: x.isInt() && y.isInt() ? undefined : pointTex(x, y), copy: `(${x}, ${y})` },
@@ -56,6 +60,7 @@ export const calculator = {
       if (Math.abs(acute - 90) < 1e-12) notes.push({ kind: 'info', text: 'The lines are perpendicular (A₁A₂ + B₁B₂ = 0).' });
     } else {
       const coincident = Dx.isZero() && Dy.isZero();
+      steps.push({ title: 'Compare the other determinants', texLines: [`D_x = B_1C_2 - B_2C_1 = ${Dx.toTex()}`, `D_y = A_2C_1 - A_1C_2 = ${Dy.toTex()}`], note: 'With D = 0, these decide the case: both zero means the equations are multiples of each other; otherwise they contradict each other.' });
       steps.push({ title: coincident ? 'The equations describe the same line' : 'The lines are parallel', text: coincident ? 'One equation is a multiple of the other, so every point on the line satisfies both: there are infinitely many intersection points.' : 'Same slope but different positions: the lines never meet, so there is no solution.' });
       final = { text: coincident ? 'The lines coincide — infinitely many intersection points.' : 'The lines are parallel — no intersection point.' };
       answers = [{ label: 'Intersection', value: coincident ? 'Infinitely many points (same line)' : 'None (parallel lines)', primary: true }];

@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/hyperbola/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find the foci of a hyperbola?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Compute c² = a² + b². The foci are c units from the centre along the transverse axis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the asymptotes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They pass through the centre with slopes ±b/a for a hyperbola opening left and right, or ±a/b for one opening up and down."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the eccentricity of a hyperbola greater than 1?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because c² = a² + b² makes c larger than a, so e = c/a > 1."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a rectangular hyperbola?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One with a = b. Its asymptotes are perpendicular and its eccentricity is √2."
+          }
+        }
+      ]
     }
   ]
 }
@@ -218,11 +256,15 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Change the values and watch the picture respond. </p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
         <div class="panel learn-panel" id="explore">
           <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Follow a point on a hyperbola</h3></div></div>
           <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Foci and asymptotes of a hyperbola</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
         </div>
       </div>
     </section>
@@ -234,10 +276,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the hyperbola calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">What is a hyperbola?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the equation and the asymptotes</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: from vertices and asymptotes</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -245,50 +296,161 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the hyperbola calculator does</h2>
-          <p>A <strong>hyperbola</strong> is the set of points whose distances to two foci differ by a constant, 2a. It has two separate branches, each curving around one focus, and far from the centre each branch approaches a straight line, an <strong>asymptote</strong>.</p>
-          <p>Here <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> is the semi-axis in the direction the hyperbola opens (centre to vertex) and <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span> the conjugate semi-axis, which sets the slopes of the asymptotes.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Make a = b in the explorer: the asymptotes are perpendicular (a rectangular hyperbola, like y = 1/x turned 45°).</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a hyperbola?</h2>
+          <p>A <strong>hyperbola</strong> is the set of all points whose distances to two fixed points, the <strong>foci</strong>, differ by the same constant. It has two separate <strong>branches</strong>, each curving around one focus, and far from the centre both branches straighten out along two crossing lines called <strong>asymptotes</strong>.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make <span class="math" data-tex="a = b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mi>b</mi></mrow></semantics></math></span></span>. The asymptotes become <span class="math" data-tex="y = \pm x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo>±</mo><mi>x</mi></mrow></semantics></math></span></span>, at right angles to each other: a <strong>rectangular hyperbola</strong> with eccentricity <span class="math" data-tex="\sqrt{2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt></mrow></semantics></math></span></span>.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="\frac{(x - h)^2}{a^2} - \frac{(y - k)^2}{b^2} = 1 \quad \text{or} \quad \frac{(y - k)^2}{a^2} - \frac{(x - h)^2}{b^2} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>a</mi><mn>2</mn></msup></mfrac><mo>−</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>b</mi><mn>2</mn></msup></mfrac><mo>=</mo><mn>1</mn><mspace width="1em"/><mtext>or</mtext><mspace width="1em"/><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>a</mi><mn>2</mn></msup></mfrac><mo>−</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>b</mi><mn>2</mn></msup></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span><span class="math-display" data-tex="c^2 = a^2 + b^2 \qquad e = \frac{c}{a} &gt; 1 \qquad y - k = \pm\frac{b}{a}(x - h)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mspace width="2em"/><mi>e</mi><mo>=</mo><mfrac><mi>c</mi><mi>a</mi></mfrac><mo>&gt;</mo><mn>1</mn><mspace width="2em"/><mi>y</mi><mo>−</mo><mi>k</mi><mo>=</mo><mo>±</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Centre</td></tr>
-              <tr><td><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span></td><td>Transverse semi-axis: centre to vertex</td></tr>
-              <tr><td><span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span></td><td>Conjugate semi-axis</td></tr>
-              <tr><td><span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span></td><td>Centre-to-focus distance</td></tr>
-            </tbody>
-          </table>
-          <p>For a hyperbola that opens up and down, the asymptotes have slopes ±a/b instead.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose whether the hyperbola opens left and right or up and down, then enter the centre <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, the transverse semi-axis <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and the conjugate semi-axis <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span>. It returns:</p>
+          <ul>
+            <li>the standard and general forms of the equation;</li>
+            <li>the vertices, foci and focal distance <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span>;</li>
+            <li>the equations of the asymptotes;</li>
+            <li>the eccentricity and the latus rectum;</li>
+            <li>a graph with the asymptotes and foci.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Opens left–right, centre (1, −2), a = 3, b = 4</h3>
-            <h4>Step 1 — Equation</h4>
-            <span class="math-display" data-tex="\frac{(x - 1)^2}{9} - \frac{(y + 2)^2}{16} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>9</mn></mfrac><mo>−</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>16</mn></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Foci</h4>
-            <span class="math-display" data-tex="c^2 = 9 + 16 = 25,\ c = 5:\quad (1 \pm 5,\ -2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><mn>9</mn><mo>+</mo><mn>16</mn><mo>=</mo><mn>25</mn><mo separator="true">,</mo><mtext> </mtext><mi>c</mi><mo>=</mo><mn>5</mn><mo>:</mo><mspace width="1em"/><mo stretchy="false">(</mo><mn>1</mn><mo>±</mo><mn>5</mn><mo separator="true">,</mo><mtext> </mtext><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
-            <h4>Step 3 — Asymptotes and eccentricity</h4>
-            <span class="math-display" data-tex="y + 2 = \pm \tfrac{4}{3}(x - 1),\qquad e = \tfrac{5}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>+</mo><mn>2</mn><mo>=</mo><mo>±</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>3</mn></mfrac></mstyle><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><mi>e</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>5</mn><mn>3</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>The <strong>transverse axis</strong> joins the two vertices and has length <span class="math" data-tex="2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span>; the difference of the focal distances is always <span class="math" data-tex="2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span>. The <strong>conjugate axis</strong>, of length <span class="math" data-tex="2b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>b</mi></mrow></semantics></math></span></span>, is perpendicular to it. Draw a rectangle <span class="math" data-tex="2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span> by <span class="math" data-tex="2b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>b</mi></mrow></semantics></math></span></span> around the centre: its diagonals are the asymptotes, and its half-diagonal is <span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="c^2 = a^2 + b^2."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Because <span class="math" data-tex="c &gt; a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mi>a</mi></mrow></semantics></math></span></span>, the eccentricity <span class="math" data-tex="e = c/a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mi>c</mi><mi mathvariant="normal">/</mi><mi>a</mi></mrow></semantics></math></span></span> is always greater than 1. The larger <span class="math" data-tex="e"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span>, the wider the branches open.</p>
+          <div class="callout">
+            <p class="callout-title">Ellipse versus hyperbola</p>
+            <p>Ellipse: the distances to the foci <strong>add</strong> to a constant, <span class="math" data-tex="c^2 = a^2 - b^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></semantics></math></span></span>, <span class="math" data-tex="e \lt 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&lt;</mo><mn>1</mn></mrow></semantics></math></span></span>. Hyperbola: they <strong>differ</strong> by a constant, <span class="math" data-tex="c^2 = a^2 + b^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></semantics></math></span></span>, <span class="math" data-tex="e &gt; 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>&gt;</mo><mn>1</mn></mrow></semantics></math></span></span>.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Opens left and right</th><th scope="col">Opens up and down</th></tr></thead>
+            <tbody>
+              <tr><td>Standard form</td><td><span class="math" data-tex="\dfrac{(x - h)^2}{a^2} - \dfrac{(y - k)^2}{b^2} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>a</mi><mn>2</mn></msup></mfrac></mstyle><mo>−</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>b</mi><mn>2</mn></msup></mfrac></mstyle><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span></td><td><span class="math" data-tex="\dfrac{(y - k)^2}{a^2} - \dfrac{(x - h)^2}{b^2} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>a</mi><mn>2</mn></msup></mfrac></mstyle><mo>−</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><msup><mi>b</mi><mn>2</mn></msup></mfrac></mstyle><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Vertices</td><td><span class="math" data-tex="(h \pm a, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo>±</mo><mi>a</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h, k \pm a)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo>±</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Foci</td><td><span class="math" data-tex="(h \pm c, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo>±</mo><mi>c</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h, k \pm c)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo>±</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Asymptotes</td><td><span class="math" data-tex="y - k = \pm\dfrac{b}{a}(x - h)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><mi>k</mi><mo>=</mo><mo>±</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mi>b</mi><mi>a</mi></mfrac></mstyle><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="y - k = \pm\dfrac{a}{b}(x - h)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><mi>k</mi><mo>=</mo><mo>±</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mi>a</mi><mi>b</mi></mfrac></mstyle><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td></tr>
+            </tbody>
+          </table>
+          <p>In both cases <span class="math" data-tex="c^2 = a^2 + b^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></semantics></math></span></span>, <span class="math" data-tex="e = c/a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mi>c</mi><mi mathvariant="normal">/</mi><mi>a</mi></mrow></semantics></math></span></span> and the latus rectum is <span class="math" data-tex="2b^2/a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>b</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mi>a</mi></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Centre, halfway between the vertices.</td></tr>
+              <tr><td><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span></td><td>Transverse semi-axis: centre to vertex, in the direction the hyperbola opens.</td></tr>
+              <tr><td><span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span></td><td>Conjugate semi-axis. It can be larger or smaller than <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow></semantics></math></span></span></td><td>Centre to each focus.</td></tr>
+              <tr><td><span class="math" data-tex="e"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow></semantics></math></span></span></td><td>Eccentricity, always greater than 1.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the equation and the asymptotes</h2>
+          <p>Place the foci at <span class="math" data-tex="(\pm c, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>±</mo><mi>c</mi><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and require the distances to differ by <span class="math" data-tex="2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="\left| \sqrt{(x + c)^2 + y^2} - \sqrt{(x - c)^2 + y^2} \right| = 2a."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mo fence="true">∣</mo><msqrt><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>c</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt><mo>−</mo><msqrt><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>c</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow></msqrt><mo fence="true">∣</mo></mrow><mo>=</mo><mn>2</mn><mi>a</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Squaring twice, as for the ellipse, gives <span class="math" data-tex="(c^2 - a^2)x^2 - a^2y^2 = a^2(c^2 - a^2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mi>c</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup><mo stretchy="false">)</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup><msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo stretchy="false">(</mo><msup><mi>c</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. With <span class="math" data-tex="b^2 = c^2 - a^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><msup><mi>c</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow></semantics></math></span></span> this is <span class="math" data-tex="\tfrac{x^2}{a^2} - \tfrac{y^2}{b^2} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>x</mi><mn>2</mn></msup><msup><mi>a</mi><mn>2</mn></msup></mfrac><mo>−</mo><mfrac><msup><mi>y</mi><mn>2</mn></msup><msup><mi>b</mi><mn>2</mn></msup></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>.</p>
+          <h3>Asymptotes</h3>
+          <p>Solve for <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span>: <span class="math" data-tex="y = \pm\tfrac{b}{a}\sqrt{x^2 - a^2} = \pm\tfrac{b}{a}\,x\sqrt{1 - a^2/x^2}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo>±</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><msqrt><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mo>±</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><mtext> </mtext><mi>x</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>a</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></msqrt></mrow></semantics></math></span></span>. As <span class="math" data-tex="|x|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>x</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span> grows, the square root approaches 1, so the curve approaches the lines <span class="math" data-tex="y = \pm\tfrac{b}{a}x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo>±</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><mi>x</mi></mrow></semantics></math></span></span>.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A hyperbola opens left and right, with centre <span class="math" data-tex="(1, -2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="a = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="b = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span>. Find its equation, vertices, foci and asymptotes.</p>
+            <h4>Step 1: Standard form</h4>
+            <span class="math-display" data-tex="\frac{(x - 1)^2}{9} - \frac{(y + 2)^2}{16} = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>9</mn></mfrac><mo>−</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>2</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>16</mn></mfrac><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Focal distance</h4>
+            <span class="math-display" data-tex="c^2 = 9 + 16 = 25, \qquad c = 5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><mn>9</mn><mo>+</mo><mn>16</mn><mo>=</mo><mn>25</mn><mo separator="true">,</mo><mspace width="2em"/><mi>c</mi><mo>=</mo><mn>5</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Vertices and foci</h4>
+            <span class="math-display" data-tex="\text{vertices } (-2, -2),\ (4, -2), \qquad \text{foci } (-4, -2),\ (6, -2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>vertices </mtext><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext> </mtext><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><mtext>foci </mtext><mo stretchy="false">(</mo><mo>−</mo><mn>4</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext> </mtext><mo stretchy="false">(</mo><mn>6</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 4: Asymptotes and shape</h4>
+            <span class="math-display" data-tex="y + 2 = \pm\tfrac{4}{3}(x - 1), \qquad e = \tfrac{5}{3}, \qquad \text{latus rectum } \tfrac{2(16)}{3} = \tfrac{32}{3}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>+</mo><mn>2</mn><mo>=</mo><mo>±</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>4</mn><mn>3</mn></mfrac></mstyle><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><mi>e</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>5</mn><mn>3</mn></mfrac></mstyle><mo separator="true">,</mo><mspace width="2em"/><mtext>latus rectum </mtext><mstyle displaystyle="false" scriptlevel="0"><mfrac><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>16</mn><mo stretchy="false">)</mo></mrow><mn>3</mn></mfrac></mstyle><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>32</mn><mn>3</mn></mfrac></mstyle></mrow></semantics></math></span></span>
+            <h4>Step 5: General form</h4>
+            <p>Multiply by 144 and expand: <span class="math" data-tex="16x^2 - 9y^2 - 32x - 36y - 164 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>9</mn><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>32</mn><mi>x</mi><mo>−</mo><mn>36</mn><mi>y</mi><mo>−</mo><mn>164</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Check</h4>
+            <p>The vertex <span class="math" data-tex="(4, -2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is 8 from the focus <span class="math" data-tex="(-4, -2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>4</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and 2 from <span class="math" data-tex="(6, -2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>6</mn><mo separator="true">,</mo><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>. The difference is <span class="math" data-tex="6 = 2a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>=</mo><mn>2</mn><mi>a</mi></mrow></semantics></math></span></span>. ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: from vertices and asymptotes</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A hyperbola has vertices <span class="math" data-tex="(0, \pm 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mo>±</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and asymptotes <span class="math" data-tex="y = \pm 2x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo>±</mo><mn>2</mn><mi>x</mi></mrow></semantics></math></span></span>. Find its equation and foci.</p>
+            <h4>Step 1: Direction and <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span></h4>
+            <p>The vertices are on the y-axis, so it opens up and down with centre <span class="math" data-tex="(0, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="a = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 2: Find <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span> from the asymptotes</h4>
+            <p>For this direction the asymptote slopes are <span class="math" data-tex="\pm\tfrac{a}{b}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></semantics></math></span></span>, so <span class="math" data-tex="\tfrac{2}{b} = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>2</mn><mi>b</mi></mfrac><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span> and <span class="math" data-tex="b = 1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>1</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 3: Equation and foci</h4>
+            <span class="math-display" data-tex="\frac{y^2}{4} - x^2 = 1, \qquad c = \sqrt{4 + 1} = \sqrt{5}, \qquad \text{foci } \left(0, \pm\sqrt{5}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><msup><mi>y</mi><mn>2</mn></msup><mn>4</mn></mfrac><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mspace width="2em"/><mi>c</mi><mo>=</mo><msqrt><mrow><mn>4</mn><mo>+</mo><mn>1</mn></mrow></msqrt><mo>=</mo><msqrt><mn>5</mn></msqrt><mo separator="true">,</mo><mspace width="2em"/><mtext>foci </mtext><mrow><mo fence="true">(</mo><mn>0</mn><mo separator="true">,</mo><mo>±</mo><msqrt><mn>5</mn></msqrt><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span>
+            <p>The eccentricity is <span class="math" data-tex="\tfrac{\sqrt{5}}{2} \approx 1.118"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msqrt><mn>5</mn></msqrt><mn>2</mn></mfrac><mo>≈</mo><mn>1.118</mn></mrow></semantics></math></span></span>.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>a and b must be positive; b may be larger than a.</li>
-            <li>Only axis-aligned hyperbolas (no rotation) are supported.</li>
+            <li><strong>Navigation (LORAN, GPS):</strong> a constant difference in signal arrival times from two stations places the receiver on a hyperbola.</li>
+            <li><strong>Cooling towers:</strong> their curved profile is a hyperboloid, which is strong and can be built from straight members.</li>
+            <li><strong>Optics:</strong> hyperbolic mirrors in Cassegrain telescopes.</li>
+            <li><strong>Physics:</strong> the path of a comet that passes the Sun once and never returns, and Boyle's law <span class="math" data-tex="PV = \text{constant}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>V</mi><mo>=</mo><mtext>constant</mtext></mrow></semantics></math></span></span>.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using <span class="math" data-tex="c^2 = a^2 - b^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></semantics></math></span></span>.</strong> That is the ellipse. For a hyperbola, add.</li>
+            <li><strong>Assuming <span class="math" data-tex="a &gt; b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mi>b</mi></mrow></semantics></math></span></span>.</strong> In a hyperbola <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> goes with the positive squared term, whichever is larger.</li>
+            <li><strong>Wrong asymptote slope.</strong> It is <span class="math" data-tex="\tfrac{b}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>b</mi><mi>a</mi></mfrac></mrow></semantics></math></span></span> when the hyperbola opens left and right, but <span class="math" data-tex="\tfrac{a}{b}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>a</mi><mi>b</mi></mfrac></mrow></semantics></math></span></span> when it opens up and down.</li>
+            <li><strong>Forgetting the centre.</strong> The asymptotes pass through <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, not the origin.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using c² = a² − b² as for an ellipse.</li>
-            <li>Swapping a and b when the hyperbola opens vertically.</li>
+            <li>The axes are parallel to the coordinate axes. Rotated hyperbolas such as <span class="math" data-tex="xy = 4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi>y</mi><mo>=</mo><mn>4</mn></mrow></semantics></math></span></span> are handled by the <a href="../general-conic/">general conic calculator</a>.</li>
+            <li><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="b"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi></mrow></semantics></math></span></span> must be positive. Fractions are allowed and the results are exact.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the foci of a hyperbola?</summary>
+            <div class="faq-answer"><p>Compute c² = a² + b². The foci are c units from the centre along the transverse axis.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the asymptotes?</summary>
+            <div class="faq-answer"><p>They pass through the centre with slopes ±b/a for a hyperbola opening left and right, or ±a/b for one opening up and down.</p></div>
+          </details>
+          <details>
+            <summary>Why is the eccentricity of a hyperbola greater than 1?</summary>
+            <div class="faq-answer"><p>Because c² = a² + b² makes c larger than a, so e = c/a &gt; 1.</p></div>
+          </details>
+          <details>
+            <summary>What is a rectangular hyperbola?</summary>
+            <div class="faq-answer"><p>One with a = b. Its asymptotes are perpendicular and its eccentricity is √2.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../ellipse/">Ellipse</a>.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal lines to a hyperbola</a>.</li>
+            <li><a href="../general-conic/">General conic and rotation of axes</a>.</li>
+            <li><a href="../polar-coordinates/">Polar coordinates and polar curves</a>.</li>
           </ul>
         </section>
 

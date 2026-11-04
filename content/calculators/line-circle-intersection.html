@@ -1,44 +1,162 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Intersection of a line and a circle</h2>
-          <p>A straight line can cross a circle at two points (a <strong>secant</strong>), touch it at one point (a <strong>tangent</strong>), or miss it completely. Which case happens depends only on the distance from the circle's centre to the line compared with the radius. The calculator finds that distance, decides the case, computes the intersection points and draws the picture.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Slowly change C in the line's equation. The line slides parallel to itself: two points move together, merge into one tangent point, then disappear.</p></div>
+          <h2 id="about-h" style="margin-top:0">Where does a line meet a circle?</h2>
+          <p>A straight line and a circle can meet in <strong>two points</strong> (the line is a <strong>secant</strong>), touch at <strong>one point</strong> (a <strong>tangent</strong>), or <strong>miss</strong> each other completely. Which case happens depends on one number: the perpendicular distance from the centre of the circle to the line, compared with the radius.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Keep the circle fixed and slide the line away by changing \(C\). The two points move together, merge into one tangent point, and then disappear.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ d = \frac{|Ah + Bk + C|}{\sqrt{A^2 + B^2}}, \qquad t = \sqrt{r^2 - d^2}, \qquad P_{1,2} = F \pm t\,\frac{(-B,\ A)}{\sqrt{A^2 + B^2}} \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\(Ax + By + C = 0\)</td><td>The line, in general form.</td></tr>
-              <tr><td>\((h, k),\ r\)</td><td>Centre and radius of the circle \((x - h)^2 + (y - k)^2 = r^2\).</td></tr>
-              <tr><td>\(d\)</td><td>Perpendicular distance from the centre to the line.</td></tr>
-              <tr><td>\(F\)</td><td>Foot of the perpendicular from the centre: the midpoint of the chord.</td></tr>
-              <tr><td>\(t\)</td><td>Half the chord length.</td></tr>
-            </tbody>
-          </table>
-          <p>Algebraically, substituting the line into the circle gives a quadratic; its discriminant is positive, zero or negative exactly when \(d &lt; r\), \(d = r\) or \(d &gt; r\).</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Takes the line \(Ax + By + C = 0\) and the circle \((x - h)^2 + (y - k)^2 = r^2\).</li>
+            <li>Finds the distance \(d\) from the centre to the line and decides the case.</li>
+            <li>Gives the intersection points (or the point of tangency) and the chord length.</li>
+            <li>Draws the circle, the line and the perpendicular from the centre.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>\(x - y + 1 = 0\) and \(x^2 + y^2 = 25\)</h3>
-            <h4>Step 1 — Substitute \(y = x + 1\)</h4>
-            \[ x^2 + (x + 1)^2 = 25 \;\Rightarrow\; 2x^2 + 2x - 24 = 0 \;\Rightarrow\; x^2 + x - 12 = 0 \]
-            <h4>Step 2 — Solve</h4>
-            \[ (x + 4)(x - 3) = 0 \;\Rightarrow\; x = -4 \text{ or } x = 3 \]
-            <h4>Step 3 — Points</h4>
-            \[ P_1 = (-4,\ -3), \qquad P_2 = (3,\ 4) \]
-            <p>Check with distances: \(d = \tfrac{|0 - 0 + 1|}{\sqrt{2}} \approx 0.707 &lt; 5\), so two points were expected.</p>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Drop a perpendicular from the centre to the line; it meets the line at the foot \(F\), the point of the line closest to the centre. Its length is \(d\).</p>
+          <ul>
+            <li>\(d \lt r\): \(F\) is inside the circle, so the line passes through it and cuts it twice.</li>
+            <li>\(d = r\): \(F\) is on the circle, and the line just touches it there.</li>
+            <li>\(d > r\): even the closest point of the line is outside, so there is no intersection.</li>
+          </ul>
+          <p>When there are two points, the perpendicular bisects the chord. The two points sit at equal distances \(t = \sqrt{r^2 - d^2}\) on each side of \(F\), by Pythagoras in the triangle centre–\(F\)–point.</p>
+          <div class="callout">
+            <p class="callout-title">The algebraic view</p>
+            <p>Substituting the line into the circle gives a quadratic. Its discriminant is positive, zero or negative exactly when \(d \lt r\), \(d = r\) or \(d > r\).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Centre-to-line distance</td><td>\(d = \dfrac{|Ah + Bk + C|}{\sqrt{A^2 + B^2}}\)</td></tr>
+              <tr><td>Foot of the perpendicular</td><td>\(F = \left(h - \dfrac{A N}{A^2 + B^2},\ k - \dfrac{B N}{A^2 + B^2}\right),\ N = Ah + Bk + C\)</td></tr>
+              <tr><td>Half the chord</td><td>\(t = \sqrt{r^2 - d^2}\)</td></tr>
+              <tr><td>Intersection points</td><td>\(P_{1,2} = F \pm t\,\dfrac{(-B, A)}{\sqrt{A^2 + B^2}}\)</td></tr>
+              <tr><td>Chord length</td><td>\(2\sqrt{r^2 - d^2}\)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A, B, C\)</td><td>Coefficients of the line.</td></tr>
+              <tr><td>\((h, k),\ r\)</td><td>Centre and radius of the circle.</td></tr>
+              <tr><td>\(d\)</td><td>Perpendicular distance from the centre to the line.</td></tr>
+              <tr><td>\(F\)</td><td>Foot of the perpendicular: the closest point of the line to the centre.</td></tr>
+              <tr><td>\(t\)</td><td>Half the chord length.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the method</h2>
+          <h3>By substitution</h3>
+          <p>For a line \(y = mx + c\) and the circle \(x^2 + y^2 = r^2\), substitute for \(y\):</p>
+          \[ x^2 + (mx + c)^2 = r^2 \;\Rightarrow\; (1 + m^2)x^2 + 2mc\,x + (c^2 - r^2) = 0. \]
+          <p>The discriminant simplifies neatly:</p>
+          \[ 4m^2c^2 - 4(1 + m^2)(c^2 - r^2) = 4\left[r^2(1 + m^2) - c^2\right]. \]
+          <p>It is zero when \(c^2 = r^2(1 + m^2)\), that is when \(\tfrac{|c|}{\sqrt{1 + m^2}} = r\): the distance from the centre to the line equals the radius.</p>
+          <h3>By geometry</h3>
+          <p>The geometric method above avoids the quadratic altogether, works for vertical lines too, and gives the chord length directly. The calculator uses it.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find where the line \(x - y + 1 = 0\) meets the circle \(x^2 + y^2 = 25\).</p>
+            <h4>Step 1: Distance from the centre</h4>
+            \[ d = \frac{|1(0) - 1(0) + 1|}{\sqrt{1 + 1}} = \frac{1}{\sqrt{2}} \approx 0.7071 \lt 5 \]
+            <p>So the line cuts the circle at two points.</p>
+            <h4>Step 2: Substitute</h4>
+            <p>From the line, \(y = x + 1\). Then \(x^2 + (x + 1)^2 = 25\), so \(2x^2 + 2x - 24 = 0\), or \(x^2 + x - 12 = 0\).</p>
+            <h4>Step 3: Solve</h4>
+            \[ (x + 4)(x - 3) = 0 \;\Rightarrow\; x = -4 \text{ or } x = 3 \]
+            <p>The points are \((-4, -3)\) and \((3, 4)\).</p>
+            <h4>Check</h4>
+            <p>The chord length is \(\sqrt{7^2 + 7^2} = 7\sqrt{2} \approx 9.899\), and \(2\sqrt{25 - \tfrac{1}{2}} = 2\sqrt{24.5} \approx 9.899\). ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: tangent or miss?</h2>
+          <div class="worked-example">
+            <h3>Part 1: A tangent line</h3>
+            <p>Does \(3x + 4y - 25 = 0\) touch \(x^2 + y^2 = 25\)?</p>
+            \[ d = \frac{|0 + 0 - 25|}{\sqrt{9 + 16}} = \frac{25}{5} = 5 = r \]
+            <p>Yes, it is a tangent. The point of contact is the foot of the perpendicular: \(N = -25\), so \(F = \left(0 - \tfrac{3(-25)}{25},\ 0 - \tfrac{4(-25)}{25}\right) = (3, 4)\).</p>
+            <h3>Part 2: A line that misses</h3>
+            <p>Does \(x + y - 12 = 0\) meet the circle with centre \((1, 2)\) and radius 3?</p>
+            \[ d = \frac{|1 + 2 - 12|}{\sqrt{2}} = \frac{9}{\sqrt{2}} \approx 6.364 > 3 \]
+            <p>No: the line passes more than twice the radius away from the centre.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>The radius must be positive and A and B cannot both be zero.</li>
-            <li>Tangency is detected with a relative tolerance of \(10^{-12}\) to absorb floating-point rounding.</li>
-            <li>Coordinates are decimals rounded to 6 places; they are marked exact when the rounded value is exact.</li>
+            <li><strong>Road design:</strong> where a straight approach meets a circular curve, and whether it joins tangentially.</li>
+            <li><strong>Radar and coverage:</strong> whether a straight flight path enters a circular range, and for how long (the chord).</li>
+            <li><strong>Machining:</strong> where a straight cut crosses a circular hole or boss.</li>
+            <li><strong>Graphics and games:</strong> ray–circle collision tests.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using the origin instead of the centre.</strong> The distance is measured from \((h, k)\), not from \((0, 0)\), unless the circle is centred at the origin.</li>
+            <li><strong>Comparing \(d\) with \(r^2\).</strong> Compare the distance with the radius itself.</li>
+            <li><strong>Forgetting the second point.</strong> A quadratic usually has two roots; each gives a point.</li>
+            <li><strong>Losing the y-coordinates.</strong> After solving for \(x\), substitute back into the line, not the circle (the circle gives two y-values for each x).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The line is entered in general form; \(A\) and \(B\) cannot both be 0.</li>
+            <li>The radius must be positive.</li>
+            <li>Points are calculated in floating point and shown to 6 decimal places; they are marked exact when they are whole numbers or short decimals.</li>
+            <li>A line that is tangent to within rounding error is treated as tangent.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I know if a line is tangent to a circle?</summary>
+            <div class="faq-answer"><p>Find the perpendicular distance from the centre to the line. If it equals the radius, the line is tangent.</p></div>
+          </details>
+          <details>
+            <summary>How many points can a line and a circle share?</summary>
+            <div class="faq-answer"><p>Two (a secant), one (a tangent) or none. A line can never cross a circle more than twice.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the length of the chord?</summary>
+            <div class="faq-answer"><p>Chord length = 2√(r² − d²), where d is the distance from the centre to the line.</p></div>
+          </details>
+          <details>
+            <summary>Can I solve it by substitution instead?</summary>
+            <div class="faq-answer"><p>Yes. Solve the line for y (or x), substitute into the circle, and solve the quadratic. The geometric method gives the same points.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../distance-from-point-to-line/">Distance from a point to a line</a>: the key step here.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal lines to conics</a>.</li>
+            <li><a href="../circle-equation/">Circle equation</a>.</li>
+            <li><a href="../quadratic-equation-solver/">Quadratic equation solver</a>.</li>
           </ul>
         </section>

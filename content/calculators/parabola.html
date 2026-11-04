@@ -1,42 +1,158 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Parts of a parabola</h2>
-          <p>A <strong>parabola</strong> is the set of points that are equally far from a fixed point, the <strong>focus</strong>, and a fixed line, the <strong>directrix</strong>. The point halfway between them is the <strong>vertex</strong>, and the line through the vertex and focus is the <strong>axis of symmetry</strong>. Enter a parabola in one of four common forms to find all of these, plus the focal distance \(p\), the latus rectum and the intercepts, with a graph.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make \(a\) larger in \(y = ax^2 + bx + c\): the parabola gets narrower and the focus moves closer to the vertex, because \(p = \tfrac{1}{4a}\).</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a parabola?</h2>
+          <p>A <strong>parabola</strong> is the set of all points that are the same distance from a fixed point, the <strong>focus</strong>, and a fixed line, the <strong>directrix</strong>. The point halfway between them is the <strong>vertex</strong>, and the line through the vertex and focus is the <strong>axis of symmetry</strong>. Every quadratic \(y = ax^2 + bx + c\) graphs as a parabola.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make \(a\) smaller, for example \(y = 0.1x^2\). The parabola gets wider and the focus moves further from the vertex: \(p = \tfrac{1}{4a} = 2.5\).</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter a parabola in any of four forms:</p>
+          <ul>
+            <li>\(y = ax^2 + bx + c\) or \(x = ay^2 + by + c\);</li>
+            <li>\((x - h)^2 = 4p(y - k)\) or \((y - k)^2 = 4p(x - h)\).</li>
+          </ul>
+          <p>It returns the vertex, focus, directrix, axis of symmetry, the value of \(p\), the direction it opens, the length of the latus rectum and the intercepts, and draws the curve with its focus and directrix.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Because every point is as far from the focus as from the directrix, the curve wraps around the focus. The number \(p\) is the distance from the vertex to the focus (and from the vertex to the directrix). Its sign gives the direction:</p>
+          <ul>
+            <li>vertical axis: \(p > 0\) opens upward, \(p \lt 0\) downward;</li>
+            <li>horizontal axis: \(p > 0\) opens to the right, \(p \lt 0\) to the left.</li>
+          </ul>
+          <p>The <strong>latus rectum</strong> is the chord through the focus perpendicular to the axis. Its length \(|4p|\) shows how wide the parabola is at the focus.</p>
+          <div class="callout">
+            <p class="callout-title">The reflective property</p>
+            <p>Any ray travelling parallel to the axis reflects off the parabola through the focus. That is why dish antennas, car headlights and solar cookers are parabolic.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <table>
             <thead><tr><th scope="col">Form</th><th scope="col">Vertex</th><th scope="col">Focus</th><th scope="col">Directrix</th></tr></thead>
             <tbody>
               <tr><td>\((x - h)^2 = 4p(y - k)\)</td><td>\((h, k)\)</td><td>\((h, k + p)\)</td><td>\(y = k - p\)</td></tr>
               <tr><td>\((y - k)^2 = 4p(x - h)\)</td><td>\((h, k)\)</td><td>\((h + p, k)\)</td><td>\(x = h - p\)</td></tr>
-              <tr><td>\(y = ax^2 + bx + c\)</td><td>\(\left(-\frac{b}{2a},\ c - \frac{b^2}{4a}\right)\)</td><td colspan="2">use \(p = \frac{1}{4a}\) in the first row</td></tr>
+              <tr><td>\(y = ax^2 + bx + c\)</td><td>\(\left(-\tfrac{b}{2a},\ c - \tfrac{b^2}{4a}\right)\)</td><td colspan="2">Use \(p = \tfrac{1}{4a}\) with the first row</td></tr>
             </tbody>
           </table>
-          <p>\(p\) is the signed distance from the vertex to the focus. For a vertical axis, \(p &gt; 0\) opens upward and \(p &lt; 0\) downward; for a horizontal axis, \(p &gt; 0\) opens to the right. The latus rectum (the chord through the focus parallel to the directrix) has length \(|4p|\).</p>
+          <p>Latus rectum length: \(|4p|\). Axis of symmetry: \(x = h\) for a vertical axis, \(y = k\) for a horizontal one.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((h, k)\)</td><td>Vertex: the turning point of the parabola.</td></tr>
+              <tr><td>\(p\)</td><td>Signed distance from the vertex to the focus.</td></tr>
+              <tr><td>\(a, b, c\)</td><td>Coefficients of the quadratic form, with \(a = \tfrac{1}{4p}\).</td></tr>
+              <tr><td>\(F\)</td><td>Focus.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>From the focus–directrix definition</h3>
+          <p>Put the vertex at the origin, the focus at \((0, p)\) and the directrix at \(y = -p\). For a point \((x, y)\) on the parabola, the two distances are equal:</p>
+          \[ \sqrt{x^2 + (y - p)^2} = |y + p| \;\Rightarrow\; x^2 + y^2 - 2py + p^2 = y^2 + 2py + p^2 \;\Rightarrow\; x^2 = 4py. \]
+          <p>Shifting the vertex to \((h, k)\) gives \((x - h)^2 = 4p(y - k)\).</p>
+          <h3>From the quadratic form</h3>
+          <p>Complete the square in \(y = ax^2 + bx + c\):</p>
+          \[ y = a\left(x + \frac{b}{2a}\right)^2 + c - \frac{b^2}{4a} \;\Rightarrow\; \left(x + \frac{b}{2a}\right)^2 = \frac{1}{a}\left(y - c + \frac{b^2}{4a}\right). \]
+          <p>Comparing with \((x - h)^2 = 4p(y - k)\) gives the vertex and \(4p = \tfrac{1}{a}\), so \(p = \tfrac{1}{4a}\).</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>\(y = x^2 - 4x + 3\)</h3>
-            <h4>Step 1 — Vertex</h4>
-            \[ x_0 = -\frac{-4}{2(1)} = 2, \qquad y_0 = 3 - \frac{(-4)^2}{4(1)} = -1 \]
-            <h4>Step 2 — Focal distance</h4>
-            \[ p = \frac{1}{4(1)} = \frac{1}{4} \]
-            <h4>Step 3 — Focus and directrix</h4>
-            \[ F = \left(2,\ -1 + \tfrac{1}{4}\right) = \left(2,\ -\tfrac{3}{4}\right), \qquad \text{directrix } y = -1 - \tfrac{1}{4} = -\tfrac{5}{4} \]
-            <h4>Step 4 — Intercepts</h4>
-            <p>\(x^2 - 4x + 3 = (x - 1)(x - 3) = 0\) gives x-intercepts 1 and 3; the y-intercept is 3.</p>
+            <h3>Problem</h3>
+            <p>Find the vertex, focus and directrix of \(y = x^2 - 4x + 3\).</p>
+            <h4>Step 1: Vertex</h4>
+            \[ x_0 = -\frac{-4}{2(1)} = 2, \qquad y_0 = 3 - \frac{16}{4} = -1 \qquad\Rightarrow\qquad V = (2, -1) \]
+            <h4>Step 2: Focal distance</h4>
+            \[ p = \frac{1}{4a} = \frac{1}{4} \]
+            <h4>Step 3: Focus, directrix and axis</h4>
+            <p>Since \(p > 0\), the parabola opens upward.</p>
+            \[ F = \left(2,\ -1 + \tfrac{1}{4}\right) = \left(2, -\tfrac{3}{4}\right), \qquad \text{directrix } y = -\tfrac{5}{4}, \qquad \text{axis } x = 2 \]
+            <h4>Step 4: Intercepts</h4>
+            <p>\(x^2 - 4x + 3 = (x - 1)(x - 3)\), so the x-intercepts are 1 and 3; the y-intercept is 3.</p>
+            <h4>Check</h4>
+            <p>The point \((3, 0)\) is \(\sqrt{1 + \tfrac{9}{16}} = \tfrac{5}{4}\) from the focus and \(0 - \left(-\tfrac{5}{4}\right) = \tfrac{5}{4}\) from the directrix. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a horizontal parabola and a dish</h2>
+          <div class="worked-example">
+            <h3>Part 1: Reading the vertex form</h3>
+            <p>For \((y - 1)^2 = 8(x + 2)\): the vertex is \((-2, 1)\) and \(4p = 8\), so \(p = 2\). The parabola opens to the right.</p>
+            \[ F = (-2 + 2,\ 1) = (0, 1), \qquad \text{directrix } x = -4, \qquad \text{latus rectum } 8 \]
+            <h3>Part 2: Where to put the receiver</h3>
+            <p>A satellite dish is 2 m across and 0.5 m deep. Put the vertex at the origin with the axis vertical, so \(x^2 = 4py\). The rim passes through \((1, 0.5)\):</p>
+            \[ 1^2 = 4p(0.5) \;\Rightarrow\; p = 0.5\ \text{m} \]
+            <p>The receiver goes at the focus, 0.5 m above the centre of the dish: level with the rim.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Supported: parabolas with vertical or horizontal axes in the four forms listed. Rotated parabolas (with an \(xy\) term) are not supported.</li>
-            <li>\(a\) and \(p\) cannot be 0, since the equation would then describe a line.</li>
+            <li><strong>Antennas, telescopes and headlights:</strong> the reflective property sends parallel rays to or from the focus.</li>
+            <li><strong>Projectiles:</strong> without air resistance, a thrown object follows a parabola (see <a href="../projectile-motion/">projectile motion</a>).</li>
+            <li><strong>Suspension bridges:</strong> a cable carrying a uniform deck load hangs in a parabola.</li>
+            <li><strong>Vertical road curves:</strong> crest and sag curves in highway design are parabolic.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using \(4p\) as \(p\).</strong> In \((x - h)^2 = 12(y - k)\), \(p = 3\), not 12.</li>
+            <li><strong>Sign of the vertex.</strong> \((y + 1)^2\) means \(k = -1\).</li>
+            <li><strong>Putting the directrix on the wrong side.</strong> The focus is inside the curve; the directrix is outside, \(p\) units the other way.</li>
+            <li><strong>Mixing up the axis.</strong> If \(x\) is squared the axis is vertical; if \(y\) is squared it is horizontal.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The axis is parallel to the x- or y-axis. Tilted parabolas (with an \(xy\) term) are handled by the <a href="../general-conic/">general conic calculator</a>.</li>
+            <li>\(a\) and \(p\) cannot be 0; the equation would then be a straight line.</li>
             <li>Vertex, focus, directrix and \(p\) are exact fractions; intercepts are rounded to 6 decimal places.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the focus of y = ax² + bx + c?</summary>
+            <div class="faq-answer"><p>Find the vertex (−b/2a, c − b²/4a) and p = 1/(4a). The focus is p units above the vertex (below it if a is negative).</p></div>
+          </details>
+          <details>
+            <summary>What is the directrix of a parabola?</summary>
+            <div class="faq-answer"><p>The fixed line that, with the focus, defines the parabola. It is p units from the vertex on the opposite side to the focus.</p></div>
+          </details>
+          <details>
+            <summary>What is the latus rectum?</summary>
+            <div class="faq-answer"><p>The chord through the focus perpendicular to the axis. Its length is |4p|.</p></div>
+          </details>
+          <details>
+            <summary>How do I tell which way a parabola opens?</summary>
+            <div class="faq-answer"><p>If x is squared it opens up (p &gt; 0) or down (p &lt; 0). If y is squared it opens right (p &gt; 0) or left (p &lt; 0).</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../quadratic-equation-solver/">Quadratic equation solver</a>: the x-intercepts.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal lines to a parabola</a>.</li>
+            <li><a href="../ellipse/">Ellipse</a> and <a href="../hyperbola/">hyperbola</a>: the other conic sections.</li>
+            <li><a href="../general-conic/">General conic and rotation of axes</a>.</li>
           </ul>
         </section>

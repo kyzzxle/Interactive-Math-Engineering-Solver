@@ -3,6 +3,8 @@ import { solvePointLine, fractionTex, fractionText } from '../calculators/point-
 import { formatNumber, isDisplayExact } from '../lib/format.js';
 import { radicalTex, radicalText, isRational } from '../lib/exact.js';
 import { parseDecimal } from '../lib/parse.js';
+import { mountExplorer, mountPractice } from '../lib/learn.js';
+import { pointLineExplore, pointLinePractice } from '../explore/analytic-practice.js';
 import { resultCard, stepsBlock, alertBlock, notesBlock, showFieldErrors, clearFieldErrors, wireCalculator, tex, escapeHtml } from '../lib/ui.js';
 
 const form = document.getElementById('pl-form');
@@ -195,3 +197,7 @@ copyAllBtn.addEventListener('click', () => {
   const text = copyAllBtn.getAttribute('data-copy') || '';
   window.SolverHub.copyText(text).then(() => window.SolverHub.toast('All results copied'), () => window.SolverHub.toast('Copy failed'));
 });
+
+// ------------------------------------------------------------ explore and practise
+mountExplorer(document.querySelector('[data-explore-root]'), pointLineExplore);
+mountPractice(document.querySelector('[data-practice-root]'), pointLinePractice);

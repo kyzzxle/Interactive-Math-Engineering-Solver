@@ -1,45 +1,154 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the point-to-plane distance calculator does</h2>
-          <p>The <strong>distance from a point to a plane</strong> is the length of the shortest segment between them, which is always perpendicular to the plane — that is, parallel to the plane’s <strong>normal vector</strong> \((A, B, C)\).</p>
-          <p>The formula projects the vector from the plane to the point onto the unit normal. The calculator keeps everything exact, so answers appear in simplest radical form, and it also finds the foot of the perpendicular.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Put a point that satisfies the plane’s equation: the numerator is 0, so the distance is 0.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is the distance from a point to a plane?</h2>
+          <p>The distance from a point \(P(x_0, y_0, z_0)\) to a plane is the length of the <strong>shortest</strong> segment from \(P\) to any point of the plane. That shortest segment is always <strong>perpendicular</strong> to the plane, so it runs along the plane's normal vector and meets the plane at the <strong>foot of the perpendicular</strong> \(F\).</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Multiply every coefficient of the plane by 2, for example \(4x - 2y + 4z - 6 = 0\) instead of \(2x - y + 2z - 3 = 0\). The plane is the same, and so is the distance: the numerator and the denominator both double.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Takes a plane \(Ax + By + Cz + D = 0\) and a point \(P(x_0, y_0, z_0)\).</li>
+            <li>Finds the perpendicular distance, exactly (in simplest radical form) and as a decimal.</li>
+            <li>Finds the foot of the perpendicular \(F\), the closest point of the plane to \(P\).</li>
+            <li>Tells you which side of the plane the point is on, and sketches the plane, point and perpendicular.</li>
+          </ul>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>The vector \(\vec{n} = (A, B, C)\) is <strong>normal</strong> (perpendicular) to the plane. Take any point \(Q\) on the plane. The distance from \(P\) to the plane is the length of the projection of \(\vec{QP}\) onto \(\vec{n}\): the part of \(\vec{QP}\) that points straight out of the plane.</p>
+          <p>Substituting \(P\) into the left side of the plane equation measures exactly that, scaled by \(|\vec{n}|\). Its sign tells you the side: positive on the side \(\vec{n}\) points to, negative on the other side, zero on the plane.</p>
+          <div class="callout">
+            <p class="callout-title">Same idea in 2D</p>
+            <p>This is the three-dimensional version of the <a href="../distance-from-point-to-line/">distance from a point to a line</a>, \(d = \tfrac{|Ax_0 + By_0 + C|}{\sqrt{A^2 + B^2}}\).</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ d = \frac{\lvert A x_0 + B y_0 + C z_0 + D \rvert}{\sqrt{A^2 + B^2 + C^2}} \]\[ F = (x_0, y_0, z_0) - t\,(A, B, C),\quad t = \frac{A x_0 + B y_0 + C z_0 + D}{A^2 + B^2 + C^2} \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box">\[ d = \frac{\lvert A x_0 + B y_0 + C z_0 + D \rvert}{\sqrt{A^2 + B^2 + C^2}} \]</div>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th></tr></thead>
             <tbody>
-              <tr><td>\(A,\ B,\ C,\ D\)</td><td>Coefficients of the plane Ax + By + Cz + D = 0</td></tr>
-              <tr><td>\((x_0, y_0, z_0)\)</td><td>The point</td></tr>
-              <tr><td>\(F\)</td><td>Foot of the perpendicular (nearest point on the plane)</td></tr>
+              <tr><td>Signed value</td><td>\(N = A x_0 + B y_0 + C z_0 + D\)</td></tr>
+              <tr><td>Length of the normal</td><td>\(|\vec{n}| = \sqrt{A^2 + B^2 + C^2}\)</td></tr>
+              <tr><td>Foot of the perpendicular</td><td>\(F = P - t\,(A, B, C),\ \ t = \dfrac{N}{A^2 + B^2 + C^2}\)</td></tr>
+              <tr><td>Parallel planes \(Ax + By + Cz + D_1 = 0\) and \(+ D_2 = 0\)</td><td>\(\dfrac{|D_2 - D_1|}{\sqrt{A^2 + B^2 + C^2}}\)</td></tr>
             </tbody>
           </table>
         </section>
 
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A, B, C, D\)</td><td>Coefficients of the plane \(Ax + By + Cz + D = 0\).</td></tr>
+              <tr><td>\(\vec{n} = (A, B, C)\)</td><td>Normal vector of the plane.</td></tr>
+              <tr><td>\(P(x_0, y_0, z_0)\)</td><td>The given point.</td></tr>
+              <tr><td>\(F\)</td><td>Foot of the perpendicular from \(P\).</td></tr>
+              <tr><td>\(d\)</td><td>The perpendicular distance.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formula</h2>
+          <p>Let \(Q(x_1, y_1, z_1)\) be any point on the plane, so \(Ax_1 + By_1 + Cz_1 = -D\). The distance is the length of the projection of \(\vec{QP}\) onto the unit normal:</p>
+          \[ d = \frac{|\vec{QP}\cdot\vec{n}|}{|\vec{n}|} = \frac{|A(x_0 - x_1) + B(y_0 - y_1) + C(z_0 - z_1)|}{\sqrt{A^2 + B^2 + C^2}}. \]
+          <p>Expand the numerator:</p>
+          \[ Ax_0 + By_0 + Cz_0 - (Ax_1 + By_1 + Cz_1) = Ax_0 + By_0 + Cz_0 + D. \]
+          <p>The point \(Q\) drops out, which gives the formula.</p>
+          <p>For the foot, move from \(P\) along the normal: \(F = P - t\vec{n}\). Requiring \(F\) to satisfy the plane equation gives \(N - t|\vec{n}|^2 = 0\), so \(t = \tfrac{N}{|\vec{n}|^2}\).</p>
+        </section>
+
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3>Point P(1, 4, 5) and plane 2x − y + 2z − 3 = 0</h3>
-            <h4>Step 1 — Substitute</h4>
-            \[ 2(1) - 4 + 2(5) - 3 = 5 \]
-            <h4>Step 2 — Length of the normal</h4>
-            \[ \sqrt{2^2 + (-1)^2 + 2^2} = 3 \]
-            <h4>Step 3 — Distance</h4>
-            \[ d = \frac{|5|}{3} = \frac{5}{3} \]
+            <h3>Problem</h3>
+            <p>Find the distance from \(P(1, 4, 5)\) to the plane \(2x - y + 2z - 3 = 0\), and the foot of the perpendicular.</p>
+            <h4>Step 1: Substitute the point</h4>
+            \[ N = 2(1) - 4 + 2(5) - 3 = 5 \]
+            <h4>Step 2: Length of the normal</h4>
+            \[ |\vec{n}| = \sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{9} = 3 \]
+            <h4>Step 3: Distance</h4>
+            \[ d = \frac{|5|}{3} = \frac{5}{3} \approx 1.6667 \]
+            <h4>Step 4: Foot of the perpendicular</h4>
+            \[ t = \frac{5}{9}, \qquad F = \left(1 - \tfrac{10}{9},\ 4 + \tfrac{5}{9},\ 5 - \tfrac{10}{9}\right) = \left(-\tfrac{1}{9},\ \tfrac{41}{9},\ \tfrac{35}{9}\right) \]
+            <h4>Check</h4>
+            \[ 2\left(-\tfrac{1}{9}\right) - \tfrac{41}{9} + 2\left(\tfrac{35}{9}\right) - 3 = \tfrac{-2 - 41 + 70 - 27}{9} = 0 \]
+            <p>So \(F\) is on the plane. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a radical answer and parallel planes</h2>
+          <div class="worked-example">
+            <h3>Part 1: From the origin</h3>
+            <p>How far is the origin from \(x + y + z = 1\)? First write the plane as \(x + y + z - 1 = 0\), so \(D = -1\).</p>
+            \[ d = \frac{|0 + 0 + 0 - 1|}{\sqrt{1 + 1 + 1}} = \frac{1}{\sqrt{3}} = \frac{\sqrt{3}}{3} \approx 0.5774 \]
+            <h3>Part 2: Two parallel planes</h3>
+            <p>Find the distance between \(2x - y + 2z - 3 = 0\) and \(2x - y + 2z + 6 = 0\). The point \((0, -3, 0)\) lies on the first plane. Its distance to the second is</p>
+            \[ d = \frac{|0 + 3 + 0 + 6|}{3} = 3. \]
+            <p>The shortcut \(\tfrac{|D_2 - D_1|}{|\vec{n}|} = \tfrac{|6 - (-3)|}{3} = 3\) agrees. ✓</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>A, B and C cannot all be 0.</li>
-            <li>Fractions are allowed and kept exact; the result is in simplest radical form.</li>
+            <li><strong>Clearances:</strong> how far a point on a pipe or beam sits from a wall, floor or sloping roof.</li>
+            <li><strong>Geology and mining:</strong> the depth of a borehole point below a tilted rock layer.</li>
+            <li><strong>Computer graphics:</strong> which side of a surface a point is on, and how far, for clipping and collision.</li>
+            <li><strong>Machine learning:</strong> the margin of a point from a separating hyperplane.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Not moving everything to one side.</strong> For \(x + y + z = 1\), \(D = -1\), not 1.</li>
+            <li><strong>Forgetting the absolute value.</strong> Distance is never negative; the sign only tells you the side.</li>
+            <li><strong>Including D under the square root.</strong> The denominator is \(\sqrt{A^2 + B^2 + C^2}\) only.</li>
+            <li><strong>Parallel planes with different scaling.</strong> Make the normals identical before using \(|D_2 - D_1|\).</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Forgetting to move everything to one side (= 0) before reading D.</li>
-            <li>Dropping the absolute value, giving a negative distance.</li>
+            <li>The plane is entered in general form; \(A\), \(B\) and \(C\) cannot all be 0.</li>
+            <li>Inputs may be fractions; all arithmetic is exact, with the distance in simplest radical form.</li>
+            <li>The sketch is a fixed-angle view to show the idea; it is not to scale along every axis.</li>
+            <li>For planes through three points, or angles between planes, use the <a href="../lines-planes-3d/">lines and planes in space calculator</a>.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the formula for the distance from a point to a plane?</summary>
+            <div class="faq-answer"><p>d = |Ax₀ + By₀ + Cz₀ + D| / √(A² + B² + C²), with the plane written as Ax + By + Cz + D = 0.</p></div>
+          </details>
+          <details>
+            <summary>What does a distance of zero mean?</summary>
+            <div class="faq-answer"><p>The point satisfies the plane equation, so it lies on the plane.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the closest point on the plane?</summary>
+            <div class="faq-answer"><p>Move from P along the normal: F = P − t(A, B, C) with t = (Ax₀ + By₀ + Cz₀ + D)/(A² + B² + C²).</p></div>
+          </details>
+          <details>
+            <summary>How do I find the distance between two parallel planes?</summary>
+            <div class="faq-answer"><p>Pick any point on one plane and find its distance to the other, or use |D₂ − D₁|/√(A² + B² + C²) once both have the same A, B and C.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../distance-from-point-to-line/">Distance from a point to a line</a> in the plane.</li>
+            <li><a href="../lines-planes-3d/">Lines and planes in space</a>.</li>
+            <li><a href="../vector-resultant/">Vectors and resultants</a>.</li>
           </ul>
         </section>

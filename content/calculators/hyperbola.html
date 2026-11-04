@@ -1,47 +1,158 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the hyperbola calculator does</h2>
-          <p>A <strong>hyperbola</strong> is the set of points whose distances to two foci differ by a constant, 2a. It has two separate branches, each curving around one focus, and far from the centre each branch approaches a straight line, an <strong>asymptote</strong>.</p>
-          <p>Here \(a\) is the semi-axis in the direction the hyperbola opens (centre to vertex) and \(b\) the conjugate semi-axis, which sets the slopes of the asymptotes.</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>Make a = b in the explorer: the asymptotes are perpendicular (a rectangular hyperbola, like y = 1/x turned 45°).</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a hyperbola?</h2>
+          <p>A <strong>hyperbola</strong> is the set of all points whose distances to two fixed points, the <strong>foci</strong>, differ by the same constant. It has two separate <strong>branches</strong>, each curving around one focus, and far from the centre both branches straighten out along two crossing lines called <strong>asymptotes</strong>.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make \(a = b\). The asymptotes become \(y = \pm x\), at right angles to each other: a <strong>rectangular hyperbola</strong> with eccentricity \(\sqrt{2}\).</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box">\[ \frac{(x - h)^2}{a^2} - \frac{(y - k)^2}{b^2} = 1 \quad \text{or} \quad \frac{(y - k)^2}{a^2} - \frac{(x - h)^2}{b^2} = 1 \]\[ c^2 = a^2 + b^2 \qquad e = \frac{c}{a} &gt; 1 \qquad y - k = \pm\frac{b}{a}(x - h) \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\((h, k)\)</td><td>Centre</td></tr>
-              <tr><td>\(a\)</td><td>Transverse semi-axis: centre to vertex</td></tr>
-              <tr><td>\(b\)</td><td>Conjugate semi-axis</td></tr>
-              <tr><td>\(c\)</td><td>Centre-to-focus distance</td></tr>
-            </tbody>
-          </table>
-          <p>For a hyperbola that opens up and down, the asymptotes have slopes ±a/b instead.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Choose whether the hyperbola opens left and right or up and down, then enter the centre \((h, k)\), the transverse semi-axis \(a\) and the conjugate semi-axis \(b\). It returns:</p>
+          <ul>
+            <li>the standard and general forms of the equation;</li>
+            <li>the vertices, foci and focal distance \(c\);</li>
+            <li>the equations of the asymptotes;</li>
+            <li>the eccentricity and the latus rectum;</li>
+            <li>a graph with the asymptotes and foci.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Opens left–right, centre (1, −2), a = 3, b = 4</h3>
-            <h4>Step 1 — Equation</h4>
-            \[ \frac{(x - 1)^2}{9} - \frac{(y + 2)^2}{16} = 1 \]
-            <h4>Step 2 — Foci</h4>
-            \[ c^2 = 9 + 16 = 25,\ c = 5:\quad (1 \pm 5,\ -2) \]
-            <h4>Step 3 — Asymptotes and eccentricity</h4>
-            \[ y + 2 = \pm \tfrac{4}{3}(x - 1),\qquad e = \tfrac{5}{3} \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>The <strong>transverse axis</strong> joins the two vertices and has length \(2a\); the difference of the focal distances is always \(2a\). The <strong>conjugate axis</strong>, of length \(2b\), is perpendicular to it. Draw a rectangle \(2a\) by \(2b\) around the centre: its diagonals are the asymptotes, and its half-diagonal is \(c\):</p>
+          \[ c^2 = a^2 + b^2. \]
+          <p>Because \(c > a\), the eccentricity \(e = c/a\) is always greater than 1. The larger \(e\), the wider the branches open.</p>
+          <div class="callout">
+            <p class="callout-title">Ellipse versus hyperbola</p>
+            <p>Ellipse: the distances to the foci <strong>add</strong> to a constant, \(c^2 = a^2 - b^2\), \(e \lt 1\). Hyperbola: they <strong>differ</strong> by a constant, \(c^2 = a^2 + b^2\), \(e > 1\).</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Opens left and right</th><th scope="col">Opens up and down</th></tr></thead>
+            <tbody>
+              <tr><td>Standard form</td><td>\(\dfrac{(x - h)^2}{a^2} - \dfrac{(y - k)^2}{b^2} = 1\)</td><td>\(\dfrac{(y - k)^2}{a^2} - \dfrac{(x - h)^2}{b^2} = 1\)</td></tr>
+              <tr><td>Vertices</td><td>\((h \pm a, k)\)</td><td>\((h, k \pm a)\)</td></tr>
+              <tr><td>Foci</td><td>\((h \pm c, k)\)</td><td>\((h, k \pm c)\)</td></tr>
+              <tr><td>Asymptotes</td><td>\(y - k = \pm\dfrac{b}{a}(x - h)\)</td><td>\(y - k = \pm\dfrac{a}{b}(x - h)\)</td></tr>
+            </tbody>
+          </table>
+          <p>In both cases \(c^2 = a^2 + b^2\), \(e = c/a\) and the latus rectum is \(2b^2/a\).</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\((h, k)\)</td><td>Centre, halfway between the vertices.</td></tr>
+              <tr><td>\(a\)</td><td>Transverse semi-axis: centre to vertex, in the direction the hyperbola opens.</td></tr>
+              <tr><td>\(b\)</td><td>Conjugate semi-axis. It can be larger or smaller than \(a\).</td></tr>
+              <tr><td>\(c\)</td><td>Centre to each focus.</td></tr>
+              <tr><td>\(e\)</td><td>Eccentricity, always greater than 1.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the equation and the asymptotes</h2>
+          <p>Place the foci at \((\pm c, 0)\) and require the distances to differ by \(2a\):</p>
+          \[ \left| \sqrt{(x + c)^2 + y^2} - \sqrt{(x - c)^2 + y^2} \right| = 2a. \]
+          <p>Squaring twice, as for the ellipse, gives \((c^2 - a^2)x^2 - a^2y^2 = a^2(c^2 - a^2)\). With \(b^2 = c^2 - a^2\) this is \(\tfrac{x^2}{a^2} - \tfrac{y^2}{b^2} = 1\).</p>
+          <h3>Asymptotes</h3>
+          <p>Solve for \(y\): \(y = \pm\tfrac{b}{a}\sqrt{x^2 - a^2} = \pm\tfrac{b}{a}\,x\sqrt{1 - a^2/x^2}\). As \(|x|\) grows, the square root approaches 1, so the curve approaches the lines \(y = \pm\tfrac{b}{a}x\).</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A hyperbola opens left and right, with centre \((1, -2)\), \(a = 3\) and \(b = 4\). Find its equation, vertices, foci and asymptotes.</p>
+            <h4>Step 1: Standard form</h4>
+            \[ \frac{(x - 1)^2}{9} - \frac{(y + 2)^2}{16} = 1 \]
+            <h4>Step 2: Focal distance</h4>
+            \[ c^2 = 9 + 16 = 25, \qquad c = 5 \]
+            <h4>Step 3: Vertices and foci</h4>
+            \[ \text{vertices } (-2, -2),\ (4, -2), \qquad \text{foci } (-4, -2),\ (6, -2) \]
+            <h4>Step 4: Asymptotes and shape</h4>
+            \[ y + 2 = \pm\tfrac{4}{3}(x - 1), \qquad e = \tfrac{5}{3}, \qquad \text{latus rectum } \tfrac{2(16)}{3} = \tfrac{32}{3} \]
+            <h4>Step 5: General form</h4>
+            <p>Multiply by 144 and expand: \(16x^2 - 9y^2 - 32x - 36y - 164 = 0\).</p>
+            <h4>Check</h4>
+            <p>The vertex \((4, -2)\) is 8 from the focus \((-4, -2)\) and 2 from \((6, -2)\). The difference is \(6 = 2a\). ✓</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: from vertices and asymptotes</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>A hyperbola has vertices \((0, \pm 2)\) and asymptotes \(y = \pm 2x\). Find its equation and foci.</p>
+            <h4>Step 1: Direction and \(a\)</h4>
+            <p>The vertices are on the y-axis, so it opens up and down with centre \((0, 0)\) and \(a = 2\).</p>
+            <h4>Step 2: Find \(b\) from the asymptotes</h4>
+            <p>For this direction the asymptote slopes are \(\pm\tfrac{a}{b}\), so \(\tfrac{2}{b} = 2\) and \(b = 1\).</p>
+            <h4>Step 3: Equation and foci</h4>
+            \[ \frac{y^2}{4} - x^2 = 1, \qquad c = \sqrt{4 + 1} = \sqrt{5}, \qquad \text{foci } \left(0, \pm\sqrt{5}\right) \]
+            <p>The eccentricity is \(\tfrac{\sqrt{5}}{2} \approx 1.118\).</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>a and b must be positive; b may be larger than a.</li>
-            <li>Only axis-aligned hyperbolas (no rotation) are supported.</li>
+            <li><strong>Navigation (LORAN, GPS):</strong> a constant difference in signal arrival times from two stations places the receiver on a hyperbola.</li>
+            <li><strong>Cooling towers:</strong> their curved profile is a hyperboloid, which is strong and can be built from straight members.</li>
+            <li><strong>Optics:</strong> hyperbolic mirrors in Cassegrain telescopes.</li>
+            <li><strong>Physics:</strong> the path of a comet that passes the Sun once and never returns, and Boyle's law \(PV = \text{constant}\).</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using \(c^2 = a^2 - b^2\).</strong> That is the ellipse. For a hyperbola, add.</li>
+            <li><strong>Assuming \(a > b\).</strong> In a hyperbola \(a\) goes with the positive squared term, whichever is larger.</li>
+            <li><strong>Wrong asymptote slope.</strong> It is \(\tfrac{b}{a}\) when the hyperbola opens left and right, but \(\tfrac{a}{b}\) when it opens up and down.</li>
+            <li><strong>Forgetting the centre.</strong> The asymptotes pass through \((h, k)\), not the origin.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Using c² = a² − b² as for an ellipse.</li>
-            <li>Swapping a and b when the hyperbola opens vertically.</li>
+            <li>The axes are parallel to the coordinate axes. Rotated hyperbolas such as \(xy = 4\) are handled by the <a href="../general-conic/">general conic calculator</a>.</li>
+            <li>\(a\) and \(b\) must be positive. Fractions are allowed and the results are exact.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the foci of a hyperbola?</summary>
+            <div class="faq-answer"><p>Compute c² = a² + b². The foci are c units from the centre along the transverse axis.</p></div>
+          </details>
+          <details>
+            <summary>How do I find the asymptotes?</summary>
+            <div class="faq-answer"><p>They pass through the centre with slopes ±b/a for a hyperbola opening left and right, or ±a/b for one opening up and down.</p></div>
+          </details>
+          <details>
+            <summary>Why is the eccentricity of a hyperbola greater than 1?</summary>
+            <div class="faq-answer"><p>Because c² = a² + b² makes c larger than a, so e = c/a &gt; 1.</p></div>
+          </details>
+          <details>
+            <summary>What is a rectangular hyperbola?</summary>
+            <div class="faq-answer"><p>One with a = b. Its asymptotes are perpendicular and its eccentricity is √2.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../ellipse/">Ellipse</a>.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal lines to a hyperbola</a>.</li>
+            <li><a href="../general-conic/">General conic and rotation of axes</a>.</li>
+            <li><a href="../polar-coordinates/">Polar coordinates and polar curves</a>.</li>
           </ul>
         </section>

@@ -9,6 +9,7 @@
 import { validator, pointTex, fmt } from '../lib/calc-kit.js';
 import { Frac } from '../lib/fraction.js';
 import { plot } from '../lib/plot.js';
+import { parabolaPractice, parabolaExplore } from '../explore/analytic-practice.js';
 
 const FORMS = [
   ['yx', 'y = ax² + bx + c'],
@@ -19,6 +20,8 @@ const FORMS = [
 
 export const calculator = {
   id: 'parabola',
+  practice: parabolaPractice,
+  explore: parabolaExplore,
   fields: [
     { name: 'form', label: 'Form of the equation', type: 'select', options: FORMS },
     { name: 'a', label: 'a', type: 'number', placeholder: 'e.g. 1', row: 'q', showWhen: { form: ['yx', 'xy'] }, rowShowWhen: { form: ['yx', 'xy'] } },
@@ -47,7 +50,7 @@ export const calculator = {
       const kv = c.sub(b.pow(2).div(a.mul(4)));
       p = new Frac(1n).div(a.mul(4));
       eqTex = `${w} = ${termsTex(a, b, c, u)}`;
-      steps.push({ title: 'Identify the equation and its coefficients', texLines: [eqTex, `a = ${a.toTex()}, \\quad b = ${b.toTex()}, \\quad c = ${c.toTex()}`] });
+      steps.push({ title: 'Identify the equation and its coefficients', texLines: [eqTex, `a = ${a.toTex()}, \\quad b = ${b.toTex()}, \\quad c = ${c.toTex()}`], note: `${u} is squared, so the axis of symmetry is ${vertical ? 'vertical' : 'horizontal'}, and the sign of a decides which way it opens.` });
       steps.push({ title: 'Vertex', text: `The ${u}-coordinate of the vertex is −b/(2a); substitute it back to get the other coordinate.`, texLines: [`${u}_0 = -\\frac{b}{2a} = -\\frac{${b.toTex()}}{2(${a.toTex()})} = ${hv.toTex()}`, `${w}_0 = c - \\frac{b^2}{4a} = ${c.toTex()} - \\frac{(${b.toTex()})^2}{4(${a.toTex()})} = ${kv.toTex()}`] });
       steps.push({ title: 'Focal distance p', text: 'Comparing with the vertex form shows that a = 1/(4p).', texLines: [`p = \\frac{1}{4a} = \\frac{1}{4(${a.toTex()})} = ${p.toTex()}`] });
       if (vertical) { h = hv; k = kv; } else { h = kv; k = hv; }
@@ -63,14 +66,19 @@ export const calculator = {
       vertical = form === 'vv';
       const [u, w, s, t] = vertical ? ['x', 'y', h, k] : ['y', 'x', k, h];
       eqTex = `${sq(u, s)} = ${p.mul(4).toTex()}${lin(w, t)}`;
-      steps.push({ title: 'Read the vertex and p from the vertex form', texLines: [`${sq(u, s)} = 4p${lin(w, t)}`, `(h, k) = ${pointTex(h, k)}, \\qquad 4p = ${p.mul(4).toTex()} \\Rightarrow p = ${p.toTex()}`] });
+      steps.push({ title: 'Read the vertex and p from the vertex form', texLines: [`${sq(u, s)} = 4p${lin(w, t)}`, `(h, k) = ${pointTex(h, k)}, \\qquad 4p = ${p.mul(4).toTex()} \\Rightarrow p = ${p.toTex()}`], note: 'The numbers subtracted inside the brackets are the vertex coordinates, and the coefficient on the right is 4p, so divide it by 4 to get p.' });
     }
     const focus = vertical ? [h, k.add(p)] : [h.add(p), k];
     const directrix = vertical ? `y = ${k.sub(p).toTex()}` : `x = ${h.sub(p).toTex()}`;
     const axis = vertical ? `x = ${h.toTex()}` : `y = ${k.toTex()}`;
     const opens = vertical ? (p.sign() > 0 ? 'upward' : 'downward') : (p.sign() > 0 ? 'to the right' : 'to the left');
     const lr = p.mul(4).abs();
-    steps.push({ title: 'Focus, directrix and axis', text: `Since p ${p.sign() > 0 ? '> 0' : '< 0'}, the parabola opens ${opens}. The focus is p units from the vertex inside the curve; the directrix is p units on the other side.`, texLines: [`\\text{Focus } = ${pointTex(focus[0], focus[1])}`, `\\text{Directrix: } ${directrix}`, `\\text{Axis of symmetry: } ${axis}`, `\\text{Latus rectum length } |4p| = ${lr.toTex()}`] });
+    steps.push({ title: 'Focus, directrix and axis', text: `Since p ${p.sign() > 0 ? '> 0' : '< 0'}, the parabola opens ${opens}. The focus is p units from the vertex inside the curve; the directrix is p units on the other side.`, texLines: [vertical ? `\\text{Focus } = (h,\\ k + p) = ${pointTex(focus[0], focus[1])}` : `\\text{Focus } = (h + p,\\ k) = ${pointTex(focus[0], focus[1])}`, `\\text{Directrix: } ${vertical ? 'y = k - p' : 'x = h - p'} \\;\\Rightarrow\\; ${directrix}`, `\\text{Axis of symmetry: } ${axis}`] });
+    // an end of the latus rectum is a point on the curve, |2p| from the axis
+    const L1 = vertical ? [h.add(p.mul(2)), k.add(p)] : [h.add(p), k.add(p.mul(2))];
+    const toDir = vertical ? L1[1].sub(k.sub(p)).abs() : L1[0].sub(h.sub(p)).abs();
+    steps.push({ title: 'Latus rectum', texLines: [`\\text{length } = |4p| = ${lr.toTex()}`, `\\text{ends: } ${vertical ? `\\left(${h.toTex()} \\pm ${p.mul(2).abs().toTex()},\\ ${k.add(p).toTex()}\\right)` : `\\left(${h.add(p).toTex()},\\ ${k.toTex()} \\pm ${p.mul(2).abs().toTex()}\\right)`}`], note: 'The latus rectum is the chord through the focus, perpendicular to the axis. Its length shows how wide the parabola is at the focus.' });
+    steps.push({ title: 'Check: equal distances to the focus and the directrix', texLines: [`\\text{Point on the curve: } ${pointTex(L1[0], L1[1])}`, `\\text{to the focus: } ${p.mul(2).abs().toTex()}, \\qquad \\text{to the directrix: } ${toDir.toTex()}\\ \\checkmark`], note: 'Every point of a parabola is the same distance from the focus as from the directrix. One end of the latus rectum shows this directly.' });
 
     const hn = h.toNumber(), kn = k.toNumber(), pn = p.toNumber();
     const span = Math.max(6 * Math.abs(pn), 4);

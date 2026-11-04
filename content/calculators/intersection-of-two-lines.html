@@ -1,42 +1,154 @@
         <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Where do two lines meet?</h2>
-          <p>Two different lines in a plane either cross at exactly one point, never meet (they are parallel), or are actually the same line. Finding the <strong>point of intersection</strong> means solving the two equations simultaneously. This calculator uses Cramer's rule with exact fractions, checks the answer in both equations, reports the angle between the lines and graphs them.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second line's A and B proportional to the first line's (for example double them). The determinant becomes 0 and the lines are parallel — or identical if C is scaled the same way.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is the intersection of two lines?</h2>
+          <p>Two lines in a plane either cross at exactly <strong>one point</strong>, never meet because they are <strong>parallel</strong>, or are the <strong>same line</strong>. The intersection point is the one pair \((x, y)\) that satisfies both equations at once, so finding it means solving a system of two linear equations.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make the second line a multiple of the first, for example \(2x + 4y - 8 = 0\) and \(x + 2y - 4 = 0\). The determinant becomes 0 and the calculator reports that the lines coincide.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <p>For \(A_1x + B_1y + C_1 = 0\) and \(A_2x + B_2y + C_2 = 0\):</p>
-          <div class="formula-box">\[ D = A_1B_2 - A_2B_1, \qquad x = \frac{B_1C_2 - B_2C_1}{D}, \qquad y = \frac{A_2C_1 - A_1C_2}{D} \]</div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Case</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td>\(D \ne 0\)</td><td>The lines have different slopes and meet at exactly one point.</td></tr>
-              <tr><td>\(D = 0\), different lines</td><td>Parallel: no solution.</td></tr>
-              <tr><td>\(D = 0\), proportional equations</td><td>The same line: infinitely many solutions.</td></tr>
-            </tbody>
-          </table>
-          <p>The angle \(\theta\) between the lines satisfies \(\tan\theta = \left|\dfrac{A_1B_2 - A_2B_1}{A_1A_2 + B_1B_2}\right|\); the lines are perpendicular when \(A_1A_2 + B_1B_2 = 0\).</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Takes two lines in general form \(A_1x + B_1y + C_1 = 0\) and \(A_2x + B_2y + C_2 = 0\).</li>
+            <li>Finds the intersection point exactly with Cramer's rule, and checks it in both equations.</li>
+            <li>Detects parallel and coincident lines.</li>
+            <li>Gives the acute angle between the lines and draws both of them.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>\(2x + 3y - 12 = 0\) and \(x - y - 1 = 0\)</h3>
-            <h4>Step 1 — Determinant</h4>
-            \[ D = (2)(-1) - (1)(3) = -5 \]
-            <h4>Step 2 — Coordinates</h4>
-            \[ x = \frac{(3)(-1) - (-1)(-12)}{-5} = \frac{-15}{-5} = 3, \qquad y = \frac{(1)(-12) - (2)(-1)}{-5} = \frac{-10}{-5} = 2 \]
-            <h4>Step 3 — Check</h4>
-            \[ 2(3) + 3(2) - 12 = 0 \checkmark \qquad 3 - 2 - 1 = 0 \checkmark \]
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Each equation describes every point of one line. A point on both lines must satisfy both equations, so the intersection is the solution of the system. Whether such a point exists depends only on the directions of the lines:</p>
+          <ul>
+            <li><strong>Different slopes:</strong> exactly one solution.</li>
+            <li><strong>Equal slopes, different positions:</strong> no solution (parallel lines).</li>
+            <li><strong>One equation a multiple of the other:</strong> infinitely many solutions (the same line).</li>
+          </ul>
+          <div class="callout">
+            <p class="callout-title">The determinant test</p>
+            <p>\(D = A_1B_2 - A_2B_1\) is zero exactly when the slopes \(-A_1/B_1\) and \(-A_2/B_2\) are equal. So \(D \ne 0\) means one intersection point.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box">\[ D = A_1B_2 - A_2B_1, \qquad x = \frac{B_1C_2 - B_2C_1}{D}, \qquad y = \frac{A_2C_1 - A_1C_2}{D} \]</div>
+          <table>
+            <thead><tr><th scope="col">Case</th><th scope="col">Condition</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><td>Intersecting</td><td>\(D \ne 0\)</td><td>One point, from the formulas above</td></tr>
+              <tr><td>Parallel</td><td>\(D = 0\), equations not multiples</td><td>No intersection</td></tr>
+              <tr><td>Coincident</td><td>\(D = 0\), equations multiples</td><td>Every point of the line</td></tr>
+              <tr><td>Perpendicular</td><td>\(A_1A_2 + B_1B_2 = 0\)</td><td>The lines meet at 90°</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>\(A_1, B_1, C_1\)</td><td>Coefficients of the first line.</td></tr>
+              <tr><td>\(A_2, B_2, C_2\)</td><td>Coefficients of the second line.</td></tr>
+              <tr><td>\(D\)</td><td>Determinant of the coefficients of \(x\) and \(y\).</td></tr>
+              <tr><td>\((x, y)\)</td><td>The intersection point.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <p>Write the system as \(A_1x + B_1y = -C_1\) and \(A_2x + B_2y = -C_2\). To eliminate \(y\), multiply the first equation by \(B_2\), the second by \(B_1\), and subtract:</p>
+          \[ (A_1B_2 - A_2B_1)\,x = -C_1B_2 + C_2B_1 \;\Rightarrow\; x = \frac{B_1C_2 - B_2C_1}{A_1B_2 - A_2B_1}. \]
+          <p>Eliminating \(x\) the same way gives \(y = \dfrac{A_2C_1 - A_1C_2}{A_1B_2 - A_2B_1}\). The shared denominator is the determinant \(D\); this is Cramer's rule for a 2 × 2 system.</p>
+          <p>The same answer comes from <strong>substitution</strong> (solve one equation for \(y\) and substitute) or from <strong>elimination</strong> by hand. Cramer's rule simply packages elimination into one formula.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find where \(2x + 3y - 12 = 0\) meets \(x - y - 1 = 0\).</p>
+            <h4>Step 1: Determinant</h4>
+            \[ D = (2)(-1) - (1)(3) = -5 \ne 0 \]
+            <p>The determinant is not zero, so there is exactly one intersection point.</p>
+            <h4>Step 2: Cramer's rule</h4>
+            \[ x = \frac{(3)(-1) - (-1)(-12)}{-5} = \frac{-15}{-5} = 3, \qquad y = \frac{(1)(-12) - (2)(-1)}{-5} = \frac{-10}{-5} = 2 \]
+            <h4>Step 3: Check in both equations</h4>
+            \[ 2(3) + 3(2) - 12 = 0 \ \checkmark \qquad 3 - 2 - 1 = 0 \ \checkmark \]
+            <p>The lines meet at \((3, 2)\). Their slopes are \(-\tfrac{2}{3}\) and \(1\), so the acute angle between them is \(\tan^{-1} 5 \approx 78.69^\circ\).</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: substitution and a parallel pair</h2>
+          <div class="worked-example">
+            <h3>Part 1: Lines in slope–intercept form</h3>
+            <p>Find where \(y = 2x - 1\) meets \(y = -x + 5\).</p>
+            <p>Both expressions equal \(y\), so set them equal: \(2x - 1 = -x + 5\), giving \(3x = 6\) and \(x = 2\). Then \(y = 2(2) - 1 = 3\). The intersection is \((2, 3)\).</p>
+            <p>In general form these are \(2x - y - 1 = 0\) and \(x + y - 5 = 0\), and Cramer's rule gives the same point: \(D = 3\), \(x = \tfrac{6}{3} = 2\), \(y = \tfrac{9}{3} = 3\).</p>
+            <h3>Part 2: A pair with no solution</h3>
+            <p>For \(x + 2y - 4 = 0\) and \(2x + 4y + 3 = 0\):</p>
+            \[ D = (1)(4) - (2)(2) = 0 \]
+            <p>Both lines have slope \(-\tfrac{1}{2}\), but doubling the first equation gives \(2x + 4y - 8 = 0\), not \(+3\). They are parallel and never meet.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Each line must be written in general form; A and B cannot both be zero.</li>
-            <li>To convert \(y = mx + b\), use \(A = m\), \(B = -1\), \(C = b\).</li>
-            <li>Coordinates are exact fractions; decimals are rounded to 6 places and the angle to 4.</li>
+            <li><strong>Break-even analysis:</strong> where a cost line meets a revenue line (see the <a href="../break-even/">break-even calculator</a>).</li>
+            <li><strong>Surveying:</strong> locating a point from two bearings drawn from known stations.</li>
+            <li><strong>Road layout:</strong> where two straight alignments cross.</li>
+            <li><strong>Computer graphics:</strong> clipping and collision tests between line segments.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Forgetting to move C.</strong> Read \(C\) from the form \(Ax + By + C = 0\). For \(2x + 3y = 12\), \(C = -12\).</li>
+            <li><strong>Mixing up the numerators.</strong> The order of the products matters; a slip changes the sign of \(x\) or \(y\).</li>
+            <li><strong>Dividing by a zero determinant.</strong> If \(D = 0\), stop: the lines are parallel or the same.</li>
+            <li><strong>Skipping the check.</strong> Substituting the answer into both equations catches almost every arithmetic slip.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>Both lines are entered in general form; \(A\) and \(B\) cannot both be 0 in the same line.</li>
+            <li>Coordinates are exact fractions; decimals are shown rounded to 6 places.</li>
+            <li>For three or more equations, use the <a href="../systems-of-linear-equations/">systems of linear equations solver</a>.</li>
+            <li>Lines in space may be skew (not parallel, yet never meeting); this calculator covers lines in a plane.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find where two lines intersect?</summary>
+            <div class="faq-answer"><p>Solve the two equations together, by substitution, elimination or Cramer's rule. The solution (x, y) is the intersection point.</p></div>
+          </details>
+          <details>
+            <summary>How can I tell if two lines are parallel?</summary>
+            <div class="faq-answer"><p>Their slopes are equal, which in general form means A₁B₂ − A₂B₁ = 0. If the equations are not multiples of each other, the lines never meet.</p></div>
+          </details>
+          <details>
+            <summary>What does it mean if the lines coincide?</summary>
+            <div class="faq-answer"><p>The two equations describe the same line, so every point on it is shared and there are infinitely many intersection points.</p></div>
+          </details>
+          <details>
+            <summary>What is Cramer's rule?</summary>
+            <div class="faq-answer"><p>A formula that solves a linear system with determinants. For two lines, x = (B₁C₂ − B₂C₁)/D and y = (A₂C₁ − A₁C₂)/D with D = A₁B₂ − A₂B₁.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../angle-between-lines/">Angle between two lines</a>.</li>
+            <li><a href="../line-circle-intersection/">Line–circle intersection</a>.</li>
+            <li><a href="../matrix-method-linear-systems/">Matrix method for linear systems</a>.</li>
+            <li><a href="../slope-and-equation-of-a-line/">Slope and equation of a line</a>.</li>
           </ul>
         </section>

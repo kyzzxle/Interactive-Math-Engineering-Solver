@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-10-31"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/parabola/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find the focus of y = ax² + bx + c?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Find the vertex (−b/2a, c − b²/4a) and p = 1/(4a). The focus is p units above the vertex (below it if a is negative)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the directrix of a parabola?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The fixed line that, with the focus, defines the parabola. It is p units from the vertex on the opposite side to the focus."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the latus rectum?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The chord through the focus perpendicular to the axis. Its length is |4p|."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I tell which way a parabola opens?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If x is squared it opens up (p > 0) or down (p \u003c 0). If y is squared it opens right (p > 0) or left (p \u003c 0)."
+          }
+        }
+      ]
     }
   ]
 }
@@ -224,6 +262,21 @@
     </div>
 
 
+    <section class="container-page learn-shell" aria-labelledby="learn-h">
+      <h2 id="learn-h" class="section-title">Explore and practise</h2>
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
+        <div class="panel learn-panel" id="explore">
+          <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Focus and directrix</h3></div></div>
+          <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Vertex and focus of a parabola</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
+        </div>
+      </div>
+    </section>
+
     <aside class="ad-slot container-page" data-ad-slot-key="afterCalculator" aria-label="Advertisement"></aside>
 
     <div class="container-page mt-12 lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
@@ -231,10 +284,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">Parts of a parabola</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Assumptions, domain and rounding</a></li>
+            <li><a href="#about-h">What is a parabola?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formulas</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a horizontal parabola and a dish</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -242,45 +304,161 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">Parts of a parabola</h2>
-          <p>A <strong>parabola</strong> is the set of points that are equally far from a fixed point, the <strong>focus</strong>, and a fixed line, the <strong>directrix</strong>. The point halfway between them is the <strong>vertex</strong>, and the line through the vertex and focus is the <strong>axis of symmetry</strong>. Enter a parabola in one of four common forms to find all of these, plus the focal distance <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span>, the latus rectum and the intercepts, with a graph.</p>
-          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> larger in <span class="math" data-tex="y = ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span>: the parabola gets narrower and the focus moves closer to the vertex, because <span class="math" data-tex="p = \tfrac{1}{4a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span>.</p></div>
+          <h2 id="about-h" style="margin-top:0">What is a parabola?</h2>
+          <p>A <strong>parabola</strong> is the set of all points that are the same distance from a fixed point, the <strong>focus</strong>, and a fixed line, the <strong>directrix</strong>. The point halfway between them is the <strong>vertex</strong>, and the line through the vertex and focus is the <strong>axis of symmetry</strong>. Every quadratic <span class="math" data-tex="y = ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span> graphs as a parabola.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Make <span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> smaller, for example <span class="math" data-tex="y = 0.1x^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>0.1</mn><msup><mi>x</mi><mn>2</mn></msup></mrow></semantics></math></span></span>. The parabola gets wider and the focus moves further from the vertex: <span class="math" data-tex="p = \tfrac{1}{4a} = 2.5"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mi>a</mi></mrow></mfrac><mo>=</mo><mn>2.5</mn></mrow></semantics></math></span></span>.</p></div>
+        </section>
+
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <p>Enter a parabola in any of four forms:</p>
+          <ul>
+            <li><span class="math" data-tex="y = ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span> or <span class="math" data-tex="x = ay^2 + by + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>a</mi><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>y</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span>;</li>
+            <li><span class="math" data-tex="(x - h)^2 = 4p(y - k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> or <span class="math" data-tex="(y - k)^2 = 4p(x - h)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</li>
+          </ul>
+          <p>It returns the vertex, focus, directrix, axis of symmetry, the value of <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span>, the direction it opens, the length of the latus rectum and the intercepts, and draws the curve with its focus and directrix.</p>
+        </section>
+
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Because every point is as far from the focus as from the directrix, the curve wraps around the focus. The number <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> is the distance from the vertex to the focus (and from the vertex to the directrix). Its sign gives the direction:</p>
+          <ul>
+            <li>vertical axis: <span class="math" data-tex="p &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span> opens upward, <span class="math" data-tex="p \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span> downward;</li>
+            <li>horizontal axis: <span class="math" data-tex="p &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span> opens to the right, <span class="math" data-tex="p \lt 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span> to the left.</li>
+          </ul>
+          <p>The <strong>latus rectum</strong> is the chord through the focus perpendicular to the axis. Its length <span class="math" data-tex="|4p|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mn>4</mn><mi>p</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span> shows how wide the parabola is at the focus.</p>
+          <div class="callout">
+            <p class="callout-title">The reflective property</p>
+            <p>Any ray travelling parallel to the axis reflects off the parabola through the focus. That is why dish antennas, car headlights and solar cookers are parabolic.</p>
+          </div>
         </section>
 
         <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
+          <h2 id="formula-h">Formula breakdown</h2>
           <table>
             <thead><tr><th scope="col">Form</th><th scope="col">Vertex</th><th scope="col">Focus</th><th scope="col">Directrix</th></tr></thead>
             <tbody>
               <tr><td><span class="math" data-tex="(x - h)^2 = 4p(y - k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h, k + p)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo>+</mo><mi>p</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="y = k - p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>k</mi><mo>−</mo><mi>p</mi></mrow></semantics></math></span></span></td></tr>
               <tr><td><span class="math" data-tex="(y - k)^2 = 4p(x - h)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="(h + p, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo>+</mo><mi>p</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td><span class="math" data-tex="x = h - p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>h</mi><mo>−</mo><mi>p</mi></mrow></semantics></math></span></span></td></tr>
-              <tr><td><span class="math" data-tex="y = ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="\left(-\frac{b}{2a},\ c - \frac{b^2}{4a}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo separator="true">,</mo><mtext> </mtext><mi>c</mi><mo>−</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><mn>4</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow></semantics></math></span></span></td><td colspan="2">use <span class="math" data-tex="p = \frac{1}{4a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span> in the first row</td></tr>
+              <tr><td><span class="math" data-tex="y = ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span></td><td><span class="math" data-tex="\left(-\tfrac{b}{2a},\ c - \tfrac{b^2}{4a}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo separator="true">,</mo><mtext> </mtext><mi>c</mi><mo>−</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><mn>4</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow></semantics></math></span></span></td><td colspan="2">Use <span class="math" data-tex="p = \tfrac{1}{4a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span> with the first row</td></tr>
             </tbody>
           </table>
-          <p><span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> is the signed distance from the vertex to the focus. For a vertical axis, <span class="math" data-tex="p &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span> opens upward and <span class="math" data-tex="p &lt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0</mn></mrow></semantics></math></span></span> downward; for a horizontal axis, <span class="math" data-tex="p &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span> opens to the right. The latus rectum (the chord through the focus parallel to the directrix) has length <span class="math" data-tex="|4p|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mn>4</mn><mi>p</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span>.</p>
+          <p>Latus rectum length: <span class="math" data-tex="|4p|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mn>4</mn><mi>p</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span>. Axis of symmetry: <span class="math" data-tex="x = h"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>h</mi></mrow></semantics></math></span></span> for a vertical axis, <span class="math" data-tex="y = k"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>k</mi></mrow></semantics></math></span></span> for a horizontal one.</p>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Vertex: the turning point of the parabola.</td></tr>
+              <tr><td><span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span></td><td>Signed distance from the vertex to the focus.</td></tr>
+              <tr><td><span class="math" data-tex="a, b, c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi></mrow></semantics></math></span></span></td><td>Coefficients of the quadratic form, with <span class="math" data-tex="a = \tfrac{1}{4p}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mi>p</mi></mrow></mfrac></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="F"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow></semantics></math></span></span></td><td>Focus.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formulas</h2>
+          <h3>From the focus–directrix definition</h3>
+          <p>Put the vertex at the origin, the focus at <span class="math" data-tex="(0, p)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>p</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and the directrix at <span class="math" data-tex="y = -p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mo>−</mo><mi>p</mi></mrow></semantics></math></span></span>. For a point <span class="math" data-tex="(x, y)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> on the parabola, the two distances are equal:</p>
+          <span class="math-display" data-tex="\sqrt{x^2 + (y - p)^2} = |y + p| \;\Rightarrow\; x^2 + y^2 - 2py + p^2 = y^2 + 2py + p^2 \;\Rightarrow\; x^2 = 4py."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msqrt><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>p</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mi mathvariant="normal">∣</mi><mi>y</mi><mo>+</mo><mi>p</mi><mi mathvariant="normal">∣</mi><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mi>p</mi><mi>y</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup><mo>=</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>p</mi><mi>y</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mi>y</mi><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Shifting the vertex to <span class="math" data-tex="(h, k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>h</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> gives <span class="math" data-tex="(x - h)^2 = 4p(y - k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+          <h3>From the quadratic form</h3>
+          <p>Complete the square in <span class="math" data-tex="y = ax^2 + bx + c"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="y = a\left(x + \frac{b}{2a}\right)^2 + c - \frac{b^2}{4a} \;\Rightarrow\; \left(x + \frac{b}{2a}\right)^2 = \frac{1}{a}\left(y - c + \frac{b^2}{4a}\right)."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>a</mi><msup><mrow><mo fence="true">(</mo><mi>x</mi><mo>+</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mi>c</mi><mo>−</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><mn>4</mn><mi>a</mi></mrow></mfrac><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><msup><mrow><mo fence="true">(</mo><mi>x</mi><mo>+</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mn>2</mn></msup><mo>=</mo><mfrac><mn>1</mn><mi>a</mi></mfrac><mrow><mo fence="true">(</mo><mi>y</mi><mo>−</mo><mi>c</mi><mo>+</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><mn>4</mn><mi>a</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Comparing with <span class="math" data-tex="(x - h)^2 = 4p(y - k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span> gives the vertex and <span class="math" data-tex="4p = \tfrac{1}{a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mi>a</mi></mfrac></mrow></semantics></math></span></span>, so <span class="math" data-tex="p = \tfrac{1}{4a}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mi>a</mi></mrow></mfrac></mrow></semantics></math></span></span>.</p>
         </section>
 
         <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
+          <h2 id="example-h">Complete worked example</h2>
           <div class="worked-example">
-            <h3><span class="math" data-tex="y = x^2 - 4x + 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span></h3>
-            <h4>Step 1 — Vertex</h4>
-            <span class="math-display" data-tex="x_0 = -\frac{-4}{2(1)} = 2, \qquad y_0 = 3 - \frac{(-4)^2}{4(1)} = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>=</mo><mo>−</mo><mfrac><mrow><mo>−</mo><mn>4</mn></mrow><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mn>2</mn><mo separator="true">,</mo><mspace width="2em"/><msub><mi>y</mi><mn>0</mn></msub><mo>=</mo><mn>3</mn><mo>−</mo><mfrac><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>4</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mrow><mn>4</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Focal distance</h4>
-            <span class="math-display" data-tex="p = \frac{1}{4(1)} = \frac{1}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow></semantics></math></span></span>
-            <h4>Step 3 — Focus and directrix</h4>
-            <span class="math-display" data-tex="F = \left(2,\ -1 + \tfrac{1}{4}\right) = \left(2,\ -\tfrac{3}{4}\right), \qquad \text{directrix } y = -1 - \tfrac{1}{4} = -\tfrac{5}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo>=</mo><mrow><mo fence="true">(</mo><mn>2</mn><mo separator="true">,</mo><mtext> </mtext><mo>−</mo><mn>1</mn><mo>+</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>4</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true">(</mo><mn>2</mn><mo separator="true">,</mo><mtext> </mtext><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>3</mn><mn>4</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo separator="true">,</mo><mspace width="2em"/><mtext>directrix </mtext><mi>y</mi><mo>=</mo><mo>−</mo><mn>1</mn><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>4</mn></mfrac></mstyle><mo>=</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>5</mn><mn>4</mn></mfrac></mstyle></mrow></semantics></math></span></span>
-            <h4>Step 4 — Intercepts</h4>
-            <p><span class="math" data-tex="x^2 - 4x + 3 = (x - 1)(x - 3) = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>3</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span> gives x-intercepts 1 and 3; the y-intercept is 3.</p>
+            <h3>Problem</h3>
+            <p>Find the vertex, focus and directrix of <span class="math" data-tex="y = x^2 - 4x + 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>3</mn></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Vertex</h4>
+            <span class="math-display" data-tex="x_0 = -\frac{-4}{2(1)} = 2, \qquad y_0 = 3 - \frac{16}{4} = -1 \qquad\Rightarrow\qquad V = (2, -1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>=</mo><mo>−</mo><mfrac><mrow><mo>−</mo><mn>4</mn></mrow><mrow><mn>2</mn><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mn>2</mn><mo separator="true">,</mo><mspace width="2em"/><msub><mi>y</mi><mn>0</mn></msub><mo>=</mo><mn>3</mn><mo>−</mo><mfrac><mn>16</mn><mn>4</mn></mfrac><mo>=</mo><mo>−</mo><mn>1</mn><mspace width="2em"/><mo>⇒</mo><mspace width="2em"/><mi>V</mi><mo>=</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>
+            <h4>Step 2: Focal distance</h4>
+            <span class="math-display" data-tex="p = \frac{1}{4a} = \frac{1}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>4</mn><mi>a</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow></semantics></math></span></span>
+            <h4>Step 3: Focus, directrix and axis</h4>
+            <p>Since <span class="math" data-tex="p &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span>, the parabola opens upward.</p>
+            <span class="math-display" data-tex="F = \left(2,\ -1 + \tfrac{1}{4}\right) = \left(2, -\tfrac{3}{4}\right), \qquad \text{directrix } y = -\tfrac{5}{4}, \qquad \text{axis } x = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo>=</mo><mrow><mo fence="true">(</mo><mn>2</mn><mo separator="true">,</mo><mtext> </mtext><mo>−</mo><mn>1</mn><mo>+</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>4</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true">(</mo><mn>2</mn><mo separator="true">,</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>3</mn><mn>4</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mo separator="true">,</mo><mspace width="2em"/><mtext>directrix </mtext><mi>y</mi><mo>=</mo><mo>−</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>5</mn><mn>4</mn></mfrac></mstyle><mo separator="true">,</mo><mspace width="2em"/><mtext>axis </mtext><mi>x</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>
+            <h4>Step 4: Intercepts</h4>
+            <p><span class="math" data-tex="x^2 - 4x + 3 = (x - 1)(x - 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>x</mi><mo>+</mo><mn>3</mn><mo>=</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, so the x-intercepts are 1 and 3; the y-intercept is 3.</p>
+            <h4>Check</h4>
+            <p>The point <span class="math" data-tex="(3, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>3</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is <span class="math" data-tex="\sqrt{1 + \tfrac{9}{16}} = \tfrac{5}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>1</mn><mo>+</mo><mfrac><mn>9</mn><mn>16</mn></mfrac></mrow></msqrt><mo>=</mo><mfrac><mn>5</mn><mn>4</mn></mfrac></mrow></semantics></math></span></span> from the focus and <span class="math" data-tex="0 - \left(-\tfrac{5}{4}\right) = \tfrac{5}{4}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>−</mo><mrow><mo fence="true">(</mo><mo>−</mo><mfrac><mn>5</mn><mn>4</mn></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mfrac><mn>5</mn><mn>4</mn></mfrac></mrow></semantics></math></span></span> from the directrix. ✓</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Assumptions, domain and rounding</h2>
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a horizontal parabola and a dish</h2>
+          <div class="worked-example">
+            <h3>Part 1: Reading the vertex form</h3>
+            <p>For <span class="math" data-tex="(y - 1)^2 = 8(x + 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>8</mn><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>: the vertex is <span class="math" data-tex="(-2, 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span> and <span class="math" data-tex="4p = 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>p</mi><mo>=</mo><mn>8</mn></mrow></semantics></math></span></span>, so <span class="math" data-tex="p = 2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>2</mn></mrow></semantics></math></span></span>. The parabola opens to the right.</p>
+            <span class="math-display" data-tex="F = (-2 + 2,\ 1) = (0, 1), \qquad \text{directrix } x = -4, \qquad \text{latus rectum } 8"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo>=</mo><mo stretchy="false">(</mo><mo>−</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo separator="true">,</mo><mtext> </mtext><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mspace width="2em"/><mtext>directrix </mtext><mi>x</mi><mo>=</mo><mo>−</mo><mn>4</mn><mo separator="true">,</mo><mspace width="2em"/><mtext>latus rectum </mtext><mn>8</mn></mrow></semantics></math></span></span>
+            <h3>Part 2: Where to put the receiver</h3>
+            <p>A satellite dish is 2 m across and 0.5 m deep. Put the vertex at the origin with the axis vertical, so <span class="math" data-tex="x^2 = 4py"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mi>y</mi></mrow></semantics></math></span></span>. The rim passes through <span class="math" data-tex="(1, 0.5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>0.5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>:</p>
+            <span class="math-display" data-tex="1^2 = 4p(0.5) \;\Rightarrow\; p = 0.5\ \text{m}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mn>1</mn><mn>2</mn></msup><mo>=</mo><mn>4</mn><mi>p</mi><mo stretchy="false">(</mo><mn>0.5</mn><mo stretchy="false">)</mo><mtext>  </mtext><mo>⇒</mo><mtext>  </mtext><mi>p</mi><mo>=</mo><mn>0.5</mn><mtext> m</mtext></mrow></semantics></math></span></span>
+            <p>The receiver goes at the focus, 0.5 m above the centre of the dish: level with the rim.</p>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>Supported: parabolas with vertical or horizontal axes in the four forms listed. Rotated parabolas (with an <span class="math" data-tex="xy"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi>y</mi></mrow></semantics></math></span></span> term) are not supported.</li>
-            <li><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> cannot be 0, since the equation would then describe a line.</li>
+            <li><strong>Antennas, telescopes and headlights:</strong> the reflective property sends parallel rays to or from the focus.</li>
+            <li><strong>Projectiles:</strong> without air resistance, a thrown object follows a parabola (see <a href="../projectile-motion/">projectile motion</a>).</li>
+            <li><strong>Suspension bridges:</strong> a cable carrying a uniform deck load hangs in a parabola.</li>
+            <li><strong>Vertical road curves:</strong> crest and sag curves in highway design are parabolic.</li>
+          </ul>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Using <span class="math" data-tex="4p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>p</mi></mrow></semantics></math></span></span> as <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span>.</strong> In <span class="math" data-tex="(x - h)^2 = 12(y - k)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>h</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><mn>12</mn><mo stretchy="false">(</mo><mi>y</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="p = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>, not 12.</li>
+            <li><strong>Sign of the vertex.</strong> <span class="math" data-tex="(y + 1)^2"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>y</mi><mo>+</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></semantics></math></span></span> means <span class="math" data-tex="k = -1"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mo>−</mo><mn>1</mn></mrow></semantics></math></span></span>.</li>
+            <li><strong>Putting the directrix on the wrong side.</strong> The focus is inside the curve; the directrix is outside, <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> units the other way.</li>
+            <li><strong>Mixing up the axis.</strong> If <span class="math" data-tex="x"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow></semantics></math></span></span> is squared the axis is vertical; if <span class="math" data-tex="y"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow></semantics></math></span></span> is squared it is horizontal.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
+          <ul>
+            <li>The axis is parallel to the x- or y-axis. Tilted parabolas (with an <span class="math" data-tex="xy"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mi>y</mi></mrow></semantics></math></span></span> term) are handled by the <a href="../general-conic/">general conic calculator</a>.</li>
+            <li><span class="math" data-tex="a"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi></mrow></semantics></math></span></span> and <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> cannot be 0; the equation would then be a straight line.</li>
             <li>Vertex, focus, directrix and <span class="math" data-tex="p"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math></span></span> are exact fractions; intercepts are rounded to 6 decimal places.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>How do I find the focus of y = ax² + bx + c?</summary>
+            <div class="faq-answer"><p>Find the vertex (−b/2a, c − b²/4a) and p = 1/(4a). The focus is p units above the vertex (below it if a is negative).</p></div>
+          </details>
+          <details>
+            <summary>What is the directrix of a parabola?</summary>
+            <div class="faq-answer"><p>The fixed line that, with the focus, defines the parabola. It is p units from the vertex on the opposite side to the focus.</p></div>
+          </details>
+          <details>
+            <summary>What is the latus rectum?</summary>
+            <div class="faq-answer"><p>The chord through the focus perpendicular to the axis. Its length is |4p|.</p></div>
+          </details>
+          <details>
+            <summary>How do I tell which way a parabola opens?</summary>
+            <div class="faq-answer"><p>If x is squared it opens up (p &gt; 0) or down (p &lt; 0). If y is squared it opens right (p &gt; 0) or left (p &lt; 0).</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../quadratic-equation-solver/">Quadratic equation solver</a>: the x-intercepts.</li>
+            <li><a href="../tangent-normal-conic/">Tangent and normal lines to a parabola</a>.</li>
+            <li><a href="../ellipse/">Ellipse</a> and <a href="../hyperbola/">hyperbola</a>: the other conic sections.</li>
+            <li><a href="../general-conic/">General conic and rotation of axes</a>.</li>
           </ul>
         </section>
 

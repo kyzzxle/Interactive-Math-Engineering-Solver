@@ -93,17 +93,22 @@ export const calculator = {
     if (mode === 'toRect') {
       const r = v.number('r', 'r', { maxAbs: 1e9 }), th = v.number('theta', 'θ', { maxAbs: 1e7 });
       if (!v.ok()) return v.result();
-      const x = r * cos(rad(th)), y = r * sin(rad(th));
+      // cos and sin in degrees, exact at multiples of 90° (so 90° gives x = 0, not 6e-17)
+      const red = ((th % 360) + 360) % 360;
+      const QUAD = { 0: [1, 0], 90: [0, 1], 180: [-1, 0], 270: [0, -1] };
+      const [cs, sn] = QUAD[red] ?? [cos(rad(th)), sin(rad(th))];
+      const rel = QUAD[red] ? '=' : '\\approx';
+      const x = r * cs + 0, y = r * sn + 0;
       return {
         ok: true,
-        final: { tex: `(x, y) \\approx \\left(${t4(x)},\\ ${t4(y)}\\right)` },
+        final: { tex: `(x, y) ${rel} \\left(${t4(x)},\\ ${t4(y)}\\right)` },
         answers: [answer('x', x, { primary: true }), answer('y', y, { primary: true })],
         visual: { svg: polarPlot([], Math.max(abs(r), 1), { segments: [{ x1: 0, y1: 0, x2: x, y2: y, cls: 'd-line' }], points: [{ x, y, label: `(${t4(r)}, ${t4(th)}°)`, cls: 'd-point2' }] }, 'The point on the polar grid'), caption: r < 0 ? 'r is negative, so the point is plotted in the direction opposite to θ.' : 'Go out a distance r along the ray at angle θ.' },
         formula: ['x = r\\cos\\theta \\qquad y = r\\sin\\theta'],
         steps: [
           { title: 'Known values', tex: `r = ${t4(r)},\\quad \\theta = ${t4(th)}^\\circ` },
-          { title: 'x-coordinate', tex: `x = r\\cos\\theta = ${t4(r)}\\cos ${t4(th)}^\\circ = ${t4(r)}(${t4(cos(rad(th)))}) \\approx ${t4(x)}` },
-          { title: 'y-coordinate', tex: `y = r\\sin\\theta = ${t4(r)}\\sin ${t4(th)}^\\circ = ${t4(r)}(${t4(sin(rad(th)))}) \\approx ${t4(y)}` },
+          { title: 'x-coordinate', tex: `x = r\\cos\\theta = ${t4(r)}\\cos ${t4(th)}^\\circ = ${t4(r)}(${t4(cs)}) ${rel} ${t4(x)}` },
+          { title: 'y-coordinate', tex: `y = r\\sin\\theta = ${t4(r)}\\sin ${t4(th)}^\\circ = ${t4(r)}(${t4(sn)}) ${rel} ${t4(y)}` },
           { title: 'Check', tex: `\\sqrt{x^2 + y^2} \\approx ${t4(hypot(x, y))} = |r|` },
         ],
         notes: [{ kind: 'info', text: 'For exact values at special angles: cos 150° = −√3/2 and sin 150° = 1/2, so (6, 150°) is (−3√3, 3).' }],

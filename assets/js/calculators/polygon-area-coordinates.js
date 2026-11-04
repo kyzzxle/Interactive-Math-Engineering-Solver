@@ -7,6 +7,7 @@
 import { answer, fracAnswer, fmt, tx } from '../lib/calc-kit.js';
 import { parseFrac, Frac } from '../lib/fraction.js';
 import { plot } from '../lib/plot.js';
+import { polygonPractice } from '../explore/analytic-practice.js';
 
 const F0 = new Frac(0n);
 
@@ -48,6 +49,7 @@ export function shoelaceNum(P) {
 const DRAG = ['A', 'B', 'C', 'D'];
 export const calculator = {
   id: 'polygon-area-coordinates',
+  practice: polygonPractice,
   explore: {
     title: 'Drag the corners of a quadrilateral',
     intro: 'Drag any corner. The area updates using the shoelace sums. Drag one corner across an opposite side and the polygon crosses itself — the formula then stops giving the enclosed area.',
@@ -124,10 +126,12 @@ export const calculator = {
       },
       formula: ['A = \\frac{1}{2}\\left\\lvert \\sum_{i=1}^{n} \\left(x_i y_{i+1} - x_{i+1} y_i\\right) \\right\\rvert,\\quad (x_{n+1}, y_{n+1}) = (x_1, y_1)'],
       steps: [
-        { title: 'Known values', text: `${n} vertices in order: ${P.map(([x, y]) => `(${x}, ${y})`).join(', ')}.` },
-        { title: 'Cross-multiply each pair of neighbouring vertices', text: 'For each side, multiply diagonally: xᵢ·yᵢ₊₁ − xᵢ₊₁·yᵢ (the table shows every term). The last vertex wraps round to the first.' },
-        { title: 'Add the terms', tex: `\\sum = ${rows.map((r) => r[2].tex).join(' + ').replace(/\+ -/g, '- ')} = ${sum.toTex()}` },
-        { title: 'Halve and take the absolute value', tex: `A = \\frac{1}{2}\\left\\lvert ${sum.toTex()} \\right\\rvert = ${area.toTex()}` },
+        { title: 'Known values', text: `${n} vertices in order: ${P.map(([x, y]) => `(${x}, ${y})`).join(', ')}.`, note: 'The vertices must be listed in order around the boundary. Either direction and any starting vertex give the same area.' },
+        { title: 'Cross-multiply each pair of neighbouring vertices', text: 'For each side, multiply diagonally: xᵢ·yᵢ₊₁ − xᵢ₊₁·yᵢ (the table shows every term). The last vertex wraps round to the first.', note: 'Each term is twice the signed area of the triangle formed by the origin and one side of the polygon.' },
+        { title: 'Add the terms', tex: `\\sum = ${rows.map((r) => r[2].tex).join(' + ').replace(/\+ -/g, '- ')} = ${sum.toTex()}`, note: `The sum is ${sum.sign() > 0 ? 'positive, so the vertices go counter-clockwise' : 'negative, so the vertices go clockwise'}. The triangles outside the polygon cancel out, leaving twice its area.` },
+        { title: 'Halve and take the absolute value', tex: `A = \\frac{1}{2}\\left\\lvert ${sum.toTex()} \\right\\rvert = ${area.toTex()}${area.isInt() ? '' : ` \\approx ${tx(area.toNumber())}`}` },
+        { title: 'Perimeter and centroid', texLines: [`\\text{Perimeter} = \\sum \\sqrt{(x_{i+1} - x_i)^2 + (y_{i+1} - y_i)^2} \\approx ${tx(per)}`, `\\bar{x} = \\frac{1}{3\\sum}\\sum (x_i + x_{i+1})(x_iy_{i+1} - x_{i+1}y_i) = ${cx.toTex()}, \\quad \\bar{y} = ${cy.toTex()}`], note: n === 3 ? 'For a triangle the centroid is simply the average of the three vertices.' : 'The centroid is the balance point of the flat shape. It is not the average of the vertices unless the polygon is a triangle.' },
+        ...(n === 3 ? [{ title: 'Check with the triangle formula', tex: `\\tfrac{1}{2}\\left\\lvert x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2) \\right\\rvert = \\tfrac{1}{2}\\left\\lvert ${P[0][0].mul(P[1][1].sub(P[2][1])).add(P[1][0].mul(P[2][1].sub(P[0][1]))).add(P[2][0].mul(P[0][1].sub(P[1][1]))).toTex()} \\right\\rvert = ${area.toTex()}\\ \\checkmark` }] : []),
       ],
       tables: [{ caption: 'Shoelace terms', headers: ['Side', 'xᵢyᵢ₊₁ − xᵢ₊₁yᵢ', 'Value'], rows }],
       notes,

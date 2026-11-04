@@ -5,8 +5,10 @@ import { integerLine, generalTex, generalText, slopeInterceptTex, slopeIntercept
 import { plot, windowAround } from '../lib/plot.js';
 
 import { slopeExplore } from '../explore/geometry.js';
+import { slopePractice } from '../explore/analytic-practice.js';
 export const calculator = {
   id: 'slope-and-equation-of-a-line',
+  practice: slopePractice,
   explore: slopeExplore,
   fields: [
     { name: 'mode', label: 'What do you know?', type: 'radio', options: [['two', 'Two points'], ['ps', 'A point and the slope']] },
@@ -31,7 +33,7 @@ export const calculator = {
     const steps = [];
     if (mode === 'two') {
       if (x1.eq(x2) && y1.eq(y2)) return { ok: false, errors: [{ field: ['x2', 'y2'], message: 'The two points are identical. Infinitely many lines pass through a single point, so enter two different points.' }] };
-      steps.push({ title: 'Identify the points', tex: `(x_1, y_1) = ${pointTex(x1, y1)}, \\quad (x_2, y_2) = ${pointTex(x2, y2)}` });
+      steps.push({ title: 'Identify the points', tex: `(x_1, y_1) = ${pointTex(x1, y1)}, \\quad (x_2, y_2) = ${pointTex(x2, y2)}`, note: 'Two different points fix exactly one line. Either point can be called the first one.' });
       if (x1.eq(x2)) {
         const A = new Frac(1n), B = new Frac(0n), C = x1.neg();
         steps.push({ title: 'Compute the slope', texLines: [`m = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{${y2.sub(y1).toTex()}}{0}`], text: 'The run is zero, so the slope is undefined (vertical line).' });
@@ -40,15 +42,19 @@ export const calculator = {
       }
       const dy = y2.sub(y1), dx = x2.sub(x1);
       m = dy.div(dx);
-      steps.push({ title: 'Compute the slope (rise over run)', texLines: ['m = \\frac{y_2 - y_1}{x_2 - x_1}', `m = \\frac{${y2.toTex()} - ${fp(y1)}}{${x2.toTex()} - ${fp(x1)}} = \\frac{${dy.toTex()}}{${dx.toTex()}} = ${m.toTex()}`] });
+      steps.push({ title: 'Compute the slope (rise over run)', texLines: ['m = \\frac{y_2 - y_1}{x_2 - x_1}', `m = \\frac{${y2.toTex()} - ${fp(y1)}}{${x2.toTex()} - ${fp(x1)}} = \\frac{${dy.toTex()}}{${dx.toTex()}} = ${m.toTex()}`], note: `Subtract in the same order on top and bottom. ${m.isZero() ? 'A slope of 0 means the line is horizontal.' : m.sign() > 0 ? 'The slope is positive, so the line rises to the right.' : 'The slope is negative, so the line falls to the right.'}` });
     } else {
-      steps.push({ title: 'Identify the point and slope', tex: `(x_1, y_1) = ${pointTex(x1, y1)}, \\quad m = ${m.toTex()}` });
+      steps.push({ title: 'Identify the point and slope', tex: `(x_1, y_1) = ${pointTex(x1, y1)}, \\quad m = ${m.toTex()}`, note: 'A point and a direction (the slope) fix exactly one line.' });
     }
-    steps.push({ title: 'Point–slope form', texLines: ['y - y_1 = m(x - x_1)', pointSlopeTex(m, x1, y1)] });
+    steps.push({ title: 'Point–slope form', texLines: ['y - y_1 = m(x - x_1)', pointSlopeTex(m, x1, y1)], note: 'Any other point (x, y) on the line has slope m from (x₁, y₁), so (y − y₁)/(x − x₁) = m. Multiplying out gives this form.' });
     const b = y1.sub(m.mul(x1));
-    steps.push({ title: 'Solve for y to get slope–intercept form', texLines: ['b = y_1 - m x_1', `b = ${y1.toTex()} - ${fp(m)}${fp(x1)} = ${b.toTex()}`, slopeInterceptTex(m, b)] });
+    steps.push({ title: 'Solve for y to get slope–intercept form', texLines: ['b = y_1 - m x_1', `b = ${y1.toTex()} - ${fp(m)}${fp(x1)} = ${y1.toTex()} - ${fp(m.mul(x1))} = ${b.toTex()}`, slopeInterceptTex(m, b)], note: 'b is the value of y where the line crosses the y-axis (x = 0).' });
     const [A, B, C] = integerLine(m, new Frac(-1n), b);
     steps.push({ title: 'Rearrange into general form Ax + By + C = 0', text: 'Move every term to one side and multiply by a common denominator so all coefficients are whole numbers.', tex: generalTex(A, B, C) });
+    const incl = (((Math.atan(m.toNumber()) * 180) / Math.PI) + 180) % 180;
+    steps.push({ title: 'Intercepts and angle of inclination', texLines: [`\\text{y-intercept: } \\left(0,\\ ${b.toTex()}\\right)`, m.isZero() ? '\\text{x-intercept: none, the line is horizontal}' : `\\text{x-intercept: } y = 0 \\Rightarrow x = -\\frac{b}{m} = ${b.neg().div(m).toTex()}`, `\\theta = \\tan^{-1}\\left(${m.toTex()}\\right) ${Number.isInteger(incl) ? '=' : '\\approx'} ${fmt(incl, 4)}^\\circ`], note: 'The angle of inclination is measured counter-clockwise from the positive x-axis, between 0° and 180°.' });
+    const [cx, cy] = mode === 'two' ? [x2, y2] : [x1, y1];
+    steps.push({ title: 'Check', tex: `y = ${fp(m)}${fp(cx)} + ${fp(b)} = ${m.mul(cx).add(b).toTex()}\\ \\checkmark`, note: `Substituting x = ${cx} into y = mx + b gives back y = ${cy}, so the line passes through the ${mode === 'two' ? 'second point' : 'given point'}.` });
     return result({ vertical: false, x1, y1, x2, y2, m, b, A, B, C, steps });
   },
 };

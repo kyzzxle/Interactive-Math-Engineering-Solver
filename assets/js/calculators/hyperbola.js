@@ -9,6 +9,8 @@ import { validator, answer, sqrtFrac, fracAnswer, fmt, tx } from '../lib/calc-ki
 import { simplifySqrt } from '../lib/exact.js';
 import { plot } from '../lib/plot.js';
 import { linearTex } from '../lib/lines.js';
+import { Frac } from '../lib/fraction.js';
+import { hyperbolaPractice } from '../explore/analytic-practice.js';
 
 const shift = (v, h) => (h.isZero() ? v : `(${v} ${h.sign() > 0 ? '-' : '+'} ${h.abs().toTex()})`);
 const pm = (h, c) => (h.isZero() ? `\\pm ${c.tex}` : `${h.toTex()} \\pm ${c.tex}`);
@@ -20,6 +22,7 @@ function branches(hn, kn, a, b, horiz) {
 
 export const calculator = {
   id: 'hyperbola',
+  practice: hyperbolaPractice,
   explore: {
     title: 'Follow a point on a hyperbola',
     intro: 'For every point P on the right branch, PF₁ − PF₂ is the same: 2a. Far from the centre the curve hugs its dashed asymptotes.',
@@ -78,15 +81,22 @@ export const calculator = {
     const vert = horiz ? `\\left(${h.toTex()} \\pm ${a.toTex()},\\ ${k.toTex()}\\right)` : `\\left(${h.toTex()},\\ ${k.toTex()} \\pm ${a.toTex()}\\right)`;
     const foc = horiz ? `\\left(${pm(h, c)},\\ ${k.toTex()}\\right)` : `\\left(${h.toTex()},\\ ${pm(k, c)}\\right)`;
     const asym = `y${k.isZero() ? '' : k.sign() > 0 ? ` - ${k.toTex()}` : ` + ${k.abs().toTex()}`} = \\pm ${slope.isOne() ? '' : `${slope.toTex()}\\,`}${X}`;
+    const c0 = horiz ? h : k, side = horiz ? k : h;
+    const pt = (main, s) => (horiz ? `\\left(${main},\\ ${s}\\right)` : `\\left(${s},\\ ${main}\\right)`);
+    const both = (d) => `${pt(c0.sub(d).toTex(), side.toTex())},\\ ${pt(c0.add(d).toTex(), side.toTex())}`;
+    const cFrac = c.exact ? Frac.of(c.text) : null;
     const steps = [
-      { title: 'Known values', tex: `(h, k) = (${h.toTex()},\\ ${k.toTex()}),\\quad a = ${a.toTex()},\\quad b = ${b.toTex()}` },
-      { title: `Standard form (opens ${horiz ? 'left and right' : 'up and down'})`, tex: std },
-      { title: 'Focal distance: for a hyperbola c² = a² + b²', texLines: [`c^2 = ${a2.toTex()} + ${b2.toTex()} = ${c2.toTex()}`, `c = ${c.tex}${c.exact ? '' : ` \\approx ${fmt(c.value)}`}`] },
-      { title: 'Vertices and foci', texLines: [`\\text{Vertices: } ${vert}`, `\\text{Foci: } ${foc}`] },
-      { title: 'Asymptotes', tex: asym },
-      { title: 'Eccentricity and latus rectum', texLines: [`e = \\frac{c}{a} = ${e.tex}${e.exact ? '' : ` \\approx ${fmt(e.value)}`} > 1`, `\\text{latus rectum} = \\frac{2b^2}{a} = ${lr.toTex()}`] },
-      { title: 'General form', tex: general },
+      { title: 'Known values', tex: `(h, k) = (${h.toTex()},\\ ${k.toTex()}),\\quad a = ${a.toTex()},\\quad b = ${b.toTex()}`, note: `a is the transverse semi-axis: from the centre to a vertex, in the direction the hyperbola opens (${horiz ? 'left and right' : 'up and down'}). b may be larger or smaller than a.` },
+      { title: `Standard form (opens ${horiz ? 'left and right' : 'up and down'})`, tex: std, note: `The positive squared term is the ${horiz ? 'x' : 'y'}-term, which is why the branches open ${horiz ? 'left and right' : 'up and down'}. Its denominator is a².` },
+      { title: 'Focal distance: for a hyperbola c² = a² + b²', texLines: [`c^2 = ${a2.toTex()} + ${b2.toTex()} = ${c2.toTex()}`, `c = ${c.tex}${c.exact ? '' : ` \\approx ${fmt(c.value)}`}`], note: 'c is the half-diagonal of the rectangle 2a by 2b around the centre. Add the squares for a hyperbola (an ellipse subtracts them).' },
+      { title: 'Vertices and foci', texLines: [`\\text{Vertices: } ${vert} = ${both(a)}`, `\\text{Foci: } ${foc}${cFrac ? ` = ${both(cFrac)}` : ''}`], note: 'Both lie on the transverse axis, the foci further out than the vertices because c > a.' },
+      { title: 'Asymptotes', texLines: [`\\text{slope } = \\pm${horiz ? '\\frac{b}{a}' : '\\frac{a}{b}'} = \\pm ${slope.toTex()}`, asym], note: 'The asymptotes are the diagonals of the 2a by 2b rectangle, through the centre. Far from the centre the branches get closer and closer to them.' },
+      { title: 'Eccentricity and latus rectum', texLines: [`e = \\frac{c}{a} = \\frac{${c.tex}}{${a.toTex()}}${`\\frac{${c.tex}}{${a.toTex()}}` === e.tex ? '' : ` = ${e.tex}`}${e.exact ? '' : ` \\approx ${fmt(e.value)}`} > 1`, `\\text{latus rectum} = \\frac{2b^2}{a} = \\frac{2(${b2.toTex()})}{${a.toTex()}} = ${lr.toTex()}`], note: 'A hyperbola always has e > 1. The larger e is, the wider the branches open.' },
+      { title: 'General form', tex: general, note: 'Multiply the standard form by a²b², expand the squares and move everything to the left.' },
     ];
+    const V = c0.add(a);
+    const dFar = c.exact ? `${V.sub(c0.sub(cFrac)).abs().toTex()}` : `${a.toTex()} + ${c.tex}`, dNear = c.exact ? `${V.sub(c0.add(cFrac)).abs().toTex()}` : `${c.tex} - ${a.toTex()}`;
+    steps.push({ title: 'Check: the focal distances differ by 2a', texLines: [`\\text{Vertex } ${pt(V.toTex(), side.toTex())}: \\quad PF_1 = ${dFar}, \\quad PF_2 = ${dNear}`, `PF_1 - PF_2 = ${c.exact ? `${dFar} - ${dNear}` : `(${dFar}) - (${dNear})`} = ${a.mul(2).toTex()} = 2a\\ \\checkmark`], note: 'For every point on a hyperbola, the difference of the distances to the two foci is 2a. At a vertex this is easy to see.' });
     const hn = h.toNumber(), kn = k.toNumber(), an = a.toNumber(), bn = b.toNumber(), cn = c.value;
     const R = Math.max(cn, an, bn) * 2.2;
     const sl = slope.toNumber();

@@ -76,6 +76,44 @@
         "priceCurrency": "USD"
       },
       "dateModified": "2026-11-03"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://kyzzxle.github.io/Interactive-Math-Engineering-Solver/calculators/polygon-area-coordinates/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the shoelace formula?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A = ½|Σ(xᵢyᵢ₊₁ − xᵢ₊₁yᵢ)|, where the vertices are listed in order and the last one wraps round to the first."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it matter which vertex I start with?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Any starting vertex and either direction give the same area, as long as you go around the boundary in order."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did I get a negative answer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The vertices were listed clockwise. Take the absolute value; the size of the area is unchanged."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work for concave polygons?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, for any polygon whose sides do not cross, convex or concave."
+          }
+        }
+      ]
     }
   ]
 }
@@ -203,11 +241,15 @@
 
     <section class="container-page learn-shell" aria-labelledby="learn-h">
       <h2 id="learn-h" class="section-title">Explore and practise</h2>
-      <p class="section-sub">Change the values and watch the picture respond. </p>
-      <div class="learn-grid is-single">
+      <p class="section-sub">Change the values and watch the picture respond. Then test yourself on a fresh problem — use a hint if you get stuck.</p>
+      <div class="learn-grid">
         <div class="panel learn-panel" id="explore">
           <div class="panel-head"><div><p class="learn-kicker">Explore</p><h3 class="panel-title">Drag the corners of a quadrilateral</h3></div></div>
           <div class="panel-body" data-explore-root><p class="text-sm text-slate-500">The interactive explorer needs JavaScript.</p></div>
+        </div>
+        <div class="panel learn-panel" id="practice">
+          <div class="panel-head"><div><p class="learn-kicker">Try it</p><h3 class="panel-title">Area of a quadrilateral from its corners</h3></div></div>
+          <div class="panel-body" data-practice-root><p class="text-sm text-slate-500">Practice problems need JavaScript.</p></div>
         </div>
       </div>
     </section>
@@ -219,10 +261,19 @@
         <nav class="toc sticky top-24" aria-label="On this page" data-toc>
           <p class="toc-label">On this page</p>
           <ol>
-            <li><a href="#about-h">What the shoelace formula calculator does</a></li>
-            <li><a href="#formula-h">Formulas and variables</a></li>
-            <li><a href="#example-h">Worked example</a></li>
-            <li><a href="#assumptions-h">Domain, special cases and common mistakes</a></li>
+            <li><a href="#about-h">How do you find the area of a polygon from its coordinates?</a></li>
+            <li><a href="#purpose-h">What this calculator does</a></li>
+            <li><a href="#concept-h">The geometry behind it</a></li>
+            <li><a href="#formula-h">Formula breakdown</a></li>
+            <li><a href="#variables-h">Variables explained</a></li>
+            <li><a href="#derivation-h">Deriving the formula</a></li>
+            <li><a href="#example-h">Complete worked example</a></li>
+            <li><a href="#example-2-h">Second worked example: a triangle and its centroid</a></li>
+            <li><a href="#applications-h">Practical applications</a></li>
+            <li><a href="#mistakes-h">Common mistakes</a></li>
+            <li><a href="#assumptions-h">Assumptions and limitations</a></li>
+            <li><a href="#faq-h">Frequently asked questions</a></li>
+            <li><a href="#further-learning-h">Further learning</a></li>
             <li><a href="#related">Related calculators</a></li>
           </ol>
         </nav>
@@ -230,50 +281,163 @@
 
       <article class="prose-content">
 <section id="about" aria-labelledby="about-h">
-          <h2 id="about-h" style="margin-top:0">What the shoelace formula calculator does</h2>
-          <p>The <strong>shoelace formula</strong> (also called the surveyor’s or Gauss’s area formula) gives the area of any polygon directly from the coordinates of its vertices, listed in order around the boundary.</p>
-          <p>Writing the coordinates in two columns and cross-multiplying diagonally looks like lacing a shoe — hence the name. The sign of the sum tells you whether the vertices go counter-clockwise (positive) or clockwise (negative).</p>
-          <div class="callout try-it"><p class="callout-title">Try it</p><p>In the explorer, drag one corner across the opposite side. The polygon crosses itself and the formula no longer gives the enclosed area.</p></div>
+          <h2 id="about-h" style="margin-top:0">How do you find the area of a polygon from its coordinates?</h2>
+          <p>If you know the coordinates of every corner of a polygon, you can find its area without measuring any heights or splitting it into triangles by hand. The <strong>shoelace formula</strong> (also called the surveyor's formula or Gauss's area formula) cross-multiplies the coordinates of neighbouring vertices, adds the results and halves them.</p>
+          <div class="callout try-it"><p class="callout-title">Try changing the input</p><p>Enter the same vertices in the reverse order. The area stays the same, but the sum changes sign: positive means counter-clockwise, negative means clockwise.</p></div>
         </section>
 
-        <section id="formula" aria-labelledby="formula-h">
-          <h2 id="formula-h">Formulas and variables</h2>
-          <div class="formula-box"><span class="math-display" data-tex="A = \frac{1}{2}\left\lvert \sum_{i=1}^{n} \left(x_i y_{i+1} - x_{i+1} y_i\right) \right\rvert,\quad (x_{n+1}, y_{n+1}) = (x_1, y_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo fence="true">∣</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo fence="true">∣</mo></mrow><mo separator="true">,</mo><mspace width="1em"/><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></div>
-          <table class="var-table">
-            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><span class="math" data-tex="(x_i, y_i)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Vertices in order around the polygon</td></tr>
-              <tr><td><span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span></td><td>Number of vertices</td></tr>
-              <tr><td><span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span></td><td>Area</td></tr>
-            </tbody>
-          </table>
-          <p>The centroid is <span class="math" data-tex="\left(\frac{1}{6A_s}\sum (x_i + x_{i+1})c_i,\ \frac{1}{6A_s}\sum (y_i + y_{i+1})c_i\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">(</mo><mfrac><mn>1</mn><mrow><mn>6</mn><msub><mi>A</mi><mi>s</mi></msub></mrow></mfrac><mo>∑</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><msub><mi>c</mi><mi>i</mi></msub><mo separator="true">,</mo><mtext> </mtext><mfrac><mn>1</mn><mrow><mn>6</mn><msub><mi>A</mi><mi>s</mi></msub></mrow></mfrac><mo>∑</mo><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>+</mo><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><msub><mi>c</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow></semantics></math></span></span> with <span class="math" data-tex="c_i = x_i y_{i+1} - x_{i+1} y_i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>i</mi></msub><mo>=</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="A_s"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>s</mi></msub></mrow></semantics></math></span></span> the signed area.</p>
+        <section id="purpose" aria-labelledby="purpose-h">
+          <h2 id="purpose-h">What this calculator does</h2>
+          <ul>
+            <li>Takes 3 to 30 vertices, listed in order around the polygon.</li>
+            <li>Shows every shoelace term in a table and adds them.</li>
+            <li>Gives the exact area, the perimeter, the centroid and the direction the vertices go round.</li>
+            <li>Warns if two sides cross, because the formula then does not give the enclosed area.</li>
+          </ul>
         </section>
 
-        <section id="example" aria-labelledby="example-h">
-          <h2 id="example-h">Worked example</h2>
-          <div class="worked-example">
-            <h3>Quadrilateral (0, 0), (4, 0), (4, 3), (0, 5)</h3>
-            <h4>Step 1 — Cross products</h4>
-            <span class="math-display" data-tex="0 \cdot 0 - 4 \cdot 0 = 0,\quad 4 \cdot 3 - 4 \cdot 0 = 12,\quad 4 \cdot 5 - 0 \cdot 3 = 20,\quad 0 \cdot 0 - 0 \cdot 5 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>0</mn><mo>⋅</mo><mn>0</mn><mo>−</mo><mn>4</mn><mo>⋅</mo><mn>0</mn><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mspace width="1em"/><mn>4</mn><mo>⋅</mo><mn>3</mn><mo>−</mo><mn>4</mn><mo>⋅</mo><mn>0</mn><mo>=</mo><mn>12</mn><mo separator="true">,</mo><mspace width="1em"/><mn>4</mn><mo>⋅</mo><mn>5</mn><mo>−</mo><mn>0</mn><mo>⋅</mo><mn>3</mn><mo>=</mo><mn>20</mn><mo separator="true">,</mo><mspace width="1em"/><mn>0</mn><mo>⋅</mo><mn>0</mn><mo>−</mo><mn>0</mn><mo>⋅</mo><mn>5</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span>
-            <h4>Step 2 — Add</h4>
-            <span class="math-display" data-tex="0 + 12 + 20 + 0 = 32"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>0</mn><mo>+</mo><mn>12</mn><mo>+</mo><mn>20</mn><mo>+</mo><mn>0</mn><mo>=</mo><mn>32</mn></mrow></semantics></math></span></span>
-            <h4>Step 3 — Halve</h4>
-            <span class="math-display" data-tex="A = \tfrac{1}{2}|32| = 16"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi mathvariant="normal">∣</mi><mn>32</mn><mi mathvariant="normal">∣</mi><mo>=</mo><mn>16</mn></mrow></semantics></math></span></span>
+        <section id="concept" aria-labelledby="concept-h">
+          <h2 id="concept-h">The geometry behind it</h2>
+          <p>Each side <span class="math" data-tex="P_iP_{i+1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub><msub><mi>P</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> forms a triangle with the origin. The quantity <span class="math" data-tex="\tfrac{1}{2}(x_iy_{i+1} - x_{i+1}y_i)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span> is that triangle's <strong>signed area</strong>: positive when the side runs counter-clockwise around the origin, negative when it runs clockwise.</p>
+          <p>Going all the way round the polygon, the triangles outside the polygon are added once and subtracted once, so they cancel. What is left is exactly the area of the polygon, with a sign that shows the direction of travel.</p>
+          <div class="callout">
+            <p class="callout-title">Why the name "shoelace"</p>
+            <p>Write the coordinates in two columns and draw the diagonal products: they criss-cross like the laces of a shoe.</p>
           </div>
         </section>
 
-        <section id="assumptions" aria-labelledby="assumptions-h">
-          <h2 id="assumptions-h">Domain, special cases and common mistakes</h2>
+        <section id="formula" aria-labelledby="formula-h">
+          <h2 id="formula-h">Formula breakdown</h2>
+          <div class="formula-box"><span class="math-display" data-tex="A = \frac{1}{2}\left\lvert \sum_{i=1}^{n} \left(x_i y_{i+1} - x_{i+1} y_i\right) \right\rvert, \qquad (x_{n+1}, y_{n+1}) = (x_1, y_1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo fence="true">∣</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo fence="true">∣</mo></mrow><mo separator="true">,</mo><mspace width="2em"/><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></div>
+          <table>
+            <thead><tr><th scope="col">Quantity</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Triangle</td><td><span class="math" data-tex="A = \tfrac{1}{2}\left| x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2) \right|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo fence="true">∣</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">(</mo><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">(</mo><msub><mi>y</mi><mn>3</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">(</mo><msub><mi>y</mi><mn>1</mn></msub><mo>−</mo><msub><mi>y</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo fence="true">∣</mo></mrow></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Signed area</td><td><span class="math" data-tex="S = \tfrac{1}{2}\sum (x_iy_{i+1} - x_{i+1}y_i)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>∑</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>; <span class="math" data-tex="S &gt; 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>&gt;</mo><mn>0</mn></mrow></semantics></math></span></span> counter-clockwise</td></tr>
+              <tr><td>Centroid</td><td><span class="math" data-tex="\bar{x} = \dfrac{1}{6S}\sum (x_i + x_{i+1})(x_iy_{i+1} - x_{i+1}y_i)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>x</mi><mo>ˉ</mo></mover><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mn>1</mn><mrow><mn>6</mn><mi>S</mi></mrow></mfrac></mstyle><mo>∑</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, and similarly <span class="math" data-tex="\bar{y}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>y</mi><mo>ˉ</mo></mover></mrow></semantics></math></span></span></td></tr>
+              <tr><td>Perimeter</td><td>Sum of the side lengths from the distance formula</td></tr>
+              <tr><td>Collinear test</td><td>Three points are on one line when the triangle area is 0</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="variables" aria-labelledby="variables-h">
+          <h2 id="variables-h">Variables explained</h2>
+          <table class="var-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><span class="math" data-tex="(x_i, y_i)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>The <span class="math" data-tex="i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow></semantics></math></span></span>-th vertex, in order around the boundary.</td></tr>
+              <tr><td><span class="math" data-tex="n"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow></semantics></math></span></span></td><td>Number of vertices.</td></tr>
+              <tr><td><span class="math" data-tex="S"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow></semantics></math></span></span></td><td>Signed area; its sign shows the direction.</td></tr>
+              <tr><td><span class="math" data-tex="A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow></semantics></math></span></span></td><td>Area, <span class="math" data-tex="|S|"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi></mrow></semantics></math></span></span>.</td></tr>
+              <tr><td><span class="math" data-tex="(\bar{x}, \bar{y})"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mover accent="true"><mi>x</mi><mo>ˉ</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>y</mi><mo>ˉ</mo></mover><mo stretchy="false">)</mo></mrow></semantics></math></span></span></td><td>Centroid: the balance point of the flat shape.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="derivation" aria-labelledby="derivation-h">
+          <h2 id="derivation-h">Deriving the formula</h2>
+          <p>The area of the triangle with vertices <span class="math" data-tex="O(0, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="P_i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow></semantics></math></span></span> and <span class="math" data-tex="P_{i+1}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></semantics></math></span></span> is half the cross product of the vectors <span class="math" data-tex="\vec{OP_i}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>O</mi><msub><mi>P</mi><mi>i</mi></msub></mrow><mo>⃗</mo></mover></mrow></semantics></math></span></span> and <span class="math" data-tex="\vec{OP_{i+1}}"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>O</mi><msub><mi>P</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><mo>⃗</mo></mover></mrow></semantics></math></span></span>:</p>
+          <span class="math-display" data-tex="\tfrac{1}{2}\left(x_iy_{i+1} - x_{i+1}y_i\right)."><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mi mathvariant="normal">.</mi></mrow></semantics></math></span></span>
+          <p>Fan out from the origin to every side and add the signed areas. For a simple polygon the result is <span class="math" data-tex="\pm A"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mi>A</mi></mrow></semantics></math></span></span> whether the origin is inside or outside, because every region outside the polygon is covered once forwards and once backwards. The triangle formula in the table is the case <span class="math" data-tex="n = 3"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>3</mn></mrow></semantics></math></span></span>, expanded.</p>
+        </section>
+
+        <section id="example" aria-labelledby="example-h">
+          <h2 id="example-h">Complete worked example</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the area of the quadrilateral with vertices <span class="math" data-tex="(0, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="(4, 0)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="(4, 3)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="(0, 5)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Cross-multiply neighbouring vertices</h4>
+            <table>
+              <thead><tr><th scope="col">Side</th><th scope="col"><span class="math" data-tex="x_iy_{i+1} - x_{i+1}y_i"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub></mrow></semantics></math></span></span></th></tr></thead>
+              <tbody>
+                <tr><td>1 → 2</td><td><span class="math" data-tex="0 \cdot 0 - 4 \cdot 0 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>⋅</mo><mn>0</mn><mo>−</mo><mn>4</mn><mo>⋅</mo><mn>0</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></td></tr>
+                <tr><td>2 → 3</td><td><span class="math" data-tex="4 \cdot 3 - 4 \cdot 0 = 12"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>⋅</mo><mn>3</mn><mo>−</mo><mn>4</mn><mo>⋅</mo><mn>0</mn><mo>=</mo><mn>12</mn></mrow></semantics></math></span></span></td></tr>
+                <tr><td>3 → 4</td><td><span class="math" data-tex="4 \cdot 5 - 0 \cdot 3 = 20"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>⋅</mo><mn>5</mn><mo>−</mo><mn>0</mn><mo>⋅</mo><mn>3</mn><mo>=</mo><mn>20</mn></mrow></semantics></math></span></span></td></tr>
+                <tr><td>4 → 1</td><td><span class="math" data-tex="0 \cdot 0 - 0 \cdot 5 = 0"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>⋅</mo><mn>0</mn><mo>−</mo><mn>0</mn><mo>⋅</mo><mn>5</mn><mo>=</mo><mn>0</mn></mrow></semantics></math></span></span></td></tr>
+              </tbody>
+            </table>
+            <h4>Step 2: Add and halve</h4>
+            <span class="math-display" data-tex="A = \tfrac{1}{2}\,|0 + 12 + 20 + 0| = 16"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mtext> </mtext><mi mathvariant="normal">∣</mi><mn>0</mn><mo>+</mo><mn>12</mn><mo>+</mo><mn>20</mn><mo>+</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mo>=</mo><mn>16</mn></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>The shape is a trapezoid with parallel vertical sides 3 and 5, a distance 4 apart: <span class="math" data-tex="\tfrac{3 + 5}{2} \times 4 = 16"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mn>3</mn><mo>+</mo><mn>5</mn></mrow><mn>2</mn></mfrac><mo>×</mo><mn>4</mn><mo>=</mo><mn>16</mn></mrow></semantics></math></span></span>. ✓ The sum was positive, so the vertices go counter-clockwise.</p>
+          </div>
+        </section>
+
+        <section id="example-2" aria-labelledby="example-2-h">
+          <h2 id="example-2-h">Second worked example: a triangle and its centroid</h2>
+          <div class="worked-example">
+            <h3>Problem</h3>
+            <p>Find the area and centroid of the triangle <span class="math" data-tex="(1, 1)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="(6, 2)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>6</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>, <span class="math" data-tex="(3, 7)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>3</mn><mo separator="true">,</mo><mn>7</mn><mo stretchy="false">)</mo></mrow></semantics></math></span></span>.</p>
+            <h4>Step 1: Shoelace terms</h4>
+            <span class="math-display" data-tex="1 \cdot 2 - 6 \cdot 1 = -4, \qquad 6 \cdot 7 - 3 \cdot 2 = 36, \qquad 3 \cdot 1 - 1 \cdot 7 = -4"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>1</mn><mo>⋅</mo><mn>2</mn><mo>−</mo><mn>6</mn><mo>⋅</mo><mn>1</mn><mo>=</mo><mo>−</mo><mn>4</mn><mo separator="true">,</mo><mspace width="2em"/><mn>6</mn><mo>⋅</mo><mn>7</mn><mo>−</mo><mn>3</mn><mo>⋅</mo><mn>2</mn><mo>=</mo><mn>36</mn><mo separator="true">,</mo><mspace width="2em"/><mn>3</mn><mo>⋅</mo><mn>1</mn><mo>−</mo><mn>1</mn><mo>⋅</mo><mn>7</mn><mo>=</mo><mo>−</mo><mn>4</mn></mrow></semantics></math></span></span>
+            <h4>Step 2: Area</h4>
+            <span class="math-display" data-tex="A = \tfrac{1}{2}\,|-4 + 36 - 4| = \tfrac{1}{2}(28) = 14"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mtext> </mtext><mi mathvariant="normal">∣</mi><mo>−</mo><mn>4</mn><mo>+</mo><mn>36</mn><mo>−</mo><mn>4</mn><mi mathvariant="normal">∣</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo stretchy="false">(</mo><mn>28</mn><mo stretchy="false">)</mo><mo>=</mo><mn>14</mn></mrow></semantics></math></span></span>
+            <h4>Step 3: Centroid</h4>
+            <p>For a triangle the centroid is the average of the vertices:</p>
+            <span class="math-display" data-tex="\left(\frac{1 + 6 + 3}{3},\ \frac{1 + 2 + 7}{3}\right) = \left(\tfrac{10}{3},\ \tfrac{10}{3}\right)"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mrow><mo fence="true">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mn>6</mn><mo>+</mo><mn>3</mn></mrow><mn>3</mn></mfrac><mo separator="true">,</mo><mtext> </mtext><mfrac><mrow><mn>1</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>7</mn></mrow><mn>3</mn></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true">(</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>10</mn><mn>3</mn></mfrac></mstyle><mo separator="true">,</mo><mtext> </mtext><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>10</mn><mn>3</mn></mfrac></mstyle><mo fence="true">)</mo></mrow></mrow></semantics></math></span></span>
+            <h4>Check</h4>
+            <p>The triangle formula gives the same area:</p>
+            <span class="math-display" data-tex="\tfrac{1}{2}|1(2 - 7) + 6(7 - 1) + 3(1 - 2)| = \tfrac{1}{2}|{-5} + 36 - 3| = 14\ \checkmark"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi mathvariant="normal">∣</mi><mn>1</mn><mo stretchy="false">(</mo><mn>2</mn><mo>−</mo><mn>7</mn><mo stretchy="false">)</mo><mo>+</mo><mn>6</mn><mo stretchy="false">(</mo><mn>7</mn><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mn>3</mn><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><mo>=</mo><mstyle displaystyle="false" scriptlevel="0"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mi mathvariant="normal">∣</mi><mrow><mo>−</mo><mn>5</mn></mrow><mo>+</mo><mn>36</mn><mo>−</mo><mn>3</mn><mi mathvariant="normal">∣</mi><mo>=</mo><mn>14</mn><mtext> </mtext><mi mathvariant="normal">✓</mi></mrow></semantics></math></span></span>
+          </div>
+        </section>
+
+        <section id="applications" aria-labelledby="applications-h">
+          <h2 id="applications-h">Practical applications</h2>
           <ul>
-            <li>At least 3 and at most 30 vertices, listed in order around the boundary (either direction).</li>
-            <li>The polygon must not cross itself; crossing sides are detected and flagged.</li>
-            <li>Collinear points (zero area) are rejected.</li>
+            <li><strong>Land surveying:</strong> the area of a lot from the coordinates of its corners in a traverse.</li>
+            <li><strong>Civil works:</strong> cross-section areas for earthwork volumes.</li>
+            <li><strong>GIS and mapping:</strong> areas of parcels, lakes and districts stored as polygons.</li>
+            <li><strong>Structural design:</strong> areas and centroids of plate shapes and sections.</li>
           </ul>
-          <h3>Common mistakes</h3>
+        </section>
+
+        <section id="mistakes" aria-labelledby="mistakes-h">
+          <h2 id="mistakes-h">Common mistakes</h2>
+          <ol>
+            <li><strong>Vertices out of order.</strong> They must go around the boundary. Jumping across makes the sides cross.</li>
+            <li><strong>Forgetting to wrap round.</strong> The last term pairs the last vertex with the first.</li>
+            <li><strong>Forgetting to halve.</strong> The sum is twice the area.</li>
+            <li><strong>Keeping a negative sign.</strong> A negative sum just means clockwise order; the area is its absolute value.</li>
+          </ol>
+        </section>
+
+        <section id="assumptions" aria-labelledby="assumptions-h">
+          <h2 id="assumptions-h">Assumptions and limitations</h2>
           <ul>
-            <li>Listing the vertices out of order, which makes the sides cross.</li>
-            <li>Forgetting the final term that wraps from the last vertex back to the first.</li>
+            <li>The polygon is simple: its sides do not cross. The calculator warns if they do.</li>
+            <li>Vertices can be listed clockwise or counter-clockwise, starting anywhere.</li>
+            <li>Coordinates may be fractions; the area and centroid are exact. The perimeter is rounded.</li>
+            <li>Between 3 and 30 vertices.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Frequently asked questions</h2>
+          <details>
+            <summary>What is the shoelace formula?</summary>
+            <div class="faq-answer"><p>A = ½|Σ(xᵢyᵢ₊₁ − xᵢ₊₁yᵢ)|, where the vertices are listed in order and the last one wraps round to the first.</p></div>
+          </details>
+          <details>
+            <summary>Does it matter which vertex I start with?</summary>
+            <div class="faq-answer"><p>No. Any starting vertex and either direction give the same area, as long as you go around the boundary in order.</p></div>
+          </details>
+          <details>
+            <summary>Why did I get a negative answer?</summary>
+            <div class="faq-answer"><p>The vertices were listed clockwise. Take the absolute value; the size of the area is unchanged.</p></div>
+          </details>
+          <details>
+            <summary>Does it work for concave polygons?</summary>
+            <div class="faq-answer"><p>Yes, for any polygon whose sides do not cross, convex or concave.</p></div>
+          </details>
+        </section>
+
+        <section id="further-learning" aria-labelledby="further-learning-h">
+          <h2 id="further-learning-h">Further learning</h2>
+          <ul>
+            <li><a href="../midpoint-and-distance/">Midpoint and distance</a>: side lengths and perimeter.</li>
+            <li><a href="../division-of-line-segment/">Division of a line segment</a>: the centroid of a triangle.</li>
+            <li><a href="../matrix-calculator/">Matrices and determinants</a>: each shoelace term is a 2 × 2 determinant.</li>
           </ul>
         </section>
 
