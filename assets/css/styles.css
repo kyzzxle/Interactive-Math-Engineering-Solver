@@ -644,21 +644,22 @@ legend { padding: 0; }
   .steps[open] > .steps-list > .step:nth-child(4) { animation-delay: 90ms; }
   .steps[open] > .steps-list > .step:nth-child(n+5) { animation-delay: 120ms; }
   .faq details[open] > .faq-answer { animation: rise var(--dur-2) var(--ease) both; }
-  .reveal-ready [data-reveal]:not(.is-revealed) { opacity: 0; transform: translateY(14px); }
-  .reveal-ready [data-reveal].is-revealed { animation: riseFade 560ms var(--ease) both; }
-  /* Ruled lines draw left to right as their item arrives (site.js adds .reveal-rule / .is-drawn). */
+  /* Ruled lines draw left to right as their item arrives (site.js adds .reveal-rule / .is-drawn).
+     Movement on the home page comes from the scroll itself (home-scroll.js), so this only fades. */
   .reveal-ready .reveal-rule {
     border-top-color: transparent; opacity: 0;
     background: linear-gradient(var(--rule), var(--rule)) left top / 0 var(--rule-w) no-repeat border-box;
   }
   .reveal-ready .reveal-rule.is-drawn {
     opacity: 1; background-size: 100% var(--rule-w);
-    animation: drawRule 760ms var(--d, 0ms) var(--ease) both, riseFade 520ms calc(var(--d, 0ms) + 80ms) var(--ease) both;
+    animation: drawRule 760ms var(--d, 0ms) var(--ease) both, fadeUp 520ms calc(var(--d, 0ms) + 80ms) var(--ease) both;
   }
 }
 .category-grid > li, .facts > div { --rule: var(--border); --rule-w: 1px; }
 .sequence li { --rule: var(--text); --rule-w: 2px; }
+.dark .sequence li { --rule: var(--border-strong); }
 @keyframes drawRule { from { background-size: 0 var(--rule-w); } to { background-size: 100% var(--rule-w); } }
+@keyframes fadeUp { from { opacity: 0; } to { opacity: 1; } }
 @media print {
   .reveal-ready [data-reveal], .reveal-ready .reveal-rule { opacity: 1 !important; transform: none !important; }
   .reveal-ready .reveal-rule { border-top-color: var(--rule) !important; background: none !important; }

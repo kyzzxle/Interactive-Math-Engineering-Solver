@@ -1,6 +1,7 @@
 /* Homepage "Try it now" card: switch between small live demos (assets/js/explore/home.js). */
 import { mountExplorer } from '../lib/learn.js';
 import { HOME_DEMOS } from '../explore/home.js';
+import { mountScrollMotion } from '../lib/home-scroll.js';
 
 const root = document.querySelector('[data-demo-root]');
 const tabs = document.querySelectorAll('[data-demo]');
@@ -19,6 +20,7 @@ function show(key) {
 
 tabs.forEach((t) => t.addEventListener('click', () => show(t.getAttribute('data-demo'))));
 show('projectile');
+mountScrollMotion();
 
 // Reading progress: a line under the header grows with the scroll position (styles: .scroll-plot).
 const header = document.querySelector('.site-header');

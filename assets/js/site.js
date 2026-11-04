@@ -67,11 +67,12 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // ------------------------------------------------------------ gentle reveal of home-page sections
-  // Only when motion is welcome and IntersectionObserver exists; otherwise sections are simply
-  // visible. A timer reveals anything still waiting, so content can never stay hidden.
-  // Inside those sections, the ruled lines above list items draw across one after another
-  // (.reveal-rule), each item watched on its own so long lists on phones draw as they arrive.
+  // ------------------------------------------------------------ ruled lines in home-page sections
+  // Inside [data-reveal] sections, the line above each list item draws across as the item
+  // arrives (.reveal-rule), each item watched on its own so long lists on phones draw as they
+  // arrive. Only when motion is welcome and IntersectionObserver exists; otherwise the lines are
+  // simply there. A timer draws anything still waiting, so content can never stay hidden.
+  // (The scroll-linked movement itself is in assets/js/lib/home-scroll.js.)
   var revealEls = document.querySelectorAll('[data-reveal]');
   var motionOk = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
   if (revealEls.length && motionOk && 'IntersectionObserver' in window) {
@@ -83,28 +84,19 @@
         ruleEls.push(el);
       });
     });
-    var revealAll = function () {
-      revealEls.forEach(function (el) { el.classList.add('is-revealed'); });
-      ruleEls.forEach(function (el) { el.classList.add('is-drawn'); });
-    };
+    var revealAll = function () { ruleEls.forEach(function (el) { el.classList.add('is-drawn'); }); };
     var observed = false;
     var revealer = new IntersectionObserver(function (entries) {
       observed = true;
       var k = 0;
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        var el = entry.target;
-        if (el.classList.contains('reveal-rule')) {
-          // items arriving together draw in reading order, 90 ms apart
-          el.style.setProperty('--d', (k++ * 90) + 'ms');
-          el.classList.add('is-drawn');
-        } else {
-          el.classList.add('is-revealed');
-        }
-        revealer.unobserve(el);
+        // items arriving together draw in reading order, 90 ms apart
+        entry.target.style.setProperty('--d', (k++ * 90) + 'ms');
+        entry.target.classList.add('is-drawn');
+        revealer.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -8% 0px' });
-    revealEls.forEach(function (el) { revealer.observe(el); });
     ruleEls.forEach(function (el) { revealer.observe(el); });
     setTimeout(function () { if (!observed) revealAll(); }, 2500);
     window.addEventListener('beforeprint', revealAll);
