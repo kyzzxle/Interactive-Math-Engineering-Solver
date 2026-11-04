@@ -1501,6 +1501,22 @@ function show(key) {
 tabs.forEach((t) => t.addEventListener('click', () => show(t.getAttribute('data-demo'))));
 show('projectile');
 
+// Reading progress: a line under the header grows with the scroll position (styles: .scroll-plot).
+const header = document.querySelector('.site-header');
+if (header) {
+  const bar = document.createElement('span');
+  bar.className = 'scroll-plot';
+  bar.setAttribute('aria-hidden', 'true');
+  header.appendChild(bar);
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.setProperty('--p', max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)).toFixed(4) : '0');
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}
+
 // Hero sketch: it plays once on load (pure CSS). "Replay" restarts it, and only appears
 // when motion is welcome, because with reduced motion the sketch is shown finished.
 const figure = document.querySelector('[data-hero-figure]');

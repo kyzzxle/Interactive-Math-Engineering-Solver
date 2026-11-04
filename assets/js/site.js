@@ -70,19 +70,42 @@
   // ------------------------------------------------------------ gentle reveal of home-page sections
   // Only when motion is welcome and IntersectionObserver exists; otherwise sections are simply
   // visible. A timer reveals anything still waiting, so content can never stay hidden.
+  // Inside those sections, the ruled lines above list items draw across one after another
+  // (.reveal-rule), each item watched on its own so long lists on phones draw as they arrive.
   var revealEls = document.querySelectorAll('[data-reveal]');
   var motionOk = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
   if (revealEls.length && motionOk && 'IntersectionObserver' in window) {
     document.documentElement.classList.add('reveal-ready');
-    var revealAll = function () { revealEls.forEach(function (el) { el.classList.add('is-revealed'); }); };
+    var ruleEls = [];
+    revealEls.forEach(function (sec) {
+      sec.querySelectorAll('.category-grid > li, .sequence > li, .facts > div').forEach(function (el) {
+        el.classList.add('reveal-rule');
+        ruleEls.push(el);
+      });
+    });
+    var revealAll = function () {
+      revealEls.forEach(function (el) { el.classList.add('is-revealed'); });
+      ruleEls.forEach(function (el) { el.classList.add('is-drawn'); });
+    };
     var observed = false;
     var revealer = new IntersectionObserver(function (entries) {
       observed = true;
+      var k = 0;
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) { entry.target.classList.add('is-revealed'); revealer.unobserve(entry.target); }
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        if (el.classList.contains('reveal-rule')) {
+          // items arriving together draw in reading order, 90 ms apart
+          el.style.setProperty('--d', (k++ * 90) + 'ms');
+          el.classList.add('is-drawn');
+        } else {
+          el.classList.add('is-revealed');
+        }
+        revealer.unobserve(el);
       });
     }, { rootMargin: '0px 0px -8% 0px' });
     revealEls.forEach(function (el) { revealer.observe(el); });
+    ruleEls.forEach(function (el) { revealer.observe(el); });
     setTimeout(function () { if (!observed) revealAll(); }, 2500);
     window.addEventListener('beforeprint', revealAll);
   }

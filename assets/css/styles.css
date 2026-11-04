@@ -646,8 +646,31 @@ legend { padding: 0; }
   .faq details[open] > .faq-answer { animation: rise var(--dur-2) var(--ease) both; }
   .reveal-ready [data-reveal]:not(.is-revealed) { opacity: 0; transform: translateY(14px); }
   .reveal-ready [data-reveal].is-revealed { animation: riseFade 560ms var(--ease) both; }
+  /* Ruled lines draw left to right as their item arrives (site.js adds .reveal-rule / .is-drawn). */
+  .reveal-ready .reveal-rule {
+    border-top-color: transparent; opacity: 0;
+    background: linear-gradient(var(--rule), var(--rule)) left top / 0 var(--rule-w) no-repeat border-box;
+  }
+  .reveal-ready .reveal-rule.is-drawn {
+    opacity: 1; background-size: 100% var(--rule-w);
+    animation: drawRule 760ms var(--d, 0ms) var(--ease) both, riseFade 520ms calc(var(--d, 0ms) + 80ms) var(--ease) both;
+  }
 }
-@media print { .reveal-ready [data-reveal] { opacity: 1 !important; transform: none !important; } }
+.category-grid > li, .facts > div { --rule: var(--border); --rule-w: 1px; }
+.sequence li { --rule: var(--text); --rule-w: 2px; }
+@keyframes drawRule { from { background-size: 0 var(--rule-w); } to { background-size: 100% var(--rule-w); } }
+@media print {
+  .reveal-ready [data-reveal], .reveal-ready .reveal-rule { opacity: 1 !important; transform: none !important; }
+  .reveal-ready .reveal-rule { border-top-color: var(--rule) !important; background: none !important; }
+}
+
+/* Home page: a line along the foot of the header fills in as the page is read (home-page.js).
+   It only follows the scroll position, so it moves only when the reader scrolls. */
+.scroll-plot {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: var(--primary); transform-origin: left center; transform: scaleX(var(--p, 0));
+  pointer-events: none;
+}
 
 .toast {
   position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%) translateY(150%);
